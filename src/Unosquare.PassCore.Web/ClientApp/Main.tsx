@@ -1,7 +1,8 @@
-import Grid from '@material-ui/core/Grid/Grid';
-import Typography from '@material-ui/core/Typography/Typography';
 import * as React from 'react';
-import { LoadingIcon } from 'uno-material-ui';
+
+//import Grid from '@material-ui/core/Grid/Grid';
+//import Typography from '@material-ui/core/Typography/Typography';
+//import { LoadingIcon } from 'uno-material-ui';
 import { useEffectWithLoading } from 'uno-react';
 import { EntryPoint } from './Components/EntryPoint';
 import { loadReCaptcha } from './Components/GoogleReCaptcha';
@@ -22,16 +23,7 @@ export const Main: React.FunctionComponent<any> = () => {
 
     if (isLoading) {
         return (
-            <Grid container={true} alignItems="center" direction="column" justify="center">
-                <Grid item={true} key="title">
-                    <Typography variant="h3" align="center">
-                        Loading Passcore...
-                    </Typography>
-                </Grid>
-                <Grid item={true}>
-                    <LoadingIcon />
-                </Grid>
-            </Grid>
+            <></>
         );
     }
 

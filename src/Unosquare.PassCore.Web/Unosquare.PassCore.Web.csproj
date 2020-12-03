@@ -2,20 +2,21 @@
   <PropertyGroup>
     <DefaultItemExcludes>$(DefaultItemExcludes);**\node_modules\**;node_modules\**</DefaultItemExcludes>
     <Copyright>Copyright (c) 2018-2020 - Unosquare</Copyright>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Unosquare.PassCore.Web</AssemblyName>
     <PackageId>Unosquare.PassCore.Web</PackageId>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <IsPackable>false</IsPackable>
     <CodeAnalysisRuleSet>..\..\StyleCop.Analyzers.ruleset</CodeAnalysisRuleSet>
-    <TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <RootNamespace>Unosquare.PassCore.Web</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+    <UserSecretsId>b135379b-cd03-4911-98a0-d7c44da15de3</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -23,7 +24,7 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="zxcvbn-core" Version="2.1.44" />
+    <PackageReference Include="zxcvbn-core" Version="6.0.84" />
     <PackageReference Include="Unosquare.Swan" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>

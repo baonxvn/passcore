@@ -14,7 +14,8 @@ export const ClientAppBar: React.FunctionComponent<any> = () => {
         <AppBar
             position="fixed"
             style={{
-                backgroundColor: '#304FF3',
+                //backgroundColor: '#304FF3',
+                backgroundColor: '#F47F24',
                 height: '64px',
             }}
             elevation={0}

@@ -113,7 +113,8 @@ namespace Unosquare.PassCore.Web.Controllers
                     return BadRequest(result);
                 }
 
-                if (_options.MinimumScore > 0 && Zxcvbn.MatchPassword(model.NewPassword).Score < _options.MinimumScore)
+                //if (_options.MinimumScore > 0 && Zxcvbn.MatchPassword(model.NewPassword).Score < _options.MinimumScore)
+                if (_options.MinimumScore > 0)
                 {
                     result.Errors.Add(new ApiErrorItem(ApiErrorCode.MinimumScore));
                     return BadRequest(result);
