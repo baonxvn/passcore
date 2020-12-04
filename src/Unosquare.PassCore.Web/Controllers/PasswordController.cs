@@ -38,6 +38,14 @@
             _passwordChangeProvider = passwordChangeProvider;
         }
 
+        [HttpGet]
+        [Route("testapi")]
+        public IActionResult TestApi(string testLog)
+        {
+            _logger.Information(testLog);
+            return Json(new { testLog });
+        }
+
         /// <summary>
         /// Returns the ClientSettings object as a JSON string.
         /// </summary>

@@ -1,8 +1,8 @@
 ﻿namespace Unosquare.PassCore.PasswordProvider
 {
     using Common;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+    using Serilog;
     using System;
     using System.DirectoryServices;
     using System.DirectoryServices.AccountManagement;
@@ -26,7 +26,7 @@
         /// <param name="logger">The logger.</param>
         /// <param name="options">The options.</param>
         public PasswordChangeProvider(
-            ILogger<PasswordChangeProvider> logger,
+            ILogger logger,
             IOptions<PasswordChangeOptions> options)
         {
             _logger = logger;
@@ -46,7 +46,7 @@
                 // Check if the user principal exists
                 if (userPrincipal == null)
                 {
-                    _logger.LogWarning($"The User principal ({fixedUsername}) doesn't exist");
+                    _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
 
                     return new ApiErrorItem(ApiErrorCode.UserNotFound);
                 }
@@ -55,7 +55,7 @@
 
                 if (newPassword.Length < minPwdLength)
                 {
-                    _logger.LogError("Failed due to password complex policies: New password length is shorter than AD minimum password length");
+                    _logger.Error("Failed due to password complex policies: New password length is shorter than AD minimum password length");
 
                     return new ApiErrorItem(ApiErrorCode.ComplexPassword);
                 }
@@ -63,12 +63,12 @@
                 // Check if the newPassword is Pwned
                 if (PwnedPasswordsSearch.PwnedSearch.IsPwnedPassword(newPassword))
                 {
-                    _logger.LogError("Failed due to pwned password: New password is publicly known and can be used in dictionary attacks");
+                    _logger.Error("Failed due to pwned password: New password is publicly known and can be used in dictionary attacks");
 
                     return new ApiErrorItem(ApiErrorCode.PwnedPassword);
                 }
 
-                _logger.LogInformation($"PerformPasswordChange for user {fixedUsername}");
+                _logger.Information($"PerformPasswordChange for user {fixedUsername}");
 
                 var item = ValidateGroups(userPrincipal);
 
@@ -78,7 +78,7 @@
                 // Check if password change is allowed
                 if (userPrincipal.UserCannotChangePassword)
                 {
-                    _logger.LogWarning("The User principal cannot change the password");
+                    _logger.Warning("The User principal cannot change the password");
 
                     return new ApiErrorItem(ApiErrorCode.ChangeNotPermitted);
                 }
@@ -92,7 +92,7 @@
                 // Use always UPN for password check.
                 if (!ValidateUserCredentials(userPrincipal.UserPrincipalName, currentPassword, principalContext))
                 {
-                    _logger.LogWarning("The User principal password is not valid");
+                    _logger.Warning("The User principal password is not valid");
 
                     return new ApiErrorItem(ApiErrorCode.InvalidCredentials);
                 }
@@ -101,13 +101,13 @@
                 ChangePassword(currentPassword, newPassword, userPrincipal);
 
                 userPrincipal.Save();
-                _logger.LogDebug("The User principal password updated with setPassword");
+                _logger.Debug("The User principal password updated with setPassword");
             }
             catch (PasswordException passwordEx)
             {
                 var item = new ApiErrorItem(ApiErrorCode.ComplexPassword, passwordEx.Message);
 
-                _logger.LogWarning(item.Message, passwordEx);
+                _logger.Warning(item.Message, passwordEx);
 
                 return item;
             }
@@ -117,7 +117,7 @@
                     ? apiError.ToApiErrorItem()
                     : new ApiErrorItem(ApiErrorCode.Generic, ex.InnerException?.Message ?? ex.Message);
 
-                _logger.LogWarning(item.Message, ex);
+                _logger.Warning(item.Message, ex);
 
                 return item;
             }
@@ -138,7 +138,7 @@
 
             var errorCode = System.Runtime.InteropServices.Marshal.GetLastWin32Error();
 
-            _logger.LogDebug($"ValidateUserCredentials GetLastWin32Error {errorCode}");
+            _logger.Debug($"ValidateUserCredentials GetLastWin32Error {errorCode}");
 
             // Both of these means that the password CAN change and that we got the correct password
             return errorCode == ErrorPasswordMustChange || errorCode == ErrorPasswordExpired;
@@ -167,7 +167,7 @@
                 }
                 catch (Exception exception)
                 {
-                    _logger.LogError(new EventId(887), exception, nameof(ValidateGroups));
+                    _logger.Error(new EventId(887), exception, nameof(ValidateGroups));
 
                     groups = userPrincipal.GetAuthorizationGroups();
                 }
@@ -184,7 +184,7 @@
             }
             catch (Exception exception)
             {
-                _logger.LogError(new EventId(888), exception, nameof(ValidateGroups));
+                _logger.Error(new EventId(888), exception, nameof(ValidateGroups));
             }
 
             return null;
@@ -197,7 +197,7 @@
 
             if (prop == null)
             {
-                _logger.LogWarning("The User principal password have no last password, but the property is missing");
+                _logger.Warning("The User principal password have no last password, but the property is missing");
                 return;
             }
 
@@ -205,7 +205,7 @@
             {
                 prop.Value = -1;
                 directoryEntry.CommitChanges();
-                _logger.LogWarning("The User principal last password was updated");
+                _logger.Warning("The User principal last password was updated");
             }
             catch (Exception ex)
             {
@@ -228,7 +228,7 @@
             {
                 if (_options.UseAutomaticContext)
                 {
-                    _logger.LogWarning("The User principal password cannot be changed and setPassword won't be called");
+                    _logger.Warning("The User principal password cannot be changed and setPassword won't be called");
 
                     throw;
                 }
@@ -236,7 +236,7 @@
                 // If the previous attempt failed, use the SetPassword method.
                 userPrincipal.SetPassword(newPassword);
 
-                _logger.LogDebug("The User principal password updated with setPassword");
+                _logger.Debug("The User principal password updated with setPassword");
             }
         }
 
@@ -273,12 +273,12 @@
         {
             if (_options.UseAutomaticContext)
             {
-                _logger.LogWarning("Using AutomaticContext");
+                _logger.Warning("Using AutomaticContext");
                 return new PrincipalContext(ContextType.Domain);
             }
 
             var domain = $"{_options.LdapHostnames.First()}:{_options.LdapPort}";
-            _logger.LogWarning($"Not using AutomaticContext  {domain}");
+            _logger.Warning($"Not using AutomaticContext  {domain}");
 
             return new PrincipalContext(
                 ContextType.Domain,

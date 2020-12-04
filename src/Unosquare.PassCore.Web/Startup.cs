@@ -11,13 +11,15 @@ namespace Unosquare.PassCore.Web
     using Models;
     using Serilog;
 
-#if DEBUG
-    using Helpers;
-#elif PASSCORE_LDAP_PROVIDER
     using Zyborg.PassCore.PasswordProvider.LDAP;
-#else
-    using PasswordProvider;
-#endif
+
+    //#if DEBUG
+    //    using Helpers;
+    //#elif PASSCORE_LDAP_PROVIDER
+    //    using Zyborg.PassCore.PasswordProvider.LDAP;
+    //#else
+    //    using PasswordProvider;
+    //#endif
 
     /// <summary>
     /// Represents this application's main class.
@@ -69,15 +71,7 @@ namespace Unosquare.PassCore.Web
         {
             services.Configure<ClientSettings>(Configuration.GetSection(nameof(ClientSettings)));
             services.Configure<WebSettings>(Configuration.GetSection(nameof(WebSettings)));
-#if DEBUG
-            services.Configure<IAppSettings>(Configuration.GetSection(AppSettingsSectionName));
-            services.AddSingleton<IPasswordChangeProvider, DebugPasswordChangeProvider>();
-            services.AddSingleton((ILogger)new LoggerConfiguration()
-                    .MinimumLevel.Information()
-                    .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
-                        (utcDateTime, wt) => wt.File($"logs/DEBUG-log-{utcDateTime}.txt"))
-                    .CreateLogger());
-#elif PASSCORE_LDAP_PROVIDER
+
             services.Configure<LdapPasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
             services.AddSingleton<IPasswordChangeProvider, LdapPasswordChangeProvider>();
             services.AddSingleton((ILogger)new LoggerConfiguration()
@@ -85,15 +79,32 @@ namespace Unosquare.PassCore.Web
                     .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
                         (utcDateTime, wt) => wt.File($"logs/PASSCORE_LDAP_PROVIDER-log-{utcDateTime}.txt"))
                     .CreateLogger());
-#else
-            services.Configure<PasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
-            services.AddSingleton<IPasswordChangeProvider, PasswordChangeProvider>();
-            services.AddSingleton((ILogger)new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
-                    (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
-                .CreateLogger());
-#endif
+
+            //#if DEBUG
+            //            services.Configure<IAppSettings>(Configuration.GetSection(AppSettingsSectionName));
+            //            services.AddSingleton<IPasswordChangeProvider, DebugPasswordChangeProvider>();
+            //            services.AddSingleton((ILogger)new LoggerConfiguration()
+            //                    .MinimumLevel.Information()
+            //                    .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+            //                        (utcDateTime, wt) => wt.File($"logs/DEBUG-log-{utcDateTime}.txt"))
+            //                    .CreateLogger());
+            //#elif PASSCORE_LDAP_PROVIDER
+            //            services.Configure<LdapPasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
+            //            services.AddSingleton<IPasswordChangeProvider, LdapPasswordChangeProvider>();
+            //            services.AddSingleton((ILogger)new LoggerConfiguration()
+            //                    .MinimumLevel.Information()
+            //                    .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+            //                        (utcDateTime, wt) => wt.File($"logs/PASSCORE_LDAP_PROVIDER-log-{utcDateTime}.txt"))
+            //                    .CreateLogger());
+            //#else
+            //            services.Configure<PasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
+            //            services.AddSingleton<IPasswordChangeProvider, PasswordChangeProvider>();
+            //            services.AddSingleton((ILogger)new LoggerConfiguration()
+            //                .MinimumLevel.Information()
+            //                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+            //                    (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
+            //                .CreateLogger());
+            //#endif
 
             // Add framework services.
             services.AddControllers();
@@ -112,7 +123,7 @@ namespace Unosquare.PassCore.Web
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

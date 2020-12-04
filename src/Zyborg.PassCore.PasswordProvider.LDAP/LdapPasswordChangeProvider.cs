@@ -1,8 +1,8 @@
 ﻿namespace Zyborg.PassCore.PasswordProvider.LDAP
 {
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Novell.Directory.Ldap;
+    using Serilog;
     using System;
     using System.Globalization;
     using System.Linq;
@@ -72,7 +72,7 @@
 
                 var searchFilter = _options.LdapSearchFilter.Replace("{Username}", cleanUsername);
 
-                _logger.LogWarning("LDAP query: {0}", searchFilter);
+                _logger.Warning("LDAP query: {0}", searchFilter);
 
                 using var ldap = BindToLdap();
                 var search = ldap.Search(
@@ -88,7 +88,7 @@
                 // but fortunately hasMore seems to block until final result
                 if (!search.HasMore())
                 {
-                    _logger.LogWarning("Unable to find username: [{0}]", cleanUsername);
+                    _logger.Warning("Unable to find username: [{0}]", cleanUsername);
 
                     return new ApiErrorItem(
                         _options.HideUserNotFound ? ApiErrorCode.InvalidCredentials : ApiErrorCode.UserNotFound,
@@ -97,7 +97,7 @@
 
                 if (search.Count > 1)
                 {
-                    _logger.LogWarning("Found multiple with same username: [{0}] - Count {1}", cleanUsername, search.Count);
+                    _logger.Warning("Found multiple with same username: [{0}] - Count {1}", cleanUsername, search.Count);
 
                     // Hopefully this should not ever happen if AD is preserving SAM Account Name
                     // uniqueness constraint, but just in case, handling this corner case
@@ -124,7 +124,7 @@
             {
                 var item = ParseLdapException(ex);
 
-                _logger.LogWarning(item.Message, ex);
+                _logger.Warning(item.Message, ex);
 
                 return item;
             }
@@ -136,7 +136,7 @@
                     ? apiError.ToApiErrorItem()
                     : new ApiErrorItem(ApiErrorCode.InvalidCredentials, $"Failed to update password: {ex.Message}");
 
-                _logger.LogWarning(item.Message, ex);
+                _logger.Warning(item.Message, ex);
 
                 return item;
             }
@@ -236,7 +236,7 @@
             if (copyFrom < maxLen)
                 buff.Append(cleanUsername.Substring(copyFrom));
             cleanUsername = buff.ToString();
-            _logger.LogWarning("Had to clean username: [{0}] => [{1}]", username, cleanUsername);
+            _logger.Warning("Had to clean username: [{0}] => [{1}]", username, cleanUsername);
 
             return cleanUsername;
         }
@@ -287,18 +287,18 @@
 
             // All other configuration is optional, but some may warrant attention
             if (!_options.HideUserNotFound)
-                _logger.LogWarning($"Option [{nameof(_options.HideUserNotFound)}] is DISABLED; the presence or absence of usernames can be harvested");
+                _logger.Warning($"Option [{nameof(_options.HideUserNotFound)}] is DISABLED; the presence or absence of usernames can be harvested");
 
             if (_options.LdapIgnoreTlsErrors)
-                _logger.LogWarning($"Option [{nameof(_options.LdapIgnoreTlsErrors)}] is ENABLED; invalid certificates will be allowed");
+                _logger.Warning($"Option [{nameof(_options.LdapIgnoreTlsErrors)}] is ENABLED; invalid certificates will be allowed");
             else if (_options.LdapIgnoreTlsValidation)
-                _logger.LogWarning($"Option [{nameof(_options.LdapIgnoreTlsValidation)}] is ENABLED; untrusted certificate roots will be allowed");
+                _logger.Warning($"Option [{nameof(_options.LdapIgnoreTlsValidation)}] is ENABLED; untrusted certificate roots will be allowed");
 
             if (_options.LdapPort == LdapConnection.DefaultSslPort && !_options.LdapSecureSocketLayer)
-                _logger.LogWarning($"Option [{nameof(_options.LdapSecureSocketLayer)}] is DISABLED in combination with standard SSL port [{_options.LdapPort}]");
+                _logger.Warning($"Option [{nameof(_options.LdapSecureSocketLayer)}] is DISABLED in combination with standard SSL port [{_options.LdapPort}]");
 
             if (_options.LdapPort != LdapConnection.DefaultSslPort && !_options.LdapStartTls)
-                _logger.LogWarning($"Option [{nameof(_options.LdapStartTls)}] is DISABLED in combination with non-standard TLS port [{_options.LdapPort}]");
+                _logger.Warning($"Option [{nameof(_options.LdapStartTls)}] is DISABLED in combination with non-standard TLS port [{_options.LdapPort}]");
         }
 
         private LdapConnection BindToLdap()
@@ -323,7 +323,7 @@
                 catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
                 {
-                    _logger.LogWarning($"Failed to connect to host [{h}]", ex);
+                    _logger.Warning($"Failed to connect to host [{h}]", ex);
                 }
             }
 

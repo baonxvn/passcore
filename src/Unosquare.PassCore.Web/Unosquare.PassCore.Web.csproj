@@ -41,6 +41,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PwnedPasswordsSearch\PwnedPasswordsSearch.csproj" />
     <ProjectReference Include="..\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj" />
+    <ProjectReference Include="..\Zyborg.PassCore.PasswordProvider.LDAP\Zyborg.PassCore.PasswordProvider.LDAP.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(PASSCORE_PROVIDER)' == ''">
     <!-- Default Password Provider - Win32 -->
