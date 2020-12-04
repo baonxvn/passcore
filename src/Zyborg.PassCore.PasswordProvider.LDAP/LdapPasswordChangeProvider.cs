@@ -41,9 +41,7 @@
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="options">The _options.</param>
-        public LdapPasswordChangeProvider(
-            ILogger logger,
-            IOptions<LdapPasswordChangeOptions> options)
+        public LdapPasswordChangeProvider(ILogger logger, IOptions<LdapPasswordChangeOptions> options)
         {
             _logger = logger;
             _options = options.Value;
@@ -61,16 +59,19 @@
         ///
         /// Check the above links for more information.
         /// </remarks>
-        public ApiErrorItem? PerformPasswordChange(
-            string username,
-            string currentPassword,
-            string newPassword)
+        public ApiErrorItem? PerformPasswordChange(string username, string currentPassword, string newPassword)
         {
             try
             {
+                _logger.Information("Zyborg.PerformPasswordChange: username=" + username +
+                            ". currentPassword=" + currentPassword +
+                            ". newPassword=" + newPassword);
+
                 var cleanUsername = CleaningUsername(username);
+                _logger.Information("Zyborg.PerformPasswordChange: cleanUsername=" + cleanUsername);
 
                 var searchFilter = _options.LdapSearchFilter.Replace("{Username}", cleanUsername);
+                _logger.Information("Zyborg.PerformPasswordChange: searchFilter=" + searchFilter);
 
                 _logger.Warning("LDAP query: {0}", searchFilter);
 
@@ -166,7 +167,7 @@
             var ldapAdd = new LdapModification(LdapModification.Add, newAttr);
             ldap.Modify(userDN, new[] { ldapDel, ldapAdd }); // Change with Delete/Add
         }
-        
+
         private static ApiErrorItem ParseLdapException(LdapException ex)
         {
             // If the LDAP server returned an error, it will be formatted
@@ -177,7 +178,7 @@
             if (ex.LdapErrorMessage == null)
             {
                 return new ApiErrorItem(ApiErrorCode.LdapProblem, "Unexpected null exception");
-            } 
+            }
 
             var m = Regex.Match(ex.LdapErrorMessage, "([0-9a-fA-F]+):");
 
@@ -218,7 +219,7 @@
             var escape = "()&|=><!*/\\".ToCharArray();
             var escapeIndex = cleanUsername.IndexOfAny(escape);
 
-            if (escapeIndex < 0) 
+            if (escapeIndex < 0)
                 return cleanUsername;
 
             var buff = new StringBuilder();

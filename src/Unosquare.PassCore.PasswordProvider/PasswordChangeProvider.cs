@@ -41,7 +41,13 @@ namespace Unosquare.PassCore.PasswordProvider
         {
             try
             {
+                _logger.Information("PasswordChangeProvider.PerformPasswordChange: username=" + username +
+                    ". currentPassword=" + currentPassword +
+                    ". newPassword=" + newPassword);
+
                 var fixedUsername = FixUsernameWithDomain(username);
+                _logger.Information("PasswordChangeProvider.PerformPasswordChange: fixedUsername=" + fixedUsername);
+
                 using var principalContext = AcquirePrincipalContext();
                 var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
 

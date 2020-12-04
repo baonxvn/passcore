@@ -85,6 +85,8 @@
 
                 return BadRequest(ApiResult.InvalidRequest());
             }
+            //BAONX
+            model.Username += "@haiphatland.local";
 
             if (model.NewPassword != model.NewPasswordVerify)
             {
@@ -104,8 +106,9 @@
             // Validate the Captcha
             try
             {
-                if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
-                    throw new InvalidOperationException("Invalid Recaptcha response");
+                //BAONX
+                //if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
+                //    throw new InvalidOperationException("Invalid Recaptcha response");
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
@@ -119,19 +122,20 @@
 
             try
             {
-                if (_options.MinimumDistance > 0 &&
-                    _passwordChangeProvider.MeasureNewPasswordDistance(model.CurrentPassword, model.NewPassword) < _options.MinimumDistance)
-                {
-                    result.Errors.Add(new ApiErrorItem(ApiErrorCode.MinimumDistance));
-                    return BadRequest(result);
-                }
+                //BAONX
+                //if (_options.MinimumDistance > 0 &&
+                //    _passwordChangeProvider.MeasureNewPasswordDistance(model.CurrentPassword, model.NewPassword) < _options.MinimumDistance)
+                //{
+                //    result.Errors.Add(new ApiErrorItem(ApiErrorCode.MinimumDistance));
+                //    return BadRequest(result);
+                //}
 
-                //if (_options.MinimumScore > 0 && Zxcvbn.MatchPassword(model.NewPassword).Score < _options.MinimumScore)
-                if (_options.MinimumScore > 0)
-                {
-                    result.Errors.Add(new ApiErrorItem(ApiErrorCode.MinimumScore));
-                    return BadRequest(result);
-                }
+                ////if (_options.MinimumScore > 0 && Zxcvbn.MatchPassword(model.NewPassword).Score < _options.MinimumScore)
+                //if (_options.MinimumScore > 0)
+                //{
+                //    result.Errors.Add(new ApiErrorItem(ApiErrorCode.MinimumScore));
+                //    return BadRequest(result);
+                //}
 
                 var resultPasswordChange = _passwordChangeProvider.PerformPasswordChange(
                         model.Username,

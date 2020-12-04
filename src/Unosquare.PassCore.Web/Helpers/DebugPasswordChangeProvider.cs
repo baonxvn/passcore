@@ -2,14 +2,22 @@
 {
     using System;
     using Common;
+    using Serilog;
 
     internal class DebugPasswordChangeProvider : IPasswordChangeProvider
     {
+        private readonly ILogger _logger;
+
         public ApiErrorItem? PerformPasswordChange(string username, string currentPassword, string newPassword)
         {
+            _logger.Information("DebugPasswordChangeProvider.PerformPasswordChange: username=" + username +
+                    ". currentPassword=" + currentPassword +
+                    ". newPassword=" + newPassword);
+
             var currentUsername = username.IndexOf("@", StringComparison.Ordinal) > 0
                 ? username.Substring(0, username.IndexOf("@", StringComparison.Ordinal))
                 : username;
+            _logger.Information("DebugPasswordChangeProvider.PerformPasswordChange: currentUsername=" + currentUsername);
 
             // Even in DEBUG, it is safe to make this call and check the password anyway
             if (PwnedPasswordsSearch.PwnedSearch.IsPwnedPassword(newPassword))
