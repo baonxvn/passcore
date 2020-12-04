@@ -1,15 +1,15 @@
-namespace Unosquare.PassCore.Web.Controllers
+﻿namespace Unosquare.PassCore.Web.Controllers
 {
-    using Common;
-    using Helpers;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
-    using Models;
-    using Swan.Net;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Common;
+    using Helpers;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Models;
+    using Serilog;
+    using Swan.Net;
     using Zxcvbn;
 
     /// <summary>
@@ -29,7 +29,7 @@ namespace Unosquare.PassCore.Web.Controllers
         /// <param name="optionsAccessor">The options accessor.</param>
         /// <param name="passwordChangeProvider">The password change provider.</param>
         public PasswordController(
-            ILogger<PasswordController> logger,
+            ILogger logger,
             IOptions<ClientSettings> optionsAccessor,
             IPasswordChangeProvider passwordChangeProvider)
         {
@@ -43,7 +43,12 @@ namespace Unosquare.PassCore.Web.Controllers
         /// </summary>
         /// <returns>A Json representation of the ClientSettings object.</returns>
         [HttpGet]
-        public IActionResult Get() => Json(_options);
+        public IActionResult Get()
+        {
+            string testLog = "Đây là log test";
+            _logger.Information(testLog);
+            return Json(_options);
+        }
 
         /// <summary>
         /// Returns generated password as a JSON string.
@@ -68,14 +73,14 @@ namespace Unosquare.PassCore.Web.Controllers
             // Validate the request
             if (model == null)
             {
-                _logger.LogWarning("Null model");
+                _logger.Warning("Null model");
 
                 return BadRequest(ApiResult.InvalidRequest());
             }
 
             if (model.NewPassword != model.NewPasswordVerify)
             {
-                _logger.LogWarning("Invalid model, passwords don't match");
+                _logger.Warning("Invalid model, passwords don't match");
 
                 return BadRequest(ApiResult.InvalidRequest());
             }
@@ -83,7 +88,7 @@ namespace Unosquare.PassCore.Web.Controllers
             // Validate the model
             if (ModelState.IsValid == false)
             {
-                _logger.LogWarning("Invalid model, validation failed");
+                _logger.Warning("Invalid model, validation failed");
 
                 return BadRequest(ApiResult.FromModelStateErrors(ModelState));
             }
@@ -98,7 +103,7 @@ namespace Unosquare.PassCore.Web.Controllers
             catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
-                _logger.LogWarning(ex, "Invalid Recaptcha");
+                _logger.Warning(ex, "Invalid Recaptcha");
                 return BadRequest(ApiResult.InvalidCaptcha());
             }
 
@@ -134,7 +139,7 @@ namespace Unosquare.PassCore.Web.Controllers
             catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
-                _logger.LogError(ex, "Failed to update password");
+                _logger.Error(ex, "Failed to update password");
 
                 result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, ex.Message));
             }

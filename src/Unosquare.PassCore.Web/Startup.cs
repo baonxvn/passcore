@@ -1,5 +1,6 @@
 namespace Unosquare.PassCore.Web
 {
+    using System;
     using Common;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Builder;
@@ -8,11 +9,12 @@ namespace Unosquare.PassCore.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
     using Models;
+    using Serilog;
+
 #if DEBUG
     using Helpers;
 #elif PASSCORE_LDAP_PROVIDER
     using Zyborg.PassCore.PasswordProvider.LDAP;
-    using Microsoft.Extensions.Logging;
 #else
     using PasswordProvider;
 #endif
@@ -70,18 +72,27 @@ namespace Unosquare.PassCore.Web
 #if DEBUG
             services.Configure<IAppSettings>(Configuration.GetSection(AppSettingsSectionName));
             services.AddSingleton<IPasswordChangeProvider, DebugPasswordChangeProvider>();
+            services.AddSingleton((ILogger)new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+                        (utcDateTime, wt) => wt.File($"logs/DEBUG-log-{utcDateTime}.txt"))
+                    .CreateLogger());
 #elif PASSCORE_LDAP_PROVIDER
             services.Configure<LdapPasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
             services.AddSingleton<IPasswordChangeProvider, LdapPasswordChangeProvider>();
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
-            services.AddSingleton(typeof(ILogger), sp =>
-            {
-                var loggerFactory = sp.GetService<ILoggerFactory>();
-                return loggerFactory.CreateLogger("PassCoreLDAPProvider");
-            });
+            services.AddSingleton((ILogger)new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+                        (utcDateTime, wt) => wt.File($"logs/PASSCORE_LDAP_PROVIDER-log-{utcDateTime}.txt"))
+                    .CreateLogger());
 #else
             services.Configure<PasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
             services.AddSingleton<IPasswordChangeProvider, PasswordChangeProvider>();
+            services.AddSingleton((ILogger)new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+                    (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
+                .CreateLogger());
 #endif
 
             // Add framework services.
