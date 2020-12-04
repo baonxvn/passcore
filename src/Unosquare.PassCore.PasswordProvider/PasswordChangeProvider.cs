@@ -1,8 +1,10 @@
-﻿namespace Unosquare.PassCore.PasswordProvider
+﻿
+namespace Unosquare.PassCore.PasswordProvider
 {
     using Common;
     using Microsoft.Extensions.Options;
     using Serilog;
+    using Serilog.Sinks.EventLog;
     using System;
     using System.DirectoryServices;
     using System.DirectoryServices.AccountManagement;
@@ -167,7 +169,9 @@
                 }
                 catch (Exception exception)
                 {
-                    _logger.Error(new EventId(887), exception, nameof(ValidateGroups));
+                    //_logger.Error(new EventId(887), exception, nameof(ValidateGroups));
+                    string eventId = new Microsoft.Extensions.Logging.EventId(887).ToString();
+                    _logger.Error(eventId, exception, nameof(ValidateGroups));
 
                     groups = userPrincipal.GetAuthorizationGroups();
                 }
@@ -184,7 +188,9 @@
             }
             catch (Exception exception)
             {
-                _logger.Error(new EventId(888), exception, nameof(ValidateGroups));
+                //_logger.Error(new EventId(888), exception, nameof(ValidateGroups));
+                string eventId = new Microsoft.Extensions.Logging.EventId(888).ToString();
+                _logger.Error(eventId, exception, nameof(ValidateGroups));
             }
 
             return null;
