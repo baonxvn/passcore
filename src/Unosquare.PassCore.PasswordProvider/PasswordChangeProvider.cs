@@ -59,22 +59,23 @@ namespace Unosquare.PassCore.PasswordProvider
                     return new ApiErrorItem(ApiErrorCode.UserNotFound);
                 }
 
-                var minPwdLength = AcquireDomainPasswordLength();
+                //BAONX
+                //var minPwdLength = AcquireDomainPasswordLength();
 
-                if (newPassword.Length < minPwdLength)
-                {
-                    _logger.Error("Failed due to password complex policies: New password length is shorter than AD minimum password length");
+                //if (newPassword.Length < minPwdLength)
+                //{
+                //    _logger.Error("Failed due to password complex policies: New password length is shorter than AD minimum password length");
 
-                    return new ApiErrorItem(ApiErrorCode.ComplexPassword);
-                }
+                //    return new ApiErrorItem(ApiErrorCode.ComplexPassword);
+                //}
 
-                // Check if the newPassword is Pwned
-                if (PwnedPasswordsSearch.PwnedSearch.IsPwnedPassword(newPassword))
-                {
-                    _logger.Error("Failed due to pwned password: New password is publicly known and can be used in dictionary attacks");
+                //// Check if the newPassword is Pwned
+                //if (PwnedPasswordsSearch.PwnedSearch.IsPwnedPassword(newPassword))
+                //{
+                //    _logger.Error("Failed due to pwned password: New password is publicly known and can be used in dictionary attacks");
 
-                    return new ApiErrorItem(ApiErrorCode.PwnedPassword);
-                }
+                //    return new ApiErrorItem(ApiErrorCode.PwnedPassword);
+                //}
 
                 _logger.Information($"PerformPasswordChange for user {fixedUsername}");
 
@@ -111,14 +112,15 @@ namespace Unosquare.PassCore.PasswordProvider
                 userPrincipal.Save();
                 _logger.Debug("The User principal password updated with setPassword");
             }
-            catch (PasswordException passwordEx)
-            {
-                var item = new ApiErrorItem(ApiErrorCode.ComplexPassword, passwordEx.Message);
+            //BAONX
+            //catch (PasswordException passwordEx)
+            //{
+            //    var item = new ApiErrorItem(ApiErrorCode.ComplexPassword, passwordEx.Message);
 
-                _logger.Warning(item.Message, passwordEx);
+            //    _logger.Warning(item.Message, passwordEx);
 
-                return item;
-            }
+            //    return item;
+            //}
             catch (Exception ex)
             {
                 var item = ex is ApiErrorException apiError
@@ -226,10 +228,7 @@ namespace Unosquare.PassCore.PasswordProvider
             }
         }
 
-        private void ChangePassword(
-            string currentPassword,
-            string newPassword,
-            AuthenticablePrincipal userPrincipal)
+        private void ChangePassword(string currentPassword, string newPassword, AuthenticablePrincipal userPrincipal)
         {
             try
             {

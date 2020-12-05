@@ -156,6 +156,7 @@
                 result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, ex.Message));
             }
 
+            _logger.Warning(Json(result).ToString());
             return BadRequest(result);
         }
 
