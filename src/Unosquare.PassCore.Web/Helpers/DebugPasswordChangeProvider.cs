@@ -8,6 +8,11 @@
     {
         private readonly ILogger _logger;
 
+        public DebugPasswordChangeProvider(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public ApiErrorItem? PerformPasswordChange(string username, string currentPassword, string newPassword)
         {
             _logger.Information("DebugPasswordChangeProvider.PerformPasswordChange: username=" + username +
