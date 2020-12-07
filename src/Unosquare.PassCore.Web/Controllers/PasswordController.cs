@@ -130,8 +130,7 @@
                 //    return BadRequest(result);
                 //}
 
-                ////if (_options.MinimumScore > 0 && Zxcvbn.MatchPassword(model.NewPassword).Score < _options.MinimumScore)
-                //if (_options.MinimumScore > 0)
+                //if (_options.MinimumScore > 0 && Zxcvbn.Core.EvaluatePassword(model.NewPassword).Score < _options.MinimumScore)
                 //{
                 //    result.Errors.Add(new ApiErrorItem(ApiErrorCode.MinimumScore));
                 //    return BadRequest(result);
