@@ -1,0 +1,8 @@
+2020-12-04 10:32:55.008 +07:00 [INF] Đây là log test
+2020-12-04 10:33:56.720 +07:00 [INF] Đây là log test
+2020-12-04 10:33:58.777 +07:00 [INF] Đây là log test
+2020-12-04 16:42:14.759 +07:00 [INF] Đây là log test
+2020-12-04 16:47:03.899 +07:00 [INF] Đây là log test
+
+User demo: demo
+Pass: zjF:R!wDr#G4yxx?
