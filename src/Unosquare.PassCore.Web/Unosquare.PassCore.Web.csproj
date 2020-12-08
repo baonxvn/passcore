@@ -16,6 +16,7 @@
     <UserSecretsId>b135379b-cd03-4911-98a0-d7c44da15de3</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Map" Version="1.0.2" />
     <PackageReference Include="SimpleBase" Version="3.0.1" />
