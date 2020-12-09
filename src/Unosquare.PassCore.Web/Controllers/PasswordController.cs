@@ -86,7 +86,8 @@
                 return BadRequest(ApiResult.InvalidRequest());
             }
             //BAONX
-            model.Username += "@haiphatland.local";
+            //model.Username += "@haiphatland.local";
+            model.Username += "@baonx.com";
 
             if (model.NewPassword != model.NewPasswordVerify)
             {
@@ -103,20 +104,20 @@
                 return BadRequest(ApiResult.FromModelStateErrors(ModelState));
             }
 
-            // Validate the Captcha
-            try
-            {
-                //BAONX
-                //if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
-                //    throw new InvalidOperationException("Invalid Recaptcha response");
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                _logger.Warning(ex, "Invalid Recaptcha");
-                return BadRequest(ApiResult.InvalidCaptcha());
-            }
+            //BAONX
+            //            // Validate the Captcha
+            //            try
+            //            {
+            //                if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
+            //                    throw new InvalidOperationException("Invalid Recaptcha response");
+            //            }
+            //#pragma warning disable CA1031 // Do not catch general exception types
+            //            catch (Exception ex)
+            //#pragma warning restore CA1031 // Do not catch general exception types
+            //            {
+            //                _logger.Warning(ex, "Invalid Recaptcha");
+            //                return BadRequest(ApiResult.InvalidCaptcha());
+            //            }
 
             var result = new ApiResult();
 

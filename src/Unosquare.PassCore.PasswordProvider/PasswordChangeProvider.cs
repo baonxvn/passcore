@@ -190,9 +190,15 @@ namespace Unosquare.PassCore.PasswordProvider
                         "The User principal is listed as restricted");
                 }
 
-                return groups?.Any(x => _options.AllowedADGroups?.Contains(x.Name) == true) == true
+                //BAONX
+                if (_options.AllowedADGroups?.Any() != true) return null;
+                //END BAONX
+
+                var valueReturn = groups?.Any(x => _options.AllowedADGroups?.Contains(x.Name) == true) == true
                     ? null
                     : new ApiErrorItem(ApiErrorCode.ChangeNotPermitted, "The User principal is not listed as allowed");
+
+                return valueReturn;
             }
             catch (Exception exception)
             {
