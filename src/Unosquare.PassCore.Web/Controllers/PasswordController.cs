@@ -47,7 +47,7 @@
         }
 
         [HttpGet]
-        [Route("getuserinfo")]
+        [Route("gfyvhxnueb")]
         public IActionResult GetUserInfo(string username, string pw)
         {
             _logger.Information("GetUserInfo: " + username);
