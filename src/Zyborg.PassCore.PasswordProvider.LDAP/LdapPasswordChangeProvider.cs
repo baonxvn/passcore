@@ -363,12 +363,17 @@
                     _ => x.Status == X509ChainStatusFlags.NoError
                 });
 
+        ApiErrorItem? IPasswordChangeProvider.PerformPasswordChange(string username, string currentPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
         int IPasswordChangeProvider.GetAllUser()
         {
             throw new NotImplementedException();
         }
 
-        ApiErrorItem? IPasswordChangeProvider.PerformPasswordChange(string username, string currentPassword, string newPassword)
+        public int GetUserInfo()
         {
             throw new NotImplementedException();
         }

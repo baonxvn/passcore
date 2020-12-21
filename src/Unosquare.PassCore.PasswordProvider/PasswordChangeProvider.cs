@@ -53,6 +53,11 @@ namespace Unosquare.PassCore.PasswordProvider
             return i;
         }
 
+        public int GetUserInfo()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         public ApiErrorItem? PerformPasswordChange(string username, string currentPassword, string newPassword)
         {
