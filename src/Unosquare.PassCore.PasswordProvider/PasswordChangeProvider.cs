@@ -6,6 +6,7 @@ namespace Unosquare.PassCore.PasswordProvider
     using Serilog;
     using Serilog.Sinks.EventLog;
     using System;
+    using System.Collections.Generic;
     using System.DirectoryServices;
     using System.DirectoryServices.AccountManagement;
     using System.DirectoryServices.ActiveDirectory;
@@ -34,6 +35,22 @@ namespace Unosquare.PassCore.PasswordProvider
             _logger = logger;
             _options = options.Value;
             SetIdType();
+        }
+
+        public int GetAllUser()
+        {
+            int i = 0;
+            using (var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName))))
+            {
+                List<UserPrincipal> users = searcher.FindAll().Select(u => (UserPrincipal)u).ToList();
+                i = users.Count;
+                //foreach (var u in users)
+                //{
+                //    DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
+                //    Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
+                //}
+            }
+            return i;
         }
 
         /// <inheritdoc />

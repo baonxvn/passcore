@@ -55,6 +55,7 @@
         {
             string testLog = "Đây là log test";
             _logger.Information(testLog);
+            int i = _passwordChangeProvider.GetAllUser();
             return Json(_options);
         }
 

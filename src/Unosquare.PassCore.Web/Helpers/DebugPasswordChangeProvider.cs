@@ -43,5 +43,15 @@
                 _ => null
             };
         }
+
+        int IPasswordChangeProvider.GetAllUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        ApiErrorItem? IPasswordChangeProvider.PerformPasswordChange(string username, string currentPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
