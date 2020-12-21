@@ -67,7 +67,7 @@ namespace Unosquare.PassCore.PasswordProvider
             if (userPrincipal == null)
             {
                 _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
-                result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound);
+                result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound, "User khong ton tai!");
 
                 return result;
             }
@@ -85,7 +85,7 @@ namespace Unosquare.PassCore.PasswordProvider
             {
                 _logger.Warning("The User principal password is not valid");
 
-                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials);
+                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mat khau khong dung!");
                 return result;
             }
 
@@ -134,7 +134,7 @@ namespace Unosquare.PassCore.PasswordProvider
                 {
                     _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
 
-                    return new ApiErrorItem(ApiErrorCode.UserNotFound);
+                    return new ApiErrorItem(ApiErrorCode.UserNotFound, "Khong ton tai user");
                 }
 
                 //BAONX
