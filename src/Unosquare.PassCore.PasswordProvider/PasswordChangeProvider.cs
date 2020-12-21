@@ -37,7 +37,7 @@ namespace Unosquare.PassCore.PasswordProvider
             SetIdType();
         }
 
-        public int GetAllUser()
+        public ApiErrorItem? GetAllUser()
         {
             int i = 0;
             using (var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName))))
@@ -50,12 +50,68 @@ namespace Unosquare.PassCore.PasswordProvider
                 //    Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
                 //}
             }
-            return i;
+
+            return new ApiErrorItem(ApiErrorCode.Generic, "Khong co user nao"); ;
         }
 
-        public int GetUserInfo()
+        public ApiResultAd? GetUserInfo(string username, string pw)
         {
-            throw new NotImplementedException();
+            var result = new ApiResultAd();
+            result.UserInfo = null;
+
+            var fixedUsername = FixUsernameWithDomain(username);
+            using var principalContext = AcquirePrincipalContext();
+            var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+
+            // Check if the user principal exists
+            if (userPrincipal == null)
+            {
+                _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
+                result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound);
+
+                return result;
+            }
+
+            var item = ValidateGroups(userPrincipal);
+
+            if (item != null)
+            {
+                result.Errors = item;
+                return result;
+            }
+
+            // Use always UPN for password check.
+            if (!ValidateUserCredentials(userPrincipal.UserPrincipalName, pw, principalContext))
+            {
+                _logger.Warning("The User principal password is not valid");
+
+                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials);
+                return result;
+            }
+
+            var userInfo = new UserInfoAd();
+            userInfo.isLocked = userPrincipal.IsAccountLockedOut();
+            userInfo.displayName = userPrincipal.DisplayName;
+            userInfo.userPrincipalName = userPrincipal.UserPrincipalName;
+            userInfo.sAMAccountName = userPrincipal.SamAccountName;
+            userInfo.givenName = userPrincipal.GivenName;
+            userInfo.initials = "";// userPrincipal.I
+            userInfo.sn = userPrincipal.Surname;
+            userInfo.description = userPrincipal.Description;
+            userInfo.physicalDeliveryOfficeName = "";// userPrincipal.
+            userInfo.telephoneNumber = userPrincipal.VoiceTelephoneNumber;
+            userInfo.otherTelephone = "";// userPrincipal.
+            userInfo.mail = userPrincipal.EmailAddress;
+            userInfo.wWWHomePage = "";// userPrincipal.
+            userInfo.url = "";// userPrincipal.
+            userInfo.CN = "";// userPrincipal.c
+            userInfo.homePhone = "";// userPrincipal.
+            userInfo.mobile = "";// userPrincipal.
+
+            result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+            result.UserInfo = userInfo;
+
+            return result;
         }
 
         /// <inheritdoc />

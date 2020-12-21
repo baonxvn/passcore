@@ -368,12 +368,12 @@
             throw new NotImplementedException();
         }
 
-        int IPasswordChangeProvider.GetAllUser()
+        ApiErrorItem? IPasswordChangeProvider.GetAllUser()
         {
             throw new NotImplementedException();
         }
 
-        public int GetUserInfo()
+        public ApiResultAd? GetUserInfo(string username, string pw)
         {
             throw new NotImplementedException();
         }

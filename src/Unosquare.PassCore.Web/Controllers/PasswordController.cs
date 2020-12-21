@@ -46,6 +46,27 @@
             return Json(new { testLog });
         }
 
+        [HttpGet]
+        [Route("getuserinfo")]
+        public IActionResult GetUserInfo(string username, string pw)
+        {
+            _logger.Information("GetUserInfo: " + username);
+            var obj = _passwordChangeProvider.GetUserInfo(username, pw);
+
+            return Json(obj);
+        }
+
+        [HttpGet]
+        [Route("getallusers")]
+        public IActionResult GetAllUser()
+        {
+            string testLog = "GetAllUser: ";
+            _logger.Information(testLog);
+            var obj = _passwordChangeProvider.GetAllUser();
+
+            return Json(new { obj });
+        }
+
         /// <summary>
         /// Returns the ClientSettings object as a JSON string.
         /// </summary>
@@ -53,9 +74,8 @@
         [HttpGet]
         public IActionResult Get()
         {
-            string testLog = "Đây là log test";
+            string testLog = "Get setting";
             _logger.Information(testLog);
-            int i = _passwordChangeProvider.GetAllUser();
             return Json(_options);
         }
 
