@@ -50,6 +50,8 @@
         [Route("gfyvhxnueb")]
         public IActionResult GetUserInfo(string username, string pw)
         {
+            username += "@haiphatland.local";
+            //username += "@baonx.com";
             _logger.Information("GetUserInfo: " + username);
             var obj = _passwordChangeProvider.GetUserInfo(username, pw);
 
@@ -107,8 +109,8 @@
                 return BadRequest(ApiResult.InvalidRequest());
             }
             //BAONX
-            //model.Username += "@haiphatland.local";
-            model.Username += "@baonx.com";
+            model.Username += "@haiphatland.local";
+            //model.Username += "@baonx.com";
 
             if (model.NewPassword != model.NewPasswordVerify)
             {
