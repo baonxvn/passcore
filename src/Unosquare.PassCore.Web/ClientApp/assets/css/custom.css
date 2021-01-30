@@ -34,7 +34,7 @@ main .MuiInputBase-root{
         border: 1px solid rgba(0,0,0,0.6);
         border-radius: 10px;
         padding: 1px 2px 1px 10px !important;
-        height: 35px;
+        height: 35px !important;
     }
 main .MuiInputLabel-formControl{
     left: 10px;
