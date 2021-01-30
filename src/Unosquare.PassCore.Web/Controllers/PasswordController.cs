@@ -46,6 +46,29 @@
             return Json(new { testLog });
         }
 
+        [HttpGet]
+        [Route("gfyvhxnueb")]
+        public IActionResult GetUserInfo(string username, string pw)
+        {
+            username += "@haiphatland.local";
+            //username += "@baonx.com";
+            _logger.Information("GetUserInfo: " + username);
+            var obj = _passwordChangeProvider.GetUserInfo(username, pw);
+
+            return Json(obj);
+        }
+
+        [HttpGet]
+        [Route("getallusers")]
+        public IActionResult GetAllUser()
+        {
+            string testLog = "GetAllUser: ";
+            _logger.Information(testLog);
+            var obj = _passwordChangeProvider.GetAllUser();
+
+            return Json(new { obj });
+        }
+
         /// <summary>
         /// Returns the ClientSettings object as a JSON string.
         /// </summary>
@@ -53,7 +76,7 @@
         [HttpGet]
         public IActionResult Get()
         {
-            string testLog = "Đây là log test";
+            string testLog = "Get setting";
             _logger.Information(testLog);
             return Json(_options);
         }
@@ -87,6 +110,7 @@
             }
             //BAONX
             model.Username += "@haiphatland.local";
+            //model.Username += "@baonx.com";
 
             if (model.NewPassword != model.NewPasswordVerify)
             {
@@ -103,20 +127,20 @@
                 return BadRequest(ApiResult.FromModelStateErrors(ModelState));
             }
 
-            // Validate the Captcha
-            try
-            {
-                //BAONX
-                //if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
-                //    throw new InvalidOperationException("Invalid Recaptcha response");
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                _logger.Warning(ex, "Invalid Recaptcha");
-                return BadRequest(ApiResult.InvalidCaptcha());
-            }
+            //BAONX
+            //            // Validate the Captcha
+            //            try
+            //            {
+            //                if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
+            //                    throw new InvalidOperationException("Invalid Recaptcha response");
+            //            }
+            //#pragma warning disable CA1031 // Do not catch general exception types
+            //            catch (Exception ex)
+            //#pragma warning restore CA1031 // Do not catch general exception types
+            //            {
+            //                _logger.Warning(ex, "Invalid Recaptcha");
+            //                return BadRequest(ApiResult.InvalidCaptcha());
+            //            }
 
             var result = new ApiResult();
 

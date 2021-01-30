@@ -8,6 +8,10 @@ namespace Unosquare.PassCore.Common
     /// </summary>
     public interface IPasswordChangeProvider
     {
+        public ApiErrorItem? GetAllUser();
+
+        public ApiResultAd? GetUserInfo(string username, string pw);
+
         /// <summary>
         /// Performs the password change using the credentials provided.
         /// </summary>

@@ -56,9 +56,14 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
     const userNameErrorMessages = [fieldRequired, useEmail ? usernameEmailPattern : usernamePattern];
     const userNameHelperText = useEmail ? usernameHelpblock : usernameDefaultDomainHelperBlock;
 
-    if (submitData) {
-        toSubmitData(fields);
-    }
+    //if (submitData) {
+    //    toSubmitData(fields);
+    //}
+    React.useEffect(() => {
+        if (submitData) {
+            toSubmitData(fields);
+        }
+    }, [submitData]);
 
     React.useEffect(() => {
         if (parentRef.current !== null && parentRef.current.isFormValid !== null) {

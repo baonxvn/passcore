@@ -6,6 +6,7 @@ namespace Unosquare.PassCore.PasswordProvider
     using Serilog;
     using Serilog.Sinks.EventLog;
     using System;
+    using System.Collections.Generic;
     using System.DirectoryServices;
     using System.DirectoryServices.AccountManagement;
     using System.DirectoryServices.ActiveDirectory;
@@ -36,6 +37,83 @@ namespace Unosquare.PassCore.PasswordProvider
             SetIdType();
         }
 
+        public ApiErrorItem? GetAllUser()
+        {
+            int i = 0;
+            using (var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName))))
+            {
+                List<UserPrincipal> users = searcher.FindAll().Select(u => (UserPrincipal)u).ToList();
+                i = users.Count;
+                //foreach (var u in users)
+                //{
+                //    DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
+                //    Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
+                //}
+            }
+
+            return new ApiErrorItem(ApiErrorCode.Generic, "Khong co user nao"); ;
+        }
+
+        public ApiResultAd? GetUserInfo(string username, string pw)
+        {
+            var result = new ApiResultAd();
+            result.UserInfo = null;
+
+            var fixedUsername = FixUsernameWithDomain(username);
+            using var principalContext = AcquirePrincipalContext();
+            var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+
+            // Check if the user principal exists
+            if (userPrincipal == null)
+            {
+                _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
+                result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound, "User khong ton tai!");
+
+                return result;
+            }
+
+            var item = ValidateGroups(userPrincipal);
+
+            if (item != null)
+            {
+                result.Errors = item;
+                return result;
+            }
+
+            // Use always UPN for password check.
+            if (!ValidateUserCredentials(userPrincipal.UserPrincipalName, pw, principalContext))
+            {
+                _logger.Warning("The User principal password is not valid");
+
+                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mat khau khong dung!");
+                return result;
+            }
+
+            var userInfo = new UserInfoAd();
+            userInfo.isLocked = userPrincipal.IsAccountLockedOut();
+            userInfo.displayName = userPrincipal.DisplayName;
+            userInfo.userPrincipalName = userPrincipal.UserPrincipalName;
+            userInfo.sAMAccountName = userPrincipal.SamAccountName;
+            userInfo.givenName = userPrincipal.GivenName;
+            userInfo.initials = "";// userPrincipal.I
+            userInfo.sn = userPrincipal.Surname;
+            userInfo.description = userPrincipal.Description;
+            userInfo.physicalDeliveryOfficeName = "";// userPrincipal.
+            userInfo.telephoneNumber = userPrincipal.VoiceTelephoneNumber;
+            userInfo.otherTelephone = "";// userPrincipal.
+            userInfo.mail = userPrincipal.EmailAddress;
+            userInfo.wWWHomePage = "";// userPrincipal.
+            userInfo.url = "";// userPrincipal.
+            userInfo.CN = "";// userPrincipal.c
+            userInfo.homePhone = "";// userPrincipal.
+            userInfo.mobile = "";// userPrincipal.
+
+            result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+            result.UserInfo = userInfo;
+
+            return result;
+        }
+
         /// <inheritdoc />
         public ApiErrorItem? PerformPasswordChange(string username, string currentPassword, string newPassword)
         {
@@ -56,7 +134,7 @@ namespace Unosquare.PassCore.PasswordProvider
                 {
                     _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
 
-                    return new ApiErrorItem(ApiErrorCode.UserNotFound);
+                    return new ApiErrorItem(ApiErrorCode.UserNotFound, "Khong ton tai user");
                 }
 
                 //BAONX
@@ -190,9 +268,15 @@ namespace Unosquare.PassCore.PasswordProvider
                         "The User principal is listed as restricted");
                 }
 
-                return groups?.Any(x => _options.AllowedADGroups?.Contains(x.Name) == true) == true
+                //BAONX
+                if (_options.AllowedADGroups?.Any() != true) return null;
+                //END BAONX
+
+                var valueReturn = groups?.Any(x => _options.AllowedADGroups?.Contains(x.Name) == true) == true
                     ? null
                     : new ApiErrorItem(ApiErrorCode.ChangeNotPermitted, "The User principal is not listed as allowed");
+
+                return valueReturn;
             }
             catch (Exception exception)
             {

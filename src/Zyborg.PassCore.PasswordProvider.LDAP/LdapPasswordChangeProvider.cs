@@ -362,5 +362,20 @@
                     X509ChainStatusFlags.UntrustedRoot when _options.LdapIgnoreTlsValidation => true,
                     _ => x.Status == X509ChainStatusFlags.NoError
                 });
+
+        ApiErrorItem? IPasswordChangeProvider.PerformPasswordChange(string username, string currentPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        ApiErrorItem? IPasswordChangeProvider.GetAllUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApiResultAd? GetUserInfo(string username, string pw)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
