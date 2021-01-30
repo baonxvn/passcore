@@ -1,0 +1,113 @@
+body{
+    margin: 0;
+}
+#rootNode {
+    background-image: url(../images/bg.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+}
+main {
+    margin-left: 0 !important;
+}
+/*main .MuiPaper-root{
+    background-color: transparent !important;
+}
+main .MuiInputBase-root{
+    background-color: #fff;
+}*/
+    main .MuiButtonBase-root {
+        background-color: #f37f29 !important;
+        color: #fff !important;
+        margin: 30px 0px 0px 30px !important;
+        width: auto !important;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+    main .MuiInputBase-input {
+        border: 1px solid rgba(0,0,0,0.6);
+        border-radius: 10px;
+        padding: 1px 2px 1px 10px !important;
+        height: 35px;
+    }
+main .MuiInputLabel-formControl{
+    left: 10px;
+    top: 3px;
+    font-size: 0.8rem;
+    color: gray;
+}
+.MuiTypography-h6{
+    color: #fff;
+}
+.MuiTypography-caption{
+    color: #fff;
+}
+.MuiFormLabel-root.Muti-focused {
+    font-size: 1rem !important;
+}
+main > .MuiPaper-root {
+    width: 100% !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+.MuiTypography-caption a {
+    color: #f37f29;
+}
+main form .MuiFormGroup-root{
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 30px;
+}
+main form .MuiFormGroup-root > div:first-child {
+    margin: 15px 0px 70px !important;
+}
+main form .MuiFormGroup-root > div:nth-child(5) {
+    color: #f37f29 !important;
+    margin-bottom: 5px !important;
+}
+.MuiFormHelperText-root {
+    color: #f37f29 !important;
+}
+.MuiLinearProgress-colorPrimary {
+    background-color: transparent !important;
+}
+.MuiInput-underline:before, .MuiInput-underline:after {
+    border-bottom: none !important;
+}
+.MuiLinearProgress-root{
+    margin-bottom: 5px;
+}
+@media (min-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    main > .MuiPaper-root {
+        width: 430px !important;
+    }
+}
+@media (max-width: 767px) {
+    main{
+        width: 100%;
+    }
+        
+    main form .MuiFormGroup-root{
+        width: 100%;
+    }
+    .MuiFormControl-root {
+        margin: 20px 0px 72px;
+    }
+    main > .MuiPaper-root + div{
+        margin-top: 0 !important;
+        width: 100% !important;
+    }
+}
