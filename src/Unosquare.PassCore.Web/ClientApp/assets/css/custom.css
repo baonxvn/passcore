@@ -42,8 +42,8 @@ main .MuiInputLabel-formControl{
     font-size: 0.8rem;
     color: gray;
 }
-.MuiTypography-h6{
-    color: #fff;
+.MuiTypography-h6 {
+    color: #a6a2a8;
 }
 .MuiTypography-caption{
     color: #fff;
