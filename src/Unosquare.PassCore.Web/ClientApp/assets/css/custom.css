@@ -42,10 +42,16 @@ main .MuiInputLabel-formControl{
     font-size: 0.8rem;
     color: gray;
 }
-.MuiTypography-h6 {
+h2.MuiTypography-h6 {
     color: #a6a2a8;
 }
-.MuiTypography-caption{
+h6.MuiTypography-h6{
+    color: #fff;
+}
+.MuiDialogContent-root span.MuiButton-label{
+    color: #fff !important;
+}
+.MuiTypography-caption {
     color: #fff;
 }
 .MuiFormLabel-root.Muti-focused {
