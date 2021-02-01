@@ -54,7 +54,6 @@ main .MuiInputLabel-formControl{
 main > .MuiPaper-root {
     width: 100% !important;
     height: auto !important;
-    margin-top: 0 !important;
     padding-bottom: 30px;
     margin-bottom: 30px;
 }
@@ -109,5 +108,11 @@ main form .MuiFormGroup-root > div:nth-child(5) {
     main > .MuiPaper-root + div{
         margin-top: 0 !important;
         width: 100% !important;
+    }
+    main > .MuiPaper-root{
+        margin-top: 100px !important;
+    }
+    header .MuiGrid-container{
+        padding-left: 20px;
     }
 }
