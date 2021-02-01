@@ -32,6 +32,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="ClientApp\**" />
+    <None Remove="logs\LDAP_Win-log-20201204.txt" />
+    <None Remove="logs\LDAP_Win-log-20201208.txt" />
+    <None Remove="logs\LDAP_Win-log-20210128.txt" />
+    <None Remove="logs\LDAP_Win-log-20210129.txt" />
+    <None Remove="logs\LDAP_Win-log-20210130.txt" />
     <Content Include="ClientApp\package.json" />
     <Content Include="ClientApp\tsconfig.json" />
     <Content Update="wwwroot/**/*.map" CopyToPublishDirectory="Never" />
