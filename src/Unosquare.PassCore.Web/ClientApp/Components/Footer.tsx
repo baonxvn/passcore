@@ -21,7 +21,7 @@ export const Footer: React.FunctionComponent<any> = () => (
                 Công ty Cổ phần Đầu tư và Kinh doanh Bất động sản Hải Phát
             </Typography>
             <Typography align="center" variant="caption">
-                Liên hệ hộ trợ: Email: <a href="mailto:bancongnghe@haiphatland.com.vn">bancongnghe@haiphatland.com.vn</a>. Hotline: <a href="tel:0947808505">0947808505</a>
+                Liên hệ hộ trợ: Email: <a href="mailto:bancongnghe@haiphatland.com.vn">bancongnghe@haiphatland.com.vn</a>. Hotline: <a href="tel:0985596901">0985596901</a>
             </Typography>
         </Grid>
     </div>
