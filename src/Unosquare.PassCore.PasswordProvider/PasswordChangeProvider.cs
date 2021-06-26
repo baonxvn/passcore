@@ -581,7 +581,14 @@ namespace Unosquare.PassCore.PasswordProvider
             up.SetPassword(pw);
             up.Enabled = true;
             up.PasswordNeverExpires = true;
-            up.Save();
+            try
+            {
+                up.Save();
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e.Message);
+            }
 
             var userInfo = new UserInfoAd
             {
