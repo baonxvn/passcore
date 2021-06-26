@@ -1,0 +1,486 @@
+2021-06-14 09:12:32.587 +07:00 [INF] PasswordController.Get: 
+2021-06-14 09:12:43.066 +07:00 [INF] PasswordController.Get: 
+2021-06-14 09:15:25.032 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:25:40.112 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:25:45.259 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:29:42.551 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:30:47.064 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:30:48.023 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:30:49.115 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:30:50.237 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:31:10.827 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:34:50.813 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 09:41:51.510 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:08:12.820 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:10:04.719 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:12:56.139 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:23:53.843 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:24:20.646 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:24:50.831 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:24:52.500 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:24:54.080 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 12:24:56.913 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 13:09:32.492 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 13:50:43.560 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 13:50:46.541 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 13:50:52.164 +07:00 [INF] START PasswordController.TestApi: 
+2021-06-14 13:50:56.912 +07:00 [INF] START PasswordController.TestApi: 
+2021-06-14 13:51:09.402 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:51:09.402 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:51:09.403 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:51:09.496 +07:00 [WRN] {
+    "UseAutomaticContext": true,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:51:09.496 +07:00 [WRN] Using AutomaticContext
+2021-06-14 13:51:14.150 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:51:14.150 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:51:14.150 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:51:14.150 +07:00 [WRN] {
+    "UseAutomaticContext": true,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:51:14.150 +07:00 [WRN] Using AutomaticContext
+2021-06-14 13:51:31.449 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:51:31.449 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:51:31.449 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:51:31.449 +07:00 [WRN] {
+    "UseAutomaticContext": true,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:51:31.449 +07:00 [WRN] Using AutomaticContext
+2021-06-14 13:51:46.639 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:51:46.640 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:51:46.640 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:51:46.640 +07:00 [WRN] {
+    "UseAutomaticContext": true,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:51:46.640 +07:00 [WRN] Using AutomaticContext
+2021-06-14 13:52:02.886 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:52:02.903 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:52:02.906 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:52:02.943 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:52:02.943 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 13:52:17.140 +07:00 [ERR] 887
+2021-06-14 13:52:17.186 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 13:52:48.463 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:52:48.481 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:52:48.483 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:52:48.512 +07:00 [WRN] {
+    "UseAutomaticContext": true,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:52:48.512 +07:00 [WRN] Using AutomaticContext
+2021-06-14 13:55:45.796 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:55:45.813 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:55:45.815 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:55:45.844 +07:00 [WRN] PasswordChangeProvider.AcquirePrincipalContext: {
+    "UseAutomaticContext": true,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:55:59.891 +07:00 [ERR] 887
+2021-06-14 13:55:59.941 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 13:57:03.588 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 13:57:03.606 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 13:57:03.608 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 13:57:03.637 +07:00 [WRN] PasswordChangeProvider.AcquirePrincipalContext: {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 13:57:17.625 +07:00 [ERR] 887
+2021-06-14 13:57:17.705 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 14:21:32.658 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 14:21:32.658 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 14:21:32.659 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 14:21:32.659 +07:00 [WRN] PasswordChangeProvider.AcquirePrincipalContext: {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 14:21:46.712 +07:00 [ERR] 887
+2021-06-14 14:21:46.788 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 15:30:59.891 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 15:30:59.891 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 15:30:59.891 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 15:30:59.892 +07:00 [WRN] PasswordChangeProvider.AcquirePrincipalContext: {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 15:31:13.984 +07:00 [ERR] 887
+2021-06-14 15:31:14.049 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 15:38:12.567 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 15:38:12.584 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 15:38:12.586 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 15:38:12.614 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 15:38:12.614 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 15:38:26.599 +07:00 [ERR] 887
+2021-06-14 15:38:26.641 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 15:51:29.733 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 15:52:42.071 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 15:52:42.072 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@haiphatland.local. currentPassword=1. newPassword=12
+2021-06-14 15:52:42.072 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@haiphatland.local
+2021-06-14 15:52:42.072 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 15:52:42.072 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 15:52:42.126 +07:00 [WRN] The User principal (demo@haiphatland.local) doesn't exist
+2021-06-14 15:52:42.126 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 15:58:39.839 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 15:58:41.427 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 15:58:52.585 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 15:58:52.585 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@baonx.com. currentPassword=1. newPassword=12
+2021-06-14 15:58:52.586 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@baonx.com
+2021-06-14 15:58:52.615 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 15:58:52.615 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 15:58:52.827 +07:00 [INF] PerformPasswordChange for user demo@baonx.com
+2021-06-14 15:59:02.195 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 15:59:02.195 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 15:59:02.196 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 15:59:02.196 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 15:59:02.196 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 15:59:06.876 +07:00 [ERR] 887
+2021-06-14 15:59:08.121 +07:00 [WRN] BaoNX: Try by regular userPrincipal.ChangePassword() method
+2021-06-14 15:59:08.142 +07:00 [WRN] The RPC server is unavailable. (0x800706BA)
+2021-06-14 15:59:08.142 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 15:59:20.499 +07:00 [ERR] 887
+2021-06-14 15:59:20.518 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 15:59:48.772 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 15:59:48.772 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@baonx.com. currentPassword=1. newPassword=12
+2021-06-14 15:59:48.772 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@baonx.com
+2021-06-14 15:59:48.772 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 15:59:48.773 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 15:59:48.826 +07:00 [INF] PerformPasswordChange for user demo@baonx.com
+2021-06-14 16:00:02.595 +07:00 [ERR] 887
+2021-06-14 16:00:02.643 +07:00 [WRN] BaoNX: Try by regular userPrincipal.ChangePassword() method
+2021-06-14 16:00:02.652 +07:00 [WRN] The RPC server is unavailable. (0x800706BA)
+2021-06-14 16:00:02.652 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 16:05:55.235 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 16:06:32.596 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 16:06:52.176 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@baonx.com. currentPassword=1. newPassword=12
+2021-06-14 16:06:55.893 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@baonx.com
+2021-06-14 16:07:00.457 +07:00 [WRN] {
+    "UseAutomaticContext": false,
+    "RestrictedADGroups": 
+    [
+        "Administrators",
+        "Domain Admins",
+        "Enterprise Admins"
+    ],
+    "AllowedADGroups": null,
+    "IdTypeForUser": "UPN",
+    "UpdateLastPassword": false,
+    "DefaultDomain": "baonx.com",
+    "LdapPort": 389,
+    "LdapHostnames": 
+    [
+        "192.168.113.138"
+    ],
+    "LdapPassword": "Admin@123",
+    "LdapUsername": "administrator"
+}
+2021-06-14 16:07:00.457 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 16:07:10.782 +07:00 [INF] PerformPasswordChange for user demo@baonx.com
+2021-06-14 16:07:25.583 +07:00 [ERR] 887
+2021-06-14 16:08:16.481 +07:00 [WRN] BaoNX: Try by regular userPrincipal.ChangePassword() method
+2021-06-14 16:08:50.682 +07:00 [WRN] The RPC server is unavailable. (0x800706BA)
+2021-06-14 16:08:55.697 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 16:17:51.208 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 16:17:58.500 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 16:18:01.072 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@baonx.com. currentPassword=1. newPassword=12
+2021-06-14 16:18:01.072 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@baonx.com
+2021-06-14 16:18:01.072 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 16:18:01.219 +07:00 [INF] PerformPasswordChange for user demo@baonx.com
+2021-06-14 16:18:15.142 +07:00 [ERR] 887
+2021-06-14 16:18:23.716 +07:00 [WRN] BaoNX: Try by regular userPrincipal.ChangePassword() method
+2021-06-14 16:18:43.741 +07:00 [WRN] The RPC server is unavailable. (0x800706BA)
+2021-06-14 16:18:43.741 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 16:20:34.529 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 16:20:44.921 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 16:20:49.705 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@baonx.com. currentPassword=1. newPassword=12
+2021-06-14 16:20:49.705 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@baonx.com
+2021-06-14 16:20:49.705 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 16:20:49.888 +07:00 [INF] PerformPasswordChange for user demo@baonx.com
+2021-06-14 16:21:03.803 +07:00 [ERR] 887
+2021-06-14 16:21:07.264 +07:00 [WRN] BaoNX: Try by regular userPrincipal.ChangePassword() method
+2021-06-14 16:21:09.436 +07:00 [DBG] Lỗi khi call userPrincipal.ChangePassword: Configuration information could not be read from the domain controller, either because the machine is unavailable, or access has been denied. (0x80070547)
+2021-06-14 16:21:44.894 +07:00 [WRN] The RPC server is unavailable. (0x800706BA)
+2021-06-14 16:21:50.869 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 17:10:19.016 +07:00 [INF] START PasswordController.Get: 
+2021-06-14 17:10:38.903 +07:00 [INF] START PasswordController.Post: 
+2021-06-14 17:10:38.905 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: username=demo@baonx.com. currentPassword=1. newPassword=12
+2021-06-14 17:10:38.905 +07:00 [INF] PasswordChangeProvider.PerformPasswordChange: fixedUsername=demo@baonx.com
+2021-06-14 17:10:38.905 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 17:10:39.128 +07:00 [INF] PerformPasswordChange for user demo@baonx.com
+2021-06-14 17:10:53.151 +07:00 [ERR] 887
+2021-06-14 17:10:53.226 +07:00 [WRN] Gọi method userPrincipal.ChangePassword()
+2021-06-14 17:10:53.237 +07:00 [DBG] Lỗi khi call userPrincipal.ChangePassword: Configuration information could not be read from the domain controller, either because the machine is unavailable, or access has been denied. (0x80070547)
+2021-06-14 17:10:53.242 +07:00 [WRN] The RPC server is unavailable. (0x800706BA)
+2021-06-14 17:10:53.243 +07:00 [WRN] Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 17:11:54.859 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 17:11:54.859 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 17:11:54.859 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 17:11:54.859 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 17:12:08.672 +07:00 [ERR] 887
+2021-06-14 17:12:08.749 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult
+2021-06-14 17:12:14.594 +07:00 [INF] START PasswordController.GetUserInfo: 
+2021-06-14 17:12:14.594 +07:00 [INF] PasswordController.GetUserInfo: demo@baonx.com
+2021-06-14 17:12:14.594 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-14 17:12:14.594 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-14 17:12:28.462 +07:00 [ERR] 887
+2021-06-14 17:12:28.521 +07:00 [INF] PasswordController.GetUserInfo: Microsoft.AspNetCore.Mvc.JsonResult

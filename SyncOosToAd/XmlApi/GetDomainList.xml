@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>GetDomainList</Operation>
+      <Parameters>
+        <Get/>
+      </Parameters>
+    </Request>
+  </API>
+</MDaemon>

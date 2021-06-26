@@ -1,0 +1,86 @@
+2021-06-18 08:44:43.040 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 08:45:04.979 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 08:45:09.225 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 08:45:09.225 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 08:45:41.749 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 08:45:46.394 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 08:45:46.395 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 08:50:25.725 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 08:50:29.175 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 08:50:29.177 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 08:51:12.384 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 08:51:12.744 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 08:51:16.585 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 08:51:32.775 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 09:14:10.568 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 09:14:14.508 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 09:14:18.250 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 09:14:18.251 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 09:14:39.371 +07:00 [WRN] Lỗi call AcquirePrincipalContext: The server could not be contacted.
+2021-06-18 09:14:55.716 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 09:14:55.875 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 09:14:55.875 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 09:15:16.916 +07:00 [WRN] Lỗi call AcquirePrincipalContext: The server could not be contacted.
+2021-06-18 09:50:41.734 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 10:06:58.351 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 10:19:43.465 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 11:44:46.835 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 11:55:54.111 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 13:36:29.622 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 13:37:23.274 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 13:38:32.612 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 13:39:49.686 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 13:49:18.816 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 13:51:11.482 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 14:03:58.235 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 14:05:02.600 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 14:11:51.137 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 14:14:16.130 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 15:49:31.152 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 15:51:18.437 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 15:59:08.386 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:04:24.548 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:04:50.639 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:07:22.128 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:07:48.636 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:09:11.170 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:33:29.095 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:33:35.985 +07:00 [INF] START HrmController.SyncUserPhongBanToAd: 
+2021-06-18 16:33:40.197 +07:00 [INF] PasswordChangeProvider.GetUserInfo
+2021-06-18 16:33:40.198 +07:00 [WRN] Not using AutomaticContext  192.168.113.138:389
+2021-06-18 16:33:40.600 +07:00 [WRN] The User principal (dungptt@baonx.com) doesn't exist
+2021-06-18 16:33:40.601 +07:00 [WRN] The User principal (phuong.ntt@baonx.com) doesn't exist
+2021-06-18 16:33:40.602 +07:00 [WRN] The User principal (thuygiang@baonx.com) doesn't exist
+2021-06-18 16:33:40.603 +07:00 [WRN] The User principal (Q_NhanSu@baonx.com) doesn't exist
+2021-06-18 16:33:40.603 +07:00 [WRN] The User principal (Q_CNTT@baonx.com) doesn't exist
+2021-06-18 16:33:40.604 +07:00 [WRN] The User principal (Q_TLDV@baonx.com) doesn't exist
+2021-06-18 16:33:40.605 +07:00 [WRN] The User principal (Q_BLD@baonx.com) doesn't exist
+2021-06-18 16:33:40.613 +07:00 [WRN] The User principal (hrm@baonx.com) doesn't exist
+2021-06-18 16:33:40.614 +07:00 [WRN] The User principal (xuyennt@baonx.com) doesn't exist
+2021-06-18 16:33:40.615 +07:00 [WRN] The User principal (thuhangdt@baonx.com) doesn't exist
+2021-06-18 16:33:40.616 +07:00 [WRN] The User principal (huyennt@baonx.com) doesn't exist
+2021-06-18 16:33:40.617 +07:00 [WRN] The User principal (huyenlt@baonx.com) doesn't exist
+2021-06-18 16:33:40.618 +07:00 [WRN] The User principal (lanntm@baonx.com) doesn't exist
+2021-06-18 16:33:40.619 +07:00 [WRN] The User principal (anh.htt@baonx.com) doesn't exist
+2021-06-18 16:33:40.620 +07:00 [WRN] The User principal (namvk@baonx.com) doesn't exist
+2021-06-18 16:33:40.621 +07:00 [WRN] The User principal (thanhdat@baonx.com) doesn't exist
+2021-06-18 16:33:40.621 +07:00 [WRN] The User principal (tampt@baonx.com) doesn't exist
+2021-06-18 16:33:40.622 +07:00 [WRN] The User principal (luongquyen@baonx.com) doesn't exist
+2021-06-18 16:33:40.623 +07:00 [WRN] The User principal (trang.nh@baonx.com) doesn't exist
+2021-06-18 16:33:40.624 +07:00 [WRN] The User principal (loando@baonx.com) doesn't exist
+2021-06-18 16:33:40.625 +07:00 [WRN] The User principal (nguyenthuy@baonx.com) doesn't exist
+2021-06-18 16:33:40.625 +07:00 [WRN] The User principal (linh.dt@baonx.com) doesn't exist
+2021-06-18 16:33:40.626 +07:00 [WRN] The User principal (anhlh1@baonx.com) doesn't exist
+2021-06-18 16:33:40.627 +07:00 [WRN] The User principal (locdt@baonx.com) doesn't exist
+2021-06-18 16:33:40.628 +07:00 [WRN] The User principal (thanhdd2@baonx.com) doesn't exist
+2021-06-18 16:37:00.635 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:37:38.628 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:41:24.780 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 16:45:35.424 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:35:07.704 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:37:37.031 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:40:21.537 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:42:13.438 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:42:57.689 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:43:00.911 +07:00 [INF] START PasswordController.Get: 
+2021-06-18 18:51:44.693 +07:00 [INF] START PasswordController.Get: 
