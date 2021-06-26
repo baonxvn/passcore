@@ -199,6 +199,24 @@ namespace Unosquare.PassCore.PasswordProvider
                     userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
                 }
 
+                //OU
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.DistinguishedName))
+                {
+                    userInfo.distinguishedName = directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value.ToString();
+                }
+
+                //MemberOf
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.MemberOf))
+                {
+                    userInfo.memberOf = directoryEntry.Properties[UserPropertiesAd.MemberOf].Value.ToString();
+                }
+
+                //Object Category
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ObjectCategory))
+                {
+                    userInfo.objectCategory = directoryEntry.Properties[UserPropertiesAd.ObjectCategory].Value.ToString();
+                }
+
                 //prop.Value = -1;
                 //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
                 //directoryEntry.CommitChanges();
@@ -533,12 +551,12 @@ namespace Unosquare.PassCore.PasswordProvider
             int i = 0;
             while (check)
             {
-                fixedUsername = FixUsernameWithDomain(user.sAMAccountName);
+                fixedUsername = FixUsernameWithDomain(username);
                 var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
                 if (userPrincipal != null)
                 {
                     i++;
-                    username = username + i;
+                    username += i;
                 }
                 else
                 {
@@ -552,7 +570,7 @@ namespace Unosquare.PassCore.PasswordProvider
             {
                 UserPrincipalName = fixedUsername,
                 SamAccountName = username,
-                Name = user.name,
+                Name = username,
                 Surname = user.sn,
                 GivenName = user.givenName,
                 DisplayName = user.displayName,
@@ -562,7 +580,7 @@ namespace Unosquare.PassCore.PasswordProvider
             };
             up.SetPassword(pw);
             up.Enabled = true;
-            up.ExpirePasswordNow();
+            up.PasswordNeverExpires = true;
             up.Save();
 
             var userInfo = new UserInfoAd

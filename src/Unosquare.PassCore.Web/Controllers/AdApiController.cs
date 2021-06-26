@@ -148,21 +148,6 @@ namespace Unosquare.PassCore.Web.Controllers
                     description = "Tạo từ tool thần thánh"
                 };
 
-                //"userPrincipalName": "baonx@baonx.com",
-                //"sAMAccountName": "baonx",
-                //"name": "baonx",
-                //"cn": "baonx",
-                //"sn": "Nguyen Xuan",
-                //"givenName": "Bao",
-                //"initials": null,
-                //"displayName": "Nguyen Xuan Bao",
-                //"mail": "baonxvn@gmail.com",
-                //"telephoneNumber": "0986191082",
-                //"department": "Ban Cong Nghe",
-                //"title": null,
-                //"employeeID": null,
-                //"description": "Đây là mô tả từ ADSeflServices",
-
                 var obj = _passwordChangeProvider.CreateUser(user, pw);
                 if (obj != null)
                 {

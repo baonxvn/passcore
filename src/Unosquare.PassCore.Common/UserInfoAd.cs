@@ -164,5 +164,29 @@
         /// 
         /// </value>
         public string url { get; set; }
+
+        /// <summary>
+        /// Get OU CN=baonx,OU=Company Structure,DC=baonx,DC=com
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string distinguishedName { get; set; }
+
+        /// <summary>
+        /// Get CN=Employees,CN=Users,DC=baonx,DC=com
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string memberOf { get; set; }
+
+        /// <summary>
+        /// Get CN=Person,CN=Schema,CN=Configuration,DC=baonx,DC=com
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string objectCategory { get; set; }
     }
 }

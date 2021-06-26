@@ -101,7 +101,7 @@ namespace Unosquare.PassCore.Common
 
         public const string Serviceprincipalname = "servicePrincipalName";
 
-        public const string Objectcategory = "objectCategory";
+        public const string ObjectCategory = "objectCategory";
 
         public const string Dscorepropagationdata = "dSCorePropagationData";
 
