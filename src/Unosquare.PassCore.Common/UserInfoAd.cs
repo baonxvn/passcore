@@ -34,30 +34,41 @@
         public string sAMAccountName { get; set; }
 
         /// <summary>
-        /// Get First Name
+        /// name và cn Giống nhau (Rename trong AD thì 2 trường này cùng thay đổi, hiện thị trong rename là Fullname)
+        /// </summary>
+        public string name { get; set; }
+
+        /// <summary>
+        /// Get Common Name
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string CN { get; set; }
+
+        /// <summary>
+        /// Get Last Name Họ (và tên đệm)
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string sn { get; set; }
+
+        /// <summary>
+        /// Get First Name Tên
         /// </summary>
         /// <value>
         /// 
         /// </value>
         public string givenName { get; set; }
 
-        public string name { get; set; }
-
         /// <summary>
-        /// Get Initials
+        /// Get Initials Tên đệm
         /// </summary>
         /// <value>
         /// 
         /// </value>
         public string initials { get; set; }
-
-        /// <summary>
-        /// Get Last Name
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        public string sn { get; set; }
 
         /// <summary>
         /// Get Display Name
@@ -66,6 +77,37 @@
         /// 
         /// </value>
         public string displayName { get; set; }
+
+        /// <summary>
+        /// Get mail
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string mail { get; set; }
+
+        /// <summary>
+        /// Get Telephone Number (là userPrincipal.VoiceTelephoneNumber trong dll của Microsoft)
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        public string telephoneNumber { get; set; }
+
+        /// <summary>
+        /// Phòng ban user
+        /// </summary>
+        public string department { get; set; }
+
+        /// <summary>
+        /// Chức Danh của user
+        /// </summary>
+        public string title { get; set; }
+
+        /// <summary>
+        /// Mã nhân viên
+        /// </summary>
+        public string employeeID { get; set; }
 
         /// <summary>
         /// Get 
@@ -84,52 +126,12 @@
         public string physicalDeliveryOfficeName { get; set; }
 
         /// <summary>
-        /// Get Telephone Number
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        public string telephoneNumber { get; set; }
-
-        /// <summary>
         /// Get Telephone Number (Other)
         /// </summary>
         /// <value>
         /// 
         /// </value>
         public string otherTelephone { get; set; }
-
-        /// <summary>
-        /// Get mail
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        public string mail { get; set; }
-
-        /// <summary>
-        /// Get Web Page
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        public string wWWHomePage { get; set; }
-
-        /// <summary>
-        /// Get Web Page (Other)
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        public string url { get; set; }
-
-        /// <summary>
-        /// Get Common Name
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        public string CN { get; set; }
 
         /// <summary>
         /// Get Home phone
@@ -148,18 +150,19 @@
         public string mobile { get; set; }
 
         /// <summary>
-        /// Phòng ban user
+        /// Get Web Page
         /// </summary>
-        public string department { get; set; }
+        /// <value>
+        /// 
+        /// </value>
+        public string wWWHomePage { get; set; }
 
         /// <summary>
-        /// Chức Danh của user
+        /// Get Web Page (Other)
         /// </summary>
-        public string title { get; set; }
-
-        /// <summary>
-        /// Mã nhân viên
-        /// </summary>
-        public string employeeID { get; set; }
+        /// <value>
+        /// 
+        /// </value>
+        public string url { get; set; }
     }
 }

@@ -131,16 +131,48 @@ namespace Unosquare.PassCore.Web.Controllers
 
             try
             {
-                //var obj = _passwordChangeProvider.CreateUser(username, pw);
-                //if (obj != null)
-                //{
-                //    result.Payload = obj;
-                //    result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Successful"));
-                //}
-                //else
-                //{
-                //    result.Errors.Add(new ApiErrorItem(ApiErrorCode.UserNotFound, "Không xác định được user."));
-                //}
+                UserInfoAd user = new UserInfoAd
+                {
+
+                    userPrincipalName = "",
+                    sAMAccountName = username,
+                    name = "",
+                    sn = "Bao",
+                    givenName = "Nguyen Xuan",
+                    displayName = "Nguyen Xuan Bao",
+                    mail = "",
+                    telephoneNumber = "0912345678",
+                    department = "Ban Cong Nghe",
+                    title = "Giám đốc",
+                    employeeID = "VP-291",
+                    description = "Tạo từ tool thần thánh"
+                };
+
+                //"userPrincipalName": "baonx@baonx.com",
+                //"sAMAccountName": "baonx",
+                //"name": "baonx",
+                //"cn": "baonx",
+                //"sn": "Nguyen Xuan",
+                //"givenName": "Bao",
+                //"initials": null,
+                //"displayName": "Nguyen Xuan Bao",
+                //"mail": "baonxvn@gmail.com",
+                //"telephoneNumber": "0986191082",
+                //"department": "Ban Cong Nghe",
+                //"title": null,
+                //"employeeID": null,
+                //"description": "Đây là mô tả từ ADSeflServices",
+
+                var obj = _passwordChangeProvider.CreateUser(user, pw);
+                if (obj != null)
+                {
+                    result.Payload = obj;
+                    result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Successful"));
+                }
+                else
+                {
+                    result.Errors.Add(new ApiErrorItem(ApiErrorCode.UserNotFound, "Không xác định được user."));
+                }
             }
             catch (Exception e)
             {

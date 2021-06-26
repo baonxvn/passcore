@@ -145,9 +145,9 @@ namespace Unosquare.PassCore.PasswordProvider
                 displayName = userPrincipal.DisplayName,
                 userPrincipalName = userPrincipal.UserPrincipalName,
                 sAMAccountName = userPrincipal.SamAccountName,
-                givenName = userPrincipal.GivenName,
                 name = userPrincipal.Name,
-                sn = userPrincipal.Surname,
+                givenName = userPrincipal.GivenName,//Họ LastName
+                sn = userPrincipal.Surname,//Tên FirstName
                 description = userPrincipal.Description,
                 mail = userPrincipal.EmailAddress,
                 telephoneNumber = userPrincipal.VoiceTelephoneNumber,
@@ -548,38 +548,22 @@ namespace Unosquare.PassCore.PasswordProvider
 
             //OU: OU=Company Structure,DC=baonx,DC=com
 
-            var up = new UserPrincipal(principalContext);
-            up.UserPrincipalName = fixedUsername;
-            up.SamAccountName = username;
-            up.DisplayName = user.displayName;
-            up.GivenName = user.givenName;
-            up.Name = user.name;
-            up.Surname = user.sn;
-            up.Description = user.description;
-            up.VoiceTelephoneNumber = user.telephoneNumber;
-            up.EmailAddress = username + "@haiphatland.com.vn";// email;
+            var up = new UserPrincipal(principalContext)
+            {
+                UserPrincipalName = fixedUsername,
+                SamAccountName = username,
+                Name = user.name,
+                Surname = user.sn,
+                GivenName = user.givenName,
+                DisplayName = user.displayName,
+                EmailAddress = username + "@haiphatland.com.vn",
+                VoiceTelephoneNumber = user.telephoneNumber,
+                Description = user.description
+            };
             up.SetPassword(pw);
             up.Enabled = true;
             up.ExpirePasswordNow();
             up.Save();
-
-            // Check if the user principal exists
-            if (up == null)
-            {
-                _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
-                result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound, "User khong ton tai!");
-
-                return result;
-            }
-
-            // Use always UPN for password check.
-            if (!ValidateUserCredentials(up.UserPrincipalName, pw, principalContext))
-            {
-                _logger.Warning("The User principal password is not valid");
-
-                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mật khẩu không đúng!");
-                return result;
-            }
 
             var userInfo = new UserInfoAd
             {
@@ -603,48 +587,44 @@ namespace Unosquare.PassCore.PasswordProvider
                 //mobile = ""
             };
 
-            if (up.GetUnderlyingObject() is DirectoryEntry directoryEntry)
-            {
-                //CN: Hiện thị ContainerName
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
-                {
-                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
-                }
+            //if (up.GetUnderlyingObject() is DirectoryEntry directoryEntry)
+            //{
+            //    //CN: Hiện thị ContainerName
+            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+            //    {
+            //        userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+            //    }
 
-                //department: Chi nhánh/Phòng ban
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
-                {
-                    userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
-                }
+            //    //department: Chi nhánh/Phòng ban
+            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
+            //    {
+            //        userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
+            //    }
 
-                //title = Chức danh
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
-                {
-                    userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
-                }
+            //    //title = Chức danh
+            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
+            //    {
+            //        userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
+            //    }
 
-                //employeeID mã nhân viên
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
-                {
-                    userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
-                }
+            //    //employeeID mã nhân viên
+            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
+            //    {
+            //        userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
+            //    }
 
-                //mobile=Điện thoại
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
-                {
-                    userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
-                }
+            //    //mobile=Điện thoại
+            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
+            //    {
+            //        userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
+            //    }
 
-                //Homephone: hiện ko có
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
-                {
-                    userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
-                }
-
-                //prop.Value = -1;
-                //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
-                //directoryEntry.CommitChanges();
-            }
+            //    //Homephone: hiện ko có
+            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
+            //    {
+            //        userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
+            //    }
+            //}
 
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
             result.UserInfo = userInfo;
