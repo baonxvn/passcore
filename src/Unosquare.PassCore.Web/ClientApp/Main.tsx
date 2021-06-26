@@ -22,9 +22,7 @@ export const Main: React.FunctionComponent<any> = () => {
     }, [settings]);
 
     if (isLoading) {
-        return (
-            <></>
-        );
+        return <></>;
     }
 
     document.getElementById('title').innerHTML = settings.applicationTitle;

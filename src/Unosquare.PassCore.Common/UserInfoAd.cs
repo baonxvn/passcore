@@ -41,6 +41,8 @@
         /// </value>
         public string givenName { get; set; }
 
+        public string name { get; set; }
+
         /// <summary>
         /// Get Initials
         /// </summary>
@@ -144,5 +146,20 @@
         /// 
         /// </value>
         public string mobile { get; set; }
+
+        /// <summary>
+        /// Phòng ban user
+        /// </summary>
+        public string department { get; set; }
+
+        /// <summary>
+        /// Chức Danh của user
+        /// </summary>
+        public string title { get; set; }
+
+        /// <summary>
+        /// Mã nhân viên
+        /// </summary>
+        public string employeeID { get; set; }
     }
 }

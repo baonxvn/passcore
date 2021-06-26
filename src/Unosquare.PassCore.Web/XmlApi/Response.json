@@ -1,0 +1,214 @@
+{
+  "Errors": [],
+  "Payload": {
+    "MDaemon": {
+      "API": {
+        "Response": {
+          "@version": "20.0",
+          "@session": "0013E295",
+          "@et": "0.007671",
+          "Status": {
+            "@id": "0",
+            "@value": "0x00000000",
+            "@message": "The operation completed successfully."
+          },
+          "ServiceVersion": "20.0.3.1",
+          "Result": {
+            "User": {
+              "@id": "baonx",
+              "@displayname": "Bao Nguyen",
+              "@domain": "company.test",
+              "Details": {
+                "Email": "baonx@company.test",
+                "Password": { "@note": "unavailable" },
+                "Created": "2020-11-18T08:42:40.000Z",
+                "LastLogon": {
+                  "Date": "2021-06-10T17:56:00.000Z",
+                  "IPAddress": "(06/11/2021 09:56)"
+                },
+                "FullName": "Bao Nguyen",
+                "FirstName": "Bao",
+                "LastName": "Nguyen",
+                "DisplayName": "Bao Nguyen",
+                "Frozen": "No",
+                "Disabled": "No",
+                "MustChangePassword": "No",
+                "DontExpirePassword": "No",
+                "NTAccount": null,
+                "Comments": null,
+                "MailDir": "C:\\MDaemon\\Users\\company.test\\baonx\\"
+              },
+              "Aliases": {
+                "Alias": [
+                  { "@id": "abuse@company.test" },
+                  { "@id": "postmaster@company.test" }
+                ]
+              },
+              "ListMembership": null,
+              "Permissions": {
+                "AccessWorldClient": "1",
+                "AccessRemoteAdministration": "1",
+                "EditFullname": "0",
+                "EditPassword": "1",
+                "EditMailDir": "0",
+                "EditFwd": "1",
+                "EditAdvFwd": "0",
+                "EditEveryone": "0",
+                "EditMailRestrictions": "0",
+                "EditQuotas": "0",
+                "EditMultiPop": "0",
+                "EditAutoResponder": "1",
+                "EditImapRules": "1",
+                "EditMailbox": "0",
+                "EditAttachmentHandling": "0",
+                "EditAliases": "0",
+                "EditMobileDevice": "1"
+              },
+              "GroupMembership": null,
+              "Protocols": {
+                "POP": {
+                  "Enabled": "Yes",
+                  "RestrictedToLAN": "No"
+                },
+                "IMAP": {
+                  "Enabled": "Yes",
+                  "RestrictedToLAN": "No"
+                },
+                "MultiPOP": {
+                  "Enabled": "No",
+                  "MaxMessageAge": "0",
+                  "MaxMessageSize": "0"
+                }
+              },
+              "AutoResponder": {
+                "Enabled": "No",
+                "Start": "0000-00-00T00:00:00.000Z",
+                "End": "0000-00-00T00:00:00.000Z",
+                "Response": { "#cdata-section": "Dear $SENDER$,\n\nPlease note that I am out of the office but will endeavour to return your email once I am back.\n\nBest regards,\n\n$RECIPIENT$.\n\n%SetSubject%=RE: $SUBJECT$\n" },
+                "DaysActive": {
+                  "@mask": "127",
+                  "Sunday": null,
+                  "Monday": null,
+                  "Tuesday": null,
+                  "Wednesday": null,
+                  "Thursday": null,
+                  "Friday": null,
+                  "Saturday": null
+                }
+              },
+              "Forwarding": {
+                "Enabled": "No",
+                "RetainMail": "Yes",
+                "Host": null,
+                "SendAs": null,
+                "Port": "25",
+                "Addresses": null
+              },
+              "Restrictions": {
+                "Inbound": { "Enabled": "No" },
+                "Outbound": { "Enabled": "No" }
+              },
+              "Quotas": {
+                "ApplyQuotas": "No",
+                "MaxMessageCount": "0",
+                "MaxDiskSpace": "0",
+                "MaxSentPerDay": "0",
+                "Usage": {
+                  "Items": "8",
+                  "DiskSpace": "69632"
+                }
+              },
+              "Pruning": {
+                "UseDefaultPruning": "Yes",
+                "MaxInactive": "0",
+                "MaxMessageAge": "0",
+                "MaxDeletedIMAPMessageAge": "0",
+                "RecurseIMAP": "No"
+              },
+              "WorldClient": {
+                "Enabled": "1",
+                "RestrictedToLAN": "No",
+                "TFAllowed": "Yes",
+                "TFRequired": "No",
+                "TFEnabled": "No"
+              },
+              "RemoteAdmin": {
+                "Enabled": "1",
+                "RestrictedToLAN": "No",
+                "EditFullname": "0",
+                "EditPassword": "1",
+                "EditMailDir": "0",
+                "EditFwd": "1",
+                "EditAdvFwd": "0",
+                "EditEveryone": "0",
+                "EditMailRestrictions": "0",
+                "EditQuotas": "0",
+                "EditMultiPop": "0",
+                "EditAutoResponder": "1",
+                "EditImapRules": "1",
+                "EditMailbox": "0",
+                "EditAttachmentHandling": "0",
+                "EditAliases": "0",
+                "EditMobileDevice": "1"
+              },
+              "Signatures": {
+                "Text": null,
+                "HTML": null,
+                "Disclaimer": null
+              },
+              "Roles": { "IsGlobalAdmin": "1" },
+              "Options": {
+                "HideFromEveryone": "No",
+                "AutoDecode": "No",
+                "CheckAddrBook": "Yes",
+                "UpdateAddrBook": "Yes",
+                "UserDefined": null,
+                "TemplateName": null,
+                "TemplateFlags": "0",
+                "AttachmentLinking": "No",
+                "ExtractOutbound": "No",
+                "ExtractInbound": "No",
+                "EnableSubaddressing": "No",
+                "ApplyDomainSignature": "Yes",
+                "ExemptFromAuthMatch": "No",
+                "ProcessCalendarRequests": "No",
+                "DeclineConflictingRequests": "Yes",
+                "DeclineRecurringRequests": "No"
+              },
+              "EAS": {
+                "Enabled": "Yes",
+                "Settings": {
+                  "LogXml": "Indeterminate",
+                  "LogWbXml": "Indeterminate",
+                  "OmitWhiteList": "Indeterminate",
+                  "OmitBlackList": "Indeterminate",
+                  "OmitNonDefaultEmail": "Indeterminate",
+                  "OmitNonDefaultPim": "Indeterminate",
+                  "PublicFoldersEnabled": "Indeterminate",
+                  "SharedFoldersEnabled": "Indeterminate",
+                  "SendReadReceipts": "Indeterminate",
+                  "RequestReadReceipts": "Indeterminate",
+                  "FlaggedMailTaskCreation": "Indeterminate",
+                  "AllowThirdPartyMgmt": "Indeterminate",
+                  "EnforceProtocolRestrictions": "Indeterminate",
+                  "MaxPublicFolders": "7",
+                  "BandwidthResetDOM": "30",
+                  "MaxClientsPerUser": "16",
+                  "LenientFolderSecurity": "Indeterminate",
+                  "PublicFolderSearchEnabled": "Indeterminate",
+                  "SharedFolderSearchEnabled": "Indeterminate",
+                  "ValidatePimIntegrity": "Indeterminate"
+                }
+              },
+              "Other": {
+                "@deprecated": "Yes",
+                "@version": "16.500000",
+                "@notes": "See Options Element"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

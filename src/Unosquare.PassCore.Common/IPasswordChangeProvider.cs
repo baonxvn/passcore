@@ -1,16 +1,39 @@
-﻿
-namespace Unosquare.PassCore.Common
+﻿namespace Unosquare.PassCore.Common
 {
+    using System.DirectoryServices.AccountManagement;
+    using System.DirectoryServices;
     using System;
+    using System.Collections.Generic;
+    using Hpl.HrmDatabase.ViewModels;
 
     /// <summary>
     /// Represents a interface for a password change provider.
     /// </summary>
     public interface IPasswordChangeProvider
     {
-        public ApiErrorItem? GetAllUser();
+        /// <summary>
+        /// Get Principal of User
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="pw">password</param>
+        /// <returns>UserPrincipal</returns>
+        public UserPrincipal GetUserPrincipal(string username, string pw);
+
+        /// <summary>
+        /// Get DirectoryEntry of User
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="pw">password</param>
+        /// <returns>DirectoryEntry</returns>
+        public DirectoryEntry GetUserDirectoryEntry(string username, string pw);
+
+        public ApiResultAd GetAllUsers();
 
         public ApiResultAd? GetUserInfo(string username, string pw);
+
+        public ApiResultAd CreateUser(UserInfoAd user, string pw);
+
+        public List<ApiResultAd> UpdateUserInfo(List<NhanVienViewModel> listNvs);
 
         /// <summary>
         /// Performs the password change using the credentials provided.

@@ -1,5 +1,7 @@
 ﻿namespace Zyborg.PassCore.PasswordProvider.LDAP
 {
+    using System.DirectoryServices;
+    using System.DirectoryServices.AccountManagement;
     using Microsoft.Extensions.Options;
     using Novell.Directory.Ldap;
     using Serilog;
@@ -11,6 +13,8 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using Unosquare.PassCore.Common;
+    using System.Collections.Generic;
+    using Hpl.HrmDatabase.ViewModels;
     using LdapRemoteCertificateValidationCallback =
         Novell.Directory.Ldap.RemoteCertificateValidationCallback;
 
@@ -47,6 +51,16 @@
             _options = options.Value;
 
             Init();
+        }
+
+        public ApiResultAd CreateUser(UserInfoAd user, string pw)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ApiResultAd> UpdateUserInfo(List<NhanVienViewModel> listNvs)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />
@@ -140,6 +154,136 @@
                 _logger.Warning(item.Message, ex);
 
                 return item;
+            }
+
+            // Everything seems to have worked:
+            return null;
+        }
+
+        public int MeasureNewPasswordDistance(string currentPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserPrincipal GetUserPrincipal(string username, string pw)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DirectoryEntry GetUserDirectoryEntry(string username, string pw)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApiResultAd GetAllUsers()
+        {
+            _logger.Information("START Novell.Directory.Ldap.LdapPasswordChangeProvider.IPasswordChangeProvider.GetAllUser");
+            throw new NotImplementedException();
+        }
+
+        public ApiResultAd? GetUserInfo(string username, string pw)
+        {
+            _logger.Information("START Novell.Directory.Ldap.LdapPasswordChangeProvider.GetUserInfo");
+            var result = new ApiResultAd();
+            try
+            {
+                var cleanUsername = CleaningUsername(username);
+                _logger.Information("Zyborg.PerformPasswordChange: cleanUsername=" + cleanUsername);
+
+                var searchFilter = _options.LdapSearchFilter.Replace("{Username}", cleanUsername);
+                _logger.Information("Zyborg.PerformPasswordChange: searchFilter=" + searchFilter);
+
+                _logger.Warning("LDAP query: {0}", searchFilter);
+
+                using var ldap = BindToLdap();
+                var search = ldap.Search(
+                    _options.LdapSearchBase,
+                    LdapConnection.ScopeSub,
+                    searchFilter,
+                    new[] { "distinguishedName" },
+                    false,
+                    _searchConstraints);
+
+                // We cannot use search.Count here -- apparently it does not
+                // wait for the results to return before resolving the count
+                // but fortunately hasMore seems to block until final result
+                if (!search.HasMore())
+                {
+                    _logger.Warning("Unable to find username: [{0}]", cleanUsername);
+
+                    //result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mật khẩu không đúng!");
+                    result.Errors = new ApiErrorItem(_options.HideUserNotFound ? ApiErrorCode.InvalidCredentials : ApiErrorCode.UserNotFound,
+                        _options.HideUserNotFound ? "Invalid credentials" : "Username could not be located");
+
+                    return result;
+                }
+
+                if (search.Count > 1)
+                {
+                    _logger.Warning("Found multiple with same username: [{0}] - Count {1}", cleanUsername, search.Count);
+
+                    // Hopefully this should not ever happen if AD is preserving SAM Account Name
+                    // uniqueness constraint, but just in case, handling this corner case
+                    result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound, "Multiple matching user entries resolved");
+                    return result;
+                }
+
+                var userDN = search.Next().Dn;
+                while (search.HasMore())
+                {
+                    LdapEntry nextEntry = null;
+                    try
+                    {
+                        nextEntry = search.Next();
+                    }
+                    catch (LdapException e)
+                    {
+                        _logger.Error("Error: " + e.LdapErrorMessage);
+                        //Console.WriteLine("Error: " + e.LdapErrorMessage);
+                        // Exception is thrown, go for next entry
+                        continue;
+                    }
+                    _logger.Warning("==>User: " + nextEntry.Dn);
+                    //Console.WriteLine("\n" + nextEntry.Dn);
+                    LdapAttributeSet attributeSet = nextEntry.GetAttributeSet();
+                    System.Collections.IEnumerator ienum = attributeSet.GetEnumerator();
+                    while (ienum.MoveNext())
+                    {
+                        LdapAttribute attribute = (LdapAttribute)ienum.Current;
+                        string attributeName = attribute.Name;
+                        string attributeVal = attribute.StringValue;
+                        _logger.Warning(attributeName + " value:" + attributeVal);
+                        //Console.WriteLine(attributeName + "value:" + attributeVal);
+                    }
+                }
+
+                //LdapAttributeSet attributeSet = new LdapAttributeSet();
+                //attributeSet.GetAttribute("");
+
+                if (_options.LdapStartTls)
+                    ldap.StopTls();
+
+                ldap.Disconnect();
+            }
+            catch (LdapException ex)
+            {
+                result.Errors = ParseLdapException(ex);
+
+                _logger.Warning(ex.Message);
+
+                return result;
+            }
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
+            {
+                result.Errors = ex is ApiErrorException apiError
+                    ? apiError.ToApiErrorItem()
+                    : new ApiErrorItem(ApiErrorCode.InvalidCredentials, $"Failed to update password: {ex.Message}");
+
+                _logger.Warning(ex.Message);
+
+                return result;
             }
 
             // Everything seems to have worked:
@@ -320,11 +464,9 @@
                     bindHostname = h;
                     break;
                 }
-#pragma warning disable CA1031 // Do not catch general exception types
-                catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
+                catch (LdapException ex)
                 {
-                    _logger.Warning($"Failed to connect to host [{h}]", ex);
+                    _logger.Error($"Failed to connect to host [{h}]", ex);
                 }
             }
 
@@ -334,9 +476,27 @@
             }
 
             if (_options.LdapStartTls)
-                ldap.StartTls();
+            {
+                try
+                {
+                    ldap.StartTls();
+                }
+                catch (LdapException e)
+                {
+                    _logger.Error("Lỗi ldap.StartTls: " + e);
+                    _logger.Error("Lỗi ldap.StartTls: " + e.LdapErrorMessage);
+                }
+            }
 
-            ldap.Bind(_options.LdapUsername, _options.LdapPassword);
+            try
+            {
+                ldap.Bind(_options.LdapUsername, _options.LdapPassword);
+            }
+            catch (LdapException e)
+            {
+                _logger.Error("Lỗi ldap.Bind: " + e);
+                _logger.Error("Lỗi ldap.Bind: " + e.LdapErrorMessage);
+            }
 
             return ldap;
         }
@@ -362,20 +522,5 @@
                     X509ChainStatusFlags.UntrustedRoot when _options.LdapIgnoreTlsValidation => true,
                     _ => x.Status == X509ChainStatusFlags.NoError
                 });
-
-        ApiErrorItem? IPasswordChangeProvider.PerformPasswordChange(string username, string currentPassword, string newPassword)
-        {
-            throw new NotImplementedException();
-        }
-
-        ApiErrorItem? IPasswordChangeProvider.GetAllUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ApiResultAd? GetUserInfo(string username, string pw)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

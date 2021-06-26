@@ -1,11 +1,13 @@
 import Button from '@material-ui/core/Button/Button';
 import Paper from '@material-ui/core/Paper/Paper';
 import * as React from 'react';
-import { ValidatorForm } from 'uno-react';
+//import { ValidatorForm } from 'uno-react';
+import { ValidatorForm } from 'react-form-validator-core';
 import { ChangePasswordDialog } from '../Dialogs/ChangePasswordDialog';
 import { GlobalContext, SnackbarContext } from '../Provider/GlobalContext';
 import { fetchRequest } from '../Utils/FetchRequest';
 import { ChangePasswordForm } from './ChangePasswordForm';
+
 
 export const ChangePassword: React.FunctionComponent<{}> = () => {
     const [disabled, setDisabled] = React.useState(true);

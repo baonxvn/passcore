@@ -10,9 +10,8 @@ namespace Unosquare.PassCore.Web
     using Microsoft.Extensions.Options;
     using Models;
     using Serilog;
-
-    //using Zyborg.PassCore.PasswordProvider.LDAP;
     using PasswordProvider;
+    //using Zyborg.PassCore.PasswordProvider.LDAP;
 
     //#if DEBUG
     //    using Helpers;
@@ -28,7 +27,7 @@ namespace Unosquare.PassCore.Web
     public class Startup
     {
         private const string AppSettingsSectionName = "AppSettings";
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup" /> class.
         /// This class gets instantiated by the Main method. The hosting environment gets provided via DI.
@@ -70,16 +69,55 @@ namespace Unosquare.PassCore.Web
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            //BaoNX: Enable Cross-Origin Requests (CORS) in ASP.NET Core
+            //https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-5.0
+            //https://stackoverflow.com/questions/66101488/net-5-web-api-cors-localhost
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("https://id.haiphatland.com.vn",
+            //                "https://localhost",
+            //                "https://localhost:44352",
+            //                "http://172.168.1.150")
+            //                .AllowAnyHeader()
+            //                .AllowAnyMethod()
+            //                .AllowCredentials();
+            //        });
+            //});
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+            services.AddControllers();
+            //End Enable Cross-Origin Requests (CORS) in ASP.NET Core
+
             services.Configure<ClientSettings>(Configuration.GetSection(nameof(ClientSettings)));
             services.Configure<WebSettings>(Configuration.GetSection(nameof(WebSettings)));
+
+            //services.Configure<LdapPasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
+            //services.AddSingleton<IPasswordChangeProvider, LdapPasswordChangeProvider>();
+            //services.AddSingleton((ILogger)new LoggerConfiguration()
+            //        .MinimumLevel.Information()
+            //        .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+            //            (utcDateTime, wt) => wt.File($"logs/PASSCORE_LDAP_PROVIDER-log-{utcDateTime}.txt"))
+            //        .CreateLogger());
 
             services.Configure<PasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
             services.AddSingleton<IPasswordChangeProvider, PasswordChangeProvider>();
             services.AddSingleton((ILogger)new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
-                    (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
-                .CreateLogger());
+                                .MinimumLevel.Verbose()
+                                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+                                    (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
+                                .CreateLogger());
+
+            //.MinimumLevel.Verbose()
+            //.MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
+            //.Enrich.FromLogContext()
+            //.WriteTo.File(Configuration.GetValue<string>("logs/") + "-{Date}.txt", Serilog.Events.LogEventLevel.Information,
+            //    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] ({SourceContext}.{Method}) {Message}{NewLine}{Exception}")
+            //.CreateLogger());
 
             //#if DEBUG
             //            services.Configure<IAppSettings>(Configuration.GetSection(AppSettingsSectionName));
@@ -126,6 +164,11 @@ namespace Unosquare.PassCore.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            //BaoNX: Enable Cross-Origin Requests (CORS) in ASP.NET Core
+            //app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(options => options.AllowAnyOrigin());
+            //End Enable Cross-Origin Requests (CORS) in ASP.NET Core
 
             app.UseEndpoints(endpoints =>
             {

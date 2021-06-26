@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>CreateUser</Operation>
+      <Parameters>
+        <Domain>sample.int</Domain>
+        <Mailbox>user1</Mailbox>
+        <Details>
+          <DontExpirePassword>Yes</DontExpirePassword>
+        </Details>
+        <ListMembership>
+          <List>bancongnghe@company.test</List>
+        </ListMembership>
+      </Parameters>
+    </Request>
+  </API>
+</MDaemon>

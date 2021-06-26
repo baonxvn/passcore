@@ -3,6 +3,10 @@
     using System;
     using Common;
     using Serilog;
+    using System.DirectoryServices;
+    using System.DirectoryServices.AccountManagement;
+    using Hpl.HrmDatabase.ViewModels;
+    using System.Collections.Generic;
 
     internal class DebugPasswordChangeProvider : IPasswordChangeProvider
     {
@@ -11,6 +15,21 @@
         public DebugPasswordChangeProvider(ILogger logger)
         {
             _logger = logger;
+        }
+
+        public ApiResultAd? UpdateUserInfo(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApiResultAd CreateUser(UserInfoAd user, string pw)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ApiResultAd> UpdateUserInfo(List<NhanVienViewModel> listNvs)
+        {
+            throw new NotImplementedException();
         }
 
         public ApiErrorItem? PerformPasswordChange(string username, string currentPassword, string newPassword)
@@ -44,12 +63,17 @@
             };
         }
 
-        ApiErrorItem? IPasswordChangeProvider.PerformPasswordChange(string username, string currentPassword, string newPassword)
+        public UserPrincipal GetUserPrincipal(string username, string pw)
         {
             throw new NotImplementedException();
         }
 
-        ApiErrorItem? IPasswordChangeProvider.GetAllUser()
+        public DirectoryEntry GetUserDirectoryEntry(string username, string pw)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApiResultAd GetAllUsers()
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>GetListInfo</Operation>
+      <Parameters>
+        <Domain>
+        </Domain>
+        <ListName>bancongnghe</ListName>
+        <Get >
+          <Membership/>
+        </Get>
+      </Parameters>
+    </Request>
+  </API>
+</MDaemon>

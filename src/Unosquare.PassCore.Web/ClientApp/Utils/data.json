@@ -1,0 +1,57 @@
+﻿// 20201211154952
+// https://id.haiphatland.com.vn/api/password
+{
+  "data": {
+    "alerts": {
+      "errorInvalidCredentials": "Mật khẩu cũ nhập vào không đúng.",
+      "errorInvalidDomain": "You have supplied an invalid domain to logon to.",
+      "errorPasswordChangeNotAllowed": "You are not allowed to change your password. Please contact your system administrator.",
+      "successAlertBody": "Please note it may take a few hours for your new password to reach all domain controllers.",
+      "successAlertTitle": "Thay đổi mật khẩu thành công.",
+      "errorInvalidUser": "We could not find your user account.",
+      "errorCaptcha": "Could not verify you are not a robot.",
+      "errorFieldRequired": "Fulfill all the fields.",
+      "errorFieldMismatch": "The passwords do not match.",
+      "errorComplexPassword": "Failed due to password complex policies: New password length is shorter than AD minimum password length",
+      "errorConnectionLdap": "Unhandled error connecting to the LDAP server.",
+      "errorScorePassword": "The password you are trying to set is not secure enough.",
+      "errorDistancePassword": "The password you are trying to set is not diferent enough of your last password.",
+      "errorPwnedPassword": "The password you are trying to use is publicly known and can be used in dictionary attacks."
+    },
+    "usePasswordGeneration": false,
+    "minimumDistance": 0,
+    "passwordEntropy": 16,
+    "minimumScore": 0,
+    "showPasswordMeter": true,
+    "useEmail": true,
+    "changePasswordForm": {
+      "changePasswordButtonLabel": "Thay đổi mật khẩu",
+      "currentPasswordHelpblock": "Nhập vào mật khẩu hiện tại của bạn",
+      "currentPasswordLabel": "Nhập mật khẩu",
+      "helpText": "Liên hệ Ban công nghệ của Hải Phát Land để được support (email: bancongnghe@haiphatland.com.vn). Hoặc chat trực tiếp qua eOffice Bitrix24: hoangnq",
+      "newPasswordHelpblock": "Nhập mật khẩu mới.",
+      "newPasswordLabel": "Mật khẩu mới",
+      "newPasswordVerifyHelpblock": "Nhập lại mật khẩu mới.",
+      "newPasswordVerifyLabel": "Nhập lại mật khẩu mới",
+      "usernameDefaultDomainHelperBlock": "Your organization's username",
+      "usernameHelpblock": "Tên đăng nhập trùng với email (không cần nhập @haiphatland.com.vn)",
+      "usernameLabel": "Tên đăng nhập"
+    },
+    "errorsPasswordForm": {
+      "fieldRequired": "Giá trị này là bắt buộc phải nhập",
+      "passwordMatch": "Mật khẩu mới nhập vào không khớp",
+      "usernameEmailPattern": "Please enter a valid email address",
+      "usernamePattern": "Please enter a valid username"
+    },
+    "recaptcha": {
+      "languageCode": "en",
+      "siteKey": ""
+    },
+    "applicationTitle": "Thay đổi mật khẩu | Hải Phát Land",
+    "changePasswordTitle": "Thay đổi mật khẩu",
+    "validationRegex": {
+      "emailRegex": "^",
+      "usernameRegex": "^"
+    }
+  }
+}

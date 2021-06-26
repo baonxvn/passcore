@@ -10,7 +10,6 @@
     using Models;
     using Serilog;
     using Swan.Net;
-    using Zxcvbn;
 
     /// <summary>
     /// Represents a controller class holding all of the server-side functionality of this tool.
@@ -28,10 +27,7 @@
         /// <param name="logger">The logger.</param>
         /// <param name="optionsAccessor">The options accessor.</param>
         /// <param name="passwordChangeProvider">The password change provider.</param>
-        public PasswordController(
-            ILogger logger,
-            IOptions<ClientSettings> optionsAccessor,
-            IPasswordChangeProvider passwordChangeProvider)
+        public PasswordController(ILogger logger, IOptions<ClientSettings> optionsAccessor, IPasswordChangeProvider passwordChangeProvider)
         {
             _logger = logger;
             _options = optionsAccessor.Value;
@@ -39,34 +35,45 @@
         }
 
         [HttpGet]
-        [Route("testapi")]
-        public IActionResult TestApi(string testLog)
-        {
-            _logger.Information(testLog);
-            return Json(new { testLog });
-        }
-
-        [HttpGet]
         [Route("gfyvhxnueb")]
         public IActionResult GetUserInfo(string username, string pw)
         {
-            username += "@haiphatland.local";
-            //username += "@baonx.com";
-            _logger.Information("GetUserInfo: " + username);
-            var obj = _passwordChangeProvider.GetUserInfo(username, pw);
+            _logger.Information("START PasswordController.GetUserInfo: ");
+            _logger.Information("PasswordController.GetUserInfo: " + username);
 
-            return Json(obj);
+            try
+            {
+                var obj = _passwordChangeProvider.GetUserInfo(username, pw);
+                return Json(obj);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
         }
 
         [HttpGet]
-        [Route("getallusers")]
-        public IActionResult GetAllUser()
+        public IActionResult Get()
         {
-            string testLog = "GetAllUser: ";
-            _logger.Information(testLog);
-            var obj = _passwordChangeProvider.GetAllUser();
+            _logger.Information("START PasswordController.Get");
+            return Json(_options);
+        }
 
-            return Json(new { obj });
+        [HttpGet]
+        [Route("GetUserDirectoryEntry")]
+        public IActionResult GetUserDirectoryEntry(string username, string pw)
+        {
+            _logger.Information("START PasswordController.GetUserDirectoryEntry: ");
+            try
+            {
+                var obj = _passwordChangeProvider.GetUserDirectoryEntry(username, pw);
+                return Json(obj);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
 
         /// <summary>
@@ -74,11 +81,19 @@
         /// </summary>
         /// <returns>A Json representation of the ClientSettings object.</returns>
         [HttpGet]
-        public IActionResult Get()
+        [Route("GetUserPrincipal")]
+        public IActionResult GetUserPrincipal(string username, string pw)
         {
-            string testLog = "Get setting";
-            _logger.Information(testLog);
-            return Json(_options);
+            _logger.Information("START PasswordController.GetUserPrincipal: ");
+            try
+            {
+                var obj = _passwordChangeProvider.GetUserPrincipal(username, pw);
+                return Json(obj);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
         }
 
         /// <summary>
@@ -86,9 +101,10 @@
         /// </summary>
         /// <returns>A Json with a password property which contains a random generated password.</returns>
         [HttpGet]
-        [Route("generated")]
-        public IActionResult GetGeneratedPassword()
+        [Route("GeneratedPassword")]
+        public IActionResult GeneratedPassword()
         {
+            _logger.Information("START PasswordController.GetGeneratedPassword: ");
             using var generator = new PasswordGenerator();
             return Json(new { password = generator.Generate(_options.PasswordEntropy) });
         }
@@ -101,6 +117,7 @@
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ChangePasswordModel model)
         {
+            _logger.Information("START PasswordController.Post: ");
             // Validate the request
             if (model == null)
             {
@@ -108,9 +125,6 @@
 
                 return BadRequest(ApiResult.InvalidRequest());
             }
-            //BAONX
-            model.Username += "@haiphatland.local";
-            //model.Username += "@baonx.com";
 
             if (model.NewPassword != model.NewPasswordVerify)
             {
@@ -185,6 +199,7 @@
 
         private async Task<bool> ValidateRecaptcha(string recaptchaResponse)
         {
+            _logger.Information("START PasswordController.ValidateRecaptcha: ");
             // skip validation if we don't enable recaptcha
             if (string.IsNullOrWhiteSpace(_options.Recaptcha.PrivateKey))
                 return true;

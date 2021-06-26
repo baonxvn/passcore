@@ -8,6 +8,10 @@
         /// <summary>
         /// The generic
         /// </summary>
+        Success = -1,
+        /// <summary>
+        /// The generic
+        /// </summary>
         Generic = 0,
 
         /// <summary>

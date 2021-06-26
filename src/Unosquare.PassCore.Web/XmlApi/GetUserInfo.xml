@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request>
+      <Operation>GetUserInfo</Operation>
+      <Parameters>
+        <Domain>company.test</Domain>
+        <Mailbox>baonx</Mailbox>
+        <Get>
+          <All/>
+        </Get>
+      </Parameters>
+    </Request>
+  </API>
+</MDaemon>

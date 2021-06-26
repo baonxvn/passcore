@@ -11,7 +11,7 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <RootNamespace>Unosquare.PassCore.Web</RootNamespace>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <UserSecretsId>b135379b-cd03-4911-98a0-d7c44da15de3</UserSecretsId>
   </PropertyGroup>
@@ -20,10 +20,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Map" Version="1.0.2" />
-    <PackageReference Include="SimpleBase" Version="3.0.1" />
+    <PackageReference Include="SimpleBase" Version="3.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -45,13 +46,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\MyProjects\SampleCodeLearning\ASP.NET.Boilerplate\module-zero-core-template-hpl\aspnet-core\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj" />
     <ProjectReference Include="..\PwnedPasswordsSearch\PwnedPasswordsSearch.csproj" />
     <ProjectReference Include="..\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj" />
-    <ProjectReference Include="..\Zyborg.PassCore.PasswordProvider.LDAP\Zyborg.PassCore.PasswordProvider.LDAP.csproj" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(PASSCORE_PROVIDER)' == ''">
-    <!-- Default Password Provider - Win32 -->
     <ProjectReference Include="..\Unosquare.PassCore.PasswordProvider\Unosquare.PassCore.PasswordProvider.csproj" />
+    <ProjectReference Include="..\Zyborg.PassCore.PasswordProvider.LDAP\Zyborg.PassCore.PasswordProvider.LDAP.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(PASSCORE_PROVIDER)' == 'LDAP'">
     <!-- Pure LDAP provider -->
@@ -59,9 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClientApp\assets\css\" />
+    <Folder Include="logs\" />
   </ItemGroup>
   <PropertyGroup Condition="'$(PASSCORE_PROVIDER)' == 'LDAP'">
     <DefineConstants>PASSCORE_LDAP_PROVIDER</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <Target Name="NpmInstall" BeforeTargets="Build" Condition="!Exists('.\ClientApp\node_modules')">
     <Exec Command="node --version" ContinueOnError="true">

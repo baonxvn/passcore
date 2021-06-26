@@ -1,4 +1,5 @@
 ﻿
+
 namespace Unosquare.PassCore.PasswordProvider
 {
     using Common;
@@ -11,6 +12,8 @@ namespace Unosquare.PassCore.PasswordProvider
     using System.DirectoryServices.AccountManagement;
     using System.DirectoryServices.ActiveDirectory;
     using System.Linq;
+    using Newtonsoft.Json;
+    using Hpl.HrmDatabase.ViewModels;
 
     /// <inheritdoc />
     /// <summary>
@@ -37,30 +40,77 @@ namespace Unosquare.PassCore.PasswordProvider
             SetIdType();
         }
 
-        public ApiErrorItem? GetAllUser()
+
+        /// <summary>
+        /// Get all user của AD
+        /// </summary>
+        /// <returns></returns>
+        public ApiResultAd GetAllUsers()
         {
+            var result = new ApiResultAd();
             int i = 0;
-            using (var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName))))
+
+            //using (var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName))))
+
+            var principalContext = AcquirePrincipalContext();
+            var userPrincipal = new UserPrincipal(principalContext);
+            using var searcher = new PrincipalSearcher(userPrincipal);
+
+            List<UserPrincipal> users = searcher.FindAll().Select(u => (UserPrincipal)u).ToList();
+
+            if (users.Any())
             {
-                List<UserPrincipal> users = searcher.FindAll().Select(u => (UserPrincipal)u).ToList();
-                i = users.Count;
-                //foreach (var u in users)
-                //{
-                //    DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
-                //    Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
-                //}
+                foreach (var u in users)
+                {
+
+                    DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
+                    Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
+                }
+            }
+            else
+            {
+                result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Không có user nào.");
             }
 
-            return new ApiErrorItem(ApiErrorCode.Generic, "Khong co user nao"); ;
+
+            return result;
+        }
+
+        public UserPrincipal GetUserPrincipal(string username, string pw)
+        {
+            var fixedUsername = FixUsernameWithDomain(username);
+            //using var principalContext = AcquirePrincipalContext();
+            using var principalContext = AcquirePrincipalContext(username, pw);
+            var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+
+            return userPrincipal;
+        }
+
+        public DirectoryEntry GetUserDirectoryEntry(string username, string pw)
+        {
+            var fixedUsername = FixUsernameWithDomain(username);
+            using var principalContext = AcquirePrincipalContext();
+            //using var principalContext = AcquirePrincipalContext(username, pw);
+            var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+            if (userPrincipal != null)
+            {
+                var directoryEntry = userPrincipal.GetUnderlyingObject() as DirectoryEntry;
+
+                return directoryEntry;
+            }
+
+            return null;
         }
 
         public ApiResultAd? GetUserInfo(string username, string pw)
         {
+            _logger.Information("PasswordChangeProvider.GetUserInfo");
             var result = new ApiResultAd();
             result.UserInfo = null;
 
             var fixedUsername = FixUsernameWithDomain(username);
             using var principalContext = AcquirePrincipalContext();
+            //using var principalContext = AcquirePrincipalContext(username, pw);//Không sử dụng user trong setting
             var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
 
             // Check if the user principal exists
@@ -72,41 +122,529 @@ namespace Unosquare.PassCore.PasswordProvider
                 return result;
             }
 
-            var item = ValidateGroups(userPrincipal);
-
-            if (item != null)
-            {
-                result.Errors = item;
-                return result;
-            }
+            //Không cần check nhóm
+            //var item = ValidateGroups(userPrincipal);
+            //if (item != null)
+            //{
+            //    result.Errors = item;
+            //    return result;
+            //}
 
             // Use always UPN for password check.
             if (!ValidateUserCredentials(userPrincipal.UserPrincipalName, pw, principalContext))
             {
                 _logger.Warning("The User principal password is not valid");
 
-                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mat khau khong dung!");
+                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mật khẩu không đúng!");
                 return result;
             }
 
-            var userInfo = new UserInfoAd();
-            userInfo.isLocked = userPrincipal.IsAccountLockedOut();
-            userInfo.displayName = userPrincipal.DisplayName;
-            userInfo.userPrincipalName = userPrincipal.UserPrincipalName;
-            userInfo.sAMAccountName = userPrincipal.SamAccountName;
-            userInfo.givenName = userPrincipal.GivenName;
-            userInfo.initials = "";// userPrincipal.I
-            userInfo.sn = userPrincipal.Surname;
-            userInfo.description = userPrincipal.Description;
-            userInfo.physicalDeliveryOfficeName = "";// userPrincipal.
-            userInfo.telephoneNumber = userPrincipal.VoiceTelephoneNumber;
-            userInfo.otherTelephone = "";// userPrincipal.
-            userInfo.mail = userPrincipal.EmailAddress;
-            userInfo.wWWHomePage = "";// userPrincipal.
-            userInfo.url = "";// userPrincipal.
-            userInfo.CN = "";// userPrincipal.c
-            userInfo.homePhone = "";// userPrincipal.
-            userInfo.mobile = "";// userPrincipal.
+            var userInfo = new UserInfoAd
+            {
+                isLocked = userPrincipal.IsAccountLockedOut(),
+                displayName = userPrincipal.DisplayName,
+                userPrincipalName = userPrincipal.UserPrincipalName,
+                sAMAccountName = userPrincipal.SamAccountName,
+                givenName = userPrincipal.GivenName,
+                name = userPrincipal.Name,
+                sn = userPrincipal.Surname,
+                description = userPrincipal.Description,
+                mail = userPrincipal.EmailAddress,
+                telephoneNumber = userPrincipal.VoiceTelephoneNumber,
+                //otherTelephone = "",
+                //physicalDeliveryOfficeName = "",
+                //initials = "",
+                //wWWHomePage = "",
+                //url = "",
+                //CN = "",
+                //homePhone = "",
+                //mobile = ""
+            };
+
+            if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
+            {
+                //CN: Hiện thị ContainerName
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+                {
+                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+                }
+
+                //department: Chi nhánh/Phòng ban
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
+                {
+                    userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
+                }
+
+                //title = Chức danh
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
+                {
+                    userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
+                }
+
+                //employeeID mã nhân viên
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
+                {
+                    userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
+                }
+
+                //mobile=Điện thoại
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
+                {
+                    userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
+                }
+
+                //Homephone: hiện ko có
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
+                {
+                    userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
+                }
+
+                //prop.Value = -1;
+                //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
+                //directoryEntry.CommitChanges();
+            }
+
+            result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+            result.UserInfo = userInfo;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Cập nhật một số thông tin user trên AD
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public List<ApiResultAd> UpdateUserInfo(List<NhanVienViewModel> listNvs)
+        {
+            _logger.Information("START PasswordChangeProvider.UpdateUserInfo");
+            List<ApiResultAd> listResult = new List<ApiResultAd>();
+            var result = new ApiResultAd();
+
+            using var principalContext = AcquirePrincipalContext();
+            if (principalContext == null)
+            {
+                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Không kết nối được đến server AD.");
+                listResult.Add(result);
+                return listResult;
+
+            }
+            //using var principalContext = AcquirePrincipalContext(username, pw);//Không sử dụng user trong setting
+            foreach (var model in listNvs)
+            {
+                var fixedUsername = FixUsernameWithDomain(model.TenDangNhap);
+                var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+
+                // Check if the user principal exists
+                if (userPrincipal == null)
+                {
+                    _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
+                    result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound, "User " + model.TenDangNhap + " không tồn tại trên AD.");
+
+                    listResult.Add(result);
+                    continue;
+                }
+
+                //Không cần check Groups
+                //var item = ValidateGroups(userPrincipal);
+                //if (item != null)
+                //{
+                //    result.Errors = item;
+                //    listResult.Add(result);
+                //    break;
+                //}
+
+                //Lấy thông tin của User
+                var userInfo = new UserInfoAd
+                {
+                    isLocked = userPrincipal.IsAccountLockedOut(),
+                    displayName = userPrincipal.DisplayName,
+                    userPrincipalName = userPrincipal.UserPrincipalName,
+                    sAMAccountName = userPrincipal.SamAccountName,
+                    givenName = userPrincipal.GivenName,
+                    name = userPrincipal.Name,
+                    sn = userPrincipal.Surname,
+                    description = userPrincipal.Description,
+                    mail = userPrincipal.EmailAddress,
+                    telephoneNumber = userPrincipal.VoiceTelephoneNumber,
+                    //otherTelephone = "",
+                    //physicalDeliveryOfficeName = "",
+                    //initials = "",
+                    //wWWHomePage = "",
+                    //url = "",
+                    //CN = "",
+                    //homePhone = "",
+                    //mobile = ""
+                };
+
+                var ten = CommonHelper.ConvertToUnSign(model.Ten);
+                var ho = CommonHelper.ConvertToUnSign(model.Ho);
+
+                bool checkForUpdate = false;
+                if (userPrincipal.GetUnderlyingObject() is DirectoryEntry adEntry)
+                {
+                    //var xx = CommonHelper.ConvertToUnSign(model.xx);
+                    //userInfo.sn = xx;
+                    //if (directoryEntry.Properties.Contains(UserPropertiesAd.xx))
+                    //{
+                    //    if (!model.xx.Equals(directoryEntry.Properties[UserPropertiesAd.xx].Value.ToString()))
+                    //    {
+                    //        directoryEntry.Properties[UserPropertiesAd.xx].Value = model.xx;
+                    //        checkForUpdate = true;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    directoryEntry.Properties[UserPropertiesAd.xx].Value = model.xx;
+                    //    checkForUpdate = true;
+                    //}
+
+                }
+
+                checkForUpdate = false;
+                if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
+                {
+                    //Update lại tên của Nhân sự
+                    //Fix CN=Ho va Ten
+                    try
+                    {
+                        if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+                        {
+                            if (!model.TenDangNhap.Equals(directoryEntry.Properties[UserPropertiesAd.LoginName].Value.ToString()))
+                            {
+                                directoryEntry.Rename("CN=" + ho + " " + ten);
+                            }
+                        }
+                        else
+                        {
+                            directoryEntry.Rename("CN=" + ho + " " + ten);
+                        }
+
+                        result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+                    }
+                    catch (Exception e)
+                    {
+                        result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Update dữ liệu " + model.TenDangNhap + " vào AD không thành công. Error: " + e.Message);
+                        listResult.Add(result);
+                        continue;
+                    }
+
+                    //Fix HỌ: sn=LastName=Ho; 
+                    userInfo.sn = ho;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.LastName))
+                    {
+                        if (!ho.Equals(directoryEntry.Properties[UserPropertiesAd.LastName].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.LastName].Value = ho;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.LastName].Value = ho;
+                        checkForUpdate = true;
+                    }
+
+                    //Tên: givenName = First name = Ten
+                    userInfo.givenName = ten;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.FirstName))
+                    {
+                        if (!ten.Equals(directoryEntry.Properties[UserPropertiesAd.FirstName].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.FirstName].Value = ten;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.FirstName].Value = ten;
+                        checkForUpdate = true;
+                    }
+
+
+                    //displayName=(Ho va ten)
+                    var displayName = ho + " " + ten;
+                    userInfo.displayName = displayName;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.DisplayName))
+                    {
+                        if (!displayName.Equals(directoryEntry.Properties[UserPropertiesAd.DisplayName].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.DisplayName].Value = displayName;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.DisplayName].Value = displayName;
+                        checkForUpdate = true;
+                    }
+
+                    //department: Chi nhánh/Phòng ban
+                    userInfo.department = model.TenPhongBan;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
+                    {
+                        if (!model.TenPhongBan.Equals(directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.Department].Value = model.TenPhongBan;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.Department].Value = model.TenPhongBan;
+                        checkForUpdate = true;
+                    }
+
+                    //title = Chức danh
+                    userInfo.title = model.TenChucDanh;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
+                    {
+                        if (!model.TenChucDanh.Equals(directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.Title].Value = model.TenChucDanh;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.Title].Value = model.TenChucDanh;
+                        checkForUpdate = true;
+                    }
+
+                    //employeeID mã nhân viên
+                    userInfo.employeeID = model.MaNhanVien;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
+                    {
+                        if (!model.MaNhanVien.Equals(directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value = model.MaNhanVien;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value = model.MaNhanVien;
+                        checkForUpdate = true;
+                    }
+
+                    //telephoneNumber=Điện thoại
+                    try
+                    {
+                        string dt = "+84" + int.Parse(model.DienThoai);
+                        userInfo.telephoneNumber = dt;
+                        if (directoryEntry.Properties.Contains(UserPropertiesAd.TelePhoneNumber))
+                        {
+                            if (!dt.Equals(directoryEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value.ToString()))
+                            {
+                                directoryEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value = dt;
+                                checkForUpdate = true;
+                            }
+                        }
+                        else
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value = dt;
+                            checkForUpdate = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Số điện thoại của " + model.TenDangNhap + " không đúng.");
+                    }
+
+                    var email = CommonHelper.IsValidEmail(model.Email);
+                    userInfo.mail = email;
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.Emailaddress))
+                    {
+                        if (!email.Equals(directoryEntry.Properties[UserPropertiesAd.Emailaddress].Value.ToString()))
+                        {
+                            directoryEntry.Properties[UserPropertiesAd.Emailaddress].Value = email;
+                            checkForUpdate = true;
+                        }
+                    }
+                    else
+                    {
+                        directoryEntry.Properties[UserPropertiesAd.Emailaddress].Value = email;
+                        checkForUpdate = true;
+                    }
+
+                    //Lấy một số thông tin mà HRM không có
+                    //mobile
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
+                    {
+                        userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
+                    }
+                    //homePhone
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
+                    {
+                        userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
+                    }
+                    //cn
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+                    {
+                        userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+                    }
+
+                    //prop.Value = -1;
+                    //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
+                    //directoryEntry.CommitChanges();
+
+                    if (checkForUpdate)
+                    {
+                        try
+                        {
+                            directoryEntry.CommitChanges();
+                            result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+                        }
+                        catch (Exception e)
+                        {
+                            result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Update dữ liệu " + model.TenDangNhap + " vào AD không thành công. Error: " + e.Message);
+                        }
+                    }
+                    else
+                    {
+                        result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "User " + model.TenDangNhap + " không có thông tin cần update.");
+                    }
+
+                    result.UserInfo = userInfo;
+                }
+                else
+                {
+                    result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Không xác định được các Attributes của User " + model.TenDangNhap);
+                }
+
+                listResult.Add(result);
+            }
+
+            return listResult;
+        }
+
+        public ApiResultAd CreateUser(UserInfoAd user, string pw)
+        {
+            _logger.Information("PasswordChangeProvider.CreateUser");
+
+            var result = new ApiResultAd { UserInfo = null };
+
+            string fixedUsername = "";
+            string username = user.sAMAccountName;
+            var principalContext = AcquirePrincipalContext();
+
+            //Kiểm tra user đã tồn tại chưa
+            bool check = true;
+            int i = 0;
+            while (check)
+            {
+                fixedUsername = FixUsernameWithDomain(user.sAMAccountName);
+                var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+                if (userPrincipal != null)
+                {
+                    i++;
+                    username = username + i;
+                }
+                else
+                {
+                    check = false;
+                }
+            }
+
+            //OU: OU=Company Structure,DC=baonx,DC=com
+
+            var up = new UserPrincipal(principalContext);
+            up.UserPrincipalName = fixedUsername;
+            up.SamAccountName = username;
+            up.DisplayName = user.displayName;
+            up.GivenName = user.givenName;
+            up.Name = user.name;
+            up.Surname = user.sn;
+            up.Description = user.description;
+            up.VoiceTelephoneNumber = user.telephoneNumber;
+            up.EmailAddress = username + "@haiphatland.com.vn";// email;
+            up.SetPassword(pw);
+            up.Enabled = true;
+            up.ExpirePasswordNow();
+            up.Save();
+
+            // Check if the user principal exists
+            if (up == null)
+            {
+                _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
+                result.Errors = new ApiErrorItem(ApiErrorCode.UserNotFound, "User khong ton tai!");
+
+                return result;
+            }
+
+            // Use always UPN for password check.
+            if (!ValidateUserCredentials(up.UserPrincipalName, pw, principalContext))
+            {
+                _logger.Warning("The User principal password is not valid");
+
+                result.Errors = new ApiErrorItem(ApiErrorCode.InvalidCredentials, "Mật khẩu không đúng!");
+                return result;
+            }
+
+            var userInfo = new UserInfoAd
+            {
+                isLocked = up.IsAccountLockedOut(),
+                displayName = up.DisplayName,
+                userPrincipalName = up.UserPrincipalName,
+                sAMAccountName = up.SamAccountName,
+                givenName = up.GivenName,
+                name = up.Name,
+                sn = up.Surname,
+                description = up.Description,
+                mail = up.EmailAddress,
+                telephoneNumber = up.VoiceTelephoneNumber,
+                //otherTelephone = "",
+                //physicalDeliveryOfficeName = "",
+                //initials = "",
+                //wWWHomePage = "",
+                //url = "",
+                //CN = "",
+                //homePhone = "",
+                //mobile = ""
+            };
+
+            if (up.GetUnderlyingObject() is DirectoryEntry directoryEntry)
+            {
+                //CN: Hiện thị ContainerName
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+                {
+                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+                }
+
+                //department: Chi nhánh/Phòng ban
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
+                {
+                    userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
+                }
+
+                //title = Chức danh
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
+                {
+                    userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
+                }
+
+                //employeeID mã nhân viên
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
+                {
+                    userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
+                }
+
+                //mobile=Điện thoại
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
+                {
+                    userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
+                }
+
+                //Homephone: hiện ko có
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
+                {
+                    userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
+                }
+
+                //prop.Value = -1;
+                //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
+                //directoryEntry.CommitChanges();
+            }
 
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
             result.UserInfo = userInfo;
@@ -119,10 +657,6 @@ namespace Unosquare.PassCore.PasswordProvider
         {
             try
             {
-                _logger.Information("PasswordChangeProvider.PerformPasswordChange: username=" + username +
-                    ". currentPassword=" + currentPassword +
-                    ". newPassword=" + newPassword);
-
                 var fixedUsername = FixUsernameWithDomain(username);
                 _logger.Information("PasswordChangeProvider.PerformPasswordChange: fixedUsername=" + fixedUsername);
 
@@ -133,7 +667,6 @@ namespace Unosquare.PassCore.PasswordProvider
                 if (userPrincipal == null)
                 {
                     _logger.Warning($"The User principal ({fixedUsername}) doesn't exist");
-
                     return new ApiErrorItem(ApiErrorCode.UserNotFound, "Khong ton tai user");
                 }
 
@@ -157,10 +690,9 @@ namespace Unosquare.PassCore.PasswordProvider
 
                 _logger.Information($"PerformPasswordChange for user {fixedUsername}");
 
+                //Check User thuộc group nào, có một số Groups đặc biệt, không cho phép user đổi pass bằng tool này
                 var item = ValidateGroups(userPrincipal);
-
-                if (item != null)
-                    return item;
+                if (item != null) return item;
 
                 // Check if password change is allowed
                 if (userPrincipal.UserCannotChangePassword)
@@ -265,16 +797,16 @@ namespace Unosquare.PassCore.PasswordProvider
                 if (groups.Any(x => _options.RestrictedADGroups.Contains(x.Name)))
                 {
                     return new ApiErrorItem(ApiErrorCode.ChangeNotPermitted,
-                        "The User principal is listed as restricted");
+                        "The User " + userPrincipal.SamAccountName + " principal is listed as restricted.");
                 }
 
                 //BAONX
-                if (_options.AllowedADGroups?.Any() != true) return null;
+                //if (_options.AllowedADGroups?.Any() != true) return null;
                 //END BAONX
 
                 var valueReturn = groups?.Any(x => _options.AllowedADGroups?.Contains(x.Name) == true) == true
                     ? null
-                    : new ApiErrorItem(ApiErrorCode.ChangeNotPermitted, "The User principal is not listed as allowed");
+                    : new ApiErrorItem(ApiErrorCode.ChangeNotPermitted, "The User " + userPrincipal.SamAccountName + " principal is not listed as allowed");
 
                 return valueReturn;
             }
@@ -317,10 +849,12 @@ namespace Unosquare.PassCore.PasswordProvider
             try
             {
                 // Try by regular ChangePassword method
+                _logger.Warning("Gọi method userPrincipal.ChangePassword()");
                 userPrincipal.ChangePassword(currentPassword, newPassword);
             }
-            catch
+            catch (Exception e)
             {
+                _logger.Debug("Lỗi khi call userPrincipal.ChangePassword: " + e.Message);
                 if (_options.UseAutomaticContext)
                 {
                     _logger.Warning("The User principal password cannot be changed and setPassword won't be called");
@@ -364,8 +898,18 @@ namespace Unosquare.PassCore.PasswordProvider
             };
         }
 
+        /// <summary>
+        /// Gọi hàm này một trong 2 trường hợp sau
+        /// UseAutomaticContext=true:
+        /// + Code phải đặt trên server AD và không cần điền thông tin Admin Quản trị AD
+        /// UseAutomaticContext=false:
+        /// + Code đặt trên AD hoặc ngoài AD đều được và bắt buộc phải điền thông tin Admin quản trị domain
+        /// </summary>
+        /// <returns></returns>
         private PrincipalContext AcquirePrincipalContext()
         {
+            //_logger.Warning(_options.ToJson());
+
             if (_options.UseAutomaticContext)
             {
                 _logger.Warning("Using AutomaticContext");
@@ -374,12 +918,38 @@ namespace Unosquare.PassCore.PasswordProvider
 
             var domain = $"{_options.LdapHostnames.First()}:{_options.LdapPort}";
             _logger.Warning($"Not using AutomaticContext  {domain}");
+            try
+            {
+                return new PrincipalContext(ContextType.Domain, domain, _options.LdapUsername, _options.LdapPassword);
+            }
+            catch (Exception e)
+            {
+                _logger.Warning($"Lỗi call AcquirePrincipalContext: " + e.Message);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gọi hàm này trong trường hợp (AutomaticContext=TRUE or FALSE không quan trọng)
+        /// Khi source code không đặt trên server AD và không muốn điền thông tin(username&pass) của Admin quản trị domain
+        /// Reset pass dựa vào Authorization Username & Password của User truyền vào.
+        /// Trong file appsettings.json cần setting 2 tham số LdapHostnames:LdapPort.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pw"></param>
+        /// <returns></returns>
+        private PrincipalContext AcquirePrincipalContext(string username, string pw)
+        {
+            _logger.Warning("PasswordChangeProvider.AcquirePrincipalContext: " + JsonConvert.SerializeObject(_options));
+
+            var domain = $"{_options.LdapHostnames.First()}:{_options.LdapPort}";
+            //_logger.Warning($"Not using AutomaticContext  {domain}");
 
             return new PrincipalContext(
                 ContextType.Domain,
                 domain,
-                _options.LdapUsername,
-                _options.LdapPassword);
+                username,
+                pw);
         }
 
         private int AcquireDomainPasswordLength()
