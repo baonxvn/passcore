@@ -46,7 +46,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\MyProjects\SampleCodeLearning\ASP.NET.Boilerplate\module-zero-core-template-hpl\aspnet-core\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj" />
+    <ProjectReference Include="..\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj" />
     <ProjectReference Include="..\PwnedPasswordsSearch\PwnedPasswordsSearch.csproj" />
     <ProjectReference Include="..\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj" />
     <ProjectReference Include="..\Unosquare.PassCore.PasswordProvider\Unosquare.PassCore.PasswordProvider.csproj" />

@@ -26,15 +26,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdSelfService", "AdSelfServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactApp", "ReactApp\ReactApp.csproj", "{C476E7AE-D657-4AA1-A9A0-B5A020077FDB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.HrmDatabase", "..\..\..\MyProjects\SampleCodeLearning\ASP.NET.Boilerplate\module-zero-core-template-hpl\aspnet-core\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj", "{247DF210-4C2E-4D7C-8150-A3014262665D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppApi", "WebAppApi\WebAppApi.csproj", "{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.PassCore.PasswordProvider", "src\Unosquare.PassCore.PasswordProvider\Unosquare.PassCore.PasswordProvider.csproj", "{D790C30A-302A-43F2-A7ED-3D204796734B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.PassCore.Common", "src\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj", "{36118D4E-7C5C-4CBB-B193-2BF73A16D83C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zyborg.PassCore.PasswordProvider.LDAP", "src\Zyborg.PassCore.PasswordProvider.LDAP\Zyborg.PassCore.PasswordProvider.LDAP.csproj", "{40B5F075-2529-47C8-A86F-FB4E05433642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zyborg.PassCore.PasswordProvider.LDAP", "src\Zyborg.PassCore.PasswordProvider.LDAP\Zyborg.PassCore.PasswordProvider.LDAP.csproj", "{40B5F075-2529-47C8-A86F-FB4E05433642}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.HrmDatabase", "src\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj", "{A344AE81-F849-4329-AFEE-47218C85AC17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,10 +62,6 @@ Global
 		{C476E7AE-D657-4AA1-A9A0-B5A020077FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C476E7AE-D657-4AA1-A9A0-B5A020077FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C476E7AE-D657-4AA1-A9A0-B5A020077FDB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{247DF210-4C2E-4D7C-8150-A3014262665D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{247DF210-4C2E-4D7C-8150-A3014262665D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{247DF210-4C2E-4D7C-8150-A3014262665D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{247DF210-4C2E-4D7C-8150-A3014262665D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -82,6 +78,10 @@ Global
 		{40B5F075-2529-47C8-A86F-FB4E05433642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40B5F075-2529-47C8-A86F-FB4E05433642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40B5F075-2529-47C8-A86F-FB4E05433642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A344AE81-F849-4329-AFEE-47218C85AC17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A344AE81-F849-4329-AFEE-47218C85AC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A344AE81-F849-4329-AFEE-47218C85AC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A344AE81-F849-4329-AFEE-47218C85AC17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
