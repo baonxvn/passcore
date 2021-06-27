@@ -1060,7 +1060,7 @@ namespace Unosquare.PassCore.PasswordProvider
                 // If the previous attempt failed, use the SetPassword method.
                 _logger.Debug("Goi method userPrincipal.SetPassword()");
                 userPrincipal.SetPassword(newPassword);
-                
+
                 _logger.Debug("The User principal password updated with setPassword");
             }
         }
@@ -1105,26 +1105,23 @@ namespace Unosquare.PassCore.PasswordProvider
         private PrincipalContext AcquirePrincipalContext()
         {
             //_logger.Warning(_options.ToJson());
-            PrincipalContext pc = null;
             if (_options.UseAutomaticContext)
             {
                 _logger.Warning("Using AutomaticContext");
-                pc = new PrincipalContext(ContextType.Domain);
+                return new PrincipalContext(ContextType.Domain);
             }
 
             var domain = $"{_options.LdapHostnames.First()}:{_options.LdapPort}";
             _logger.Warning($"Not using AutomaticContext  {domain}");
             try
             {
-                pc = new PrincipalContext(ContextType.Domain, domain, _options.LdapUsername, _options.LdapPassword);
+                return new PrincipalContext(ContextType.Domain, domain, _options.LdapUsername, _options.LdapPassword);
             }
             catch (Exception e)
             {
                 _logger.Warning($"Lỗi call AcquirePrincipalContext: " + e.Message);
                 return null;
             }
-
-            return pc;
         }
 
         /// <summary>
