@@ -15,6 +15,8 @@ namespace Unosquare.PassCore.Common
 
         public const string LastName = "sn";
 
+        public const string Description = "description";
+
         public const string CountryNotation = "c";
 
         public const string City = "l";
@@ -63,6 +65,9 @@ namespace Unosquare.PassCore.Common
 
         public const string UserAccountControl = "userAccountControl";
 
+        public const string MsDsUserAccountDisabled = "msDS-UserAccountDisabled";
+        public const string MsDSUserDontExpirePassword = "msDS-UserDontExpirePassword";
+
         public const string BadPwdCount = "badPwdCount";
 
         public const string CodePage = "codePage";
@@ -95,7 +100,7 @@ namespace Unosquare.PassCore.Common
 
         public const string Legacyexchangedn = "legacyExchangeDN";
 
-        public const string Userprincipalname = "userPrincipalName";
+        public const string UserPrincipalName = "userPrincipalName";
 
         public const string Extension = "ipPhone";
 
@@ -107,7 +112,7 @@ namespace Unosquare.PassCore.Common
 
         public const string Lastlogontimestamp = "lastLogonTimestamp";
 
-        public const string Emailaddress = "mail";
+        public const string EmailAddress = "mail";
 
         public const string Manager = "manager";
 

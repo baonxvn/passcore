@@ -40,7 +40,6 @@ namespace Unosquare.PassCore.PasswordProvider
             SetIdType();
         }
 
-
         /// <summary>
         /// Get all user của AD
         /// </summary>
@@ -62,9 +61,10 @@ namespace Unosquare.PassCore.PasswordProvider
             {
                 foreach (var u in users)
                 {
-
                     DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
                     Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
+
+                    u.Dispose();
                 }
             }
             else
@@ -72,6 +72,9 @@ namespace Unosquare.PassCore.PasswordProvider
                 result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Không có user nào.");
             }
 
+            principalContext.Dispose();
+            userPrincipal.Dispose();
+            searcher.Dispose();
 
             return result;
         }
@@ -81,9 +84,7 @@ namespace Unosquare.PassCore.PasswordProvider
             var fixedUsername = FixUsernameWithDomain(username);
             //using var principalContext = AcquirePrincipalContext();
             using var principalContext = AcquirePrincipalContext(username, pw);
-            var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
-
-            return userPrincipal;
+            return UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
         }
 
         public DirectoryEntry GetUserDirectoryEntry(string username, string pw)
@@ -220,10 +221,14 @@ namespace Unosquare.PassCore.PasswordProvider
                 //prop.Value = -1;
                 //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
                 //directoryEntry.CommitChanges();
+                directoryEntry.Dispose();
             }
 
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
             result.UserInfo = userInfo;
+
+            principalContext.Dispose();
+            userPrincipal.Dispose();
 
             return result;
         }
@@ -471,17 +476,17 @@ namespace Unosquare.PassCore.PasswordProvider
 
                     var email = CommonHelper.IsValidEmail(model.Email);
                     userInfo.mail = email;
-                    if (directoryEntry.Properties.Contains(UserPropertiesAd.Emailaddress))
+                    if (directoryEntry.Properties.Contains(UserPropertiesAd.EmailAddress))
                     {
-                        if (!email.Equals(directoryEntry.Properties[UserPropertiesAd.Emailaddress].Value.ToString()))
+                        if (!email.Equals(directoryEntry.Properties[UserPropertiesAd.EmailAddress].Value.ToString()))
                         {
-                            directoryEntry.Properties[UserPropertiesAd.Emailaddress].Value = email;
+                            directoryEntry.Properties[UserPropertiesAd.EmailAddress].Value = email;
                             checkForUpdate = true;
                         }
                     }
                     else
                     {
-                        directoryEntry.Properties[UserPropertiesAd.Emailaddress].Value = email;
+                        directoryEntry.Properties[UserPropertiesAd.EmailAddress].Value = email;
                         checkForUpdate = true;
                     }
 
@@ -552,11 +557,12 @@ namespace Unosquare.PassCore.PasswordProvider
             while (check)
             {
                 fixedUsername = FixUsernameWithDomain(username);
-                var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
-                if (userPrincipal != null)
+                var up = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+                if (up != null)
                 {
                     i++;
-                    username += i;
+                    username = user.sAMAccountName + i;
+                    up.Dispose();
                 }
                 else
                 {
@@ -564,9 +570,170 @@ namespace Unosquare.PassCore.PasswordProvider
                 }
             }
 
+            //Cach 1 Create User
             //OU: OU=Company Structure,DC=baonx,DC=com
+            DirectoryEntry ouEntry = new DirectoryEntry("LDAP://OU=Company Structure,DC=baonx,DC=com");
 
-            var up = new UserPrincipal(principalContext)
+            DirectoryEntry childEntry = ouEntry.Children.Add("CN=" + username, "user");
+            childEntry.Properties[UserPropertiesAd.UserPrincipalName].Value = fixedUsername;
+            childEntry.Properties[UserPropertiesAd.LoginName].Value = username; //SamAccountName
+            childEntry.Properties[UserPropertiesAd.Name].Value = username;
+            childEntry.Properties[UserPropertiesAd.LastName].Value = user.givenName;//sn, Surname, LastName = Ho va ten dem
+            childEntry.Properties[UserPropertiesAd.FirstName].Value = user.sn;//GivenName, FirstName = Ten
+            childEntry.Properties[UserPropertiesAd.DisplayName].Value = user.displayName;//GivenName, FirstName
+            childEntry.Properties[UserPropertiesAd.EmailAddress].Value = username + "@haiphatland.com.vn";
+            childEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value = user.telephoneNumber;
+            childEntry.Properties[UserPropertiesAd.Description].Value = user.description;
+            //Thong tin phong ban
+            childEntry.Properties[UserPropertiesAd.EmployeeId].Value = "MaNhanVien";
+            childEntry.Properties[UserPropertiesAd.Department].Value = "Phong Ban";
+            childEntry.Properties[UserPropertiesAd.Title].Value = "Chuc Danh";
+            //Enable user
+            childEntry.Properties[UserPropertiesAd.UserAccountControl].Value = 66048;
+            childEntry.Properties[UserPropertiesAd.PwdLastSet].Value = 0;
+            childEntry.Properties[UserPropertiesAd.AccountExpires].Value = "9223372036854775807";
+
+            childEntry.CommitChanges();
+
+            ouEntry.CommitChanges();
+
+            childEntry.Invoke("SetPassword", new object[] { pw });
+            childEntry.CommitChanges();
+
+            //Cach 2 Create User
+            //Add user vao Group
+            string groupName = "Employees";
+            GroupPrincipal group = GroupPrincipal.FindByIdentity(principalContext, groupName);
+            group.Members.Add(principalContext, IdentityType.UserPrincipalName, fixedUsername);
+            group.Save();
+
+            var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+            var userInfo = new UserInfoAd
+            {
+                isLocked = userPrincipal.IsAccountLockedOut(),
+                userPrincipalName = userPrincipal.UserPrincipalName,
+                sAMAccountName = userPrincipal.SamAccountName,
+                name = userPrincipal.Name,
+                sn = userPrincipal.Surname,
+                givenName = userPrincipal.GivenName,
+                displayName = userPrincipal.DisplayName,
+                mail = userPrincipal.EmailAddress,
+                telephoneNumber = userPrincipal.VoiceTelephoneNumber,
+                description = userPrincipal.Description
+            };
+
+            //Update lại mot so thong tin cua nhan su
+            if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
+            {
+                //Phong ban
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
+                {
+                    userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
+                }
+                //Chuc Vu
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
+                {
+                    userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
+                }
+                //Ma Nhan Vien
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
+                {
+                    userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
+                }
+                //CN
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+                {
+                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+                }
+
+                //distinguishedName (CN=baonx,OU=Company Structure,DC=baonx,DC=com)
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.DistinguishedName))
+                {
+                    //directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value = "OU=Company Structure,DC=baonx,DC=com";
+                    userInfo.distinguishedName = directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value.ToString();
+                }
+
+                //memberOf: (CN=Employees,CN=Users,DC=baonx,DC=com)
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.MemberOf))
+                {
+                    userInfo.memberOf = directoryEntry.Properties[UserPropertiesAd.MemberOf].Value.ToString();
+                }
+
+                //objectCategory: (CN=Person,CN=Schema,CN=Configuration,DC=baonx,DC=com)
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ObjectCategory))
+                {
+                    userInfo.objectCategory = directoryEntry.Properties[UserPropertiesAd.ObjectCategory].Value.ToString();
+                }
+
+                result.UserInfo = userInfo;
+
+                directoryEntry.Dispose();
+            }
+            else
+            {
+                result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Không xác định được các Attributes của User");
+            }
+
+            principalContext.Dispose();
+            userPrincipal.Dispose();
+            group.Dispose();
+
+            result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+            result.UserInfo = userInfo;
+
+            return result;
+        }
+
+        public ApiResultAd CreateUser2(UserInfoAd user, string pw)
+        {
+            _logger.Information("PasswordChangeProvider.CreateUser");
+
+            var result = new ApiResultAd { UserInfo = null };
+
+            string fixedUsername = "";
+            string username = user.sAMAccountName;
+            var principalContext = AcquirePrincipalContext();
+
+            //Kiểm tra user đã tồn tại chưa
+            bool check = true;
+            int i = 0;
+            while (check)
+            {
+                fixedUsername = FixUsernameWithDomain(username);
+                var up = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+                if (up != null)
+                {
+                    i++;
+                    username = user.sAMAccountName + i;
+                    up.Dispose();
+                }
+                else
+                {
+                    check = false;
+                }
+            }
+
+            //Cach 1 Create User
+            //OU: OU=Company Structure,DC=baonx,DC=com
+            //DirectoryEntry ouEntry = new DirectoryEntry("LDAP://OU=Company Structure,DC=baonx,DC=com");
+            //for (int j = 0; j < 2; j++)
+            //{
+            //    try
+            //    {
+            //        DirectoryEntry childEntry = ouEntry.Children.Add("CN=TestUser" + i, "user");
+            //        childEntry.CommitChanges();
+            //        ouEntry.CommitChanges();
+            //        childEntry.Invoke("SetPassword", new object[] { "password" });
+            //        childEntry.CommitChanges();
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //    }
+            //}
+
+            //Cach 2 Create User
+            var userPrincipal = new UserPrincipal(principalContext)
             {
                 UserPrincipalName = fixedUsername,
                 SamAccountName = username,
@@ -578,78 +745,104 @@ namespace Unosquare.PassCore.PasswordProvider
                 VoiceTelephoneNumber = user.telephoneNumber,
                 Description = user.description
             };
-            up.SetPassword(pw);
-            up.Enabled = true;
-            up.PasswordNeverExpires = true;
-            try
-            {
-                up.Save();
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e.Message);
-            }
+            userPrincipal.SetPassword(pw);
+            userPrincipal.Enabled = true;
+            userPrincipal.PasswordNeverExpires = true;
+            userPrincipal.Save();
+
+            //Add user vao Group
+            string groupName = "Employees";
+            GroupPrincipal group = GroupPrincipal.FindByIdentity(principalContext, groupName);
+            group.Members.Add(principalContext, IdentityType.UserPrincipalName, fixedUsername);
+            group.Save();
 
             var userInfo = new UserInfoAd
             {
-                isLocked = up.IsAccountLockedOut(),
-                displayName = up.DisplayName,
-                userPrincipalName = up.UserPrincipalName,
-                sAMAccountName = up.SamAccountName,
-                givenName = up.GivenName,
-                name = up.Name,
-                sn = up.Surname,
-                description = up.Description,
-                mail = up.EmailAddress,
-                telephoneNumber = up.VoiceTelephoneNumber,
-                //otherTelephone = "",
-                //physicalDeliveryOfficeName = "",
-                //initials = "",
-                //wWWHomePage = "",
-                //url = "",
-                //CN = "",
-                //homePhone = "",
-                //mobile = ""
+                isLocked = userPrincipal.IsAccountLockedOut(),
+                userPrincipalName = userPrincipal.UserPrincipalName,
+                sAMAccountName = userPrincipal.SamAccountName,
+                name = userPrincipal.Name,
+                sn = userPrincipal.Surname,
+                givenName = userPrincipal.GivenName,
+                displayName = userPrincipal.DisplayName,
+                mail = userPrincipal.EmailAddress,
+                telephoneNumber = userPrincipal.VoiceTelephoneNumber,
+                description = userPrincipal.Description
             };
 
-            //if (up.GetUnderlyingObject() is DirectoryEntry directoryEntry)
-            //{
-            //    //CN: Hiện thị ContainerName
-            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
-            //    {
-            //        userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
-            //    }
+            //Update lại mot so thong tin cua nhan su
+            bool checkForUpdate = false;
+            if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
+            {
+                //try
+                //{
+                //    DirectoryEntry dirEntry = new DirectoryEntry("LDAP://" + groupDn);
+                //    dirEntry.Properties["member"].Add(userDn);
+                //    dirEntry.CommitChanges();
+                //    dirEntry.Close();
+                //}
+                //catch (System.DirectoryServices.DirectoryServicesCOMException E)
+                //{
+                //    //doSomething with E.Message.ToString();
+                //}
 
-            //    //department: Chi nhánh/Phòng ban
-            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
-            //    {
-            //        userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
-            //    }
+                //department: Chi nhánh/Phòng ban
+                directoryEntry.Properties[UserPropertiesAd.Department].Value = "Ten phong ban";
+                userInfo.department = "Ten phong ban";
+                //title = Chức danh
+                directoryEntry.Properties[UserPropertiesAd.Title].Value = "Chuc danh";
+                userInfo.title = "Chuc vu";
+                //employeeID mã nhân viên
+                directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value = "Ma Nhan Vien";
+                userInfo.employeeID = "ma nha vien";
 
-            //    //title = Chức danh
-            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
-            //    {
-            //        userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
-            //    }
+                //CN
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+                {
+                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+                }
 
-            //    //employeeID mã nhân viên
-            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
-            //    {
-            //        userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
-            //    }
+                //distinguishedName (CN=baonx,OU=Company Structure,DC=baonx,DC=com)
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.DistinguishedName))
+                {
+                    //directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value = "OU=Company Structure,DC=baonx,DC=com";
+                    userInfo.distinguishedName = directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value.ToString();
+                }
 
-            //    //mobile=Điện thoại
-            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
-            //    {
-            //        userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
-            //    }
+                //memberOf: (CN=Employees,CN=Users,DC=baonx,DC=com)
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.MemberOf))
+                {
+                    userInfo.memberOf = directoryEntry.Properties[UserPropertiesAd.MemberOf].Value.ToString();
+                }
 
-            //    //Homephone: hiện ko có
-            //    if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
-            //    {
-            //        userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
-            //    }
-            //}
+                //objectCategory: (CN=Person,CN=Schema,CN=Configuration,DC=baonx,DC=com)
+                if (directoryEntry.Properties.Contains(UserPropertiesAd.ObjectCategory))
+                {
+                    userInfo.objectCategory = directoryEntry.Properties[UserPropertiesAd.ObjectCategory].Value.ToString();
+                }
+
+                try
+                {
+                    directoryEntry.CommitChanges();
+                    result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
+                }
+                catch (Exception e)
+                {
+                    result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Update dữ liệu: " + e.Message);
+                }
+
+                result.UserInfo = userInfo;
+
+                directoryEntry.Close();
+                directoryEntry.Dispose();
+            }
+            else
+            {
+                result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Không xác định được các Attributes của User");
+            }
+
+            principalContext.Dispose();
+            userPrincipal.Dispose();
 
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
             result.UserInfo = userInfo;
@@ -799,15 +992,12 @@ namespace Unosquare.PassCore.PasswordProvider
                     groups = userPrincipal.GetAuthorizationGroups();
                 }
 
-                if (groups.Any(x => _options.RestrictedADGroups.Contains(x.Name)))
-                {
-                    return new ApiErrorItem(ApiErrorCode.ChangeNotPermitted,
-                        "The User " + userPrincipal.SamAccountName + " principal is listed as restricted.");
-                }
-
-                //BAONX
-                //if (_options.AllowedADGroups?.Any() != true) return null;
-                //END BAONX
+                if (_options.RestrictedADGroups != null)
+                    if (groups.Any(x => _options.RestrictedADGroups.Contains(x.Name)))
+                    {
+                        return new ApiErrorItem(ApiErrorCode.ChangeNotPermitted,
+                            "The User " + userPrincipal.SamAccountName + " principal is listed as restricted.");
+                    }
 
                 var valueReturn = groups?.Any(x => _options.AllowedADGroups?.Contains(x.Name) == true) == true
                     ? null
@@ -868,8 +1058,9 @@ namespace Unosquare.PassCore.PasswordProvider
                 }
 
                 // If the previous attempt failed, use the SetPassword method.
+                _logger.Debug("Goi method userPrincipal.SetPassword()");
                 userPrincipal.SetPassword(newPassword);
-
+                
                 _logger.Debug("The User principal password updated with setPassword");
             }
         }
@@ -914,24 +1105,26 @@ namespace Unosquare.PassCore.PasswordProvider
         private PrincipalContext AcquirePrincipalContext()
         {
             //_logger.Warning(_options.ToJson());
-
+            PrincipalContext pc = null;
             if (_options.UseAutomaticContext)
             {
                 _logger.Warning("Using AutomaticContext");
-                return new PrincipalContext(ContextType.Domain);
+                pc = new PrincipalContext(ContextType.Domain);
             }
 
             var domain = $"{_options.LdapHostnames.First()}:{_options.LdapPort}";
             _logger.Warning($"Not using AutomaticContext  {domain}");
             try
             {
-                return new PrincipalContext(ContextType.Domain, domain, _options.LdapUsername, _options.LdapPassword);
+                pc = new PrincipalContext(ContextType.Domain, domain, _options.LdapUsername, _options.LdapPassword);
             }
             catch (Exception e)
             {
                 _logger.Warning($"Lỗi call AcquirePrincipalContext: " + e.Message);
                 return null;
             }
+
+            return pc;
         }
 
         /// <summary>

@@ -51,7 +51,7 @@
 
         /// <inheritdoc />
         public string DefaultDomain { get; set; }
-        
+
         /// <inheritdoc />
         public int LdapPort { get; set; }
         

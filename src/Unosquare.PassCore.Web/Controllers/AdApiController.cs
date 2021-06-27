@@ -133,7 +133,6 @@ namespace Unosquare.PassCore.Web.Controllers
             {
                 UserInfoAd user = new UserInfoAd
                 {
-
                     userPrincipalName = "",
                     sAMAccountName = username,
                     name = "",
