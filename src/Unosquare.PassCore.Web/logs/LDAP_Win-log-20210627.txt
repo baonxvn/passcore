@@ -1,2 +1,0 @@
-2021-06-27 13:56:24.819 +07:00 [INF] START PasswordController.Get
-2021-06-27 13:56:34.718 +07:00 [INF] START PasswordController.Get
