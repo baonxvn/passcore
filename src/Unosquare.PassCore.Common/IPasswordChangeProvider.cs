@@ -31,6 +31,8 @@
 
         public ApiResultAd? GetUserInfo(string username, string pw);
 
+        public string GetUserNewUserFormAd(string username);
+
         public ApiResultAd CreateUser(UserInfoAd user, string pw);
 
         public List<ApiResultAd> UpdateUserInfo(List<NhanVienViewModel> listNvs);

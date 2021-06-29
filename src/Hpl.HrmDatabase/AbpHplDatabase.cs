@@ -168,7 +168,7 @@ namespace Hpl.HrmDatabase
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=BAONX; Database=OMS_HPL; User ID=sa; Password=sa@123");
+                optionsBuilder.UseSqlServer(@"Server=BAONX; Database=HPL_ACM; User ID=sa; Password=sa@123");
             }
         }
 

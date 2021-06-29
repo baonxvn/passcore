@@ -96,14 +96,14 @@ namespace Unosquare.PassCore.Web.Controllers
 
         [HttpGet]
         [Route("GetUserNewUserFormAd")]
-        public string GetUserNewUserFormAd(string username, string pw)
+        public string GetUserNewUserFormAd(string username)
         {
             ApiResult result = new ApiResult();
             _logger.Information("START PasswordController.GetUserNewUserFormAd: " + username);
 
             try
             {
-                var obj = _passwordChangeProvider.GetUserInfo(username, pw);
+                var obj = _passwordChangeProvider.GetUserNewUserFormAd(username);
                 if (obj != null)
                 {
                     result.Payload = obj;

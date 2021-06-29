@@ -16,7 +16,8 @@ namespace Unosquare.PassCore.Web.MdaemonServices
         {
             //Server HPL
             Uri url = new Uri("https://mail.haiphatland.com.vn:1000/MdMgmtWS");
-            var user1 = "hpltech@2stay.vn";
+            //var user1 = "hpltech@2stay.vn";
+            var user1 = "Haiphatlandtech@haiphatland.com.vn";
             var pass = "Matkhaumoi1108!%#";
 
             //Uri url = new Uri("https://172.168.0.217:444/MdMgmtWS");

@@ -238,7 +238,7 @@ namespace Hpl.HrmDatabase.Services
                                   MaPb6 = pb6.MaPhongBan
                               };
 
-                return listNvs.Take(10).ToList();
+                return listNvs.ToList();
             }
             catch (Exception e)
             {

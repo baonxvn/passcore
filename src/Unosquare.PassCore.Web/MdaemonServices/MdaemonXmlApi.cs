@@ -155,6 +155,9 @@ namespace Unosquare.PassCore.Web.MdaemonServices
             }
 
             //Check server AD
+            //TODO
+
+            //Tạo email trên MDaemon
             var xmlFile = GetXmlFile(new string("CreateUser"));
             List<object> listObj = new List<object>();
 

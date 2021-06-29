@@ -24,6 +24,11 @@ namespace Unosquare.PassCore.Web.Helpers
             throw new NotImplementedException();
         }
 
+        public string GetUserNewUserFormAd(string username)
+        {
+            throw new NotImplementedException();
+        }
+
         public ApiResultAd CreateUser(UserInfoAd user, string pw)
         {
             throw new NotImplementedException();

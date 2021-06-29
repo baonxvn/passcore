@@ -233,6 +233,35 @@ namespace Unosquare.PassCore.PasswordProvider
             return result;
         }
 
+        public string GetUserNewUserFormAd(string username)
+        {
+            _logger.Information("PasswordChangeProvider.GetUserNewUserFormAd");
+
+            string newUser = username;
+            var principalContext = AcquirePrincipalContext();
+
+            //Kiểm tra user đã tồn tại chưa
+            bool check = true;
+            int i = 0;
+            while (check)
+            {
+                string fixedUsername = FixUsernameWithDomain(username);
+                var up = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
+                if (up != null)
+                {
+                    i++;
+                    newUser = username + i;
+                    up.Dispose();
+                }
+                else
+                {
+                    check = false;
+                }
+            }
+
+            return newUser;
+        }
+
         /// <summary>
         /// Cập nhật một số thông tin user trên AD
         /// </summary>
