@@ -190,7 +190,7 @@ namespace Unosquare.PassCore.PasswordProvider
             int i = 0;
             while (check)
             {
-                string fixedUsername = FixUsernameWithDomain(username);
+                string fixedUsername = FixUsernameWithDomain(newUser);
                 var up = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
                 if (up != null)
                 {
