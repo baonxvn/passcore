@@ -44,8 +44,9 @@ namespace Unosquare.PassCore.PasswordProvider
         /// Get all user của AD
         /// </summary>
         /// <returns></returns>
-        public ApiResultAd GetAllUsers()
+        public List<ApiResultAd> GetAllUsers()
         {
+            var listUser = new List<ApiResultAd>();
             var result = new ApiResultAd();
             int i = 0;
 
@@ -61,9 +62,9 @@ namespace Unosquare.PassCore.PasswordProvider
             {
                 foreach (var u in users)
                 {
-                    DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
-                    Console.WriteLine(d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString());
-
+                    DirectoryEntry dirEntry = (DirectoryEntry)u.GetUnderlyingObject();
+                    result.UserInfo = ConvertUserProfiles(dirEntry);
+                    listUser.Add(result);
                     u.Dispose();
                 }
             }
@@ -76,7 +77,7 @@ namespace Unosquare.PassCore.PasswordProvider
             userPrincipal.Dispose();
             searcher.Dispose();
 
-            return result;
+            return listUser;
         }
 
         public UserPrincipal GetUserPrincipal(string username, string pw)
@@ -164,63 +165,7 @@ namespace Unosquare.PassCore.PasswordProvider
 
             if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
             {
-                //CN: Hiện thị ContainerName
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
-                {
-                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
-                }
-
-                //department: Chi nhánh/Phòng ban
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
-                {
-                    userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
-                }
-
-                //title = Chức danh
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
-                {
-                    userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
-                }
-
-                //employeeID mã nhân viên
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
-                {
-                    userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
-                }
-
-                //mobile=Điện thoại
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Mobile))
-                {
-                    userInfo.mobile = directoryEntry.Properties[UserPropertiesAd.Mobile].Value.ToString();
-                }
-
-                //Homephone: hiện ko có
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Homephone))
-                {
-                    userInfo.homePhone = directoryEntry.Properties[UserPropertiesAd.Homephone].Value.ToString();
-                }
-
-                //OU
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.DistinguishedName))
-                {
-                    userInfo.distinguishedName = directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value.ToString();
-                }
-
-                //MemberOf
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.MemberOf))
-                {
-                    userInfo.memberOf = directoryEntry.Properties[UserPropertiesAd.MemberOf].Value.ToString();
-                }
-
-                //Object Category
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.ObjectCategory))
-                {
-                    userInfo.objectCategory = directoryEntry.Properties[UserPropertiesAd.ObjectCategory].Value.ToString();
-                }
-
-                //prop.Value = -1;
-                //directoryEntry.Properties[UserPropertiesAd.Department].Value = "Day la phong ban moi";
-                //directoryEntry.CommitChanges();
+                userInfo = ConvertUserProfiles(directoryEntry);
                 directoryEntry.Dispose();
             }
 
@@ -1174,6 +1119,100 @@ namespace Unosquare.PassCore.PasswordProvider
                 domain,
                 username,
                 pw);
+        }
+
+        private UserInfoAd ConvertUserProfiles(DirectoryEntry dirEntry)
+        {
+            UserInfoAd user = new UserInfoAd();
+
+            //CN: Hiện thị ContainerName
+            if (dirEntry.Properties.Contains(UserPropertiesAd.ContainerName))
+            {
+                user.CN = dirEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
+            }
+            //user có dạng admin@baonx.com
+            if (dirEntry.Properties.Contains(UserPropertiesAd.UserPrincipalName))
+            {
+                user.userPrincipalName = dirEntry.Properties[UserPropertiesAd.UserPrincipalName].Value.ToString();// = fixedUsername;
+            }
+
+            if (dirEntry.Properties.Contains(UserPropertiesAd.LoginName))
+            {
+                user.sAMAccountName = dirEntry.Properties[UserPropertiesAd.LoginName].Value.ToString();//username; //SamAccountName
+            }
+
+            if (dirEntry.Properties.Contains(UserPropertiesAd.Name))
+            {
+                user.name = dirEntry.Properties[UserPropertiesAd.Name].Value.ToString();//username;
+            }
+            //user.givenName;//sn, Surname, LastName = Ho va ten dem
+            if (dirEntry.Properties.Contains(UserPropertiesAd.LastName))
+            {
+                user.givenName = dirEntry.Properties[UserPropertiesAd.LastName].Value.ToString();
+            }
+            //user.sn;//GivenName, FirstName = Ten
+            if (dirEntry.Properties.Contains(UserPropertiesAd.FirstName))
+            {
+                user.sn = dirEntry.Properties[UserPropertiesAd.FirstName].Value.ToString();
+            }
+            //user.displayName;//GivenName, FirstName
+            if (dirEntry.Properties.Contains(UserPropertiesAd.DisplayName))
+            {
+                user.displayName = dirEntry.Properties[UserPropertiesAd.DisplayName].Value.ToString();
+            }
+            //username + "@haiphatland.com.vn";
+            if (dirEntry.Properties.Contains(UserPropertiesAd.EmailAddress))
+            {
+                user.mail = dirEntry.Properties[UserPropertiesAd.EmailAddress].Value.ToString();
+            }
+
+            if (dirEntry.Properties.Contains(UserPropertiesAd.TelePhoneNumber))
+            {
+                user.telephoneNumber = dirEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value.ToString();//user.telephoneNumber;
+            }
+
+            if (dirEntry.Properties.Contains(UserPropertiesAd.Description))
+            {
+                user.description = dirEntry.Properties[UserPropertiesAd.Description].Value.ToString();//user.description;
+            }
+
+            //Thong tin phong ban
+            //employeeID mã nhân viên
+            if (dirEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
+            {
+                user.employeeID = dirEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();//"MaNhanVien";
+            }
+            //department: Chi nhánh/Phòng ban
+            if (dirEntry.Properties.Contains(UserPropertiesAd.Department))
+            {
+                user.department = dirEntry.Properties[UserPropertiesAd.Department].Value.ToString();//"Phong Ban";
+            }
+            //title = Chức danh
+            if (dirEntry.Properties.Contains(UserPropertiesAd.Title))
+            {
+                user.title = dirEntry.Properties[UserPropertiesAd.Title].Value.ToString();//"Chuc Danh";
+            }
+
+            //OU
+            if (dirEntry.Properties.Contains(UserPropertiesAd.DistinguishedName))
+            {
+                user.distinguishedName = dirEntry.Properties[UserPropertiesAd.DistinguishedName].Value.ToString();
+            }
+
+            //MemberOf
+            if (dirEntry.Properties.Contains(UserPropertiesAd.MemberOf))
+            {
+                user.memberOf = dirEntry.Properties[UserPropertiesAd.MemberOf].Value.ToString();
+            }
+
+            //Object Category
+            if (dirEntry.Properties.Contains(UserPropertiesAd.ObjectCategory))
+            {
+                user.objectCategory = dirEntry.Properties[UserPropertiesAd.ObjectCategory].Value.ToString();
+            }
+
+
+            return user;
         }
 
         private int AcquireDomainPasswordLength()

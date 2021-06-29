@@ -27,7 +27,7 @@
         /// <returns>DirectoryEntry</returns>
         public DirectoryEntry GetUserDirectoryEntry(string username, string pw);
 
-        public ApiResultAd GetAllUsers();
+        public List<ApiResultAd> GetAllUsers();
 
         public ApiResultAd? GetUserInfo(string username, string pw);
 

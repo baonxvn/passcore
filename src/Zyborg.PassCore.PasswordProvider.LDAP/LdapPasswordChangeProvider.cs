@@ -180,7 +180,7 @@
             throw new NotImplementedException();
         }
 
-        public ApiResultAd GetAllUsers()
+        public List<ApiResultAd> GetAllUsers()
         {
             _logger.Information("START Novell.Directory.Ldap.LdapPasswordChangeProvider.IPasswordChangeProvider.GetAllUser");
             throw new NotImplementedException();

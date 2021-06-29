@@ -80,7 +80,7 @@ namespace Unosquare.PassCore.Web.Helpers
             throw new NotImplementedException();
         }
 
-        public ApiResultAd GetAllUsers()
+        public List<ApiResultAd> GetAllUsers()
         {
             throw new NotImplementedException();
         }
