@@ -1,4 +1,4 @@
-﻿namespace Unosquare.PassCore.Web.XmlApi
+﻿namespace Unosquare.PassCore.Web.MdaemonServices
 {
     public class GetUserInfoInput
     {

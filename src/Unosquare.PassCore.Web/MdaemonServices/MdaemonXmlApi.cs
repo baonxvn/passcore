@@ -7,7 +7,6 @@ namespace Unosquare.PassCore.Web.MdaemonServices
     using Models;
     using Common;
     using System.Collections.Generic;
-    using XmlApi;
     using Hpl.HrmDatabase.Services;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Newtonsoft.Json;

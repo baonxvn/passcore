@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using System.Collections.Generic;
-    using Unosquare.PassCore.Web.XmlApi;
 
     public class UtilityHelpers
     {
