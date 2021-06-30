@@ -9,6 +9,10 @@ namespace Zyborg.PassCore.PasswordProvider.LDAP
     /// <seealso cref="Unosquare.PassCore.Common.IAppSettings" />
     public class LdapPasswordChangeOptions : IAppSettings
     {
+        public string MailApiUrl { get; set; }
+        public string MailUser { get; set; }
+        public string MailPass { get; set; }
+
         /// <inheritdoc />
         public string[] LdapHostnames { get; set; }
 

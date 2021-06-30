@@ -26,7 +26,6 @@ namespace Hpl.HrmDatabase
 
     public interface IHrmDbContext : IDisposable
     {
-        DbSet<BaoNxMappingPhongBan> BaoNxMappingPhongBans { get; set; } // BaoNXMappingPhongBan
         DbSet<BaoNxNguoiDung> BaoNxNguoiDungs { get; set; } // BaoNX_NguoiDung
         DbSet<BcBaoCao> BcBaoCaos { get; set; } // BC_BaoCao
         DbSet<BcBaoCaoParameter> BcBaoCaoParameters { get; set; } // BC_BaoCao_Parameter
@@ -250,6 +249,7 @@ namespace Hpl.HrmDatabase
         DbSet<NsFmFileShare> NsFmFileShares { get; set; } // NS_FM_FileShare
         DbSet<NsFmFileStore> NsFmFileStores { get; set; } // NS_FM_FileStore
         DbSet<NsFmFolder> NsFmFolders { get; set; } // NS_FM_Folder
+        DbSet<NsFmNguoiDungFolder> NsFmNguoiDungFolders { get; set; } // NS_FM_NguoiDung_Folder
         DbSet<NsHopDong> NsHopDongs { get; set; } // NS_HopDong
         DbSet<NsLoaiDeXuat> NsLoaiDeXuats { get; set; } // NS_LoaiDeXuat
         DbSet<NsNewsArticle> NsNewsArticles { get; set; } // NS_News_Article
@@ -750,7 +750,6 @@ namespace Hpl.HrmDatabase
         {
         }
 
-        public DbSet<BaoNxMappingPhongBan> BaoNxMappingPhongBans { get; set; } // BaoNXMappingPhongBan
         public DbSet<BaoNxNguoiDung> BaoNxNguoiDungs { get; set; } // BaoNX_NguoiDung
         public DbSet<BcBaoCao> BcBaoCaos { get; set; } // BC_BaoCao
         public DbSet<BcBaoCaoParameter> BcBaoCaoParameters { get; set; } // BC_BaoCao_Parameter
@@ -974,6 +973,7 @@ namespace Hpl.HrmDatabase
         public DbSet<NsFmFileShare> NsFmFileShares { get; set; } // NS_FM_FileShare
         public DbSet<NsFmFileStore> NsFmFileStores { get; set; } // NS_FM_FileStore
         public DbSet<NsFmFolder> NsFmFolders { get; set; } // NS_FM_Folder
+        public DbSet<NsFmNguoiDungFolder> NsFmNguoiDungFolders { get; set; } // NS_FM_NguoiDung_Folder
         public DbSet<NsHopDong> NsHopDongs { get; set; } // NS_HopDong
         public DbSet<NsLoaiDeXuat> NsLoaiDeXuats { get; set; } // NS_LoaiDeXuat
         public DbSet<NsNewsArticle> NsNewsArticles { get; set; } // NS_News_Article
@@ -1239,7 +1239,7 @@ namespace Hpl.HrmDatabase
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=BAONX; Database=HRM_db; User ID=sa; Password=sa@123");
+                optionsBuilder.UseSqlServer(@"Server=54.251.3.45; Database=HRM_db; User ID=sa; Password=Zm*3_E}7gaR83+_G");
             }
         }
 
@@ -1256,7 +1256,6 @@ namespace Hpl.HrmDatabase
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new BaoNxMappingPhongBanConfiguration());
             modelBuilder.ApplyConfiguration(new BaoNxNguoiDungConfiguration());
             modelBuilder.ApplyConfiguration(new BcBaoCaoConfiguration());
             modelBuilder.ApplyConfiguration(new BcBaoCaoParameterConfiguration());
@@ -1480,6 +1479,7 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new NsFmFileShareConfiguration());
             modelBuilder.ApplyConfiguration(new NsFmFileStoreConfiguration());
             modelBuilder.ApplyConfiguration(new NsFmFolderConfiguration());
+            modelBuilder.ApplyConfiguration(new NsFmNguoiDungFolderConfiguration());
             modelBuilder.ApplyConfiguration(new NsHopDongConfiguration());
             modelBuilder.ApplyConfiguration(new NsLoaiDeXuatConfiguration());
             modelBuilder.ApplyConfiguration(new NsNewsArticleConfiguration());
@@ -3449,19 +3449,11 @@ namespace Hpl.HrmDatabase
         public string Email { get; set; } // Email (length: 255)
     }
 
-    // BaoNXMappingPhongBan
-    public class BaoNxMappingPhongBan
-    {
-        public int PhongBanId { get; set; } // PhongBanId (Primary key)
-        public bool LaPhongBanChinh { get; set; } // LaPhongBanChinh
-    }
-
     // BaoNX_NguoiDung
     public class BaoNxNguoiDung
     {
         public string TenNguoiDung { get; set; } // TenNguoiDung (Primary key) (length: 50)
         public int? NguoiDungId { get; set; } // NguoiDungID
-        public string NhanVienId { get; set; } // NhanVienID (length: 10)
     }
 
     // The table 'BaoNXTemp20210602' is not usable by entity framework because it
@@ -7438,6 +7430,14 @@ namespace Hpl.HrmDatabase
         public int? ShareToUserId { get; set; } // ShareToUserID
         public DateTime? CreatedDate { get; set; } // CreatedDate
         public int? CreatedById { get; set; } // CreatedByID
+        public int? FolderId { get; set; } // FolderID
+        public int? ShareToNhanVienId { get; set; } // ShareToNhanVienID
+        public int? ShareToPhongBanId { get; set; } // ShareToPhongBanID
+        public string FromUserName { get; set; } // FromUserName (length: 250)
+        public string Name { get; set; } // Name (length: 500)
+        public string ShareToName { get; set; } // ShareToName (length: 250)
+        public int? PermissionType { get; set; } // PermissionType
+        public bool? IsPublicFolder { get; set; } // IsPublicFolder
     }
 
     // NS_FM_FileStore
@@ -7459,6 +7459,9 @@ namespace Hpl.HrmDatabase
         public DateTime? CreatedDate { get; set; } // CreatedDate
         public int? ModifyById { get; set; } // ModifyByID
         public DateTime? ModifyDate { get; set; } // ModifyDate
+        public bool? IsMarkStar { get; set; } // IsMarkStar
+        public bool? IsDeleted { get; set; } // IsDeleted
+        public DateTime? DeletedDate { get; set; } // DeletedDate
     }
 
     // NS_FM_Folder
@@ -7471,6 +7474,22 @@ namespace Hpl.HrmDatabase
         public DateTime? CreatedDate { get; set; } // CreatedDate
         public int? ModifyById { get; set; } // ModifyByID
         public DateTime? ModifyDate { get; set; } // ModifyDate
+        public string Icon { get; set; } // Icon (length: 50)
+        public int? TotalFiles { get; set; } // TotalFiles
+        public int? NhanVienId { get; set; } // NhanVienID
+        public bool? IsDeleted { get; set; } // IsDeleted
+        public DateTime? DeletedDate { get; set; } // DeletedDate
+    }
+
+    // NS_FM_NguoiDung_Folder
+    public class NsFmNguoiDungFolder
+    {
+        public int NguoiDungFolderId { get; set; } // NguoiDungFolderID (Primary key)
+        public int? NhanVienId { get; set; } // NhanVienID
+        public int? PhongBanId { get; set; } // PhongBanID
+        public int? FolderId { get; set; } // FolderID
+        public int? PermissionType { get; set; } // PermissionType
+        public int? XetDuyet { get; set; } // XetDuyet
     }
 
     // NS_HopDong
@@ -8309,6 +8328,7 @@ namespace Hpl.HrmDatabase
         public int? LocationMoiId { get; set; } // Location_MoiID
         public int? IsThayDoiViTri { get; set; } // IsThayDoiViTri
         public int? IsThayDoiLocation { get; set; } // IsThayDoiLocation
+        public bool? IsDongBo { get; set; } // IsDongBo
     }
 
     // NS_QTCongTac
@@ -11838,8 +11858,8 @@ namespace Hpl.HrmDatabase
         public string EmailPassword { get; set; } // EmailPassword (length: 250)
         public string NdHoVaTen { get; set; } // ND_HoVaTen (length: 50)
         public string NdMaNhanVien { get; set; } // ND_MaNhanVien (length: 50)
-        public string DeviceId { get; set; } // DeviceId (length: 128)
-        public string Token { get; set; } // Token (length: 128)
+        public string DeviceId { get; set; } // DeviceId (length: 500)
+        public string Token { get; set; } // Token (length: 500)
         public string RedirectUrl { get; set; } // RedirectURL (length: 250)
     }
 
@@ -12184,7 +12204,7 @@ namespace Hpl.HrmDatabase
         public bool? IsUse { get; set; } // IsUse
         public bool? BatBuocCauHinh { get; set; } // BatBuocCauHinh
         public bool? QuyTrinhMacDinh { get; set; } // QuyTrinhMacDinh
-        public string SqlGetThongTin { get; set; } // SQLGetThongTin (length: 500)
+        public string SqlGetThongTin { get; set; } // SQLGetThongTin (length: 4000)
         public string SqlGroupQuery { get; set; } // SQLGroupQuery (length: 500)
         public int? CreatedById { get; set; } // CreatedByID
         public DateTime? CreatedDate { get; set; } // CreatedDate
@@ -12323,19 +12343,6 @@ namespace Hpl.HrmDatabase
     // This is not a commercial licence, therefore only a few tables/views/stored procedures are generated.
     // ****************************************************************************************************
 
-    // BaoNXMappingPhongBan
-    public class BaoNxMappingPhongBanConfiguration : IEntityTypeConfiguration<BaoNxMappingPhongBan>
-    {
-        public void Configure(EntityTypeBuilder<BaoNxMappingPhongBan> builder)
-        {
-            builder.ToTable("BaoNXMappingPhongBan", "dbo");
-            builder.HasKey(x => x.PhongBanId).HasName("PK_BaoNXMappingPhongBan").IsClustered();
-
-            builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanId").HasColumnType("int").IsRequired().ValueGeneratedNever();
-            builder.Property(x => x.LaPhongBanChinh).HasColumnName(@"LaPhongBanChinh").HasColumnType("bit").IsRequired();
-        }
-    }
-
     // BaoNX_NguoiDung
     public class BaoNxNguoiDungConfiguration : IEntityTypeConfiguration<BaoNxNguoiDung>
     {
@@ -12346,7 +12353,6 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.TenNguoiDung).HasColumnName(@"TenNguoiDung").HasColumnType("nvarchar(50)").IsRequired().HasMaxLength(50).ValueGeneratedNever();
             builder.Property(x => x.NguoiDungId).HasColumnName(@"NguoiDungID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("nchar(10)").IsRequired().IsFixedLength().HasMaxLength(10);
         }
     }
 
@@ -17552,6 +17558,14 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ShareToUserId).HasColumnName(@"ShareToUserID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.FolderId).HasColumnName(@"FolderID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.ShareToNhanVienId).HasColumnName(@"ShareToNhanVienID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.ShareToPhongBanId).HasColumnName(@"ShareToPhongBanID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.FromUserName).HasColumnName(@"FromUserName").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
+            builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
+            builder.Property(x => x.ShareToName).HasColumnName(@"ShareToName").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
+            builder.Property(x => x.PermissionType).HasColumnName(@"PermissionType").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.IsPublicFolder).HasColumnName(@"IsPublicFolder").HasColumnType("bit").IsRequired(false);
         }
     }
 
@@ -17579,6 +17593,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
+            builder.Property(x => x.IsMarkStar).HasColumnName(@"IsMarkStar").HasColumnType("bit").IsRequired(false);
+            builder.Property(x => x.IsDeleted).HasColumnName(@"IsDeleted").HasColumnType("bit").IsRequired(false);
+            builder.Property(x => x.DeletedDate).HasColumnName(@"DeletedDate").HasColumnType("datetime").IsRequired(false);
         }
     }
 
@@ -17597,6 +17614,28 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
+            builder.Property(x => x.Icon).HasColumnName(@"Icon").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.TotalFiles).HasColumnName(@"TotalFiles").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.IsDeleted).HasColumnName(@"IsDeleted").HasColumnType("bit").IsRequired(false);
+            builder.Property(x => x.DeletedDate).HasColumnName(@"DeletedDate").HasColumnType("datetime").IsRequired(false);
+        }
+    }
+
+    // NS_FM_NguoiDung_Folder
+    public class NsFmNguoiDungFolderConfiguration : IEntityTypeConfiguration<NsFmNguoiDungFolder>
+    {
+        public void Configure(EntityTypeBuilder<NsFmNguoiDungFolder> builder)
+        {
+            builder.ToTable("NS_FM_NguoiDung_Folder", "dbo");
+            builder.HasKey(x => x.NguoiDungFolderId).HasName("PK_NS_FM_NguoiDung_Folder").IsClustered();
+
+            builder.Property(x => x.NguoiDungFolderId).HasColumnName(@"NguoiDungFolderID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.FolderId).HasColumnName(@"FolderID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.PermissionType).HasColumnName(@"PermissionType").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
         }
     }
 
@@ -18689,6 +18728,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LocationMoiId).HasColumnName(@"Location_MoiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsThayDoiViTri).HasColumnName(@"IsThayDoiViTri").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsThayDoiLocation).HasColumnName(@"IsThayDoiLocation").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.IsDongBo).HasColumnName(@"IsDongBo").HasColumnType("bit").IsRequired(false);
         }
     }
 
@@ -23291,8 +23331,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.EmailPassword).HasColumnName(@"EmailPassword").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.NdHoVaTen).HasColumnName(@"ND_HoVaTen").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NdMaNhanVien).HasColumnName(@"ND_MaNhanVien").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.DeviceId).HasColumnName(@"DeviceId").HasColumnType("varchar(128)").IsRequired(false).IsUnicode(false).HasMaxLength(128);
-            builder.Property(x => x.Token).HasColumnName(@"Token").HasColumnType("varchar(128)").IsRequired(false).IsUnicode(false).HasMaxLength(128);
+            builder.Property(x => x.DeviceId).HasColumnName(@"DeviceId").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
+            builder.Property(x => x.Token).HasColumnName(@"Token").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.RedirectUrl).HasColumnName(@"RedirectURL").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
         }
     }
@@ -23770,7 +23810,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsUse).HasColumnName(@"IsUse").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.BatBuocCauHinh).HasColumnName(@"BatBuocCauHinh").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.QuyTrinhMacDinh).HasColumnName(@"QuyTrinhMacDinh").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.SqlGetThongTin).HasColumnName(@"SQLGetThongTin").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
+            builder.Property(x => x.SqlGetThongTin).HasColumnName(@"SQLGetThongTin").HasColumnType("nvarchar(4000)").IsRequired(false).HasMaxLength(4000);
             builder.Property(x => x.SqlGroupQuery).HasColumnName(@"SQLGroupQuery").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);

@@ -48,7 +48,7 @@
             {
                 var user = new CreateUserInput()
                 {
-                    Domain = MdaemonXmlApi.Domain,
+                    Domain = MdaemonXmlApi.MailDomain,
                     Username = "user" + i,
                     FirstName = "FirstName" + i,
                     LastName = "LastName" + i,

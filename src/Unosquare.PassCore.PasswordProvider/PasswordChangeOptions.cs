@@ -63,5 +63,9 @@
         
         /// <inheritdoc />
         public string LdapUsername { get; set; }
+
+        public string MailApiUrl { get; set; }
+        public string MailUser { get; set; }
+        public string MailPass { get; set; }
     }
 }

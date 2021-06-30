@@ -599,48 +599,7 @@ namespace Unosquare.PassCore.PasswordProvider
             //Update lại mot so thong tin cua nhan su
             if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
             {
-                //Phong ban
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Department))
-                {
-                    userInfo.department = directoryEntry.Properties[UserPropertiesAd.Department].Value.ToString();
-                }
-                //Chuc Vu
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.Title))
-                {
-                    userInfo.title = directoryEntry.Properties[UserPropertiesAd.Title].Value.ToString();
-                }
-                //Ma Nhan Vien
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.EmployeeId))
-                {
-                    userInfo.employeeID = directoryEntry.Properties[UserPropertiesAd.EmployeeId].Value.ToString();
-                }
-                //CN
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.ContainerName))
-                {
-                    userInfo.CN = directoryEntry.Properties[UserPropertiesAd.ContainerName].Value.ToString();
-                }
-
-                //distinguishedName (CN=baonx,OU=Company Structure,DC=baonx,DC=com)
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.DistinguishedName))
-                {
-                    //directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value = "OU=Company Structure,DC=baonx,DC=com";
-                    userInfo.distinguishedName = directoryEntry.Properties[UserPropertiesAd.DistinguishedName].Value.ToString();
-                }
-
-                //memberOf: (CN=Employees,CN=Users,DC=baonx,DC=com)
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.MemberOf))
-                {
-                    userInfo.memberOf = directoryEntry.Properties[UserPropertiesAd.MemberOf].Value.ToString();
-                }
-
-                //objectCategory: (CN=Person,CN=Schema,CN=Configuration,DC=baonx,DC=com)
-                if (directoryEntry.Properties.Contains(UserPropertiesAd.ObjectCategory))
-                {
-                    userInfo.objectCategory = directoryEntry.Properties[UserPropertiesAd.ObjectCategory].Value.ToString();
-                }
-
-                result.UserInfo = userInfo;
-
+                result.UserInfo = ConvertUserProfiles(directoryEntry);
                 directoryEntry.Dispose();
             }
             else

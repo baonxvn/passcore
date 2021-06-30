@@ -209,7 +209,8 @@ namespace Hpl.HrmDatabase.Services
                               from pb5 in table8.DefaultIfEmpty()
                               join pb6 in db.PhongBans on pb5.PhongBanChaId equals pb6.PhongBanId into table9
                               from pb6 in table9.DefaultIfEmpty()
-                              where listMaNhanVien.Contains(nv.MaNhanVien)
+                              where listMaNhanVien.Contains(nv.MaNhanVien) & !string.IsNullOrEmpty(nv.MaNhanVien)
+                               
                               select new NhanVienViewModel
                               {
                                   NhanVienID = nv.NhanVienId,

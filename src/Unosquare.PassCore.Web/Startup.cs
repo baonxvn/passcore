@@ -1,3 +1,4 @@
+
 namespace Unosquare.PassCore.Web
 {
     using System;
@@ -11,6 +12,8 @@ namespace Unosquare.PassCore.Web
     using Models;
     using Serilog;
     using PasswordProvider;
+    using Unosquare.PassCore.Web.Services;
+
     //using Zyborg.PassCore.PasswordProvider.LDAP;
 
     //#if DEBUG
@@ -92,6 +95,8 @@ namespace Unosquare.PassCore.Web
             });
             services.AddControllers();
             //End Enable Cross-Origin Requests (CORS) in ASP.NET Core
+
+            services.AddSingleton<IServiceCommon, ServiceCommon>();
 
             services.Configure<ClientSettings>(Configuration.GetSection(nameof(ClientSettings)));
             services.Configure<WebSettings>(Configuration.GetSection(nameof(WebSettings)));

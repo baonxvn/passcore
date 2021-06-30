@@ -10,7 +10,6 @@
           <DontExpirePassword>Yes</DontExpirePassword>
         </Details>
         <ListMembership>
-          <List>bancongnghe@company.test</List>
         </ListMembership>
       </Parameters>
     </Request>

@@ -1,5 +1,4 @@
-﻿
-namespace Unosquare.PassCore.Web.MdaemonServices
+﻿namespace Unosquare.PassCore.Web.MdaemonServices
 {
     using System;
     using System.IO;
@@ -9,23 +8,24 @@ namespace Unosquare.PassCore.Web.MdaemonServices
     using System.Xml;
     using System.Xml.Linq;
     using System.Threading.Tasks;
+    using Unosquare.PassCore.PasswordProvider;
+    using Microsoft.Extensions.Options;
 
     public class MdaemonAuthen
     {
         public static async Task<XElement> GetResponse(XmlDocument xmlDoc)
         {
+            ////var domain = "company.test";
             //Server HPL
             Uri url = new Uri("https://mail.haiphatland.com.vn:1000/MdMgmtWS");
-            //var user1 = "hpltech@2stay.vn";
-            var user1 = "Haiphatlandtech@haiphatland.com.vn";
+            var user = "Haiphatlandtech@haiphatland.com.vn";
             var pass = "Matkhaumoi1108!%#";
 
             //Uri url = new Uri("https://172.168.0.217:444/MdMgmtWS");
-            ////var domain = "company.test";
-            //var user1 = "baonx@company.test";
-            ////var user2 = "testapi@company.test";
+            //var user = "baonx@company.test";
             //var pass = "Admin@123";
-            string svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(user1 + ":" + pass));
+
+            string svcCredentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(user + ":" + pass));
 
             //Sử dụng HttpClient
             HttpClientHandler clientHandler = new HttpClientHandler();

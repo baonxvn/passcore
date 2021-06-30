@@ -55,5 +55,9 @@
         /// The LDAP username.
         /// </value>
         string LdapUsername { get; set; }
+
+        string MailApiUrl { get; set; }
+        string MailUser { get; set; }
+        string MailPass { get; set; }
     }
 }

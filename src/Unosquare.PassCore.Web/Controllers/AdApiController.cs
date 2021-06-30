@@ -10,7 +10,6 @@ namespace Unosquare.PassCore.Web.Controllers
     using Unosquare.PassCore.Web.Models;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
-    using Swan.Net;
     using Hpl.HrmDatabase.Services;
 
     using System.Threading.Tasks;

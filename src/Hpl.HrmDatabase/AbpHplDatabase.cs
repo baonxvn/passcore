@@ -168,7 +168,7 @@ namespace Hpl.HrmDatabase
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=BAONX; Database=HPL_ACM; User ID=sa; Password=sa@123");
+                optionsBuilder.UseSqlServer(@"Server=54.251.3.45; Database=HPL_ACM; User ID=sa; Password=Zm*3_E}7gaR83+_G");
             }
         }
 
@@ -1145,8 +1145,8 @@ namespace Hpl.HrmDatabase
     {
         public int Id { get; set; } // Id (Primary key)
         public int PhongBanId { get; set; } // PhongBanId
-        public int PhongBanParentId { get; set; } // PhongBanParentId
-        public string MaPhongBan { get; set; } // MaPhongBan (length: 50)
+        public int? PhongBanParentId { get; set; } // PhongBanParentId
+        public string MaPhongBan { get; set; } // MaPhongBan (length: 256)
         public string TenPhongBan { get; set; } // TenPhongBan (length: 256)
         public DateTime? CreationTime { get; set; } // CreationTime
         public string MailingList { get; set; } // MailingList (length: 256)
@@ -2057,8 +2057,8 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanId").HasColumnType("int").IsRequired();
-            builder.Property(x => x.PhongBanParentId).HasColumnName(@"PhongBanParentId").HasColumnType("int").IsRequired();
-            builder.Property(x => x.MaPhongBan).HasColumnName(@"MaPhongBan").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.PhongBanParentId).HasColumnName(@"PhongBanParentId").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.MaPhongBan).HasColumnName(@"MaPhongBan").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
             builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
             builder.Property(x => x.CreationTime).HasColumnName(@"CreationTime").HasColumnType("datetime2").IsRequired(false);
             builder.Property(x => x.MailingList).HasColumnName(@"MailingList").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);

@@ -27,14 +27,6 @@ namespace Unosquare.PassCore.Web.Controllers
         }
 
         [HttpGet]
-        [Route("CreateUserTheoMaNhanVien")]
-        public async Task<string> CreateUserTheoMaNhanVien(string maNhanVien)
-        {
-            var res = await MdaemonXmlApi.CreateUserTheoMaNhanVien(maNhanVien);
-            return JsonConvert.SerializeObject(res);
-        }
-
-        [HttpGet]
         [Route("CreateUser")]
         public async Task<string> CreateUser()
         {
@@ -76,13 +68,14 @@ namespace Unosquare.PassCore.Web.Controllers
             return JsonConvert.SerializeObject(res);
         }
 
-        [HttpGet]
-        [Route("MailingUpdateList")]
-        public async Task<string> MailingUpdateList(string listName)
-        {
-            var res = await MdaemonXmlApi.MailingUpdateList(listName, "Đây là mô tả");
-            return JsonConvert.SerializeObject(res);
-        }
+        //[HttpGet]
+        //[Route("MailingUpdateList")]
+        //public async Task<string> MailingUpdateList(string listName)
+        //{
+        //    var res = await MdaemonXmlApi.MailingUpdateList(listName);
+        //    return JsonConvert.SerializeObject(res);
+        //}
+
         // GET api/<MdaemonController>/5
         [HttpGet("{id}")]
         public string Get(int id)
