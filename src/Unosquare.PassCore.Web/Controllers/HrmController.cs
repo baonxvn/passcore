@@ -1,5 +1,4 @@
-﻿
-namespace Unosquare.PassCore.Web.Controllers
+﻿namespace Unosquare.PassCore.Web.Controllers
 {
     using System.Linq;
     using System.Collections.Generic;
@@ -10,6 +9,9 @@ namespace Unosquare.PassCore.Web.Controllers
     using Models;
     using Serilog;
     using Microsoft.Extensions.Options;
+    using System;
+    using System.Threading.Tasks;
+    using Unosquare.PassCore.Web.MdaemonServices;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -57,6 +59,47 @@ namespace Unosquare.PassCore.Web.Controllers
             else
             {
                 result.Errors.Add(new ApiErrorItem(ApiErrorCode.UserNotFound, "Không tồn tại user."));
+            }
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpGet]
+        [Route("FixUsernameNhanVien")]
+        public async Task<string> FixUsernameNhanVien(string maNhanVien)
+        {
+            var result = new ApiResult();
+            try
+            {
+                if (string.IsNullOrEmpty(maNhanVien))
+                {
+                    result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: Không xác định được mã"));
+                    return JsonConvert.SerializeObject(result);
+                }
+
+                List<object> listObjs = new List<object>();
+
+                var obj = UserService.FixUsernameNhanVien(maNhanVien);
+                listObjs.Add(obj);
+                //Tạo email
+                CreateUserInput input = new CreateUserInput();
+                input.Domain = "haiphatland.com.vn";
+                input.Username = obj.TenDangNhap;
+                input.FirstName = UsernameGenerator.ConvertToUnSign(obj.Ten);
+                input.LastName = UsernameGenerator.ConvertToUnSign(obj.Ho);
+                input.FullName = UsernameGenerator.ConvertToUnSign(obj.Ho + " " + obj.Ten);
+                input.Password = "Hpl@123";
+                input.AdminNotes = "Tạo từ tool, time: " + DateTime.Now.ToString("G");
+                input.MailList = "";
+                input.Group = "";
+                var res = await MdaemonXmlApi.CreateUser(input);
+                listObjs.Add(res);
+                result.Payload = listObjs;
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Successful"));
+            }
+            catch (Exception e)
+            {
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Lỗi: " + e.Message));
             }
 
             return JsonConvert.SerializeObject(result);

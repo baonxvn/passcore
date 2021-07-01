@@ -8,10 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="XmlApi\Response.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="bin\Debug\net5.0\XmlApi\GetDomainList.xml" />
     <Content Include="bin\Debug\net5.0\XmlApi\GetUserInfo.xml" />
     <Content Include="bin\Release\net5.0\XmlApi\GetDomainList.xml" />
     <Content Include="bin\Release\net5.0\XmlApi\GetUserInfo.xml" />
+    <Content Include="XmlApi\Response.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

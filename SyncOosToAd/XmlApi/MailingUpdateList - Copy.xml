@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>UpdateList</Operation>
+      <Parameters>
+        <Domain>
+        </Domain>
+        <ListName>
+          bancongnghe
+          <Enabled>1</Enabled>
+        </ListName>
+        <Details>
+          <Description>Đây là mô tả của list</Description>
+        </Details>
+        <Members>
+          <Member action="add" id="baonx" displayname="Nguyen Xuan Bao" />
+          <Member action="remove" id="baonx@company.test"/>
+          <Domain>
+          </Domain>
+          <Contacts>
+          </Contacts>
+        </Members>
+        <Routing>
+        </Routing>
+        <Reminders>
+        </Reminders>
+        <PublicFolder>
+        </PublicFolder>
+        <Support>
+        </Support>
+        <Subscriptions>
+        </Subscriptions>
+        <ODBC>
+        </ODBC>
+        <Notifications>
+        </Notifications>
+        <Moderation>
+        </Moderation>
+        <Urls>
+        </Urls>
+        <Headers>
+        </Headers>
+        <Settings>
+        </Settings>
+        <ActiveDirectory>
+        </ActiveDirectory>
+        <Digest>
+        </Digest>
+        <INCOMPLETE>
+        </INCOMPLETE>
+      </Parameters>
+    </Request>
+  </API>
+</MDaemon>

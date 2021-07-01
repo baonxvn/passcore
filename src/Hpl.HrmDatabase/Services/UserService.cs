@@ -7,6 +7,165 @@ namespace Hpl.HrmDatabase.Services
 {
     public class UserService
     {
+        public static NhanVienViewModel FixUsernameNhanVien(string maNhanVien)
+        {
+            var db = new HrmDbContext();
+            var nhanVien = new NhanVienViewModel();
+            //var qr1 = db.SysNguoiDungs.Where(x => x.TenDangNhap == username);
+
+            var query = from u in db.SysNguoiDungs.ToList()
+                        join n in db.NhanViens on u.NhanVienId equals n.NhanVienId into table1
+                        from n in table1.ToList()
+                        join cv in db.NsDsChucVus on n.ChucVuId equals cv.ChucVuId into table2
+                        from cv in table2.ToList()
+                        join cd in db.NsDsChucDanhs on n.ChucDanhId equals cd.ChucDanhId into table3
+                        from cd in table3.ToList()
+                        join p in db.PhongBans on n.PhongBanId equals p.PhongBanId into table4
+                        from p in table4.ToList()
+                        where n.MaNhanVien == maNhanVien
+                        select new NhanVienViewModel
+                        {
+                            NhanVienID = n.NhanVienId,
+                            Ho = n.Ho,
+                            Ten = n.HoTen,
+                            GioiTinh = n.GioiTinh,
+                            MaNhanVien = n.MaNhanVien,
+                            TenDangNhap = u.TenDangNhap,
+                            Email = n.Email,
+                            EmailCaNhan = n.EmailCaNhan,
+                            DienThoai = n.DienThoai,
+                            CMTND = n.Cmtnd,
+                            TenChucVu = cv.TenChucVu,
+                            TenChucDanh = cd.TenChucDanh,
+                            PhongBanId = p.PhongBanId,
+                            TenPhongBan = p.Ten,
+                            MaPhongBan = p.MaPhongBan
+                        };
+
+            var nvList = query.ToList();
+            switch (nvList.ToList().Count)
+            {
+                case > 1:
+                    nhanVien.TenDangNhap = "Username này bị trùng lặp, yêu cầu kiểm tra lại";
+                    break;
+                case 1:
+                    nhanVien = nvList.FirstOrDefault();
+                    var pbList = db.PhongBans.ToList();
+
+                    var child = pbList.First(x => nhanVien != null && x.PhongBanId == nhanVien.PhongBanId);
+                    var parents = FindAllParents(pbList, child).ToList();
+
+                    int index = 0;
+                    if (nhanVien != null)
+                    {
+                        foreach (var phongBan in parents)
+                        {
+                            index++;
+                            switch (index)
+                            {
+                                case 1:
+                                    nhanVien.PhongBanCha = phongBan.Ten;
+                                    nhanVien.MaCha = phongBan.MaPhongBan;
+                                    break;
+                                case 2:
+                                    nhanVien.PhongBanOng = phongBan.Ten;
+                                    nhanVien.MaOng = phongBan.MaPhongBan;
+                                    break;
+                                case 3:
+                                    nhanVien.PhongBanCo = phongBan.Ten;
+                                    nhanVien.MaCo = phongBan.MaPhongBan;
+                                    break;
+                                case 4:
+                                    nhanVien.PhongBanKy = phongBan.Ten;
+                                    nhanVien.MaKy = phongBan.MaPhongBan;
+                                    break;
+                                case 5:
+                                    nhanVien.PhongBan6 = phongBan.Ten;
+                                    nhanVien.MaPb6 = phongBan.MaPhongBan;
+                                    break;
+                            }
+                        }
+                    }
+                    //Fix username
+                    var user = db.SysNguoiDungs.Where(x => x.TenDangNhap == nhanVien.TenDangNhap).FirstOrDefault();
+                    if (user != null)
+                    {
+                        var strList = user.TenDangNhap.Split("@");
+                        switch (strList.Length)
+                        {
+                            case 0:
+                                //Tạo user mới hoàn toàn ở đây
+                                break;
+                            case 1:
+                                //fix lại các trường hợp lỗi gmail.com
+                                var abc = UsernameGenerator.LikeString(user.TenDangNhap, "gmail.com");
+
+                                if (abc)
+                                {
+                                    var username1 = UsernameGenerator.CreateUsernameFromName(nhanVien.Ho, nhanVien.Ten);
+                                    var newUsername1 = UsernameGenerator.CreateNewUsername(username1);
+
+                                    //Update new email và chuyển email cá nhân sang
+                                    var newNv1 = db.NhanViens.FirstOrDefault(x => x.NhanVienId == nhanVien.NhanVienID);
+                                    if (newNv1 != null)
+                                    {
+                                        newNv1.Email = newUsername1 + "@haiphatland.com.vn";
+                                        newNv1.EmailCaNhan = user.TenDangNhap.ToLower();
+
+                                        nhanVien.Email = newUsername1 + "@haiphatland.com.vn";
+                                        nhanVien.EmailCaNhan = user.TenDangNhap.ToLower();
+                                    }
+
+                                    //Fix user name
+                                    user.TenDangNhap = newUsername1;
+                                    db.SaveChanges();
+
+                                    nhanVien.TenDangNhap = newUsername1;
+                                }
+
+                                break;
+                            case 2:
+                                //get username
+                                var username2 = UsernameGenerator.CreateUsernameFromName(nhanVien.Ho, nhanVien.Ten);
+                                var newUsername2 = UsernameGenerator.CreateNewUsername(username2);
+
+                                //Update new email và chuyển email cá nhân sang
+                                var newNv2 = db.NhanViens.FirstOrDefault(x => x.NhanVienId == nhanVien.NhanVienID);
+                                if (newNv2 != null)
+                                {
+                                    newNv2.Email = newUsername2 + "@haiphatland.com.vn";
+                                    newNv2.EmailCaNhan = user.TenDangNhap.ToLower();
+
+                                    nhanVien.Email = newUsername2 + "@haiphatland.com.vn";
+                                    nhanVien.EmailCaNhan = user.TenDangNhap.ToLower();
+                                }
+
+                                //Fix user name
+                                user.TenDangNhap = newUsername2;
+                                db.SaveChanges();
+
+                                nhanVien.TenDangNhap = newUsername2;
+                                break;
+                            default:
+
+                                break;
+                        }
+
+
+                    }
+
+                    break;
+
+                default:
+                    nhanVien = null;
+                    break;
+            }
+
+            db.Dispose();
+
+            return nhanVien;
+        }
+
         public static NhanVienViewModel GetNhanVienByUsername(string username)
         {
             var db = new HrmDbContext();
@@ -32,6 +191,7 @@ namespace Hpl.HrmDatabase.Services
                             MaNhanVien = n.MaNhanVien,
                             TenDangNhap = u.TenDangNhap,
                             Email = n.Email,
+                            EmailCaNhan = n.EmailCaNhan,
                             DienThoai = n.DienThoai,
                             CMTND = n.Cmtnd,
                             TenChucVu = cv.TenChucVu,
@@ -168,6 +328,7 @@ namespace Hpl.HrmDatabase.Services
                               MaNhanVien = nv.MaNhanVien,
                               TenDangNhap = nd.TenDangNhap,
                               Email = nv.Email,
+                              EmailCaNhan = nv.EmailCaNhan,
                               DienThoai = nv.DienThoai,
                               CMTND = nv.Cmtnd,
                               TenChucVu = cv.TenChucVu,
@@ -177,7 +338,7 @@ namespace Hpl.HrmDatabase.Services
                               MaPhongBan = phongBan.MaPhongBan
                           };
 
-            return listNvs.ToList();
+            return listNvs.OrderByDescending(x => x.NhanVienID).ToList();
         }
 
         /// <summary>
@@ -210,7 +371,7 @@ namespace Hpl.HrmDatabase.Services
                               join pb6 in db.PhongBans on pb5.PhongBanChaId equals pb6.PhongBanId into table9
                               from pb6 in table9.DefaultIfEmpty()
                               where listMaNhanVien.Contains(nv.MaNhanVien) & !string.IsNullOrEmpty(nv.MaNhanVien)
-                               
+
                               select new NhanVienViewModel
                               {
                                   NhanVienID = nv.NhanVienId,
@@ -220,6 +381,7 @@ namespace Hpl.HrmDatabase.Services
                                   MaNhanVien = nv.MaNhanVien,
                                   TenDangNhap = nd.TenDangNhap,
                                   Email = nv.Email,
+                                  EmailCaNhan = nv.EmailCaNhan,
                                   DienThoai = nv.DienThoai,
                                   CMTND = nv.Cmtnd,
                                   TenChucVu = cv.TenChucVu,
@@ -239,7 +401,7 @@ namespace Hpl.HrmDatabase.Services
                                   MaPb6 = pb6.MaPhongBan
                               };
 
-                return listNvs.ToList();
+                return listNvs.OrderByDescending(x => x.NhanVienID).ToList();
             }
             catch (Exception e)
             {
@@ -287,6 +449,7 @@ namespace Hpl.HrmDatabase.Services
                                   MaNhanVien = nv.MaNhanVien,
                                   TenDangNhap = nd.TenDangNhap,
                                   Email = nv.Email,
+                                  EmailCaNhan = nv.EmailCaNhan,
                                   DienThoai = nv.DienThoai,
                                   CMTND = nv.Cmtnd,
                                   TenChucVu = cv.TenChucVu,
@@ -306,7 +469,7 @@ namespace Hpl.HrmDatabase.Services
                                   MaPb6 = pb6.MaPhongBan
                               };
 
-                return listNvs.Take(10).ToList();
+                return listNvs.OrderByDescending(x => x.NhanVienID).ToList();
             }
             catch (Exception e)
             {
@@ -334,7 +497,7 @@ namespace Hpl.HrmDatabase.Services
         public static List<HplPhongBan> GetAllHplPhongBan()
         {
             var db = new AbpHplDbContext();
-            var listPbs = db.HplPhongBans.ToList();
+            var listPbs = db.HplPhongBans.OrderBy(x => x.TenPhongBan).ToList();
 
             return listPbs;
 

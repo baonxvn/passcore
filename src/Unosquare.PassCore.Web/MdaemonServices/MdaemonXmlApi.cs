@@ -184,7 +184,7 @@
 
                 //Add Mailing list;
                 listObj.Add(await MailingUpdateList("all", inputMail));
-                listObj.Add(await MailingUpdateList(inputMail.MailList.Split("@")[0], inputMail));
+                //listObj.Add(await MailingUpdateList(inputMail.MailList.Split("@")[0], inputMail));
 
                 ////Mặc định add vào all @haiphatland.com.vn
 

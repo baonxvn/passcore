@@ -9,6 +9,7 @@
         public string MaNhanVien { get; set; }
         public string TenDangNhap { get; set; }
         public string Email { get; set; }
+        public string EmailCaNhan { get; set; }
         public string DienThoai { get; set; }
         public string CMTND { get; set; }
         public string TenChucVu { get; set; }

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>UpdateList</Operation>
+      <Parameters>
+        <Domain>company.test</Domain>
+        <ListName>lst4</ListName>
+        <Details>
+          <Description>lst4</Description>
+        </Details>
+      </Parameters>
+    </Request>
+  </API>
+  <Members>
+    <Member action="add" id="baonx@company.test" displayname="Nguyen Xuan Bao" />
+    <Member action="add" id="baonx2@company.test" displayname="Nguyen Xuan Bao2" />
+  </Members>
+</MDaemon>
