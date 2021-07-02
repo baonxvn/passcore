@@ -40,9 +40,14 @@ namespace Unosquare.PassCore.Web.Services
             return "this string";
         }
 
+        /// <summary>
+        /// Tạo User trên MDaemon
+        /// </summary>
+        /// <param name="maNhanVien"></param>
+        /// <returns></returns>
         public async Task<ApiResult> CreateUserTheoMaNhanVien(string maNhanVien)
         {
-            
+
             var dbAbp = new AbpHplDbContext();
             ApiResult result = new ApiResult();
             CreateUserInput inputMail = new CreateUserInput();
@@ -123,7 +128,7 @@ namespace Unosquare.PassCore.Web.Services
             try
             {
                 result.Payload = await MdaemonXmlApi.CreateUser(inputMail);
-                result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic,  "Successful"));
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Successful"));
             }
             catch (Exception e)
             {
