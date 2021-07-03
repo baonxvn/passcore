@@ -36,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zyborg.PassCore.PasswordPro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.HrmDatabase", "src\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj", "{A344AE81-F849-4329-AFEE-47218C85AC17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPL_ACM", "HPL_ACM\HPL_ACM.csproj", "{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HPL_ACM", "HPL_ACM\HPL_ACM.csproj", "{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.SaleOnlineDatabase", "src\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj", "{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

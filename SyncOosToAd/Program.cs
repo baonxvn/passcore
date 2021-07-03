@@ -45,7 +45,6 @@ namespace SyncOosToAd
             //Console.WriteLine(res);
         }
 
-
         public async Task CreateUserAllSys(List<NhanVienViewModel> listNvs)
         {
             Log.Information("----START HAI PHAT LAND ACM----");
@@ -132,7 +131,6 @@ namespace SyncOosToAd
             }
         }
 
-
         public static async Task<List<NhanVienViewModel>> GetAllNhanVienErrorUser()
         {
             var db = new HrmDbContext();
@@ -142,7 +140,6 @@ namespace SyncOosToAd
 
             return listNvs;
         }
-
 
         /// <summary>
         /// Test Active Directory

@@ -11149,7 +11149,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MucLuongMongMuon).HasColumnName(@"MucLuongMongMuon").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.SoNamKinhNghiem).HasColumnName(@"SoNamKinhNghiem").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoNamKinhNghiem).HasColumnName(@"SoNamKinhNghiem").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GioiTinh).HasColumnName(@"GioiTinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TinhTrangHonNhan).HasColumnName(@"TinhTrangHonNhan").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.CapBacMongMuon).HasColumnName(@"CapBacMongMuon").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
@@ -11368,12 +11368,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TrinhDoTinHoc).HasColumnName(@"TrinhDoTinHoc").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.XepLoaiTinHoc).HasColumnName(@"XepLoaiTinHoc").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.SoHoChieu).HasColumnName(@"SoHoChieu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.SoPhepChuyenTuNamTruoc).HasColumnName(@"SoPhepChuyenTuNamTruoc").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoPhepBanDau).HasColumnName(@"SoPhepBanDau").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoPhepTheoQuyDinh).HasColumnName(@"SoPhepTheoQuyDinh").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoPhepDaNghi).HasColumnName(@"SoPhepDaNghi").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoPhepConLai).HasColumnName(@"SoPhepConLai").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.ThamNien).HasColumnName(@"ThamNien").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.SoPhepChuyenTuNamTruoc).HasColumnName(@"SoPhepChuyenTuNamTruoc").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoPhepBanDau).HasColumnName(@"SoPhepBanDau").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoPhepTheoQuyDinh).HasColumnName(@"SoPhepTheoQuyDinh").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoPhepDaNghi).HasColumnName(@"SoPhepDaNghi").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoPhepConLai).HasColumnName(@"SoPhepConLai").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.ThamNien).HasColumnName(@"ThamNien").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.NamTotNghiep).HasColumnName(@"NamTotNghiep").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -11522,11 +11522,11 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.BhxhTongHopId).HasColumnName(@"BHXHTongHopID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NguoiThamGiaId).HasColumnName(@"NguoiThamGiaID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucDongBhCu).HasColumnName(@"MucDongBH_Cu").HasColumnType("decimal(10,0)").IsRequired(false);
-            builder.Property(x => x.MucDongBhMoi).HasColumnName(@"MucDongBH_Moi").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.MucDongBhCu).HasColumnName(@"MucDongBH_Cu").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
+            builder.Property(x => x.MucDongBhMoi).HasColumnName(@"MucDongBH_Moi").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.TuThangNam).HasColumnName(@"TuThangNam").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.ToiThangNam).HasColumnName(@"ToiThangNam").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.DaCoSoBhxh).HasColumnName(@"DaCoSoBHXH").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TangGiam).HasColumnName(@"TangGiam").HasColumnType("int").IsRequired(false);
@@ -11559,19 +11559,19 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.ChotSoId).HasColumnName(@"ChotSoID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.BhxhSl).HasColumnName(@"BHXH_SL").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.BhxhQl).HasColumnName(@"BHXH_QL").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.BhxhPd).HasColumnName(@"BHXH_PD").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.BhxhQl).HasColumnName(@"BHXH_QL").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.BhxhPd).HasColumnName(@"BHXH_PD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.BhytSl).HasColumnName(@"BHYT_SL").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.BhytQl).HasColumnName(@"BHYT_QL").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.BhytPd).HasColumnName(@"BHYT_PD").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.BhytQl).HasColumnName(@"BHYT_QL").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.BhytPd).HasColumnName(@"BHYT_PD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.BhtnSl).HasColumnName(@"BHTN_SL").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.BhtnQl).HasColumnName(@"BHTN_QL").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.BhtnPd).HasColumnName(@"BHTN_PD").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.BhtnQl).HasColumnName(@"BHTN_QL").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.BhtnPd).HasColumnName(@"BHTN_PD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DonViId).HasColumnName(@"DonViID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ChotSo).HasColumnName(@"ChotSo").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.BhxlQl).HasColumnName(@"BHXL_QL").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.BhxlQl).HasColumnName(@"BHXL_QL").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
         }
     }
 
@@ -11612,10 +11612,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayNghi).HasColumnName(@"NgayNghi").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NguoiThamGiaBhid).HasColumnName(@"NguoiThamGiaBHID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayLap).HasColumnName(@"NgayLap").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LuongToiThieu).HasColumnName(@"LuongToiThieu").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.LuongBinhQuan).HasColumnName(@"LuongBinhQuan").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.TongTienThanhToan).HasColumnName(@"TongTienThanhToan").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.LuongToiThieu).HasColumnName(@"LuongToiThieu").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.LuongBinhQuan).HasColumnName(@"LuongBinhQuan").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.TongTienThanhToan).HasColumnName(@"TongTienThanhToan").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
         }
@@ -11705,7 +11705,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CoQuanCapSoBh).HasColumnName(@"CoQuanCapSoBH").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.LoaiBh).HasColumnName(@"LoaiBH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoCapMoi).HasColumnName(@"SoCapMoi").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.MucLuongDongBh).HasColumnName(@"MucLuongDongBH").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongDongBh).HasColumnName(@"MucLuongDongBH").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DoiTuongBhxh).HasColumnName(@"DoiTuongBHXH").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaBv).HasColumnName(@"MaBV").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.SoHopDong).HasColumnName(@"SoHopDong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
@@ -11715,8 +11715,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.NguoiLapId).HasColumnName(@"NguoiLapID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DonViDangKyBhxhid).HasColumnName(@"DonViDangKyBHXHID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongDongBhCu).HasColumnName(@"MucLuongDongBHCu").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.MucLuongDongBhCu).HasColumnName(@"MucLuongDongBHCu").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.DaCoSoBhxh).HasColumnName(@"DaCoSoBHXH").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.ChucVuBhxh).HasColumnName(@"ChucVuBHXH").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -11725,7 +11725,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.SoThangBanDau).HasColumnName(@"SoThangBanDau").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNamBanDau).HasColumnName(@"SoNamBanDau").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongTbBanDau).HasColumnName(@"MucLuongTBBanDau").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongTbBanDau).HasColumnName(@"MucLuongTBBanDau").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NgayGiamBhxh).HasColumnName(@"NgayGiamBHXH").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NoiDkKhamBanDau).HasColumnName(@"NoiDKKhamBanDau").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
         }
@@ -11757,8 +11757,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TangGiamBhytid).HasColumnName(@"TangGiamBHYTID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Ngay).HasColumnName(@"Ngay").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsTang).HasColumnName(@"IsTang").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.MucDong).HasColumnName(@"MucDong").HasColumnType("decimal(10,0)").IsRequired(false);
-            builder.Property(x => x.Tyle).HasColumnName(@"Tyle").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.MucDong).HasColumnName(@"MucDong").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
+            builder.Property(x => x.Tyle).HasColumnName(@"Tyle").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.NguoiThamGiaId).HasColumnName(@"NguoiThamGiaID").HasColumnType("int").IsRequired(false);
         }
     }
@@ -11774,7 +11774,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThoaiTruyThuId).HasColumnName(@"ThoaiTruyThuID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.TuNgay).HasColumnName(@"TuNgay").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ToiNgay).HasColumnName(@"ToiNgay").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.MucLuong).HasColumnName(@"MucLuong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuong).HasColumnName(@"MucLuong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.Type).HasColumnName(@"Type").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NgayLap).HasColumnName(@"NgayLap").HasColumnType("datetime").IsRequired(false);
@@ -11783,8 +11783,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MucTienHuong).HasColumnName(@"MucTienHuong").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiLapId).HasColumnName(@"NguoiLapID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiThamGiaId).HasColumnName(@"NguoiThamGiaID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.Tyle).HasColumnName(@"Tyle").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.Tyle).HasColumnName(@"Tyle").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.DonViId).HasColumnName(@"DonViID").HasColumnType("int").IsRequired(false);
         }
     }
@@ -11812,9 +11812,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoNgayNghiTaiGia).HasColumnName(@"SoNgayNghiTaiGia").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNgayNghiTapChung).HasColumnName(@"SoNgayNghiTapChung").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TongSoTienThanhToan).HasColumnName(@"TongSoTienThanhToan").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.MucLuongToiThieu).HasColumnName(@"MucLuongToiThieu").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.PhanTramThuongTat).HasColumnName(@"PhanTramThuongTat").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.PhanTramThuongTat).HasColumnName(@"PhanTramThuongTat").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.CheDoHuong).HasColumnName(@"CheDoHuong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NghiDuongSuc).HasColumnName(@"NghiDuongSuc").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NgayTaiNan).HasColumnName(@"NgayTaiNan").HasColumnType("datetime").IsRequired(false);
@@ -11842,7 +11842,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayLap).HasColumnName(@"NgayLap").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.TongSoTienThanhToan).HasColumnName(@"TongSoTienThanhToan").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MucLuongToiThieu).HasColumnName(@"MucLuongToiThieu").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoNguoiMat).HasColumnName(@"SoNguoiMat").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CheDoHuong).HasColumnName(@"CheDoHuong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
@@ -11991,7 +11991,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChucVuGiamKhaoId).HasColumnName(@"ChucVuGiamKhaoID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.ChucVuId).HasColumnName(@"ChucVuID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GiamKhaoId).HasColumnName(@"GiamKhaoID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
         }
     }
@@ -12025,7 +12025,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MonThiId).HasColumnName(@"MonThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ChucVuVongThiId).HasColumnName(@"ChucVuVongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ChucVuId).HasColumnName(@"ChucVuID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
         }
     }
 
@@ -12040,7 +12040,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChucVuNangLucId).HasColumnName(@"ChucVuNangLucID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.ChucVuId).HasColumnName(@"ChucVuID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NangLucId).HasColumnName(@"NangLucID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -12061,7 +12061,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ChucVuVongThiId).HasColumnName(@"ChucVuVongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Type).HasColumnName(@"Type").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,5)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,5)").HasPrecision(10,5).IsRequired(false);
         }
     }
 
@@ -12119,7 +12119,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.TenVongThi).HasColumnName(@"TenVongThi").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiemYeuCau).HasColumnName(@"TongDiemYeuCau").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiemYeuCau).HasColumnName(@"TongDiemYeuCau").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.IsDaoTao).HasColumnName(@"IsDaoTao").HasColumnType("bit").IsRequired(false);
         }
     }
@@ -12178,7 +12178,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.LyDoNghi).HasColumnName(@"LyDoNghi").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.KyHieuChamCongId).HasColumnName(@"KyHieuChamCongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoNgayDuocNghiThem).HasColumnName(@"SoNgayDuocNghiThem").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoNgayDuocNghiThem).HasColumnName(@"SoNgayDuocNghiThem").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayDangKy).HasColumnName(@"NgayDangKy").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayXetDuyet).HasColumnName(@"NgayXetDuyet").HasColumnType("datetime").IsRequired(false);
@@ -12267,9 +12267,9 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.CongViecId).HasColumnName(@"CongViecID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.TenCongViec).HasColumnName(@"TenCongViec").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.CongViecChaId).HasColumnName(@"CongViecChaID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.KyDanhGia).HasColumnName(@"KyDanhGia").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsUse).HasColumnName(@"IsUse").HasColumnType("bit").IsRequired(false);
@@ -12287,8 +12287,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.TenCongViecTa).HasColumnName(@"TenCongViecTA").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.DiemQuyDoi).HasColumnName(@"DiemQuyDoi").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.DiemQuyDoi).HasColumnName(@"DiemQuyDoi").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DonViTinh).HasColumnName(@"DonViTinh").HasColumnType("nvarchar(20)").IsRequired(false).HasMaxLength(20);
             builder.Property(x => x.ValueList).HasColumnName(@"ValueList").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
@@ -12312,7 +12312,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.QuyTrinhBuocThucHienId).HasColumnName(@"QuyTrinhBuocThucHienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhomDanhGiaId).HasColumnName(@"NhomDanhGiaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenBuocDanhGia).HasColumnName(@"TenBuocDanhGia").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.XepLoaiDanhGiaId).HasColumnName(@"XepLoaiDanhGiaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenXepLoaiDanhGia).HasColumnName(@"TenXepLoaiDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayDanhGia).HasColumnName(@"NgayDanhGia").HasColumnType("datetime").IsRequired(false);
@@ -12348,7 +12348,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.XepLoaiDanhGiaId).HasColumnName(@"XepLoaiDanhGiaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayGuiYeuCauDanhGia).HasColumnName(@"NgayGuiYeuCauDanhGia").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayDanhGia).HasColumnName(@"NgayDanhGia").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.IsTuDanhGia).HasColumnName(@"IsTuDanhGia").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.YKienPheDuyet).HasColumnName(@"YKienPheDuyet").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -12376,19 +12376,19 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TieuChiChaId).HasColumnName(@"TieuChiChaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BoTieuChiId).HasColumnName(@"BoTieuChiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenTieuChi).HasColumnName(@"TenTieuChi").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TyLeChatLuong).HasColumnName(@"TyLeChatLuong").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TyLeChatLuong).HasColumnName(@"TyLeChatLuong").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.YKienPhanHoi).HasColumnName(@"YKienPhanHoi").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.FinishedDate).HasColumnName(@"FinishedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TyLeHoanThanh).HasColumnName(@"TyLeHoanThanh").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TyLeHoanThanh).HasColumnName(@"TyLeHoanThanh").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
         }
     }
 
@@ -12408,19 +12408,19 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TieuChiChaId).HasColumnName(@"TieuChiChaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BoTieuChiId).HasColumnName(@"BoTieuChiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenTieuChi).HasColumnName(@"TenTieuChi").HasColumnType("nvarchar(2500)").IsRequired(false).HasMaxLength(2500);
-            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TyLeChatLuong).HasColumnName(@"TyLeChatLuong").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TyLeChatLuong).HasColumnName(@"TyLeChatLuong").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(2500)").IsRequired(false).HasMaxLength(2500);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(2500)").IsRequired(false).HasMaxLength(2500);
             builder.Property(x => x.YKienPhanHoi).HasColumnName(@"YKienPhanHoi").HasColumnType("nvarchar(2500)").IsRequired(false).HasMaxLength(2500);
             builder.Property(x => x.FinishedDate).HasColumnName(@"FinishedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TyleHoanThanh).HasColumnName(@"TyleHoanThanh").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TyleHoanThanh).HasColumnName(@"TyleHoanThanh").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
         }
     }
 
@@ -12463,9 +12463,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Quy).HasColumnName(@"Quy").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhomDanhGiaId).HasColumnName(@"NhomDanhGiaID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSoDanhGia).HasColumnName(@"HeSoDanhGia").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HeSoDanhGia).HasColumnName(@"HeSoDanhGia").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.TrangThai).HasColumnName(@"TrangThai").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.XepLoaiDanhGiaId).HasColumnName(@"XepLoaiDanhGiaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -12534,19 +12534,19 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CongViecChaId).HasColumnName(@"CongViecChaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CongViecId).HasColumnName(@"CongViecID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MoTaCongViec).HasColumnName(@"MoTaCongViec").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.MucTieuCongTy).HasColumnName(@"MucTieuCongTy").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.MucTieuCongTy).HasColumnName(@"MucTieuCongTy").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NguyenNhan).HasColumnName(@"NguyenNhan").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.KetQua).HasColumnName(@"KetQua").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.GiaiPhap).HasColumnName(@"GiaiPhap").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.TyLeChatLuong).HasColumnName(@"TyLeChatLuong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyLeChatLuong).HasColumnName(@"TyLeChatLuong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
         }
@@ -12586,7 +12586,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Quy).HasColumnName(@"Quy").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.XepLoaiDanhGiaId).HasColumnName(@"XepLoaiDanhGiaID").HasColumnType("int").IsRequired(false);
         }
@@ -12606,15 +12606,15 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CongViecId).HasColumnName(@"CongViecID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.MucTieuCongTy).HasColumnName(@"MucTieuCongTy").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.MucTieuCongTy).HasColumnName(@"MucTieuCongTy").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.ThoiGianDanhGia).HasColumnName(@"ThoiGianDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaDotDanhGia).HasColumnName(@"MaDotDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.Status).HasColumnName(@"Status").HasColumnType("int").IsRequired(false);
         }
     }
@@ -12632,7 +12632,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TieuChiId).HasColumnName(@"TieuChiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BoTieuChiId).HasColumnName(@"BoTieuChiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhomDanhGiaId).HasColumnName(@"NhomDanhGiaID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Quy).HasColumnName(@"Quy").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
@@ -12643,7 +12643,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.Deadline).HasColumnName(@"Deadline").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SanPhamDauRa).HasColumnName(@"SanPhamDauRa").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.Muc1).HasColumnName(@"Muc1").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.Muc2).HasColumnName(@"Muc2").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
@@ -12656,11 +12656,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DanhGiaA).HasColumnName(@"DanhGiaA").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.IsHighLevel).HasColumnName(@"IsHighLevel").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DinhMuc1Text).HasColumnName(@"DinhMuc1Text").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
-            builder.Property(x => x.RangeA).HasColumnName(@"RangeA").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeB).HasColumnName(@"RangeB").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeC).HasColumnName(@"RangeC").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeD).HasColumnName(@"RangeD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeS).HasColumnName(@"RangeS").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.RangeA).HasColumnName(@"RangeA").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeB).HasColumnName(@"RangeB").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeC).HasColumnName(@"RangeC").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeD).HasColumnName(@"RangeD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeS).HasColumnName(@"RangeS").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.RangeAText).HasColumnName(@"RangeAText").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.RangeBText).HasColumnName(@"RangeBText").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.RangeCText).HasColumnName(@"RangeCText").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
@@ -12703,11 +12703,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenTieuChi).HasColumnName(@"TenTieuChi").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.KhMucTieu).HasColumnName(@"KH_MucTieu").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.DiemTru).HasColumnName(@"DiemTru").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.KhMucTieu).HasColumnName(@"KH_MucTieu").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.DiemTru).HasColumnName(@"DiemTru").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.DonViTinh).HasColumnName(@"DonViTinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.Deadline).HasColumnName(@"Deadline").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -12722,11 +12722,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DinhMuc1).HasColumnName(@"DinhMuc1").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.IsHighLevel).HasColumnName(@"IsHighLevel").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DinhMuc1Text).HasColumnName(@"DinhMuc1Text").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
-            builder.Property(x => x.RangeA).HasColumnName(@"RangeA").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeB).HasColumnName(@"RangeB").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeC).HasColumnName(@"RangeC").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeD).HasColumnName(@"RangeD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.RangeS).HasColumnName(@"RangeS").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.RangeA).HasColumnName(@"RangeA").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeB).HasColumnName(@"RangeB").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeC).HasColumnName(@"RangeC").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeD).HasColumnName(@"RangeD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.RangeS).HasColumnName(@"RangeS").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.RangeAText).HasColumnName(@"RangeAText").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.RangeBText).HasColumnName(@"RangeBText").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.RangeCText).HasColumnName(@"RangeCText").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
@@ -12748,7 +12748,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNhomDanhGia).HasColumnName(@"MaNhomDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TenNhomDanhGia).HasColumnName(@"TenNhomDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TenNhomDanhGiaTa).HasColumnName(@"TenNhomDanhGiaTA").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.IsUse).HasColumnName(@"IsUse").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -12811,8 +12811,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenBuocDanhGia).HasColumnName(@"TenBuocDanhGia").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.TenXepLoaiDanhGia).HasColumnName(@"TenXepLoaiDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayDanhGia).HasColumnName(@"NgayDanhGia").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.DiemChuan).HasColumnName(@"DiemChuan").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.DiemChuan).HasColumnName(@"DiemChuan").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.Tyle).HasColumnName(@"Tyle").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsTuDanhGia).HasColumnName(@"IsTuDanhGia").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
@@ -12846,8 +12846,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DiemNhap).HasColumnName(@"DiemNhap").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DiemChuan).HasColumnName(@"DiemChuan").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Tyle).HasColumnName(@"Tyle").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(2500)").IsRequired(false).HasMaxLength(2500);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(2500)").IsRequired(false).HasMaxLength(2500);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -12934,7 +12934,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhomXetDuyetTiepTheoId).HasColumnName(@"NhomXetDuyetTiepTheoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemChuan).HasColumnName(@"DiemChuan").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.DiemChuan).HasColumnName(@"DiemChuan").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.MaNhanVien).HasColumnName(@"MaNhanVien").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.HoVaTen).HasColumnName(@"HoVaTen").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.TenChucVu).HasColumnName(@"TenChucVu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
@@ -12965,8 +12965,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NangLucCotLoi).HasColumnName(@"NangLucCotLoi").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsUse).HasColumnName(@"IsUse").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,0)").IsRequired(false);
-            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
+            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.CongThuc).HasColumnName(@"CongThuc").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.ThuTu).HasColumnName(@"ThuTu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -13073,13 +13073,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CongViecChaId).HasColumnName(@"CongViecChaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(550)").IsRequired(false).HasMaxLength(550);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,1)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(18,1)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
             builder.Property(x => x.KyDanhGia).HasColumnName(@"KyDanhGia").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Status).HasColumnName(@"Status").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucTieuCongTy).HasColumnName(@"MucTieuCongTy").HasColumnType("decimal(18,1)").IsRequired(false);
+            builder.Property(x => x.MucTieuCongTy).HasColumnName(@"MucTieuCongTy").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
             builder.Property(x => x.MaDotDanhGia).HasColumnName(@"MaDotDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
         }
     }
 
@@ -13094,7 +13094,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.PhongBanKeHoachId).HasColumnName(@"PhongBanKeHoachID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TieuChiId).HasColumnName(@"TieuChiID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,1)").IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,1)").HasPrecision(10,1).IsRequired(false);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(550)").IsRequired(false).HasMaxLength(550);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Quy).HasColumnName(@"Quy").HasColumnType("int").IsRequired(false);
@@ -13105,7 +13105,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TyTrong).HasColumnName(@"TyTrong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TyTrong).HasColumnName(@"TyTrong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
         }
     }
 
@@ -13166,20 +13166,20 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenTieuChi).HasColumnName(@"TenTieuChi").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.TenTieuChiTa).HasColumnName(@"TenTieuChiTA").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.MaTieuChi).HasColumnName(@"MaTieuChi").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.MucTieu).HasColumnName(@"MucTieu").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.IsUse).HasColumnName(@"IsUse").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsDeleted).HasColumnName(@"IsDeleted").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsGroup).HasColumnName(@"IsGroup").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.ThuTu).HasColumnName(@"ThuTu").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemTru).HasColumnName(@"DiemTru").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.DiemTru).HasColumnName(@"DiemTru").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.CongThuc).HasColumnName(@"CongThuc").HasColumnType("nvarchar(1250)").IsRequired(false).HasMaxLength(1250);
             builder.Property(x => x.CongThucQuy).HasColumnName(@"CongThucQuy").HasColumnType("nvarchar(550)").IsRequired(false).HasMaxLength(550);
             builder.Property(x => x.CongThucNam).HasColumnName(@"CongThucNam").HasColumnType("nvarchar(550)").IsRequired(false).HasMaxLength(550);
             builder.Property(x => x.IsNhapGiaTri).HasColumnName(@"IsNhapGiaTri").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LamTron).HasColumnName(@"LamTron").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.GiaTriLonNhat).HasColumnName(@"GiaTriLonNhat").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.DonViTinh).HasColumnName(@"DonViTinh").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.ValueList).HasColumnName(@"ValueList").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -13207,7 +13207,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Quy).HasColumnName(@"Quy").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.LoaiDanhGiaId).HasColumnName(@"LoaiDanhGiaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DiemTam).HasColumnName(@"DiemTam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiDuyetId).HasColumnName(@"NguoiDuyetID").HasColumnType("int").IsRequired(false);
@@ -13231,10 +13231,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Quy).HasColumnName(@"Quy").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.NhomDanhGiaId).HasColumnName(@"NhomDanhGiaID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemTam).HasColumnName(@"DiemTam").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.HeSoDanhGia).HasColumnName(@"HeSoDanhGia").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DiemTam).HasColumnName(@"DiemTam").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.HeSoDanhGia).HasColumnName(@"HeSoDanhGia").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.IsChinhSua).HasColumnName(@"IsChinhSua").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -13252,9 +13252,9 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.XepLoaiDanhGiaId).HasColumnName(@"XepLoaiDanhGiaID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.TenXepLoaiDanhGia).HasColumnName(@"TenXepLoaiDanhGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.Min).HasColumnName(@"Min").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.Max).HasColumnName(@"Max").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.HeSoTinhLuong).HasColumnName(@"HeSoTinhLuong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.Min).HasColumnName(@"Min").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.Max).HasColumnName(@"Max").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.HeSoTinhLuong).HasColumnName(@"HeSoTinhLuong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.TenXepLoaiDanhGiaTa).HasColumnName(@"TenXepLoaiDanhGiaTA").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NhomXepLoaiId).HasColumnName(@"NhomXepLoaiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -13297,7 +13297,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SlDieuChuyenDi).HasColumnName(@"SLDieuChuyenDi").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SlDieuChuyenToi).HasColumnName(@"SLDieuChuyenToi").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoLuongThucTe).HasColumnName(@"SoLuongThucTe").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.MaViTri).HasColumnName(@"MaViTri").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.PhongBanChucVuId).HasColumnName(@"PhongBanChucVuID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
@@ -13338,10 +13338,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CanHoId).HasColumnName(@"CanHoID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCanHo).HasColumnName(@"MaCanHo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -13733,13 +13733,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MaDuAn).HasColumnName(@"MaDuAn").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.TenDuAn).HasColumnName(@"TenDuAn").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
-            builder.Property(x => x.TyLeHoaHong).HasColumnName(@"TyLeHoaHong").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHoaHong).HasColumnName(@"TyLeHoaHong").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.TyLeHoaHongThue).HasColumnName(@"TyLeHoaHong_Thue").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeBgd).HasColumnName(@"TyLeBGD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdkd).HasColumnName(@"TyLeGDKD").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHoaHongThue).HasColumnName(@"TyLeHoaHong_Thue").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeBgd).HasColumnName(@"TyLeBGD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdkd).HasColumnName(@"TyLeGDKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -14012,8 +14012,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaKhuVuc).HasColumnName(@"MaKhuVuc").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.DiaChi).HasColumnName(@"DiaChi").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.TenKhuVucTa).HasColumnName(@"TenKhuVucTA").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
-            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("decimal(12,8)").IsRequired(false);
-            builder.Property(x => x.Longtitude).HasColumnName(@"Longtitude").HasColumnType("decimal(12,8)").IsRequired(false);
+            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("decimal(12,8)").HasPrecision(12,8).IsRequired(false);
+            builder.Property(x => x.Longtitude).HasColumnName(@"Longtitude").HasColumnType("decimal(12,8)").HasPrecision(12,8).IsRequired(false);
             builder.Property(x => x.CongTyId).HasColumnName(@"CongTyID").HasColumnType("int").IsRequired(false);
         }
     }
@@ -14334,7 +14334,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NangLucCotLoi).HasColumnName(@"NangLucCotLoi").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -14353,7 +14353,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NangLucMoTaId).HasColumnName(@"NangLucMoTaID").HasColumnType("int").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.NangLucId).HasColumnName(@"NangLucID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenMoTa).HasColumnName(@"TenMoTa").HasColumnType("nvarchar(550)").IsRequired(false).HasMaxLength(550);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -14373,7 +14373,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenMaNgach).HasColumnName(@"TenMaNgach").HasColumnType("nvarchar(255)").IsRequired(false).HasMaxLength(255);
             builder.Property(x => x.ThoiHanNangLuong).HasColumnName(@"ThoiHanNangLuong").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
             builder.Property(x => x.Ma).HasColumnName(@"Ma").HasColumnType("varchar(10)").IsRequired(false).IsUnicode(false).HasMaxLength(10);
-            builder.Property(x => x.HeSoCoBan).HasColumnName(@"HeSoCoBan").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.HeSoCoBan).HasColumnName(@"HeSoCoBan").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.ThuTu).HasColumnName(@"ThuTu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -14709,9 +14709,9 @@ namespace Hpl.HrmDatabase
             builder.HasKey(x => x.ThamNienId).HasName("PK_NS_ThamNien").IsClustered();
 
             builder.Property(x => x.ThamNienId).HasColumnName(@"ThamNienID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
-            builder.Property(x => x.TuNam).HasColumnName(@"TuNam").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.ToiNam).HasColumnName(@"ToiNam").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,4)").IsRequired(false);
+            builder.Property(x => x.TuNam).HasColumnName(@"TuNam").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.ToiNam).HasColumnName(@"ToiNam").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,4)").HasPrecision(10,4).IsRequired(false);
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.ThuTu).HasColumnName(@"ThuTu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -15077,7 +15077,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoLuongDuKien).HasColumnName(@"SoLuongDuKien").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ThoiGianDaoTao).HasColumnName(@"ThoiGianDaoTao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.HinhThucDaoTao).HasColumnName(@"HinhThucDaoTao").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.ThoiLuongDuKien).HasColumnName(@"ThoiLuongDuKien").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ThoiLuongDuKien).HasColumnName(@"ThoiLuongDuKien").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DonViToChuc).HasColumnName(@"DonViToChuc").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("ntext").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -15118,7 +15118,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoQuyetDinh).HasColumnName(@"SoQuyetDinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.YeuCauKhoaHocId).HasColumnName(@"YeuCauKhoaHocID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LanhDaoYeuCau).HasColumnName(@"LanhDaoYeuCau").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.ChiPhiDaoTao).HasColumnName(@"ChiPhiDaoTao").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ChiPhiDaoTao).HasColumnName(@"ChiPhiDaoTao").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NgayGuiBaoCaoDaoTao).HasColumnName(@"NgayGuiBaoCaoDaoTao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DienThoaiNoiDt).HasColumnName(@"DienThoaiNoiDT").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NguoiLienHe).HasColumnName(@"NguoiLienHe").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
@@ -15147,8 +15147,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TrangThaiHocVien).HasColumnName(@"TrangThaiHocVien").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoLuongHocVienDangKy).HasColumnName(@"SoLuongHocVienDangKy").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsBatBuocDangKy).HasColumnName(@"IsBatBuocDangKy").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.ThoiLuongDuKien).HasColumnName(@"ThoiLuongDuKien").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoThangCamKetDaoTao).HasColumnName(@"SoThangCamKetDaoTao").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.ThoiLuongDuKien).HasColumnName(@"ThoiLuongDuKien").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoThangCamKetDaoTao).HasColumnName(@"SoThangCamKetDaoTao").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
         }
     }
 
@@ -15163,7 +15163,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChiPhiDaoTaoId).HasColumnName(@"ChiPhiDaoTaoID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.DotDaoTaoId).HasColumnName(@"DotDaoTaoID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -15218,7 +15218,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.DoiTuong).HasColumnName(@"DoiTuong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TrangThaiThamGia).HasColumnName(@"TrangThaiThamGia").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.TrangThai).HasColumnName(@"TrangThai").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDauCamKet).HasColumnName(@"NgayBatDauCamKet").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThucCamKet).HasColumnName(@"NgayKetThucCamKet").HasColumnType("datetime").IsRequired(false);
@@ -15269,7 +15269,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThoiGian).HasColumnName(@"ThoiGian").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TuNgay).HasColumnName(@"TuNgay").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DenNgay).HasColumnName(@"DenNgay").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.ChiPhi).HasColumnName(@"ChiPhi").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ChiPhi).HasColumnName(@"ChiPhi").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NguoiDaoTaoChucVu).HasColumnName(@"NguoiDaoTao_ChucVu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.NguoiDaoTaoLienHe).HasColumnName(@"NguoiDaoTao_LienHe").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.NguoiDaoTaoUuDiem).HasColumnName(@"NguoiDaoTao_UuDiem").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
@@ -15277,7 +15277,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NguoiDaoTaoNhanXet).HasColumnName(@"NguoiDaoTao_NhanXet").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.DeXuatNguoiDaoTao).HasColumnName(@"DeXuatNguoiDaoTao").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.DanhMucDaoTaoId).HasColumnName(@"DanhMucDaoTaoID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoThangCamKetSauDaoTao).HasColumnName(@"SoThangCamKetSauDaoTao").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoThangCamKetSauDaoTao).HasColumnName(@"SoThangCamKetSauDaoTao").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.IsChiPhiCaNhan).HasColumnName(@"IsChiPhiCaNhan").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.FileDaoTao).HasColumnName(@"FileDaoTao").HasColumnType("image(2147483647)").IsRequired(false).HasMaxLength(2147483647);
             builder.Property(x => x.FileName).HasColumnName(@"FileName").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
@@ -15288,10 +15288,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.KhoaDaoTaoId).HasColumnName(@"KhoaDaoTaoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenNoiDungDaoTao).HasColumnName(@"TenNoiDungDaoTao").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.GiangVienDaoTao).HasColumnName(@"GiangVienDaoTao").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.ChiPhiCongTy).HasColumnName(@"ChiPhiCongTy").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.ChiPhiCaNhan).HasColumnName(@"ChiPhiCaNhan").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ChiPhiCongTy).HasColumnName(@"ChiPhiCongTy").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.ChiPhiCaNhan).HasColumnName(@"ChiPhiCaNhan").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.BoCauHoiTracNghiemId).HasColumnName(@"BoCauHoiTracNghiemID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.ThoiLuongDuKien).HasColumnName(@"ThoiLuongDuKien").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.ThoiLuongDuKien).HasColumnName(@"ThoiLuongDuKien").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GiangVienNoiBoId).HasColumnName(@"GiangVienNoiBoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ThoiGianBatDauTracNghiem).HasColumnName(@"ThoiGianBatDauTracNghiem").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ThoiGianKetThucTracNghiem).HasColumnName(@"ThoiGianKetThucTracNghiem").HasColumnType("datetime").IsRequired(false);
@@ -15335,7 +15335,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GioKetThuc).HasColumnName(@"GioKetThuc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.TrangThai).HasColumnName(@"TrangThai").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ResetIndex).HasColumnName(@"ResetIndex").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.ThoiGianHoanThanh).HasColumnName(@"ThoiGianHoanThanh").HasColumnType("int").IsRequired(false);
         }
     }
@@ -15358,7 +15358,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DapAnStr).HasColumnName(@"DapAnStr").HasColumnType("nvarchar(2000)").IsRequired(false).HasMaxLength(2000);
             builder.Property(x => x.IsCorrect).HasColumnName(@"IsCorrect").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.QuestionIndex).HasColumnName(@"QuestionIndex").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(10,5)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(10,5)").HasPrecision(10,5).IsRequired(false);
         }
     }
 
@@ -15446,10 +15446,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TongSoBuoiHoc).HasColumnName(@"TongSoBuoiHoc").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DonViDaoTao).HasColumnName(@"DonViDaoTao").HasColumnType("nvarchar(1000)").IsRequired(false).HasMaxLength(1000);
             builder.Property(x => x.GiangVien).HasColumnName(@"GiangVien").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
-            builder.Property(x => x.NganSachNoiBo).HasColumnName(@"NganSachNoiBo").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.NganSachThueNgoai).HasColumnName(@"NganSachThueNgoai").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.ChiPhiThucTe).HasColumnName(@"ChiPhiThucTe").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.ChenhLech).HasColumnName(@"ChenhLech").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.NganSachNoiBo).HasColumnName(@"NganSachNoiBo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.NganSachThueNgoai).HasColumnName(@"NganSachThueNgoai").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.ChiPhiThucTe).HasColumnName(@"ChiPhiThucTe").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.ChenhLech).HasColumnName(@"ChenhLech").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
@@ -15551,7 +15551,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CapDo).HasColumnName(@"CapDo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.HinhThuc).HasColumnName(@"HinhThuc").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.ThoiGian).HasColumnName(@"ThoiGian").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucTangLuong).HasColumnName(@"MucTangLuong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucTangLuong).HasColumnName(@"MucTangLuong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
         }
     }
 
@@ -15665,7 +15665,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NoiDungDaoTaoId).HasColumnName(@"NoiDungDaoTaoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KetQuaDaoTaoId).HasColumnName(@"KetQuaDaoTaoID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GioBatDau).HasColumnName(@"GioBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.GioKetThuc).HasColumnName(@"GioKetThuc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DotDaoTaoId).HasColumnName(@"DotDaoTaoID").HasColumnType("int").IsRequired(false);
@@ -15931,7 +15931,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Year).HasColumnName(@"Year").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Month).HasColumnName(@"Month").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Components).HasColumnName(@"Components").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Amount).HasColumnName(@"Amount").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.Amount).HasColumnName(@"Amount").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.Note).HasColumnName(@"Note").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -15967,23 +15967,23 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCanHo).HasColumnName(@"MaCanHo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeHoaHong).HasColumnName(@"TyLeHoaHong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeHoaHongThue).HasColumnName(@"TyLeHoaHong_Thue").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.GiaTriCoc).HasColumnName(@"GiaTriCoc").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeHoaHong).HasColumnName(@"TyLeHoaHong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeHoaHongThue).HasColumnName(@"TyLeHoaHong_Thue").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.GiaTriCoc).HasColumnName(@"GiaTriCoc").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.NgayKyHopDong).HasColumnName(@"NgayKyHopDong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayHuyCoc).HasColumnName(@"NgayHuyCoc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.PhanTramHuong).HasColumnName(@"PhanTramHuong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.PhanTramHuong).HasColumnName(@"PhanTramHuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.KhongChiaNvkd).HasColumnName(@"KhongChiaNVKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhongChiaTpkd).HasColumnName(@"KhongChiaTPKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhongChiaGdk).HasColumnName(@"KhongChiaGDK").HasColumnType("int").IsRequired(false);
@@ -16003,23 +16003,23 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCanHo).HasColumnName(@"MaCanHo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeHoaHong).HasColumnName(@"TyLeHoaHong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeHoaHongThue).HasColumnName(@"TyLeHoaHong_Thue").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.GiaTriCoc).HasColumnName(@"GiaTriCoc").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeHoaHong).HasColumnName(@"TyLeHoaHong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeHoaHongThue).HasColumnName(@"TyLeHoaHong_Thue").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.GiaTriCoc).HasColumnName(@"GiaTriCoc").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.NgayKyHopDong).HasColumnName(@"NgayKyHopDong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayHuyCoc).HasColumnName(@"NgayHuyCoc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.PhanTramHuong).HasColumnName(@"PhanTramHuong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.PhanTramHuong).HasColumnName(@"PhanTramHuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.KhongChiaNvkd).HasColumnName(@"KhongChiaNVKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhongChiaTpkd).HasColumnName(@"KhongChiaTPKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhongChiaGdk).HasColumnName(@"KhongChiaGDK").HasColumnType("int").IsRequired(false);
@@ -16039,22 +16039,22 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCanHo).HasColumnName(@"MaCanHo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeChiaDacBiet).HasColumnName(@"TyLeChiaDacBiet").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeChiaDacBiet).HasColumnName(@"TyLeChiaDacBiet").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.KhongChiaNvkd).HasColumnName(@"KhongChiaNVKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhongChiaTpkd).HasColumnName(@"KhongChiaTPKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhongChiaGdk).HasColumnName(@"KhongChiaGDK").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.PhanTramHuong).HasColumnName(@"PhanTramHuong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.PhanTramHuong).HasColumnName(@"PhanTramHuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
         }
     }
 
@@ -16071,16 +16071,16 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCanHo).HasColumnName(@"MaCanHo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -16145,8 +16145,8 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.DanhGiaNangLucId).HasColumnName(@"DanhGiaNangLucID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NangLucId).HasColumnName(@"NangLucID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NhomNangLucId).HasColumnName(@"NhomNangLucID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.KyDanhGiaNangLucId).HasColumnName(@"KyDanhGiaNangLucID").HasColumnType("int").IsRequired(false);
@@ -16169,7 +16169,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayDatCoc).HasColumnName(@"NgayDatCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.Type).HasColumnName(@"Type").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -16266,7 +16266,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("nchar(10)").IsRequired(false).IsFixedLength().HasMaxLength(10);
             builder.Property(x => x.NhomNangLucId).HasColumnName(@"NhomNangLucID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KyDanhGia).HasColumnName(@"KyDanhGia").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -16344,8 +16344,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienNangLucId).HasColumnName(@"NhanVienNangLucID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NangLucId).HasColumnName(@"NangLucID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TrongSo).HasColumnName(@"TrongSo").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -16489,9 +16489,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TheoDoiNghiPhepId).HasColumnName(@"TheoDoiNghiPhepID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NamTheoDoi).HasColumnName(@"NamTheoDoi").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoNgayNghiDuocPhep).HasColumnName(@"SoNgayNghiDuocPhep").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoNgayPhepDaNghi).HasColumnName(@"SoNgayPhepDaNghi").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoNgayPhepConLai).HasColumnName(@"SoNgayPhepConLai").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoNgayNghiDuocPhep).HasColumnName(@"SoNgayNghiDuocPhep").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoNgayPhepDaNghi).HasColumnName(@"SoNgayPhepDaNghi").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoNgayPhepConLai).HasColumnName(@"SoNgayPhepConLai").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -16531,7 +16531,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KhoanMucThuChiId).HasColumnName(@"KhoanMucThuChiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Ngay).HasColumnName(@"Ngay").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NguoiThucHienId).HasColumnName(@"NguoiThucHienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiTaoId).HasColumnName(@"NguoiTaoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayTao).HasColumnName(@"NgayTao").HasColumnType("datetime").IsRequired(false);
@@ -16686,7 +16686,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.MucPhiThamGia).HasColumnName(@"MucPhiThamGia").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.MucPhiThamGia).HasColumnName(@"MucPhiThamGia").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -16703,7 +16703,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.MucPhiThamGia).HasColumnName(@"MucPhiThamGia").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.MucPhiThamGia).HasColumnName(@"MucPhiThamGia").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -16722,7 +16722,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayKyHdld).HasColumnName(@"NgayKyHDLD").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayHieuLuc).HasColumnName(@"NgayHieuLuc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayHetHan).HasColumnName(@"NgayHetHan").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.MucPhiThamGia).HasColumnName(@"MucPhiThamGia").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.MucPhiThamGia).HasColumnName(@"MucPhiThamGia").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -16814,13 +16814,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChotPhep).HasColumnName(@"NgayChotPhep").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.SoPhepChuyenTuNamTruoc).HasColumnName(@"SoPhepChuyenTuNamTruoc").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoPhepBiHuy).HasColumnName(@"SoPhepBiHuy").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoPhepThamNien).HasColumnName(@"SoPhepThamNien").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoPhepTieuChuan).HasColumnName(@"SoPhepTieuChuan").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoPhepTheoQuyDinh).HasColumnName(@"SoPhepTheoQuyDinh").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoPhepDaNghi).HasColumnName(@"SoPhepDaNghi").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoPhepConLai).HasColumnName(@"SoPhepConLai").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.SoPhepChuyenTuNamTruoc).HasColumnName(@"SoPhepChuyenTuNamTruoc").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoPhepBiHuy).HasColumnName(@"SoPhepBiHuy").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoPhepThamNien).HasColumnName(@"SoPhepThamNien").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoPhepTieuChuan).HasColumnName(@"SoPhepTieuChuan").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoPhepTheoQuyDinh).HasColumnName(@"SoPhepTheoQuyDinh").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoPhepDaNghi).HasColumnName(@"SoPhepDaNghi").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoPhepConLai).HasColumnName(@"SoPhepConLai").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
     }
@@ -16906,7 +16906,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LyDoCongTacId).HasColumnName(@"LyDoCongTacID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoNgayCongTac).HasColumnName(@"SoNgayCongTac").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.SoNgayCongTac).HasColumnName(@"SoNgayCongTac").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.ApprovedBy).HasColumnName(@"ApprovedBy").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.ApprovedDate).HasColumnName(@"ApprovedDate").HasColumnType("datetime").IsRequired(false);
@@ -16972,11 +16972,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThangDgTiepTheo).HasColumnName(@"ThangDGTiepTheo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NamDgTiepTheo).HasColumnName(@"NamDGTiepTheo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TrangThaiGiaHan).HasColumnName(@"TrangThaiGiaHan").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiemKpi).HasColumnName(@"TongDiemKPI").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TongDiemKpi).HasColumnName(@"TongDiemKPI").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.IsSuaTrucTiep).HasColumnName(@"IsSuaTrucTiep").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DanhGiaCoCauIdPre).HasColumnName(@"DanhGiaCoCauIDPre").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHongPhongKhoi).HasColumnName(@"HoaHongPhongKhoi").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HoaHongPhongKhoi).HasColumnName(@"HoaHongPhongKhoi").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoThangKhongDat).HasColumnName(@"SoThangKhongDat").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
@@ -17001,11 +17001,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThangDgTiepTheo).HasColumnName(@"ThangDGTiepTheo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NamDgTiepTheo).HasColumnName(@"NamDGTiepTheo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TrangThaiGiaHan).HasColumnName(@"TrangThaiGiaHan").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiemKpi).HasColumnName(@"TongDiemKPI").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TongDiemKpi).HasColumnName(@"TongDiemKPI").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.IsSuaTrucTiep).HasColumnName(@"IsSuaTrucTiep").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DanhGiaCoCauIdPre).HasColumnName(@"DanhGiaCoCauIDPre").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHongPhongKhoi).HasColumnName(@"HoaHongPhongKhoi").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HoaHongPhongKhoi).HasColumnName(@"HoaHongPhongKhoi").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoThangKhongDat).HasColumnName(@"SoThangKhongDat").HasColumnType("int").IsRequired(false);
         }
     }
@@ -17028,11 +17028,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThangDgTiepTheo).HasColumnName(@"ThangDGTiepTheo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NamDgTiepTheo).HasColumnName(@"NamDGTiepTheo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TrangThaiGiaHan).HasColumnName(@"TrangThaiGiaHan").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiemKpi).HasColumnName(@"TongDiemKPI").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TongDiemKpi).HasColumnName(@"TongDiemKPI").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.IsSuaTrucTiep).HasColumnName(@"IsSuaTrucTiep").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DanhGiaCoCauIdPre).HasColumnName(@"DanhGiaCoCauIDPre").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHongPhongKhoi).HasColumnName(@"HoaHongPhongKhoi").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.HoaHongPhongKhoi).HasColumnName(@"HoaHongPhongKhoi").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoThangKhongDat).HasColumnName(@"SoThangKhongDat").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
@@ -17051,9 +17051,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayDanhGia).HasColumnName(@"NgayDanhGia").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayApDungTangLuong).HasColumnName(@"NgayApDungTangLuong").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DiemLuu).HasColumnName(@"DiemLuu").HasColumnType("decimal(10,1)").IsRequired(false);
-            builder.Property(x => x.DiemDg).HasColumnName(@"DiemDG").HasColumnType("decimal(10,1)").IsRequired(false);
-            builder.Property(x => x.TyLeTangLuong).HasColumnName(@"TyLeTangLuong").HasColumnType("decimal(10,1)").IsRequired(false);
+            builder.Property(x => x.DiemLuu).HasColumnName(@"DiemLuu").HasColumnType("decimal(10,1)").HasPrecision(10,1).IsRequired(false);
+            builder.Property(x => x.DiemDg).HasColumnName(@"DiemDG").HasColumnType("decimal(10,1)").HasPrecision(10,1).IsRequired(false);
+            builder.Property(x => x.TyLeTangLuong).HasColumnName(@"TyLeTangLuong").HasColumnType("decimal(10,1)").HasPrecision(10,1).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -17096,7 +17096,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DiemSo).HasColumnName(@"DiemSo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NoiDungDaoTao).HasColumnName(@"NoiDungDaoTao").HasColumnType("ntext").IsRequired(false);
             builder.Property(x => x.SauKhiVaoCongTy).HasColumnName(@"SauKhiVaoCongTy").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.SoThangCamKetSauDaoTao).HasColumnName(@"SoThangCamKetSauDaoTao").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoThangCamKetSauDaoTao).HasColumnName(@"SoThangCamKetSauDaoTao").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -17179,8 +17179,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.QtDienBienLuongChiTietId).HasColumnName(@"QTDienBienLuongChiTietID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.LoaiLuongId).HasColumnName(@"LoaiLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.QtDienBienLuongId).HasColumnName(@"QTDienBienLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.GiaTriMoi).HasColumnName(@"GiaTriMoi").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.GiaTriMoi).HasColumnName(@"GiaTriMoi").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.GiaTriStrMoi).HasColumnName(@"GiaTriStrMoi").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
@@ -17205,11 +17205,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DonViCongViecChucVu).HasColumnName(@"DonViCongViecChucVu").HasColumnType("nvarchar(255)").IsRequired(false).HasMaxLength(255);
             builder.Property(x => x.SoNam).HasColumnName(@"SoNam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoThang).HasColumnName(@"SoThang").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuong).HasColumnName(@"MucLuong").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.MucLuong).HasColumnName(@"MucLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NguoiThamGiaId).HasColumnName(@"NguoiThamGiaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ChiTietCongViec).HasColumnName(@"ChiTietCongViec").HasColumnType("nvarchar(255)").IsRequired(false).HasMaxLength(255);
-            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyleDong).HasColumnName(@"TyleDong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.IsDongTuNguyen).HasColumnName(@"IsDongTuNguyen").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.DonViId).HasColumnName(@"DonViID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -17219,10 +17219,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LuongToiThieu).HasColumnName(@"LuongToiThieu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDauBd).HasColumnName(@"NgayBatDau_BD").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThucBd).HasColumnName(@"NgayKetThuc_BD").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.MucLuongBd).HasColumnName(@"MucLuongBD").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyleBd).HasColumnName(@"TyleBD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HeSoPccv).HasColumnName(@"HeSoPCCV").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.MucLuongBd).HasColumnName(@"MucLuongBD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyleBd).HasColumnName(@"TyleBD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HeSoPccv).HasColumnName(@"HeSoPCCV").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.NgayTraTheBhyt).HasColumnName(@"NgayTraTheBHYT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.KhongTraTheBhyt).HasColumnName(@"KhongTraTheBHYT").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NgayLapBd).HasColumnName(@"NgayLapBD").HasColumnType("datetime").IsRequired(false);
@@ -17283,10 +17283,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemKpi).HasColumnName(@"DiemKPI").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.DiemKpi).HasColumnName(@"DiemKPI").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(1000)").IsRequired(false).HasMaxLength(1000);
             builder.Property(x => x.QtDanhGiaKpiid).HasColumnName(@"QTDanhGiaKPIID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -17384,7 +17384,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayKhenThuong).HasColumnName(@"NgayKhenThuong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NguoiKyId).HasColumnName(@"NguoiKyID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoTienThuong).HasColumnName(@"SoTienThuong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.SoTienThuong).HasColumnName(@"SoTienThuong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -17522,7 +17522,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NganhNgheId).HasColumnName(@"NganhNgheID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenNganhNghe).HasColumnName(@"TenNganhNghe").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.LyDoNghiViec).HasColumnName(@"LyDoNghiViec").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.MucLuong).HasColumnName(@"MucLuong").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuong).HasColumnName(@"MucLuong").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
         }
     }
 
@@ -17543,7 +17543,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LyDoKyLuat).HasColumnName(@"LyDoKyLuat").HasColumnType("ntext").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoTienPhat).HasColumnName(@"SoTienPhat").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.SoTienPhat).HasColumnName(@"SoTienPhat").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoQuyetDinh).HasColumnName(@"SoQuyetDinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NguoiKyId).HasColumnName(@"NguoiKyID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayHetHan).HasColumnName(@"NgayHetHan").HasColumnType("datetime").IsRequired(false);
@@ -17663,11 +17663,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoQuyetDinhId).HasColumnName(@"SoQuyetDinhID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiKyId).HasColumnName(@"NguoiKyID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenCoQuanYTe).HasColumnName(@"TenCoQuanYTe").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.MucDongBhxh).HasColumnName(@"MucDongBHXH").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.SoTienDuocHuong).HasColumnName(@"SoTienDuocHuong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoTienDuocHuongBd).HasColumnName(@"SoTienDuocHuongBD").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucDongBhxh).HasColumnName(@"MucDongBHXH").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.SoTienDuocHuong).HasColumnName(@"SoTienDuocHuong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoTienDuocHuongBd).HasColumnName(@"SoTienDuocHuongBD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoNgayHuongTroCap).HasColumnName(@"SoNgayHuongTroCap").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.SoNgayNghi1).HasColumnName(@"SoNgayNghi1").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNgayNghi2).HasColumnName(@"SoNgayNghi2").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiLapId).HasColumnName(@"NguoiLapID").HasColumnType("int").IsRequired(false);
@@ -17679,10 +17679,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThoiGianDongBhxh).HasColumnName(@"ThoiGianDongBHXH").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.SoNgayNghiLuyKeTuDauNam).HasColumnName(@"SoNgayNghiLuyKeTuDauNam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNgayNghiTapChung).HasColumnName(@"SoNgayNghiTapChung").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongToiThieu).HasColumnName(@"MucLuongToiThieu").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongToiThieu).HasColumnName(@"MucLuongToiThieu").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.DieuKienTinhHuong).HasColumnName(@"DieuKienTinhHuong").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.KyHieuChamCongId).HasColumnName(@"KyHieuChamCongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoNgayDuocNghiThem).HasColumnName(@"SoNgayDuocNghiThem").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoNgayDuocNghiThem).HasColumnName(@"SoNgayDuocNghiThem").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.DonViId).HasColumnName(@"DonViID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -17809,9 +17809,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsConflict).HasColumnName(@"IsConflict").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.TenCongTy).HasColumnName(@"TenCongTy").HasColumnType("nvarchar(1000)").IsRequired(false).HasMaxLength(1000);
             builder.Property(x => x.IsThuHuongBhtn).HasColumnName(@"IsThuHuongBHTN").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLeThuHuongBhtn).HasColumnName(@"TyLeThuHuongBHTN").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TyLeThuHuongBhtn).HasColumnName(@"TyLeThuHuongBHTN").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.IsThuHuongBhnhom).HasColumnName(@"IsThuHuongBHNHOM").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLeThuHuongBhnhom).HasColumnName(@"TyLeThuHuongBHNHOM").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TyLeThuHuongBhnhom).HasColumnName(@"TyLeThuHuongBHNHOM").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NgayBatDauBhtn).HasColumnName(@"NgayBatDauBHTN").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThucBhtn).HasColumnName(@"NgayKetThucBHTN").HasColumnType("datetime").IsRequired(false);
         }
@@ -17893,9 +17893,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TinhTrangKhiSinh).HasColumnName(@"TinhTrangKhiSinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.SoNgayNghiTaiGia).HasColumnName(@"SoNgayNghiTaiGia").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNgayNghiTapChung).HasColumnName(@"SoNgayNghiTapChung").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.MucLuongBinhQuan).HasColumnName(@"MucLuongBinhQuan").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.MucLuongToiThieu).HasColumnName(@"MucLuongToiThieu").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongDongBhxh).HasColumnName(@"MucLuongDongBHXH").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.MucLuongBinhQuan).HasColumnName(@"MucLuongBinhQuan").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.MucLuongToiThieu).HasColumnName(@"MucLuongToiThieu").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.TenConThuHai).HasColumnName(@"TenConThuHai").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.SoLuongCon).HasColumnName(@"SoLuongCon").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsNhanNuoiCon).HasColumnName(@"IsNhanNuoiCon").HasColumnType("bit").IsRequired(false);
@@ -18007,7 +18007,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChiPhiTuyenDungId).HasColumnName(@"ChiPhiTuyenDungID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.DotTuyenDungId).HasColumnName(@"DotTuyenDungID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MoTa).HasColumnName(@"MoTa").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(10,0)").IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(10,0)").HasPrecision(10,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -18135,7 +18135,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.SoQuyetDinh).HasColumnName(@"SoQuyetDinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TrangThai).HasColumnName(@"TrangThai").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.ChiPhiDuKien).HasColumnName(@"ChiPhiDuKien").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ChiPhiDuKien).HasColumnName(@"ChiPhiDuKien").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NguonDuKien).HasColumnName(@"NguonDuKien").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -18162,7 +18162,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MucDichTuyenDung).HasColumnName(@"MucDichTuyenDung").HasColumnType("ntext").IsRequired(false);
             builder.Property(x => x.CacKenhTuyenDung).HasColumnName(@"CacKenhTuyenDung").HasColumnType("ntext").IsRequired(false);
             builder.Property(x => x.CacDuAnDangTrienKhai).HasColumnName(@"CacDuAnDangTrienKhai").HasColumnType("ntext").IsRequired(false);
-            builder.Property(x => x.KinhPhiTuyenDung).HasColumnName(@"KinhPhiTuyenDung").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.KinhPhiTuyenDung).HasColumnName(@"KinhPhiTuyenDung").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.SoLuongNsCamKetTd).HasColumnName(@"SoLuongNSCamKetTD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TrangThai).HasColumnName(@"TrangThai").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiDuyetId).HasColumnName(@"NguoiDuyetID").HasColumnType("int").IsRequired(false);
@@ -18252,7 +18252,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayTao).HasColumnName(@"NgayTao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NguoiSuaId).HasColumnName(@"NguoiSuaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgaySua).HasColumnName(@"NgaySua").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TongDiemYeuCau).HasColumnName(@"TongDiemYeuCau").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiemYeuCau).HasColumnName(@"TongDiemYeuCau").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.LoaiLopId).HasColumnName(@"LoaiLopID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoLuongHocVien).HasColumnName(@"SoLuongHocVien").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CongTyId).HasColumnName(@"CongTyID").HasColumnType("int").IsRequired(false);
@@ -18282,21 +18282,21 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LopDaoTaoId).HasColumnName(@"LopDaoTaoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ThiSinhId).HasColumnName(@"ThiSinhID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhanXet).HasColumnName(@"NhanXet").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.XepLoaiId).HasColumnName(@"XepLoaiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KetLuan).HasColumnName(@"KetLuan").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.DotTuyenDungId).HasColumnName(@"DotTuyenDungID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TrangThai).HasColumnName(@"TrangThai").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.ViTinh).HasColumnName(@"ViTinh").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ViTinh).HasColumnName(@"ViTinh").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NguoiChuyenId).HasColumnName(@"NguoiChuyenID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChuyen).HasColumnName(@"NgayChuyen").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DiemKhac).HasColumnName(@"DiemKhac").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DiemKhac).HasColumnName(@"DiemKhac").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.TrangThaiNghiId).HasColumnName(@"TrangThaiNghiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KetQuaDanhGiaDaoTaoId).HasColumnName(@"KetQuaDanhGiaDaoTaoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaSo).HasColumnName(@"MaSo").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.Diem4).HasColumnName(@"Diem4").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.Diem5).HasColumnName(@"Diem5").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.Diem6).HasColumnName(@"Diem6").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.Diem4).HasColumnName(@"Diem4").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.Diem5).HasColumnName(@"Diem5").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.Diem6).HasColumnName(@"Diem6").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
     }
@@ -18334,7 +18334,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CongTyId).HasColumnName(@"CongTyID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MonThiId).HasColumnName(@"MonThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ThiSinhId).HasColumnName(@"ThiSinhID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemThi).HasColumnName(@"DiemThi").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DiemThi).HasColumnName(@"DiemThi").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.LoaiKetQua).HasColumnName(@"LoaiKetQua").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.VongThiId).HasColumnName(@"VongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiChamDiemId).HasColumnName(@"NguoiChamDiemID").HasColumnType("int").IsRequired(false);
@@ -18714,7 +18714,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.VongThiId).HasColumnName(@"VongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguonUngVienId).HasColumnName(@"NguonUngVienID").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.TrangThaiStr).HasColumnName(@"TrangThaiStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.IsEmailOfferSent).HasColumnName(@"IsEmailOfferSent").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsEmailOnboardSent).HasColumnName(@"IsEmailOnboardSent").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsEmailFailSent).HasColumnName(@"IsEmailFailSent").HasColumnType("bit").IsRequired(false);
@@ -18725,12 +18725,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhomNhanVienId).HasColumnName(@"NhomNhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayKetThucThuViec).HasColumnName(@"NgayKetThucThuViec").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NhomLuongId).HasColumnName(@"NhomLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.BasicGrossSalary).HasColumnName(@"BasicGrossSalary").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.RelocationAllowance).HasColumnName(@"Relocation_Allowance").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.OthersAllowance).HasColumnName(@"Others_Allowance").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.TelephoneAllowance).HasColumnName(@"Telephone_Allowance").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.TransportationAllowance).HasColumnName(@"Transportation_Allowance").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.JobAllowance).HasColumnName(@"Job_Allowance").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.BasicGrossSalary).HasColumnName(@"BasicGrossSalary").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.RelocationAllowance).HasColumnName(@"Relocation_Allowance").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.OthersAllowance).HasColumnName(@"Others_Allowance").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.TelephoneAllowance).HasColumnName(@"Telephone_Allowance").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.TransportationAllowance).HasColumnName(@"Transportation_Allowance").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.JobAllowance).HasColumnName(@"Job_Allowance").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.ChucVuBaoCaoId).HasColumnName(@"ChucVuBaoCaoID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LocationId).HasColumnName(@"LocationID").HasColumnType("int").IsRequired(false);
         }
@@ -18770,9 +18770,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.VongThiId).HasColumnName(@"VongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ThiSinhId).HasColumnName(@"ThiSinhID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiChamDiemId).HasColumnName(@"NguoiChamDiemID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,3)").IsRequired(false);
-            builder.Property(x => x.TongDiemChuaNhanHs).HasColumnName(@"TongDiemChuaNhanHS").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
+            builder.Property(x => x.TongDiemChuaNhanHs).HasColumnName(@"TongDiemChuaNhanHS").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.NhanXet).HasColumnName(@"NhanXet").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.KetQua).HasColumnName(@"KetQua").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -18866,13 +18866,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NguoiKiemTra4).HasColumnName(@"NguoiKiemTra4").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.KetQua).HasColumnName(@"KetQua").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.TinhTrang).HasColumnName(@"TinhTrang").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ModifyDate).HasColumnName(@"ModifyDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DotTuyenDungId).HasColumnName(@"DotTuyenDungID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DiemKyVong).HasColumnName(@"DiemKyVong").HasColumnType("float").HasPrecision(53).IsRequired(false);
         }
     }
 
@@ -18888,7 +18888,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.VongThiId).HasColumnName(@"VongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Type).HasColumnName(@"Type").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -18910,9 +18910,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThiSinhId).HasColumnName(@"ThiSinhID").HasColumnType("int").IsRequired();
             builder.Property(x => x.VongThiId).HasColumnName(@"VongThiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhanXet).HasColumnName(@"NhanXet").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TongDiem).HasColumnName(@"TongDiem").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NguoiChamDiemId).HasColumnName(@"NguoiChamDiemID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucLuongDeNghi).HasColumnName(@"MucLuongDeNghi").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.MucLuongDeNghi).HasColumnName(@"MucLuongDeNghi").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NgayDeNghiDiLam).HasColumnName(@"NgayDeNghiDiLam").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.KetQua).HasColumnName(@"KetQua").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayThi).HasColumnName(@"NgayThi").HasColumnType("datetime").IsRequired(false);
@@ -18962,7 +18962,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TienTeId).HasColumnName(@"TienTeID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyGia).HasColumnName(@"TyGia").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyGia).HasColumnName(@"TyGia").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -19076,7 +19076,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiChamCongId).HasColumnName(@"LoaiChamCongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChamCong).HasColumnName(@"NgayChamCong").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.Type).HasColumnName(@"Type").HasColumnType("int").IsRequired(false);
         }
     }
@@ -19092,11 +19092,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChiTietLuongId).HasColumnName(@"ChiTietLuongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.BangLuongId).HasColumnName(@"BangLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiLuongId).HasColumnName(@"LoaiLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.ChinhSua).HasColumnName(@"ChinhSua").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NguoiChinhSuaId).HasColumnName(@"NguoiChinhSuaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChinhSua).HasColumnName(@"NgayChinhSua").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TienLuongStr).HasColumnName(@"TienLuongStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
@@ -19147,7 +19147,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LoaiLuongId).HasColumnName(@"LoaiLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.QtDienBienLuongId).HasColumnName(@"QTDienBienLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
     }
@@ -19164,7 +19164,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
@@ -19188,8 +19188,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.HoVaTen).HasColumnName(@"HoVaTen").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DuLieuKhongTongHop).HasColumnName(@"DuLieuKhongTongHop").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("decimal(10,8)").IsRequired(false);
-            builder.Property(x => x.Longtitude).HasColumnName(@"Longtitude").HasColumnType("decimal(11,8)").IsRequired(false);
+            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("decimal(10,8)").HasPrecision(10,8).IsRequired(false);
+            builder.Property(x => x.Longtitude).HasColumnName(@"Longtitude").HasColumnType("decimal(11,8)").HasPrecision(11,8).IsRequired(false);
             builder.Property(x => x.ImagePosition).HasColumnName(@"ImagePosition").HasColumnType("image(2147483647)").IsRequired(false).HasMaxLength(2147483647);
             builder.Property(x => x.ImageUrl).HasColumnName(@"ImageURL").HasColumnType("nvarchar(max)").IsRequired(false);
         }
@@ -19260,17 +19260,17 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GioVe).HasColumnName(@"GioVe").HasColumnType("time").IsRequired(false);
             builder.Property(x => x.GioRa).HasColumnName(@"GioRa").HasColumnType("time").IsRequired(false);
             builder.Property(x => x.GioVao).HasColumnName(@"GioVao").HasColumnType("time").IsRequired(false);
-            builder.Property(x => x.TgDiMuon).HasColumnName(@"TGDiMuon").HasColumnType("decimal(18,1)").IsRequired(false);
-            builder.Property(x => x.TgVeSom).HasColumnName(@"TGVeSom").HasColumnType("decimal(18,1)").IsRequired(false);
-            builder.Property(x => x.TgLamViec).HasColumnName(@"TGLamViec").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TgLamThem).HasColumnName(@"TGLamThem").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TgRaNgoai).HasColumnName(@"TGRaNgoai").HasColumnType("decimal(18,1)").IsRequired(false);
+            builder.Property(x => x.TgDiMuon).HasColumnName(@"TGDiMuon").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
+            builder.Property(x => x.TgVeSom).HasColumnName(@"TGVeSom").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
+            builder.Property(x => x.TgLamViec).HasColumnName(@"TGLamViec").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TgLamThem).HasColumnName(@"TGLamThem").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TgRaNgoai).HasColumnName(@"TGRaNgoai").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.IsChinhSua).HasColumnName(@"IsChinhSua").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsNgayLe).HasColumnName(@"IsNgayLe").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsLamSangNgayHomSau).HasColumnName(@"IsLamSangNgayHomSau").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.KyHieuChamCongId).HasColumnName(@"KyHieuChamCongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TgLamThemDem).HasColumnName(@"TGLamThemDem").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TgLamThemDem).HasColumnName(@"TGLamThemDem").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.Lock).HasColumnName(@"Lock").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaDotTongHopCong).HasColumnName(@"MaDotTongHopCong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.IsLamThemNgayHomSau).HasColumnName(@"IsLamThemNgayHomSau").HasColumnType("bit").IsRequired(false);
@@ -19289,24 +19289,24 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.TenCaLamViec).HasColumnName(@"TenCaLamViec").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.KyHieuChamCong).HasColumnName(@"KyHieuChamCong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.LamChuNhat).HasColumnName(@"LamChuNhat").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.DemChuNhat).HasColumnName(@"DemChuNhat").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.LamNgayLe).HasColumnName(@"LamNgayLe").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.DemNgayLe).HasColumnName(@"DemNgayLe").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoPhutLamViecThucTe).HasColumnName(@"SoPhutLamViecThucTe").HasColumnType("decimal(18,1)").IsRequired(false);
+            builder.Property(x => x.LamChuNhat).HasColumnName(@"LamChuNhat").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.DemChuNhat).HasColumnName(@"DemChuNhat").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.LamNgayLe).HasColumnName(@"LamNgayLe").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.DemNgayLe).HasColumnName(@"DemNgayLe").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoPhutLamViecThucTe).HasColumnName(@"SoPhutLamViecThucTe").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
             builder.Property(x => x.IsCn).HasColumnName(@"IsCN").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LamDem).HasColumnName(@"LamDem").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.DemNgayNghi).HasColumnName(@"DemNgayNghi").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoCongCongTac).HasColumnName(@"SoCongCongTac").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.LamDem).HasColumnName(@"LamDem").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.DemNgayNghi).HasColumnName(@"DemNgayNghi").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoCongCongTac).HasColumnName(@"SoCongCongTac").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.IsThu7).HasColumnName(@"IsThu7").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LamThemToi).HasColumnName(@"LamThemToi").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.ToiChuNhat).HasColumnName(@"ToiChuNhat").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.ToiNgayLe).HasColumnName(@"ToiNgayLe").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TgLamNgayLe).HasColumnName(@"TGLamNgayLe").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TgNgayLe).HasColumnName(@"TGNgayLe").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.LamThemToi).HasColumnName(@"LamThemToi").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.ToiChuNhat).HasColumnName(@"ToiChuNhat").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.ToiNgayLe).HasColumnName(@"ToiNgayLe").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TgLamNgayLe).HasColumnName(@"TGLamNgayLe").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TgNgayLe).HasColumnName(@"TGNgayLe").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.HoVaTen).HasColumnName(@"HoVaTen").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.SoGioTheoKyHieu).HasColumnName(@"SoGioTheoKyHieu").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoGioTheoKyHieu).HasColumnName(@"SoGioTheoKyHieu").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.IsNghiViec).HasColumnName(@"IsNghiViec").HasColumnType("int").IsRequired(false);
         }
     }
@@ -19344,7 +19344,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiChamCongId).HasColumnName(@"LoaiChamCongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChamCong).HasColumnName(@"NgayChamCong").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.Type).HasColumnName(@"Type").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Lock).HasColumnName(@"Lock").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
@@ -19363,7 +19363,7 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.ChiaHoaHongId).HasColumnName(@"ChiaHoaHongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeChia).HasColumnName(@"TyLeChia").HasColumnType("decimal(10,3)").IsRequired(false);
+            builder.Property(x => x.TyLeChia).HasColumnName(@"TyLeChia").HasColumnType("decimal(10,3)").HasPrecision(10,3).IsRequired(false);
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -19423,11 +19423,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChiTietLuongId).HasColumnName(@"ChiTietLuongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.BangLuongId).HasColumnName(@"BangLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiLuongId).HasColumnName(@"LoaiLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.ChinhSua).HasColumnName(@"ChinhSua").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NguoiChinhSuaId).HasColumnName(@"NguoiChinhSuaID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChinhSua).HasColumnName(@"NgayChinhSua").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TienLuongStr).HasColumnName(@"TienLuongStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
@@ -19452,8 +19452,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiLuongId).HasColumnName(@"LoaiLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.TienLuongStr).HasColumnName(@"TienLuongStr").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.LyDoChinhSua).HasColumnName(@"LyDoChinhSua").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
@@ -19550,8 +19550,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.KyHieuChamCongId).HasColumnName(@"KyHieuChamCongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChamCong).HasColumnName(@"NgayChamCong").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.GioLamThem).HasColumnName(@"GioLamThem").HasColumnType("decimal(18,1)").IsRequired(false);
-            builder.Property(x => x.GioLamThemTruocCa).HasColumnName(@"GioLamThemTruocCa").HasColumnType("decimal(18,1)").IsRequired(false);
+            builder.Property(x => x.GioLamThem).HasColumnName(@"GioLamThem").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
+            builder.Property(x => x.GioLamThemTruocCa).HasColumnName(@"GioLamThemTruocCa").HasColumnType("decimal(18,1)").HasPrecision(18,1).IsRequired(false);
             builder.Property(x => x.CaLamViecId).HasColumnName(@"CaLamViecID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LamThemTruocCa).HasColumnName(@"LamThemTruocCa").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Lock).HasColumnName(@"Lock").HasColumnType("bit").IsRequired(false);
@@ -19601,7 +19601,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.ChiTieuKinhDoanh).HasColumnName(@"ChiTieuKinhDoanh").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.ChiTieuKinhDoanh).HasColumnName(@"ChiTieuKinhDoanh").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
         }
     }
 
@@ -19617,8 +19617,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -19637,23 +19637,23 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyleHoaHong).HasColumnName(@"TyleHoaHong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyleHoaHong).HasColumnName(@"TyleHoaHong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
         }
     }
 
@@ -19671,23 +19671,23 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyleHoaHong).HasColumnName(@"TyleHoaHong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyleHoaHong).HasColumnName(@"TyleHoaHong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
         }
     }
 
@@ -19705,22 +19705,22 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(18,5)").IsRequired(false);
-            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
+            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
         }
     }
 
@@ -19738,22 +19738,22 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DuAnId).HasColumnName(@"DuAnID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.GiaTriHopDong).HasColumnName(@"GiaTriHopDong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.DoanhSoTinhLuong).HasColumnName(@"DoanhSoTinhLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongNvkd).HasColumnName(@"HoaHongNVKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongTpkd).HasColumnName(@"HoaHongTPKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.HoaHongGdk).HasColumnName(@"HoaHongGDK").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeNvkd).HasColumnName(@"TyLeNVKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeTpkd).HasColumnName(@"TyLeTPKD").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdk).HasColumnName(@"TyLeGDK").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.NgayCoc).HasColumnName(@"NgayCoc").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsBoCoc).HasColumnName(@"IsBoCoc").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.TyLeDacBietSale).HasColumnName(@"TyLeDacBietSale").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.TyLeDacBietCeo).HasColumnName(@"TyLeDacBietCEO").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.HoaHongGdcn).HasColumnName(@"HoaHongGDCN").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLeGdcn).HasColumnName(@"TyLeGDCN").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.TyLePgdk).HasColumnName(@"TyLePGDK").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.HoaHongPgdk).HasColumnName(@"HoaHongPGDK").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
         }
     }
 
@@ -19769,8 +19769,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -19827,8 +19827,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.KyHieuLoaiChamCongId).HasColumnName(@"KyHieu_LoaiChamCongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.KyHieuChamCongId).HasColumnName(@"KyHieuChamCongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiChamCongId).HasColumnName(@"LoaiChamCongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.SoGioLamNgayLe).HasColumnName(@"SoGioLamNgayLe").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.SoGioLamNgayLe).HasColumnName(@"SoGioLamNgayLe").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
         }
     }
 
@@ -19919,9 +19919,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ThangThu).HasColumnName(@"ThangThu").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHongDatDuoc).HasColumnName(@"HoaHongDatDuoc").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.HoaHongDatDuoc).HasColumnName(@"HoaHongDatDuoc").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.MucDoHoanThanh).HasColumnName(@"MucDoHoanThanh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.LuongDuocNhan).HasColumnName(@"LuongDuocNhan").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.LuongDuocNhan).HasColumnName(@"LuongDuocNhan").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -19938,16 +19938,16 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.DanhGia).HasColumnName(@"DanhGia").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
-            builder.Property(x => x.LuongCoBan).HasColumnName(@"LuongCoBan").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.LuongCoBanSauDanhGia).HasColumnName(@"LuongCoBanSauDanhGia").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.LuongCoBan).HasColumnName(@"LuongCoBan").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.LuongCoBanSauDanhGia).HasColumnName(@"LuongCoBanSauDanhGia").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.VungMienId).HasColumnName(@"VungMienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.ThangThu).HasColumnName(@"ThangThu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhomChucDanhId).HasColumnName(@"NhomChucDanhID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiNhanVienId).HasColumnName(@"LoaiNhanVienID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Pctt).HasColumnName(@"PCTT").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.Pctt).HasColumnName(@"PCTT").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
         }
     }
 
@@ -20002,7 +20002,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
         }
@@ -20020,7 +20020,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoNgayNghi).HasColumnName(@"SoNgayNghi").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
         }
@@ -20092,8 +20092,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -20126,14 +20126,14 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayHieuLuc).HasColumnName(@"NgayHieuLuc").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.SoTienDauKy).HasColumnName(@"SoTienDauKy").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.SoTienDauKy).HasColumnName(@"SoTienDauKy").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.NgayThanhToan).HasColumnName(@"NgayThanhToan").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.TraGocHangThang).HasColumnName(@"TraGocHangThang").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.PhiHcHangThang).HasColumnName(@"PhiHCHangThang").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.SoTienCuoiKy).HasColumnName(@"SoTienCuoiKy").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.PtHangThangSoVoiLuong).HasColumnName(@"PTHangThangSoVoiLuong").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TraGocHangThang).HasColumnName(@"TraGocHangThang").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.PhiHcHangThang).HasColumnName(@"PhiHCHangThang").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.SoTienCuoiKy).HasColumnName(@"SoTienCuoiKy").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.PtHangThangSoVoiLuong).HasColumnName(@"PTHangThangSoVoiLuong").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.TraVaoKyLuongNao).HasColumnName(@"TraVaoKyLuongNao").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.SoTienTraTruoc).HasColumnName(@"SoTienTraTruoc").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.SoTienTraTruoc).HasColumnName(@"SoTienTraTruoc").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.NgayTraTruoc).HasColumnName(@"NgayTraTruoc").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.IsThaiSan).HasColumnName(@"IsThaiSan").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -20153,7 +20153,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayOt).HasColumnName(@"NgayOT").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.OtIn).HasColumnName(@"OTIn").HasColumnType("time").IsRequired(false);
             builder.Property(x => x.OtOut).HasColumnName(@"OTOut").HasColumnType("time").IsRequired(false);
-            builder.Property(x => x.Ot).HasColumnName(@"OT").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.Ot).HasColumnName(@"OT").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.NgayDem).HasColumnName(@"NgayDem").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NgayThuong).HasColumnName(@"NgayThuong").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NgayNghi).HasColumnName(@"NgayNghi").HasColumnType("bit").IsRequired(false);
@@ -20171,13 +20171,13 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.NamLvToiThieu).HasColumnName(@"NamLVToiThieu").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.NamLvToiThieu).HasColumnName(@"NamLVToiThieu").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.SoThangLuongGross).HasColumnName(@"SoThangLuongGross").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TgTamUngToiDa).HasColumnName(@"TGTamUngToiDa").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HanMucTamUng).HasColumnName(@"HanMucTamUng").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.HanMucTamUng).HasColumnName(@"HanMucTamUng").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.LoaiHd).HasColumnName(@"LoaiHD").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.PhiQlhc).HasColumnName(@"PhiQLHC").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.Ptss).HasColumnName(@"PTSS").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.PhiQlhc).HasColumnName(@"PhiQLHC").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.Ptss).HasColumnName(@"PTSS").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -20193,7 +20193,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayHieuLuc).HasColumnName(@"NgayHieuLuc").HasColumnType("date").IsRequired(false);
             builder.Property(x => x.NgayTraTruoc).HasColumnName(@"NgayTraTruoc").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.SoTienTraTruoc).HasColumnName(@"SoTienTraTruoc").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.SoTienTraTruoc).HasColumnName(@"SoTienTraTruoc").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.SoThangConLaiPhaiTra).HasColumnName(@"SoThangConLaiPhaiTra").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
@@ -20213,9 +20213,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LyDoTamUng).HasColumnName(@"LyDoTamUng").HasColumnType("nvarchar(2000)").IsRequired(false).HasMaxLength(2000);
             builder.Property(x => x.ThoiGianHoanTra).HasColumnName(@"ThoiGianHoanTra").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayThanhToanCuoiCung).HasColumnName(@"NgayThanhToanCuoiCung").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.SoTienTamUng).HasColumnName(@"SoTienTamUng").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.ThuNhapHangThang).HasColumnName(@"ThuNhapHangThang").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.PhiQuanLy).HasColumnName(@"PhiQuanLy").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.SoTienTamUng).HasColumnName(@"SoTienTamUng").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.ThuNhapHangThang).HasColumnName(@"ThuNhapHangThang").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.PhiQuanLy).HasColumnName(@"PhiQuanLy").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -20232,7 +20232,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenSanPham).HasColumnName(@"TenSanPham").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.MaSanPham).HasColumnName(@"MaSanPham").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.DonViTinh).HasColumnName(@"DonViTinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NganhHangId).HasColumnName(@"NganhHangID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CongTyId).HasColumnName(@"CongTyID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -20253,7 +20253,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SanPhamCongDoanId).HasColumnName(@"SanPhamCongDoanID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.SanPhamId).HasColumnName(@"SanPhamID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CongDoanId).HasColumnName(@"CongDoanID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.ThuTu).HasColumnName(@"ThuTu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -20274,7 +20274,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SanPhamId).HasColumnName(@"SanPhamID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CongDoanId).HasColumnName(@"CongDoanID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LenhSanXuatId).HasColumnName(@"LenhSanXuatID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
         }
     }
@@ -20293,9 +20293,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SanPhamId).HasColumnName(@"SanPhamID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LenhSanXuatId).HasColumnName(@"LenhSanXuatID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CongDoanId).HasColumnName(@"CongDoanID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.ThoiGianSanXuat).HasColumnName(@"ThoiGianSanXuat").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -20314,7 +20314,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.LoaiThamSo).HasColumnName(@"LoaiThamSo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayHieuLuc).HasColumnName(@"NgayHieuLuc").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -20330,7 +20330,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThangLuongId).HasColumnName(@"ThangLuongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhomLuongId).HasColumnName(@"NhomLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BacLuongId).HasColumnName(@"BacLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -20344,7 +20344,7 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.TenNhom).HasColumnName(@"TenNhom").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TenBac).HasColumnName(@"TenBac").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.BacLuongId).HasColumnName(@"BacLuongID").HasColumnType("int").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.NhomTlid).HasColumnName(@"NhomTLID").HasColumnType("int").IsRequired().ValueGeneratedNever();
         }
@@ -20362,7 +20362,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LuongCoBan).HasColumnName(@"LuongCoBan").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LuongTrachNhiem).HasColumnName(@"LuongTrachNhiem").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaChucDanh).HasColumnName(@"MaChucDanh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.BacLuong).HasColumnName(@"BacLuong").HasColumnType("decimal(10,1)").IsRequired(false);
+            builder.Property(x => x.BacLuong).HasColumnName(@"BacLuong").HasColumnType("decimal(10,1)").HasPrecision(10,1).IsRequired(false);
         }
     }
 
@@ -20377,23 +20377,23 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Thotid).HasColumnName(@"THOTID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayThot).HasColumnName(@"NgayTHOT").HasColumnType("date").IsRequired(false);
-            builder.Property(x => x.DtOtTotalWeekday).HasColumnName(@"DT_OT_Total_Weekday").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.DtOtTotalWeekdayPer).HasColumnName(@"DT_OT_Total_Weekday_Per").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.DtOtTotalWeekend).HasColumnName(@"DT_OT_Total_Weekend").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.DtOtTotalWeekendPer).HasColumnName(@"DT_OT_Total_Weekend_Per").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.DtOtTotalHoliday).HasColumnName(@"DT_OT_Total_Holiday").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.DtOtTotalHolidayPer).HasColumnName(@"DT_OT_Total_Holiday_Per").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.DtOtTotalPer).HasColumnName(@"DT_OT_Total_Per").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcOtWeekday).HasColumnName(@"CC_OT_Weekday").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcOtWeekend).HasColumnName(@"CC_OT_Weekend").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcOtHoliday).HasColumnName(@"CC_OT_Holiday").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcOtTotalOt).HasColumnName(@"CC_OT_Total_OT").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcOtTotalAmount).HasColumnName(@"CC_OT_Total_Amount").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcClWeekday).HasColumnName(@"CC_CL_Weekday").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcClWeekend).HasColumnName(@"CC_CL_Weekend").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcClHoliday).HasColumnName(@"CC_CL_Holiday").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CcClTotal).HasColumnName(@"CC_CL_Total").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.CompensationLeaveDay).HasColumnName(@"Compensation_Leave_Day").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.DtOtTotalWeekday).HasColumnName(@"DT_OT_Total_Weekday").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.DtOtTotalWeekdayPer).HasColumnName(@"DT_OT_Total_Weekday_Per").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.DtOtTotalWeekend).HasColumnName(@"DT_OT_Total_Weekend").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.DtOtTotalWeekendPer).HasColumnName(@"DT_OT_Total_Weekend_Per").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.DtOtTotalHoliday).HasColumnName(@"DT_OT_Total_Holiday").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.DtOtTotalHolidayPer).HasColumnName(@"DT_OT_Total_Holiday_Per").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.DtOtTotalPer).HasColumnName(@"DT_OT_Total_Per").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcOtWeekday).HasColumnName(@"CC_OT_Weekday").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcOtWeekend).HasColumnName(@"CC_OT_Weekend").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcOtHoliday).HasColumnName(@"CC_OT_Holiday").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcOtTotalOt).HasColumnName(@"CC_OT_Total_OT").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcOtTotalAmount).HasColumnName(@"CC_OT_Total_Amount").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcClWeekday).HasColumnName(@"CC_CL_Weekday").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcClWeekend).HasColumnName(@"CC_CL_Weekend").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcClHoliday).HasColumnName(@"CC_CL_Holiday").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CcClTotal).HasColumnName(@"CC_CL_Total").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.CompensationLeaveDay).HasColumnName(@"Compensation_Leave_Day").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -20409,9 +20409,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.DoanhSoPhong).HasColumnName(@"DoanhSoPhong").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.ThuongCapDo).HasColumnName(@"ThuongCapDo").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.HoaHong).HasColumnName(@"HoaHong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.DoanhSoPhong).HasColumnName(@"DoanhSoPhong").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.ThuongCapDo).HasColumnName(@"ThuongCapDo").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
     }
@@ -20427,7 +20427,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TongHopChamCongId).HasColumnName(@"TongHopChamCongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.BangLuongId).HasColumnName(@"BangLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiChamCongId).HasColumnName(@"LoaiChamCongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TongSoGioLam).HasColumnName(@"TongSoGioLam").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.TongSoGioLam).HasColumnName(@"TongSoGioLam").HasColumnType("float").HasPrecision(53).IsRequired(false);
         }
     }
 
@@ -20443,7 +20443,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiChamCongId).HasColumnName(@"LoaiChamCongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayChamCong).HasColumnName(@"NgayChamCong").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoGioLam).HasColumnName(@"SoGioLam").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.Lock).HasColumnName(@"Lock").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.ThangChamCong).HasColumnName(@"ThangChamCong").HasColumnType("datetime").IsRequired(false);
         }
@@ -20460,7 +20460,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TongHopLuongId).HasColumnName(@"TongHopLuongID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.BangLuongId).HasColumnName(@"BangLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NhomLuongId).HasColumnName(@"NhomLuongID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.TienLuong).HasColumnName(@"TienLuong").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 
@@ -20473,20 +20473,20 @@ namespace Hpl.HrmDatabase
             builder.HasKey(x => new { x.NhanVienId, x.LuongCoBanHoaHong, x.TrungBinhKqdg });
 
             builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienID").HasColumnType("int").IsRequired().ValueGeneratedNever();
-            builder.Property(x => x.HoaHongT1).HasColumnName(@"HoaHongT1").HasColumnType("decimal(38,6)").IsRequired(false);
-            builder.Property(x => x.TienLuongT1).HasColumnName(@"TienLuongT1").HasColumnType("decimal(38,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongT2).HasColumnName(@"HoaHongT2").HasColumnType("decimal(38,6)").IsRequired(false);
-            builder.Property(x => x.TienLuongT2).HasColumnName(@"TienLuongT2").HasColumnType("decimal(38,2)").IsRequired(false);
-            builder.Property(x => x.HoaHongT3).HasColumnName(@"HoaHongT3").HasColumnType("decimal(38,6)").IsRequired(false);
-            builder.Property(x => x.TienLuongT3).HasColumnName(@"TienLuongT3").HasColumnType("decimal(38,2)").IsRequired(false);
-            builder.Property(x => x.TrungBinhHoaHong).HasColumnName(@"TrungBinhHoaHong").HasColumnType("decimal(38,6)").IsRequired(false);
+            builder.Property(x => x.HoaHongT1).HasColumnName(@"HoaHongT1").HasColumnType("decimal(38,6)").HasPrecision(38,6).IsRequired(false);
+            builder.Property(x => x.TienLuongT1).HasColumnName(@"TienLuongT1").HasColumnType("decimal(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.HoaHongT2).HasColumnName(@"HoaHongT2").HasColumnType("decimal(38,6)").HasPrecision(38,6).IsRequired(false);
+            builder.Property(x => x.TienLuongT2).HasColumnName(@"TienLuongT2").HasColumnType("decimal(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.HoaHongT3).HasColumnName(@"HoaHongT3").HasColumnType("decimal(38,6)").HasPrecision(38,6).IsRequired(false);
+            builder.Property(x => x.TienLuongT3).HasColumnName(@"TienLuongT3").HasColumnType("decimal(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.TrungBinhHoaHong).HasColumnName(@"TrungBinhHoaHong").HasColumnType("decimal(38,6)").HasPrecision(38,6).IsRequired(false);
             builder.Property(x => x.LuongCoBanHoaHong).HasColumnName(@"LuongCoBanHoaHong").HasColumnType("int").IsRequired().ValueGeneratedNever();
-            builder.Property(x => x.LuongCoBanTltl).HasColumnName(@"LuongCoBanTLTL").HasColumnType("decimal(38,2)").IsRequired(false);
-            builder.Property(x => x.Ncdltb).HasColumnName(@"NCDLTB").HasColumnType("numeric(38,6)").IsRequired(false);
-            builder.Property(x => x.Nctctb).HasColumnName(@"NCTCTB").HasColumnType("numeric(30,9)").IsRequired(false);
-            builder.Property(x => x.TrungBinhKqdg).HasColumnName(@"TrungBinhKQDG").HasColumnType("decimal(38,6)").IsRequired().ValueGeneratedNever();
-            builder.Property(x => x.LuongCoBanSauDanhGia).HasColumnName(@"LuongCoBanSauDanhGia").HasColumnType("numeric(38,2)").IsRequired(false);
-            builder.Property(x => x.LuongTruyThuTruyLinh).HasColumnName(@"LuongTruyThuTruyLinh").HasColumnType("numeric(38,6)").IsRequired(false);
+            builder.Property(x => x.LuongCoBanTltl).HasColumnName(@"LuongCoBanTLTL").HasColumnType("decimal(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.Ncdltb).HasColumnName(@"NCDLTB").HasColumnType("numeric(38,6)").HasPrecision(38,6).IsRequired(false);
+            builder.Property(x => x.Nctctb).HasColumnName(@"NCTCTB").HasColumnType("numeric(30,9)").HasPrecision(30,9).IsRequired(false);
+            builder.Property(x => x.TrungBinhKqdg).HasColumnName(@"TrungBinhKQDG").HasColumnType("decimal(38,6)").HasPrecision(38,6).IsRequired().ValueGeneratedNever();
+            builder.Property(x => x.LuongCoBanSauDanhGia).HasColumnName(@"LuongCoBanSauDanhGia").HasColumnType("numeric(38,2)").HasPrecision(38,2).IsRequired(false);
+            builder.Property(x => x.LuongTruyThuTruyLinh).HasColumnName(@"LuongTruyThuTruyLinh").HasColumnType("numeric(38,6)").HasPrecision(38,6).IsRequired(false);
             builder.Property(x => x.Thang).HasColumnName(@"Thang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Nam).HasColumnName(@"Nam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
@@ -20505,8 +20505,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TyLeDacBietId).HasColumnName(@"TyLeDacBietID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NgayBatDau).HasColumnName(@"NgayBatDau").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayKetThuc).HasColumnName(@"NgayKetThuc").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TyLeBgd).HasColumnName(@"TyLeBGD").HasColumnType("decimal(18,3)").IsRequired(false);
-            builder.Property(x => x.TyLegdkd).HasColumnName(@"TyLEGDKD").HasColumnType("decimal(18,3)").IsRequired(false);
+            builder.Property(x => x.TyLeBgd).HasColumnName(@"TyLeBGD").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
+            builder.Property(x => x.TyLegdkd).HasColumnName(@"TyLEGDKD").HasColumnType("decimal(18,3)").HasPrecision(18,3).IsRequired(false);
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanID").HasColumnType("int").IsRequired(false);
         }
     }
@@ -20523,10 +20523,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChiTietLuongId).HasColumnName(@"ChiTietLuongID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiYeuCauId).HasColumnName(@"NguoiYeuCauID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayYeuCau).HasColumnName(@"NgayYeuCau").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.GiaTriStr).HasColumnName(@"GiaTriStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.XetDuyet).HasColumnName(@"XetDuyet").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.GiaTriGoc).HasColumnName(@"GiaTriGoc").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.GiaTriGocStr).HasColumnName(@"GiaTriGocStr").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.LyDoYeuCau).HasColumnName(@"LyDoYeuCau").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
         }
@@ -20543,7 +20543,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThietBiThanhLyId).HasColumnName(@"ThietBiThanhLyID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.ThietBiId).HasColumnName(@"ThietBiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.ThanhLyThietBiId).HasColumnName(@"ThanhLyThietBiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
@@ -20569,7 +20569,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NguoiKyId).HasColumnName(@"NguoiKyID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoQuyetDinh).HasColumnName(@"SoQuyetDinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayChuyen).HasColumnName(@"NgayChuyen").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.LyDo).HasColumnName(@"LyDo").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.ThietBiChaMoiId).HasColumnName(@"ThietBiChaMoiID").HasColumnType("int").IsRequired(false);
@@ -20683,7 +20683,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ThietBiId).HasColumnName(@"ThietBiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LanSuaChua).HasColumnName(@"LanSuaChua").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgaySuaChua).HasColumnName(@"NgaySuaChua").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.LyDoSua).HasColumnName(@"LyDoSua").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.ChiTietSua).HasColumnName(@"ChiTietSua").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
@@ -20712,9 +20712,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DiaDiem).HasColumnName(@"DiaDiem").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.ThietBiId).HasColumnName(@"ThietBiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiKyId).HasColumnName(@"NguoiKyID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").IsRequired(false);
-            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.TongSoTien).HasColumnName(@"TongSoTien").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
+            builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.TongSoTien).HasColumnName(@"TongSoTien").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.CreatedById).HasColumnName(@"CreatedByID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ModifyById).HasColumnName(@"ModifyByID").HasColumnType("int").IsRequired(false);
@@ -20741,9 +20741,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Image).HasColumnName(@"Image").HasColumnType("image(2147483647)").IsRequired(false).HasMaxLength(2147483647);
             builder.Property(x => x.Ghichu).HasColumnName(@"Ghichu").HasColumnType("nvarchar(4000)").IsRequired(false).HasMaxLength(4000);
             builder.Property(x => x.NhaCungCap).HasColumnName(@"NhaCungCap").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.ThoiGianKhauHao).HasColumnName(@"ThoiGianKhauHao").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.ThoiGianKhauHao).HasColumnName(@"ThoiGianKhauHao").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NgayTinhKhauHao).HasColumnName(@"NgayTinhKhauHao").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NhomThietBiId).HasColumnName(@"NhomThietBiID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayDuaVaoSuDung).HasColumnName(@"NgayDuaVaoSuDung").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ThietBiChaId).HasColumnName(@"ThietBiChaID").HasColumnType("int").IsRequired(false);
@@ -21349,7 +21349,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MoTaGiaTriCu).HasColumnName(@"MoTaGiaTriCu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MoTaGiaTriMoi).HasColumnName(@"MoTaGiaTriMoi").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.KieuDuLieu).HasColumnName(@"KieuDuLieu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.GiaTriDouble).HasColumnName(@"GiaTriDouble").HasColumnType("decimal(18,5)").IsRequired(false);
+            builder.Property(x => x.GiaTriDouble).HasColumnName(@"GiaTriDouble").HasColumnType("decimal(18,5)").HasPrecision(18,5).IsRequired(false);
             builder.Property(x => x.GiaTriDateTime).HasColumnName(@"GiaTriDateTime").HasColumnType("datetime").IsRequired(false);
         }
     }
@@ -21920,16 +21920,16 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.NhomId).HasColumnName(@"NhomID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Nhom).HasColumnName(@"Nhom").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.B1).HasColumnName(@"B1").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B2).HasColumnName(@"B2").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B3).HasColumnName(@"B3").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B4).HasColumnName(@"B4").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B5).HasColumnName(@"B5").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B6).HasColumnName(@"B6").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B7).HasColumnName(@"B7").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B8).HasColumnName(@"B8").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B9).HasColumnName(@"B9").HasColumnType("decimal(10,2)").IsRequired(false);
-            builder.Property(x => x.B10).HasColumnName(@"B10").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.B1).HasColumnName(@"B1").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B2).HasColumnName(@"B2").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B3).HasColumnName(@"B3").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B4).HasColumnName(@"B4").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B5).HasColumnName(@"B5").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B6).HasColumnName(@"B6").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B7).HasColumnName(@"B7").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B8).HasColumnName(@"B8").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B9).HasColumnName(@"B9").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
+            builder.Property(x => x.B10).HasColumnName(@"B10").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
         }
     }
 

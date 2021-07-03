@@ -7,22 +7,16 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Hpl.HrmDatabase
+namespace Hpl.SaleOnlineDatabase
 {
     #region Database context interface
 
@@ -233,9 +227,9 @@ namespace Hpl.HrmDatabase
         DbSet<DuAnTienDoThiCong> DuAnTienDoThiCongs { get; set; } // DuAn_TienDoThiCong
         DbSet<DuAnType> DuAnTypes { get; set; } // DuAn_Type
         DbSet<DxBoPhanXuLy> DxBoPhanXuLies { get; set; } // dxBoPhanXuLy
-        DbSet<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat
+        DbSet<DxDeXuat> DxDeXuats { get; set; } // dxDeXuat
         DbSet<DxLichSu> DxLichSus { get; set; } // dxLichSu
-        DbSet<DxDeXuatSaleSale> DxLoaiDeXuats { get; set; } // dxLoaiDeXuat
+        DbSet<DxLoaiDeXuat> DxLoaiDeXuats { get; set; } // dxLoaiDeXuat
         DbSet<DxNguyenNhan> DxNguyenNhans { get; set; } // dxNguyenNhan
         DbSet<DxPhanHoi> DxPhanHois { get; set; } // dxPhanHoi
         DbSet<DxTaiLieu> DxTaiLieux { get; set; } // dxTaiLieu
@@ -421,7 +415,7 @@ namespace Hpl.HrmDatabase
         DbSet<NgheNghiep> NgheNghieps { get; set; } // NgheNghiep
         DbSet<NguoiDaiDien> NguoiDaiDiens { get; set; } // NguoiDaiDien
         DbSet<NguoiMoiGioi> NguoiMoiGiois { get; set; } // NguoiMoiGioi
-        DbSet<NhanVienSale> NhanViens { get; set; } // NhanVienSale
+        DbSet<NhanVien> NhanViens { get; set; } // NhanVien
         DbSet<NhanVienDaiLy> NhanVienDaiLies { get; set; } // NhanVienDaiLy
         DbSet<NhanVienLichSu> NhanVienLichSus { get; set; } // NhanVien_LichSu
         DbSet<NhanVienNhatKy> NhanVienNhatKies { get; set; } // NhanVienNhatKy
@@ -533,7 +527,7 @@ namespace Hpl.HrmDatabase
         DbSet<PgdNhatKyXuLy> PgdNhatKyXuLies { get; set; } // pgdNhatKyXuLy
         DbSet<PhanKhu> PhanKhus { get; set; } // PhanKhu
         DbSet<PhapLy> PhapLies { get; set; } // PhapLy
-        DbSet<PhongBanSale> PhongBans { get; set; } // PhongBanSale
+        DbSet<PhongBan> PhongBans { get; set; } // PhongBan
         DbSet<PhuongHuong> PhuongHuongs { get; set; } // PhuongHuong
         DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; } // PhuongThucThanhToan
         DbSet<PhuongThucXuLy> PhuongThucXuLies { get; set; } // PhuongThucXuLy
@@ -692,6 +686,7 @@ namespace Hpl.HrmDatabase
         void UpdateRange(IEnumerable<object> entities);
         void UpdateRange(params object[] entities);
 
+        IQueryable<TResult> FromExpression<TResult> (Expression<Func<IQueryable<TResult>>> expression);
     }
 
     #endregion
@@ -914,9 +909,9 @@ namespace Hpl.HrmDatabase
         public DbSet<DuAnTienDoThiCong> DuAnTienDoThiCongs { get; set; } // DuAn_TienDoThiCong
         public DbSet<DuAnType> DuAnTypes { get; set; } // DuAn_Type
         public DbSet<DxBoPhanXuLy> DxBoPhanXuLies { get; set; } // dxBoPhanXuLy
-        public DbSet<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat
+        public DbSet<DxDeXuat> DxDeXuats { get; set; } // dxDeXuat
         public DbSet<DxLichSu> DxLichSus { get; set; } // dxLichSu
-        public DbSet<DxDeXuatSaleSale> DxLoaiDeXuats { get; set; } // dxLoaiDeXuat
+        public DbSet<DxLoaiDeXuat> DxLoaiDeXuats { get; set; } // dxLoaiDeXuat
         public DbSet<DxNguyenNhan> DxNguyenNhans { get; set; } // dxNguyenNhan
         public DbSet<DxPhanHoi> DxPhanHois { get; set; } // dxPhanHoi
         public DbSet<DxTaiLieu> DxTaiLieux { get; set; } // dxTaiLieu
@@ -1102,7 +1097,7 @@ namespace Hpl.HrmDatabase
         public DbSet<NgheNghiep> NgheNghieps { get; set; } // NgheNghiep
         public DbSet<NguoiDaiDien> NguoiDaiDiens { get; set; } // NguoiDaiDien
         public DbSet<NguoiMoiGioi> NguoiMoiGiois { get; set; } // NguoiMoiGioi
-        public DbSet<NhanVienSale> NhanViens { get; set; } // NhanVienSale
+        public DbSet<NhanVien> NhanViens { get; set; } // NhanVien
         public DbSet<NhanVienDaiLy> NhanVienDaiLies { get; set; } // NhanVienDaiLy
         public DbSet<NhanVienLichSu> NhanVienLichSus { get; set; } // NhanVien_LichSu
         public DbSet<NhanVienNhatKy> NhanVienNhatKies { get; set; } // NhanVienNhatKy
@@ -1214,7 +1209,7 @@ namespace Hpl.HrmDatabase
         public DbSet<PgdNhatKyXuLy> PgdNhatKyXuLies { get; set; } // pgdNhatKyXuLy
         public DbSet<PhanKhu> PhanKhus { get; set; } // PhanKhu
         public DbSet<PhapLy> PhapLies { get; set; } // PhapLy
-        public DbSet<PhongBanSale> PhongBans { get; set; } // PhongBanSale
+        public DbSet<PhongBan> PhongBans { get; set; } // PhongBan
         public DbSet<PhuongHuong> PhuongHuongs { get; set; } // PhuongHuong
         public DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; } // PhuongThucThanhToan
         public DbSet<PhuongThucXuLy> PhuongThucXuLies { get; set; } // PhuongThucXuLy
@@ -1553,9 +1548,9 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new DuAnTienDoThiCongConfiguration());
             modelBuilder.ApplyConfiguration(new DuAnTypeConfiguration());
             modelBuilder.ApplyConfiguration(new DxBoPhanXuLyConfiguration());
-            modelBuilder.ApplyConfiguration(new DxDeXuatConfigurationSale());
+            modelBuilder.ApplyConfiguration(new DxDeXuatConfiguration());
             modelBuilder.ApplyConfiguration(new DxLichSuConfiguration());
-            modelBuilder.ApplyConfiguration(new DxLoaiDeXuatConfigurationSale());
+            modelBuilder.ApplyConfiguration(new DxLoaiDeXuatConfiguration());
             modelBuilder.ApplyConfiguration(new DxNguyenNhanConfiguration());
             modelBuilder.ApplyConfiguration(new DxPhanHoiConfiguration());
             modelBuilder.ApplyConfiguration(new DxTaiLieuConfiguration());
@@ -1741,7 +1736,7 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new NgheNghiepConfiguration());
             modelBuilder.ApplyConfiguration(new NguoiDaiDienConfiguration());
             modelBuilder.ApplyConfiguration(new NguoiMoiGioiConfiguration());
-            modelBuilder.ApplyConfiguration(new NhanVienConfigurationSale());
+            modelBuilder.ApplyConfiguration(new NhanVienConfiguration());
             modelBuilder.ApplyConfiguration(new NhanVienDaiLyConfiguration());
             modelBuilder.ApplyConfiguration(new NhanVienLichSuConfiguration());
             modelBuilder.ApplyConfiguration(new NhanVienNhatKyConfiguration());
@@ -1853,7 +1848,7 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new PgdNhatKyXuLyConfiguration());
             modelBuilder.ApplyConfiguration(new PhanKhuConfiguration());
             modelBuilder.ApplyConfiguration(new PhapLyConfiguration());
-            modelBuilder.ApplyConfiguration(new PhongBanConfigurationSale());
+            modelBuilder.ApplyConfiguration(new PhongBanConfiguration());
             modelBuilder.ApplyConfiguration(new PhuongHuongConfiguration());
             modelBuilder.ApplyConfiguration(new PhuongThucThanhToanConfiguration());
             modelBuilder.ApplyConfiguration(new PhuongThucXuLyConfiguration());
@@ -1987,1806 +1982,6 @@ namespace Hpl.HrmDatabase
 
     #endregion
 
-    #region Fake Database context
-
-    // ****************************************************************************************************
-    // This is not a commercial licence, therefore only a few tables/views/stored procedures are generated.
-    // ****************************************************************************************************
-
-    public class FakeSaleOnlineDbContext : ISaleOnlineDbContext
-    {
-        public DbSet<AccessData> AccessDatas { get; set; } // AccessData
-        public DbSet<ActionData> ActionDatas { get; set; } // ActionData
-        public DbSet<Agent> Agents { get; set; } // Agent
-        public DbSet<AlAlert> AlAlerts { get; set; } // alAlert
-        public DbSet<AStaff> AStaffs { get; set; } // aStaff
-        public DbSet<Authentication> Authentications { get; set; } // Authentication
-        public DbSet<BatDongSan> BatDongSans { get; set; } // BatDongSan
-        public DbSet<BdsBangGia> BdsBangGias { get; set; } // bdsBangGia
-        public DbSet<BdsBranch> BdsBranches { get; set; } // bdsBranch
-        public DbSet<BdsChuyenQuyen> BdsChuyenQuyens { get; set; } // bdsChuyenQuyen
-        public DbSet<BdsCoordinate> BdsCoordinates { get; set; } // bdsCoordinates
-        public DbSet<BdsGcnqsdd> BdsGcnqsdds { get; set; } // bdsGCNQSDD
-        public DbSet<BdsGcnqsddBieuMau> BdsGcnqsddBieuMaus { get; set; } // bdsGCNQSDDBieuMau
-        public DbSet<BdsGcnqsddCaiDatHoSo> BdsGcnqsddCaiDatHoSoes { get; set; } // bdsGCNQSDDCaiDatHoSo
-        public DbSet<BdsGcnqsddCaiDatHoSoChiTiet> BdsGcnqsddCaiDatHoSoChiTiets { get; set; } // bdsGCNQSDDCaiDatHoSo_ChiTiet
-        public DbSet<BdsGcnqsddHoSo> BdsGcnqsddHoSoes { get; set; } // bdsGCNQSDDHoSo
-        public DbSet<BdsGcnqsddLichSu> BdsGcnqsddLichSus { get; set; } // bdsGCNQSDDLichSu
-        public DbSet<BdsGcnqsddThongBao> BdsGcnqsddThongBaos { get; set; } // bdsGCNQSDDThongBao
-        public DbSet<BdsGcnqsddTrangThai> BdsGcnqsddTrangThais { get; set; } // bdsGCNQSDDTrangThai
-        public DbSet<BdsGoiGia> BdsGoiGias { get; set; } // bdsGoiGia
-        public DbSet<BdsHangMuc> BdsHangMucs { get; set; } // bdsHangMuc
-        public DbSet<BdsHistory> BdsHistories { get; set; } // bdsHistory
-        public DbSet<BdsHistoryStatu> BdsHistoryStatus { get; set; } // bdsHistoryStatus
-        public DbSet<BdsLichSuCapNhat> BdsLichSuCapNhats { get; set; } // bdsLichSuCapNhat
-        public DbSet<BdsLkmHinhAnh> BdsLkmHinhAnhs { get; set; } // bdsLKMHinhAnh
-        public DbSet<BdsLoaiHangMuc> BdsLoaiHangMucs { get; set; } // bdsLoaiHangMuc
-        public DbSet<BdsLoaiKieuMau> BdsLoaiKieuMaus { get; set; } // bdsLoaiKieuMau
-        public DbSet<BdsSanPham> BdsSanPhams { get; set; } // bdsSanPham
-        public DbSet<BdsSoCan> BdsSoCans { get; set; } // bdsSoCan
-        public DbSet<BdsTangLau> BdsTangLaus { get; set; } // bdsTangLau
-        public DbSet<BdsThiCong> BdsThiCongs { get; set; } // bdsThiCong
-        public DbSet<BdsTienIch> BdsTienIches { get; set; } // bdsTienIch
-        public DbSet<BdsTrangThai> BdsTrangThais { get; set; } // bdsTrangThai
-        public DbSet<BgbhBanGiao> BgbhBanGiaos { get; set; } // bgbhBanGiao
-        public DbSet<BgbhBienBanChotChiSo> BgbhBienBanChotChiSoes { get; set; } // bgbhBienBanChotChiSo
-        public DbSet<BgbhBienBanChotChiSoChiTiet> BgbhBienBanChotChiSoChiTiets { get; set; } // bgbhBienBanChotChiSoChiTiet
-        public DbSet<BgbhBienBanChotChiSoLichSu> BgbhBienBanChotChiSoLichSus { get; set; } // bgbhBienBanChotChiSoLichSu
-        public DbSet<BgbhBienBanKiemTra> BgbhBienBanKiemTras { get; set; } // bgbhBienBanKiemTra
-        public DbSet<BgbhBienBanKiemTraLichSu> BgbhBienBanKiemTraLichSus { get; set; } // bgbhBienBanKiemTraLichSu
-        public DbSet<BgbhBoChiaKhoa> BgbhBoChiaKhoas { get; set; } // bgbhBoChiaKhoa
-        public DbSet<BgbhBoChiaKhoaChiTiet> BgbhBoChiaKhoaChiTiets { get; set; } // bgbhBoChiaKhoaChiTiet
-        public DbSet<BgbhBoTaiLieu> BgbhBoTaiLieux { get; set; } // bgbhBoTaiLieu
-        public DbSet<BgbhBoTaiLieuLichSu> BgbhBoTaiLieuLichSus { get; set; } // bgbhBoTaiLieuLichSu
-        public DbSet<BgbhChiaKhoa> BgbhChiaKhoas { get; set; } // bgbhChiaKhoa
-        public DbSet<BgbhHangMucKiemTra> BgbhHangMucKiemTras { get; set; } // bgbhHangMucKiemTra
-        public DbSet<BgbhLoaiChiaKhoa> BgbhLoaiChiaKhoas { get; set; } // bgbhLoaiChiaKhoa
-        public DbSet<BgbhLoaiHangMuc> BgbhLoaiHangMucs { get; set; } // bgbhLoaiHangMuc
-        public DbSet<BgbhQuaTrinhThucHien> BgbhQuaTrinhThucHiens { get; set; } // bgbhQuaTrinhThucHien
-        public DbSet<BgbhTaiLieu> BgbhTaiLieux { get; set; } // bgbhTaiLieu
-        public DbSet<BgbhTaiLieuChiTiet> BgbhTaiLieuChiTiets { get; set; } // bgbhTaiLieuChiTiet
-        public DbSet<BgbhThongBao> BgbhThongBaos { get; set; } // bgbhThongBao
-        public DbSet<BgbhThongBaoLichSu> BgbhThongBaoLichSus { get; set; } // bgbhThongBaoLichSu
-        public DbSet<BgbhThongBaoXacNhan> BgbhThongBaoXacNhans { get; set; } // bgbhThongBaoXacNhan
-        public DbSet<BgbhTrangThai> BgbhTrangThais { get; set; } // bgbhTrangThai
-        public DbSet<BgQbgLichSu> BgQbgLichSus { get; set; } // bgQBGLichSu
-        public DbSet<BgQbgTrangThai> BgQbgTrangThais { get; set; } // bgQBGTrangThai
-        public DbSet<BgQuyBanGiao> BgQuyBanGiaos { get; set; } // bgQuyBanGiao
-        public DbSet<BqtBangQuyetToan> BqtBangQuyetToans { get; set; } // bqtBangQuyetToan
-        public DbSet<BqtChiTiet> BqtChiTiets { get; set; } // bqtChiTiet
-        public DbSet<BqtLichSu> BqtLichSus { get; set; } // bqtLichSu
-        public DbSet<BqtLoaiQuyetToan> BqtLoaiQuyetToans { get; set; } // bqtLoaiQuyetToan
-        public DbSet<BqtTinhTrang> BqtTinhTrangs { get; set; } // bqtTinhTrang
-        public DbSet<Branch> Branches { get; set; } // Branch
-        public DbSet<BranchStaff> BranchStaffs { get; set; } // Branch_Staff
-        public DbSet<CaiDatDinhMucHoaHong> CaiDatDinhMucHoaHongs { get; set; } // CaiDatDinhMucHoaHong
-        public DbSet<CareCategory> CareCategories { get; set; } // careCategory
-        public DbSet<CareCustomer> CareCustomers { get; set; } // CareCustomer
-        public DbSet<CareProssess> CareProssesses { get; set; } // careProssess
-        public DbSet<CareStatu> CareStatus { get; set; } // careStatus
-        public DbSet<CategoryDate> CategoryDates { get; set; } // CategoryDate
-        public DbSet<CdCaiDatChung> CdCaiDatChungs { get; set; } // cdCaiDatChung
-        public DbSet<CdCustomerDemand> CdCustomerDemands { get; set; } // cdCustomerDemand
-        public DbSet<CdHistory> CdHistories { get; set; } // cdHistory
-        public DbSet<CdHowToKnow> CdHowToKnows { get; set; } // cdHowToKnow
-        public DbSet<CdLevel> CdLevels { get; set; } // cdLevel
-        public DbSet<CdPurpose> CdPurposes { get; set; } // cdPurpose
-        public DbSet<CdQuotation> CdQuotations { get; set; } // cdQuotation
-        public DbSet<CdQuotationHistory> CdQuotationHistories { get; set; } // cdQuotationHistory
-        public DbSet<CdReason> CdReasons { get; set; } // cdReason
-        public DbSet<ChatTinNhan> ChatTinNhans { get; set; } // chatTinNhan
-        public DbSet<ChCauHoiThuongGap> ChCauHoiThuongGaps { get; set; } // chCauHoiThuongGap
-        public DbSet<ChiTieuBanHang> ChiTieuBanHangs { get; set; } // ChiTieuBanHang
-        public DbSet<ChucVu> ChucVus { get; set; } // ChucVu
-        public DbSet<ChuDauTu> ChuDauTus { get; set; } // ChuDauTu
-        public DbSet<CiCheckInList> CiCheckInLists { get; set; } // ciCheckInList
-        public DbSet<CiLocation> CiLocations { get; set; } // ciLocation
-        public DbSet<CiRegistList> CiRegistLists { get; set; } // ciRegistList
-        public DbSet<CnBieuMau> CnBieuMaus { get; set; } // cnBieuMau
-        public DbSet<CnChuyenNhuong> CnChuyenNhuongs { get; set; } // cnChuyenNhuong
-        public DbSet<CnLichThanhToan> CnLichThanhToans { get; set; } // cnLichThanhToan
-        public DbSet<CnLoai> CnLoais { get; set; } // cnLoai
-        public DbSet<CnNguoiDungTen> CnNguoiDungTens { get; set; } // cnNguoiDungTen
-        public DbSet<CnNhatKyDuyet> CnNhatKyDuyets { get; set; } // cnNhatKyDuyet
-        public DbSet<CnThongTinKhac> CnThongTinKhacs { get; set; } // cnThongTinKhac
-        public DbSet<CnTrangThai> CnTrangThais { get; set; } // cnTrangThai
-        public DbSet<CommissionContractDetail> CommissionContractDetails { get; set; } // CommissionContractDetail
-        public DbSet<CommissionCostAllocation> CommissionCostAllocations { get; set; } // CommissionCostAllocation
-        public DbSet<CommissionCostAllocationCate> CommissionCostAllocationCates { get; set; } // CommissionCostAllocationCate
-        public DbSet<CommissionCostAllocationHistory> CommissionCostAllocationHistories { get; set; } // CommissionCostAllocationHistory
-        public DbSet<CommissionDetail> CommissionDetails { get; set; } // CommissionDetail
-        public DbSet<CommissionLoaiDk> CommissionLoaiDks { get; set; } // Commission_LoaiDK
-        public DbSet<CommissionLoaiGia> CommissionLoaiGias { get; set; } // Commission_LoaiGia
-        public DbSet<CommissionLoaiHoaHong> CommissionLoaiHoaHongs { get; set; } // Commission_LoaiHoaHong
-        public DbSet<CommissionLoaiNgay> CommissionLoaiNgays { get; set; } // Commission_LoaiNgay
-        public DbSet<CommissionLscn> CommissionLscns { get; set; } // Commission_LSCN
-        public DbSet<CommissionMaster> CommissionMasters { get; set; } // Commission_Master
-        public DbSet<CommissionMasterDetail> CommissionMasterDetails { get; set; } // Commission_Master_Detail
-        public DbSet<CommissionNorm> CommissionNorms { get; set; } // CommissionNorms
-        public DbSet<CommissionPromotion> CommissionPromotions { get; set; } // Commission_Promotion
-        public DbSet<CommissionRequest> CommissionRequests { get; set; } // CommissionRequest
-        public DbSet<CommissionRequestDetail> CommissionRequestDetails { get; set; } // CommissionRequestDetail
-        public DbSet<CommissionRequestHistory> CommissionRequestHistories { get; set; } // CommissionRequestHistory
-        public DbSet<CommissionRequestStatu> CommissionRequestStatus { get; set; } // CommissionRequestStatus
-        public DbSet<Company> Companies { get; set; } // Company
-        public DbSet<CompanyContact> CompanyContacts { get; set; } // Company_Contact
-        public DbSet<ConfigMail> ConfigMails { get; set; } // ConfigMail
-        public DbSet<CongVanDen> CongVanDens { get; set; } // CongVanDen
-        public DbSet<CongVanDenNhanVien> CongVanDenNhanViens { get; set; } // CongVanDen_NhanVien
-        public DbSet<CongVanDenPhongBan> CongVanDenPhongBans { get; set; } // CongVanDen_PhongBan
-        public DbSet<CongVanDi> CongVanDis { get; set; } // CongVanDi
-        public DbSet<ConnectionStringSun> ConnectionStringSuns { get; set; } // ConnectionStringSUN
-        public DbSet<CsChinhSachBanHang> CsChinhSachBanHangs { get; set; } // csChinhSachBanHang
-        public DbSet<CsLoaiChinhSach> CsLoaiChinhSaches { get; set; } // csLoaiChinhSach
-        public DbSet<CsLoaiGiaoDich> CsLoaiGiaoDiches { get; set; } // csLoaiGiaoDich
-        public DbSet<CustomizeColumnGridView> CustomizeColumnGridViews { get; set; } // CustomizeColumnGridView
-        public DbSet<CustomizeColumnGridViewDetail> CustomizeColumnGridViewDetails { get; set; } // CustomizeColumnGridViewDetail
-        public DbSet<CustomizeColumnGridViewDetailProject> CustomizeColumnGridViewDetailProjects { get; set; } // CustomizeColumnGridViewDetailProject
-        public DbSet<CustomizeColumnGridViewFixedStyle> CustomizeColumnGridViewFixedStyles { get; set; } // CustomizeColumnGridViewFixedStyle
-        public DbSet<CustomizeColumnGridViewModule> CustomizeColumnGridViewModules { get; set; } // CustomizeColumnGridViewModule
-        public DbSet<CvCongVan> CvCongVans { get; set; } // cvCongVan
-        public DbSet<CvdNhatKyXuLy> CvdNhatKyXuLies { get; set; } // cvdNhatKyXuLy
-        public DbSet<CvdTrinhTrang> CvdTrinhTrangs { get; set; } // cvdTrinhTrang
-        public DbSet<CvNhatKyXuLy> CvNhatKyXuLies { get; set; } // cvNhatKyXuLy
-        public DbSet<CvPhanLoai> CvPhanLoais { get; set; } // cvPhanLoai
-        public DbSet<CvTaiLieu> CvTaiLieux { get; set; } // cvTaiLieu
-        public DbSet<CvTrinhTrang> CvTrinhTrangs { get; set; } // cvTrinhTrang
-        public DbSet<DaBieuMau> DaBieuMaus { get; set; } // daBieuMau
-        public DbSet<DaBieuThuc> DaBieuThucs { get; set; } // daBieuThuc
-        public DbSet<DaCaiDatDoanhSo> DaCaiDatDoanhSoes { get; set; } // daCaiDatDoanhSo
-        public DbSet<DaCaiDatGiuCho> DaCaiDatGiuChoes { get; set; } // daCaiDatGiuCho
-        public DbSet<DaCaiDatGiuChoL> DaCaiDatGiuChoLs { get; set; } // daCaiDatGiuChoLS
-        public DbSet<DaCaiDatHinhThucMail> DaCaiDatHinhThucMails { get; set; } // daCaiDat_HinhThucMail
-        public DbSet<DaCaiDatLaiSuat> DaCaiDatLaiSuats { get; set; } // daCaiDatLaiSuat
-        public DbSet<DaCaiDatMail> DaCaiDatMails { get; set; } // daCaiDatMail
-        public DbSet<DaCaiDatMailL> DaCaiDatMailLs { get; set; } // daCaiDatMailLS
-        public DbSet<DaCaiDatThongBao> DaCaiDatThongBaos { get; set; } // daCaiDatThongBao
-        public DbSet<DaCaiDatThue> DaCaiDatThues { get; set; } // daCaiDatThue
-        public DbSet<DaCaiDatTime> DaCaiDatTimes { get; set; } // daCaiDatTime
-        public DbSet<DaCaiDatTimeL> DaCaiDatTimeLs { get; set; } // daCaiDatTimeLS
-        public DbSet<DaCalculation> DaCalculations { get; set; } // daCalculation
-        public DbSet<DaCategory> DaCategories { get; set; } // daCategory
-        public DbSet<DaChinhSachBanHang> DaChinhSachBanHangs { get; set; } // daChinhSachBanHang
-        public DbSet<DaCongThuc> DaCongThucs { get; set; } // daCongThuc
-        public DbSet<DaControl> DaControls { get; set; } // daControl
-        public DbSet<DaDetail> DaDetails { get; set; } // daDetail
-        public DbSet<DaDonViTime> DaDonViTimes { get; set; } // daDonViTime
-        public DbSet<DaiLy> DaiLies { get; set; } // DaiLy
-        public DbSet<DaiLyDangKy> DaiLyDangKies { get; set; } // DaiLy_DangKy
-        public DbSet<DaKhuyenMai> DaKhuyenMais { get; set; } // daKhuyenMai
-        public DbSet<DaKhuyenMaiL> DaKhuyenMaiLs { get; set; } // daKhuyenMaiLS
-        public DbSet<DaLichSu> DaLichSus { get; set; } // daLichSu
-        public DbSet<DaLichThanhToan> DaLichThanhToans { get; set; } // daLichThanhToan
-        public DbSet<DaLichThanhToanLichSu> DaLichThanhToanLichSus { get; set; } // daLichThanhToanLichSu
-        public DbSet<DaLichThanhToanPheDuyet> DaLichThanhToanPheDuyets { get; set; } // daLichThanhToanPheDuyet
-        public DbSet<DaLoaiBieuMau> DaLoaiBieuMaus { get; set; } // daLoaiBieuMau
-        public DbSet<DaLoaiKhuyenMai> DaLoaiKhuyenMais { get; set; } // daLoaiKhuyenMai
-        public DbSet<DaLoaiThanhToan> DaLoaiThanhToans { get; set; } // daLoaiThanhToan
-        public DbSet<DaMaster> DaMasters { get; set; } // daMaster
-        public DbSet<DaOption> DaOptions { get; set; } // daOption
-        public DbSet<DaSanPhanPhoi> DaSanPhanPhois { get; set; } // daSanPhanPhoi
-        public DbSet<DaStatu> DaStatus { get; set; } // daStatus
-        public DbSet<DaTableTemp> DaTableTemps { get; set; } // daTableTemp
-        public DbSet<DaThttLichSu> DaThttLichSus { get; set; } // daTHTTLichSu
-        public DbSet<DaTruongHopThanhToan> DaTruongHopThanhToans { get; set; } // daTruongHopThanhToan
-        public DbSet<DaType> DaTypes { get; set; } // daType
-        public DbSet<DaVaiTro> DaVaiTroes { get; set; } // daVaiTro
-        public DbSet<DDashboard> DDashboards { get; set; } // dDashboard
-        public DbSet<DDashboardDetail> DDashboardDetails { get; set; } // dDashboardDetail
-        public DbSet<DDashboardPosition> DDashboardPositions { get; set; } // dDashboardPosition
-        public DbSet<DDashboardView> DDashboardViews { get; set; } // dDashboardView
-        public DbSet<DhcnQuaTrinhThucHien> DhcnQuaTrinhThucHiens { get; set; } // dhcnQuaTrinhThucHien
-        public DbSet<DinhMucHoaHong> DinhMucHoaHongs { get; set; } // DinhMucHoaHong
-        public DbSet<DlMucDoYeuCau> DlMucDoYeuCaus { get; set; } // dlMucDoYeuCau
-        public DbSet<DlYeuCauHoTro> DlYeuCauHoTroes { get; set; } // dlYeuCauHoTro
-        public DbSet<DocLoaiTaiLieu> DocLoaiTaiLieux { get; set; } // docLoaiTaiLieu
-        public DbSet<DocTaiLieu> DocTaiLieux { get; set; } // docTaiLieu
-        public DbSet<DocViewType> DocViewTypes { get; set; } // docViewType
-        public DbSet<DonViChietKhau> DonViChietKhaus { get; set; } // DonViChietKhau
-        public DbSet<DonViTinh> DonViTinhs { get; set; } // DonViTinh
-        public DbSet<DuAn> DuAns { get; set; } // DuAn
-        public DbSet<DuAnBieuMau> DuAnBieuMaus { get; set; } // DuAn_BieuMau
-        public DbSet<DuAnCompany> DuAnCompanies { get; set; } // DuAn_Company
-        public DbSet<DuAnImage> DuAnImages { get; set; } // DuAn_Image
-        public DbSet<DuAnLichThanhToan> DuAnLichThanhToans { get; set; } // DuAn_LichThanhToan
-        public DbSet<DuAnNhanVien> DuAnNhanViens { get; set; } // DuAn_NhanVien
-        public DbSet<DuAnPhapLy> DuAnPhapLies { get; set; } // DuAn_PhapLy
-        public DbSet<DuAnPhoto> DuAnPhotoes { get; set; } // DuAn_Photo
-        public DbSet<DuAnTienDo> DuAnTienDoes { get; set; } // DuAn_TienDo
-        public DbSet<DuAnTienDoThiCong> DuAnTienDoThiCongs { get; set; } // DuAn_TienDoThiCong
-        public DbSet<DuAnType> DuAnTypes { get; set; } // DuAn_Type
-        public DbSet<DxBoPhanXuLy> DxBoPhanXuLies { get; set; } // dxBoPhanXuLy
-        public DbSet<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat
-        public DbSet<DxLichSu> DxLichSus { get; set; } // dxLichSu
-        public DbSet<DxDeXuatSaleSale> DxLoaiDeXuats { get; set; } // dxLoaiDeXuat
-        public DbSet<DxNguyenNhan> DxNguyenNhans { get; set; } // dxNguyenNhan
-        public DbSet<DxPhanHoi> DxPhanHois { get; set; } // dxPhanHoi
-        public DbSet<DxTaiLieu> DxTaiLieux { get; set; } // dxTaiLieu
-        public DbSet<DxTinhTrang> DxTinhTrangs { get; set; } // dxTinhTrang
-        public DbSet<DxXuLy> DxXuLies { get; set; } // dxXuLy
-        public DbSet<Feature> Features { get; set; } // Features
-        public DbSet<Field> Fields { get; set; } // Field
-        public DbSet<FieldDetail> FieldDetails { get; set; } // fieldDetail
-        public DbSet<FieldGroup> FieldGroups { get; set; } // fieldGroup
-        public DbSet<Form> Forms { get; set; } // Forms
-        public DbSet<FormAction> FormActions { get; set; } // FormAction
-        public DbSet<FormFeature> FormFeatures { get; set; } // FormFeatures
-        public DbSet<HccnHanCheChuyenNhuong> HccnHanCheChuyenNhuongs { get; set; } // hccnHanCheChuyenNhuong
-        public DbSet<HccnHistory> HccnHistories { get; set; } // hccnHistory
-        public DbSet<HccnLoaiHccn> HccnLoaiHccns { get; set; } // hccnLoaiHCCN
-        public DbSet<HccnTemplate> HccnTemplates { get; set; } // hccnTemplate
-        public DbSet<HdChuDauTu> HdChuDauTus { get; set; } // hdChuDauTu
-        public DbSet<HdChuDauTuChinhSach> HdChuDauTuChinhSaches { get; set; } // hdChuDauTu_ChinhSach
-        public DbSet<HdmbLichThanhToan> HdmbLichThanhToans { get; set; } // hdmbLichThanhToan
-        public DbSet<HdmbPromotion> HdmbPromotions { get; set; } // hdmbPromotion
-        public DbSet<HdmbQuaTrinhThucHien> HdmbQuaTrinhThucHiens { get; set; } // hdmbQuaTrinhThucHien
-        public DbSet<HdmbTinhTrang> HdmbTinhTrangs { get; set; } // hdmbTinhTrang
-        public DbSet<HdptBieuMau> HdptBieuMaus { get; set; } // hdptBieuMau
-        public DbSet<HdptCaiDatLaiSuat> HdptCaiDatLaiSuats { get; set; } // hdptCaiDatLaiSuat
-        public DbSet<HdptGiaiNgan> HdptGiaiNgans { get; set; } // hdptGiaiNgan
-        public DbSet<HdptLichTraLai> HdptLichTraLais { get; set; } // hdptLichTraLai
-        public DbSet<HdptLoai> HdptLoais { get; set; } // hdptLoai
-        public DbSet<HdptNguoiDungTen> HdptNguoiDungTens { get; set; } // hdptNguoiDungTen
-        public DbSet<HdptNhatKyDuyet> HdptNhatKyDuyets { get; set; } // hdptNhatKyDuyet
-        public DbSet<HdptNoGocNganHang> HdptNoGocNganHangs { get; set; } // hdptNoGocNganHang
-        public DbSet<HdptPhongToa> HdptPhongToas { get; set; } // hdptPhongToa
-        public DbSet<HdptThongTinKhac> HdptThongTinKhacs { get; set; } // hdptThongTinKhac
-        public DbSet<HdptTrangThai> HdptTrangThais { get; set; } // hdptTrangThai
-        public DbSet<HdtHopDongThue> HdtHopDongThues { get; set; } // hdtHopDongThue
-        public DbSet<HdTinhTrang> HdTinhTrangs { get; set; } // hdTinhTrang
-        public DbSet<HdtLichThanhToan> HdtLichThanhToans { get; set; } // hdtLichThanhToan
-        public DbSet<HdtThueMonBai> HdtThueMonBais { get; set; } // hdtThueMonBai
-        public DbSet<HdtThueMonBaiChiTiet> HdtThueMonBaiChiTiets { get; set; } // hdtThueMonBai_ChiTiet
-        public DbSet<HdvtGiayChungNhanQsdd> HdvtGiayChungNhanQsdds { get; set; } // hdvtGiayChungNhanQSDD
-        public DbSet<HdvtGiayChungNhanQsdn> HdvtGiayChungNhanQsdns { get; set; } // hdvtGiayChungNhanQSDN
-        public DbSet<HdvtHinhThucVay> HdvtHinhThucVays { get; set; } // hdvtHinhThucVay
-        public DbSet<HdvtHopDongGopVon> HdvtHopDongGopVons { get; set; } // hdvtHopDongGopVon
-        public DbSet<HdvtHopDongVayTien> HdvtHopDongVayTiens { get; set; } // hdvtHopDongVayTien
-        public DbSet<HdvtLichThanhToan> HdvtLichThanhToans { get; set; } // hdvtLichThanhToan
-        public DbSet<HdvtPhuLuc> HdvtPhuLucs { get; set; } // hdvtPhuLuc
-        public DbSet<HdvtTinhTrang> HdvtTinhTrangs { get; set; } // hdvtTinhTrang
-        public DbSet<HinhThucNhacNo> HinhThucNhacNoes { get; set; } // HinhThucNhacNo
-        public DbSet<HinhThucNhanChietKhau> HinhThucNhanChietKhaus { get; set; } // HinhThucNhanChietKhau
-        public DbSet<HinhThucThanhToan> HinhThucThanhToans { get; set; } // HinhThucThanhToan
-        public DbSet<HinhThucThongBao> HinhThucThongBaos { get; set; } // HinhThucThongBao
-        public DbSet<HinhThucTiepNhan> HinhThucTiepNhans { get; set; } // HinhThucTiepNhan
-        public DbSet<HopDongMuaBan> HopDongMuaBans { get; set; } // HopDongMuaBan
-        public DbSet<HsBieuMau> HsBieuMaus { get; set; } // hsBieuMau
-        public DbSet<HsCategory> HsCategories { get; set; } // hsCategory
-        public DbSet<HsChamDiem> HsChamDiems { get; set; } // hsChamDiem
-        public DbSet<HsChiTiet> HsChiTiets { get; set; } // hsChiTiet
-        public DbSet<HsHoSoNoxh> HsHoSoNoxhs { get; set; } // hsHoSoNOXH
-        public DbSet<HsLichSu> HsLichSus { get; set; } // hsLichSu
-        public DbSet<HsLoaiHoSo> HsLoaiHoSoes { get; set; } // hsLoaiHoSo
-        public DbSet<HsNguoiDiKem> HsNguoiDiKems { get; set; } // hsNguoiDiKem
-        public DbSet<HsNoiCap> HsNoiCaps { get; set; } // hsNoiCap
-        public DbSet<HsSetting> HsSettings { get; set; } // hsSetting
-        public DbSet<HsSettingDetail> HsSettingDetails { get; set; } // hsSettingDetail
-        public DbSet<HsTieuChi> HsTieuChis { get; set; } // hsTieuChi
-        public DbSet<HsTrangThai> HsTrangThais { get; set; } // hsTrangThai
-        public DbSet<Huyen> Huyens { get; set; } // Huyen
-        public DbSet<HuyenMap> HuyenMaps { get; set; } // Huyen_Maps
-        public DbSet<Invoice> Invoices { get; set; } // Invoice
-        public DbSet<InvoiceDetail> InvoiceDetails { get; set; } // InvoiceDetail
-        public DbSet<InvoiceHistory> InvoiceHistories { get; set; } // InvoiceHistory
-        public DbSet<KcStatu> KcStatus { get; set; } // kcStatus
-        public DbSet<KeHoachBanHang> KeHoachBanHangs { get; set; } // KeHoachBanHang
-        public DbSet<KhachHang> KhachHangs { get; set; } // KhachHang
-        public DbSet<KhachHangBirthday> KhachHangBirthdays { get; set; } // KhachHang_Birthday
-        public DbSet<KhachHangGhiChu> KhachHangGhiChus { get; set; } // KhachHang_GhiChu
-        public DbSet<KhachHangNhatKy> KhachHangNhatKies { get; set; } // KhachHang_NhatKy
-        public DbSet<KhachHangNhatKyPhanHoi> KhachHangNhatKyPhanHois { get; set; } // KhachHang_NhatKy_PhanHoi
-        public DbSet<KhachHangSanPham> KhachHangSanPhams { get; set; } // KhachHang_SanPham
-        public DbSet<KhachHangSoTheoDoi> KhachHangSoTheoDois { get; set; } // KhachHang_SoTheoDoi
-        public DbSet<KhbhBd> KhbhBds { get; set; } // khbh_BDS
-        public DbSet<KhbhBdsThuTuc> KhbhBdsThuTucs { get; set; } // khbhBDSThuTuc
-        public DbSet<KhbhDieuKhoanDaiLy> KhbhDieuKhoanDaiLies { get; set; } // khbhDieuKhoanDaiLy
-        public DbSet<KhbhKhachHangDangKy> KhbhKhachHangDangKies { get; set; } // khbhKhachHangDangKy
-        public DbSet<KhbhLichThanhToan> KhbhLichThanhToans { get; set; } // khbhLichThanhToan
-        public DbSet<KhbhNhanVien> KhbhNhanViens { get; set; } // khbhNhanVien
-        public DbSet<KhbhNhanVienDangKy> KhbhNhanVienDangKies { get; set; } // khbhNhanVienDangKy
-        public DbSet<KhbhOptionSchedule> KhbhOptionSchedules { get; set; } // khbh_OptionSchedules
-        public DbSet<KhbhQuyTrinh> KhbhQuyTrinhs { get; set; } // khbhQuyTrinh
-        public DbSet<KhbhThuTuc> KhbhThuTucs { get; set; } // khbhThuTuc
-        public DbSet<KhChuyenQuyen> KhChuyenQuyens { get; set; } // khChuyenQuyen
-        public DbSet<KhNganHang> KhNganHangs { get; set; } // khNganHang
-        public DbSet<KhNganHangChiNhanh> KhNganHangChiNhanhs { get; set; } // khNganHangChiNhanh
-        public DbSet<KhNganHangGoiVay> KhNganHangGoiVays { get; set; } // khNganHangGoiVay
-        public DbSet<KhNotesTransfer> KhNotesTransfers { get; set; } // khNotesTransfer
-        public DbSet<KhoangGia> KhoangGias { get; set; } // KhoangGia
-        public DbSet<KhstdDonViLienQuan> KhstdDonViLienQuans { get; set; } // khstd_DonViLienQuan
-        public DbSet<KhstdLichSu> KhstdLichSus { get; set; } // khstd_LichSu
-        public DbSet<KhstdTinhTrang> KhstdTinhTrangs { get; set; } // khstd_TinhTrang
-        public DbSet<Khu> Khus { get; set; } // Khu
-        public DbSet<KieuThanhToan> KieuThanhToans { get; set; } // KieuThanhToan
-        public DbSet<KyKinhDoanh> KyKinhDoanhs { get; set; } // KyKinhDoanh
-        public DbSet<LgDictionary> LgDictionaries { get; set; } // lgDictionary
-        public DbSet<LgLanguage> LgLanguages { get; set; } // lgLanguage
-        public DbSet<LgTranslate> LgTranslates { get; set; } // lgTranslate
-        public DbSet<LhContact> LhContacts { get; set; } // lhContact
-        public DbSet<LhLichSu> LhLichSus { get; set; } // lhLichSu
-        public DbSet<LhStaffReception> LhStaffReceptions { get; set; } // lhStaffReception
-        public DbSet<LichHen> LichHens { get; set; } // LichHen
-        public DbSet<LichHenChuDe> LichHenChuDes { get; set; } // LichHen_ChuDe
-        public DbSet<LichHenNhanVien> LichHenNhanViens { get; set; } // LichHen_NhanVien
-        public DbSet<LichHenThoiDiem> LichHenThoiDiems { get; set; } // LichHen_ThoiDiem
-        public DbSet<LichSuDuyTriLuongCb> LichSuDuyTriLuongCbs { get; set; } // LichSuDuyTriLuongCB
-        public DbSet<LichSuKhoaCan> LichSuKhoaCans { get; set; } // LichSuKhoaCan
-        public DbSet<LichSuXetDuyetCapBac> LichSuXetDuyetCapBacs { get; set; } // LichSuXetDuyetCapBac
-        public DbSet<LoaiBd> LoaiBds { get; set; } // LoaiBDS
-        public DbSet<LoaiBieuMau> LoaiBieuMaus { get; set; } // LoaiBieuMau
-        public DbSet<LoaiCongVan> LoaiCongVans { get; set; } // LoaiCongVan
-        public DbSet<LoaiCongVanDen> LoaiCongVanDens { get; set; } // LoaiCongVanDen
-        public DbSet<LoaiDa> LoaiDas { get; set; } // LoaiDA
-        public DbSet<LoaiDuong> LoaiDuongs { get; set; } // LoaiDuong
-        public DbSet<LoaiGiaoDich> LoaiGiaoDiches { get; set; } // LoaiGiaoDich
-        public DbSet<LoaiHinhKd> LoaiHinhKds { get; set; } // LoaiHinhKD
-        public DbSet<LoaiTien> LoaiTiens { get; set; } // LoaiTien
-        public DbSet<LttLichSuCapNhat> LttLichSuCapNhats { get; set; } // lttLichSuCapNhat
-        public DbSet<LtTyGia> LtTyGias { get; set; } // ltTyGia
-        public DbSet<MailAccount> MailAccounts { get; set; } // mailAccount
-        public DbSet<MailAdminTemp> MailAdminTemps { get; set; } // mailAdminTemp
-        public DbSet<MailBirthdayAuto> MailBirthdayAutoes { get; set; } // mailBirthdayAuto
-        public DbSet<MailCategory> MailCategories { get; set; } // mailCategory
-        public DbSet<MailConfig> MailConfigs { get; set; } // mailConfig
-        public DbSet<MailField> MailFields { get; set; } // mailFields
-        public DbSet<MailFileAttach> MailFileAttaches { get; set; } // mailFileAttach
-        public DbSet<MailHistory> MailHistories { get; set; } // mailHistory
-        public DbSet<MailHistoryOpen> MailHistoryOpens { get; set; } // mailHistoryOpen
-        public DbSet<MailReceive> MailReceives { get; set; } // mailReceives
-        public DbSet<MailReceiveList> MailReceiveLists { get; set; } // mailReceiveList
-        public DbSet<MailSending> MailSendings { get; set; } // mailSending
-        public DbSet<MailSendingList> MailSendingLists { get; set; } // mailSendingList
-        public DbSet<MailSendingReceive> MailSendingReceives { get; set; } // mailSendingReceives
-        public DbSet<MailSetting> MailSettings { get; set; } // mailSetting
-        public DbSet<MailTemplate> MailTemplates { get; set; } // mailTemplates
-        public DbSet<MapsDetail> MapsDetails { get; set; } // mapsDetail
-        public DbSet<MapsIcon> MapsIcons { get; set; } // mapsIcon
-        public DbSet<MapsItemType> MapsItemTypes { get; set; } // mapsItemType
-        public DbSet<MapsLayer> MapsLayers { get; set; } // mapsLayer
-        public DbSet<MapsLayerProvider> MapsLayerProviders { get; set; } // mapsLayerProvider
-        public DbSet<MapsMaster> MapsMasters { get; set; } // mapsMaster
-        public DbSet<MapsType> MapsTypes { get; set; } // mapsType
-        public DbSet<MauThiep> MauThieps { get; set; } // MauThiep
-        public DbSet<MegaOrderInfo> MegaOrderInfoes { get; set; } // megaOrderInfo
-        public DbSet<MglbcBanChoThue> MglbcBanChoThues { get; set; } // mglbcBanChoThue
-        public DbSet<MglbcBieuMau> MglbcBieuMaus { get; set; } // mglbcBieuMau
-        public DbSet<MglbcNhatKyXuLy> MglbcNhatKyXuLies { get; set; } // mglbcNhatKyXuLy
-        public DbSet<MglbcTienIch> MglbcTienIches { get; set; } // mglbcTienIch
-        public DbSet<MglbcTrangThai> MglbcTrangThais { get; set; } // mglbcTrangThai
-        public DbSet<MglBieuMau> MglBieuMaus { get; set; } // mglBieuMau
-        public DbSet<MglCapDo> MglCapDoes { get; set; } // mglCapDo
-        public DbSet<MglDatCoc> MglDatCocs { get; set; } // mglDatCoc
-        public DbSet<MglDonViTinh> MglDonViTinhs { get; set; } // mglDonViTinh
-        public DbSet<MglgdBieuMau> MglgdBieuMaus { get; set; } // mglgdBieuMau
-        public DbSet<MglgdGiaoDich> MglgdGiaoDiches { get; set; } // mglgdGiaoDich
-        public DbSet<MglgdNhatKyXuLy> MglgdNhatKyXuLies { get; set; } // mglgdNhatKyXuLy
-        public DbSet<MglgdTrangThai> MglgdTrangThais { get; set; } // mglgdTrangThai
-        public DbSet<MglLichSu> MglLichSus { get; set; } // mglLichSu
-        public DbSet<MglmtBieuMau> MglmtBieuMaus { get; set; } // mglmtBieuMau
-        public DbSet<MglmtHuong> MglmtHuongs { get; set; } // mglmtHuong
-        public DbSet<MglmtHuyen> MglmtHuyens { get; set; } // mglmtHuyen
-        public DbSet<MglmtLoaiDuong> MglmtLoaiDuongs { get; set; } // mglmtLoaiDuong
-        public DbSet<MglmtMuaThue> MglmtMuaThues { get; set; } // mglmtMuaThue
-        public DbSet<MglmtNhatKyXuLy> MglmtNhatKyXuLies { get; set; } // mglmtNhatKyXuLy
-        public DbSet<MglmtPhapLy> MglmtPhapLies { get; set; } // mglmtPhapLy
-        public DbSet<MglmtTienIch> MglmtTienIches { get; set; } // mglmtTienIch
-        public DbSet<MglmtTrangThai> MglmtTrangThais { get; set; } // mglmtTrangThai
-        public DbSet<MglNguon> MglNguons { get; set; } // mglNguon
-        public DbSet<MglTinhTrang> MglTinhTrangs { get; set; } // mglTinhTrang
-        public DbSet<Module> Modules { get; set; } // Modules
-        public DbSet<MucDoHoanThien> MucDoHoanThiens { get; set; } // MucDoHoanThien
-        public DbSet<NBannerAd> NBannerAds { get; set; } // nBannerAds
-        public DbSet<NCateAutoPost> NCateAutoPosts { get; set; } // nCateAutoPost
-        public DbSet<NCategory> NCategories { get; set; } // nCategory
-        public DbSet<NCateProject> NCateProjects { get; set; } // nCateProject
-        public DbSet<NganHang> NganHangs { get; set; } // NganHang
-        public DbSet<NgheNghiep> NgheNghieps { get; set; } // NgheNghiep
-        public DbSet<NguoiDaiDien> NguoiDaiDiens { get; set; } // NguoiDaiDien
-        public DbSet<NguoiMoiGioi> NguoiMoiGiois { get; set; } // NguoiMoiGioi
-        public DbSet<NhanVienSale> NhanViens { get; set; } // NhanVienSale
-        public DbSet<NhanVienDaiLy> NhanVienDaiLies { get; set; } // NhanVienDaiLy
-        public DbSet<NhanVienLichSu> NhanVienLichSus { get; set; } // NhanVien_LichSu
-        public DbSet<NhanVienNhatKy> NhanVienNhatKies { get; set; } // NhanVienNhatKy
-        public DbSet<NhatKyTruyCap> NhatKyTruyCaps { get; set; } // NhatKyTruyCap
-        public DbSet<NhiemVu> NhiemVus { get; set; } // NhiemVu
-        public DbSet<NhiemVuLichSu> NhiemVuLichSus { get; set; } // NhiemVu_LichSu
-        public DbSet<NhiemVuLoai> NhiemVuLoais { get; set; } // NhiemVu_Loai
-        public DbSet<NhiemVuMucDo> NhiemVuMucDoes { get; set; } // NhiemVu_MucDo
-        public DbSet<NhiemVuNhanVien> NhiemVuNhanViens { get; set; } // NhiemVu_NhanVien
-        public DbSet<NhiemVuTienDo> NhiemVuTienDoes { get; set; } // NhiemVu_TienDo
-        public DbSet<NhiemVuTinhTrang> NhiemVuTinhTrangs { get; set; } // NhiemVu_TinhTrang
-        public DbSet<NhomKh> NhomKhs { get; set; } // NhomKH
-        public DbSet<NhomKinhDoanh> NhomKinhDoanhs { get; set; } // NhomKinhDoanh
-        public DbSet<NMediaLibrary> NMediaLibraries { get; set; } // nMediaLibrary
-        public DbSet<NNew> NNews { get; set; } // nNews
-        public DbSet<NNewsCate> NNewsCates { get; set; } // nNewsCate
-        public DbSet<NnghQuaTrinh> NnghQuaTrinhs { get; set; } // nnghQuaTrinh
-        public DbSet<NnghTinhTrang> NnghTinhTrangs { get; set; } // nnghTinhTrang
-        public DbSet<NnGiaHan> NnGiaHans { get; set; } // nnGiaHan
-        public DbSet<NnLichThanhToan> NnLichThanhToans { get; set; } // nnLichThanhToan
-        public DbSet<NnNhacNo> NnNhacNoes { get; set; } // nnNhacNo
-        public DbSet<NoteHistory> NoteHistories { get; set; } // NoteHistory
-        public DbSet<NoteType> NoteTypes { get; set; } // NoteType
-        public DbSet<NotifyCate> NotifyCates { get; set; } // NotifyCate
-        public DbSet<Notifycation> Notifycations { get; set; } // Notifycation
-        public DbSet<NotifyForm> NotifyForms { get; set; } // NotifyForm
-        public DbSet<NotifyGroup> NotifyGroups { get; set; } // NotifyGroup
-        public DbSet<NotifyPayment> NotifyPayments { get; set; } // NotifyPayment
-        public DbSet<NotifyRegister> NotifyRegisters { get; set; } // NotifyRegister
-        public DbSet<NotifyScreen> NotifyScreens { get; set; } // NotifyScreen
-        public DbSet<NotifySend> NotifySends { get; set; } // NotifySend
-        public DbSet<NotifySendType> NotifySendTypes { get; set; } // NotifySendType
-        public DbSet<NotifySetting> NotifySettings { get; set; } // NotifySetting
-        public DbSet<NotifySettingManagerGroup> NotifySettingManagerGroups { get; set; } // NotifySetting_ManagerGroup
-        public DbSet<NotifySettingSendType> NotifySettingSendTypes { get; set; } // NotifySetting_SendType
-        public DbSet<NotifySettingUser> NotifySettingUsers { get; set; } // NotifySettingUser
-        public DbSet<NotifySocketSession> NotifySocketSessions { get; set; } // NotifySocketSession
-        public DbSet<NotifyType> NotifyTypes { get; set; } // NotifyType
-        public DbSet<NotifyUser> NotifyUsers { get; set; } // NotifyUser
-        public DbSet<NPhotoLibrary> NPhotoLibraries { get; set; } // nPhotoLibrary
-        public DbSet<NtchBanQuanLy> NtchBanQuanLies { get; set; } // ntchBanQuanLy
-        public DbSet<NtchBanQuanLyNb> NtchBanQuanLyNbs { get; set; } // ntchBanQuanLyNB
-        public DbSet<NtchDaiDienKhachHang> NtchDaiDienKhachHangs { get; set; } // ntchDaiDienKhachHang
-        public DbSet<NtchNghiemThuCanHo> NtchNghiemThuCanHoes { get; set; } // ntchNghiemThuCanHo
-        public DbSet<NtchNghiemThuLichSu> NtchNghiemThuLichSus { get; set; } // ntchNghiemThuLichSu
-        public DbSet<NtchToBanGiao> NtchToBanGiaos { get; set; } // ntchToBanGiao
-        public DbSet<NvFormAction> NvFormActions { get; set; } // nvFormAction
-        public DbSet<NvLichSu> NvLichSus { get; set; } // nvLichSu
-        public DbSet<NvNghiepVu> NvNghiepVus { get; set; } // nvNghiepVu
-        public DbSet<NvThaoTac> NvThaoTacs { get; set; } // nvThaoTac
-        public DbSet<OptionSchedule> OptionSchedules { get; set; } // OptionSchedules
-        public DbSet<PayOrderInfo> PayOrderInfoes { get; set; } // payOrderInfo
-        public DbSet<PbxExtension> PbxExtensions { get; set; } // pbxExtension
-        public DbSet<PbxHistoryCall> PbxHistoryCalls { get; set; } // pbxHistoryCall
-        public DbSet<PbxSetting> PbxSettings { get; set; } // pbxSetting
-        public DbSet<PdcChuyenNhuong> PdcChuyenNhuongs { get; set; } // pdcChuyenNhuong
-        public DbSet<PdcPhieuDatCoc> PdcPhieuDatCocs { get; set; } // pdcPhieuDatCoc
-        public DbSet<PdcPhieuDoiCan> PdcPhieuDoiCans { get; set; } // pdcPhieuDoiCan
-        public DbSet<PdcPhieuDoiCanLichSu> PdcPhieuDoiCanLichSus { get; set; } // pdcPhieuDoiCan_LichSu
-        public DbSet<PdcQuaTrinhThucHien> PdcQuaTrinhThucHiens { get; set; } // pdcQuaTrinhThucHien
-        public DbSet<PdcThanhLy> PdcThanhLies { get; set; } // pdcThanhLy
-        public DbSet<PdcTinhTrang> PdcTinhTrangs { get; set; } // pdcTinhTrang
-        public DbSet<PdkgdHinhAnh> PdkgdHinhAnhs { get; set; } // pdkgdHinhAnh
-        public DbSet<PdkgdQuaTrinhThucHien> PdkgdQuaTrinhThucHiens { get; set; } // pdkgdQuaTrinhThucHien
-        public DbSet<PdkgdTienIch> PdkgdTienIches { get; set; } // pdkgd_TienIch
-        public DbSet<PdkgdTinhTrang> PdkgdTinhTrangs { get; set; } // pdkgdTinhTrang
-        public DbSet<PdkGiaoDich> PdkGiaoDiches { get; set; } // pdkGiaoDich
-        public DbSet<PdkPhieuDangKy> PdkPhieuDangKies { get; set; } // pdkPhieuDangKy
-        public DbSet<PdkQuaTrinhThucHien> PdkQuaTrinhThucHiens { get; set; } // pdkQuaTrinhThucHien
-        public DbSet<Permission> Permissions { get; set; } // Permissions
-        public DbSet<PgcBangTinhLaiMuon> PgcBangTinhLaiMuons { get; set; } // pgcBangTinhLaiMuon
-        public DbSet<PgcBieuMau> PgcBieuMaus { get; set; } // pgcBieuMau
-        public DbSet<PgcbmThongTinKhac> PgcbmThongTinKhacs { get; set; } // pgcbmThongTinKhac
-        public DbSet<PgcChinhSach> PgcChinhSaches { get; set; } // pgcChinhSach
-        public DbSet<PgcChung> PgcChungs { get; set; } // pgcChung
-        public DbSet<PgcChungLichSu> PgcChungLichSus { get; set; } // pgcChungLichSu
-        public DbSet<PgcDoiSpLichSu> PgcDoiSpLichSus { get; set; } // pgcDoiSPLichSu
-        public DbSet<PgcGiaTriTinhChietKhau> PgcGiaTriTinhChietKhaus { get; set; } // pgcGiaTriTinhChietKhau
-        public DbSet<PgcHinhThucThanhToan> PgcHinhThucThanhToans { get; set; } // pgcHinhThucThanhToan
-        public DbSet<PgcKhachHang> PgcKhachHangs { get; set; } // pgcKhachHang
-        public DbSet<PgcLichSuChotLai> PgcLichSuChotLais { get; set; } // pgcLichSuChotLai
-        public DbSet<PgcLichThanhToan> PgcLichThanhToans { get; set; } // pgcLichThanhToan
-        public DbSet<PgcLoaiChietKhau> PgcLoaiChietKhaus { get; set; } // pgcLoaiChietKhau
-        public DbSet<PgcLoaiPhieuThuChi> PgcLoaiPhieuThuChis { get; set; } // pgcLoaiPhieuThuChi
-        public DbSet<PgcNghiepVu> PgcNghiepVus { get; set; } // pgcNghiepVu
-        public DbSet<PgcNhacNo> PgcNhacNoes { get; set; } // pgcNhacNo
-        public DbSet<PgcNhanVien> PgcNhanViens { get; set; } // pgcNhanVien
-        public DbSet<PgcPhieuChi> PgcPhieuChis { get; set; } // pgcPhieuChi
-        public DbSet<PgcPhieuChiChiTiet> PgcPhieuChiChiTiets { get; set; } // pgcPhieuChiChiTiet
-        public DbSet<PgcPhieuChiLichSu> PgcPhieuChiLichSus { get; set; } // pgcPhieuChiLichSu
-        public DbSet<PgcPhieuGiuCho> PgcPhieuGiuChoes { get; set; } // pgcPhieuGiuCho
-        public DbSet<PgcPhieuThanhToan> PgcPhieuThanhToans { get; set; } // pgcPhieuThanhToan
-        public DbSet<PgcPhieuThu> PgcPhieuThus { get; set; } // pgcPhieuThu
-        public DbSet<PgcPhieuThuChiTiet> PgcPhieuThuChiTiets { get; set; } // pgcPhieuThuChiTiet
-        public DbSet<PgcPhieuThuLichSu> PgcPhieuThuLichSus { get; set; } // pgcPhieuThuLichSu
-        public DbSet<PgcPhieuXacNhan> PgcPhieuXacNhans { get; set; } // pgcPhieuXacNhan
-        public DbSet<PgcPromotion> PgcPromotions { get; set; } // pgcPromotion
-        public DbSet<PgcptHoaDon> PgcptHoaDons { get; set; } // pgcptHoaDon
-        public DbSet<PgcPttLoai> PgcPttLoais { get; set; } // pgcPTTLoai
-        public DbSet<PgcPxnLoai> PgcPxnLoais { get; set; } // pgcPXNLoai
-        public DbSet<PgcQuaTrinhThucHien> PgcQuaTrinhThucHiens { get; set; } // pgcQuaTrinhThucHien
-        public DbSet<PgcThanhToanSom> PgcThanhToanSoms { get; set; } // pgcThanhToanSom
-        public DbSet<PgcThanhToanSomDetail> PgcThanhToanSomDetails { get; set; } // pgcThanhToanSomDetail
-        public DbSet<PgcTinhTrang> PgcTinhTrangs { get; set; } // pgcTinhTrang
-        public DbSet<PgcTrangThaiThanhToan> PgcTrangThaiThanhToans { get; set; } // pgcTrangThaiThanhToan
-        public DbSet<PgcUyQuyen> PgcUyQuyens { get; set; } // pgcUyQuyen
-        public DbSet<PgcUyQuyenBieuMau> PgcUyQuyenBieuMaus { get; set; } // pgcUyQuyenBieuMau
-        public DbSet<PgcUyQuyenLichSu> PgcUyQuyenLichSus { get; set; } // pgcUyQuyenLichSu
-        public DbSet<PgdNhatKyXuLy> PgdNhatKyXuLies { get; set; } // pgdNhatKyXuLy
-        public DbSet<PhanKhu> PhanKhus { get; set; } // PhanKhu
-        public DbSet<PhapLy> PhapLies { get; set; } // PhapLy
-        public DbSet<PhongBanSale> PhongBans { get; set; } // PhongBanSale
-        public DbSet<PhuongHuong> PhuongHuongs { get; set; } // PhuongHuong
-        public DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; } // PhuongThucThanhToan
-        public DbSet<PhuongThucXuLy> PhuongThucXuLies { get; set; } // PhuongThucXuLy
-        public DbSet<PkgBieuMau> PkgBieuMaus { get; set; } // pkgBieuMau
-        public DbSet<PkgPhieuKyGui> PkgPhieuKyGuis { get; set; } // pkgPhieuKyGui
-        public DbSet<PkgQuaTrinhThucHien> PkgQuaTrinhThucHiens { get; set; } // pkgQuaTrinhThucHien
-        public DbSet<PkgTinhTrang> PkgTinhTrangs { get; set; } // pkgTinhTrang
-        public DbSet<PlBieuMau> PlBieuMaus { get; set; } // plBieuMau
-        public DbSet<PlChangeCustomer> PlChangeCustomers { get; set; } // plChangeCustomer
-        public DbSet<PlChangeDongSoHuu> PlChangeDongSoHuus { get; set; } // plChangeDongSoHuu
-        public DbSet<PlLichThanhToan> PlLichThanhToans { get; set; } // plLichThanhToan
-        public DbSet<PlLichThanhToanCu> PlLichThanhToanCus { get; set; } // plLichThanhToanCu
-        public DbSet<PlLoaiPhuLuc> PlLoaiPhuLucs { get; set; } // plLoaiPhuLuc
-        public DbSet<PlPhuLuc> PlPhuLucs { get; set; } // plPhuLuc
-        public DbSet<PlPromotion> PlPromotions { get; set; } // plPromotion
-        public DbSet<PlPromotionOld> PlPromotionOlds { get; set; } // plPromotionOld
-        public DbSet<PlQuaTrinhThucHien> PlQuaTrinhThucHiens { get; set; } // plQuaTrinhThucHien
-        public DbSet<PlTinhTrang> PlTinhTrangs { get; set; } // plTinhTrang
-        public DbSet<PpChiTiet> PpChiTiets { get; set; } // ppChiTiet
-        public DbSet<PpDaiLy> PpDaiLies { get; set; } // ppDaiLy
-        public DbSet<PpGioHang> PpGioHangs { get; set; } // ppGioHang
-        public DbSet<PpPhanPhoi> PpPhanPhois { get; set; } // ppPhanPhoi
-        public DbSet<PpSanPham> PpSanPhams { get; set; } // ppSanPham
-        public DbSet<ProductViewGeneral> ProductViewGenerals { get; set; } // ProductViewGeneral
-        public DbSet<PtgPaymentSchedule> PtgPaymentSchedules { get; set; } // ptgPaymentSchedule
-        public DbSet<PtgPhieuTinhGia> PtgPhieuTinhGias { get; set; } // ptgPhieuTinhGia
-        public DbSet<PtgPromotion> PtgPromotions { get; set; } // ptgPromotion
-        public DbSet<PtgTemplate> PtgTemplates { get; set; } // ptgTemplate
-        public DbSet<PtPhongToa> PtPhongToas { get; set; } // ptPhongToa
-        public DbSet<PtQttHien> PtQttHiens { get; set; } // ptQTTHien
-        public DbSet<PtTinhTrang> PtTinhTrangs { get; set; } // ptTinhTrang
-        public DbSet<PxlChiTiet> PxlChiTiets { get; set; } // pxlChiTiet
-        public DbSet<PxlPhieuXuLy> PxlPhieuXuLies { get; set; } // pxlPhieuXuLy
-        public DbSet<PxlTinhTrang> PxlTinhTrangs { get; set; } // pxlTinhTrang
-        public DbSet<QuanHe> QuanHes { get; set; } // QuanHe
-        public DbSet<QuocGia> QuocGias { get; set; } // QuocGia
-        public DbSet<QuyDanh> QuyDanhs { get; set; } // QuyDanh
-        public DbSet<QuyTacDanhSo> QuyTacDanhSoes { get; set; } // QuyTacDanhSo
-        public DbSet<ReportFeature> ReportFeatures { get; set; } // reportFeature
-        public DbSet<Ring> Rings { get; set; } // Rings
-        public DbSet<RoseHoaHong> RoseHoaHongs { get; set; } // roseHoaHong
-        public DbSet<RptGroup> RptGroups { get; set; } // rptGroups
-        public DbSet<RptReport> RptReports { get; set; } // rptReports
-        public DbSet<RrRegisteredRevenue> RrRegisteredRevenues { get; set; } // rrRegisteredRevenue
-        public DbSet<RrRegisteredRevenueDepartment> RrRegisteredRevenueDepartments { get; set; } // rrRegisteredRevenueDepartment
-        public DbSet<RrRegisteredRevenueGroup> RrRegisteredRevenueGroups { get; set; } // rrRegisteredRevenueGroup
-        public DbSet<RrRegisteredRevenueStaff> RrRegisteredRevenueStaffs { get; set; } // rrRegisteredRevenueStaff
-        public DbSet<RrRegisteredRevenueStaffHistory> RrRegisteredRevenueStaffHistories { get; set; } // rrRegisteredRevenueStaffHistory
-        public DbSet<SendMail> SendMails { get; set; } // SendMail
-        public DbSet<SetDefault> SetDefaults { get; set; } // SetDefault
-        public DbSet<SetHappyBirthday> SetHappyBirthdays { get; set; } // SetHappyBirthday
-        public DbSet<SettingIcon> SettingIcons { get; set; } // SettingIcon
-        public DbSet<SetupProcedure> SetupProcedures { get; set; } // SetupProcedure
-        public DbSet<ShowDataBy> ShowDataBies { get; set; } // ShowDataBy
-        public DbSet<SmsBieuMau> SmsBieuMaus { get; set; } // smsBieuMau
-        public DbSet<SmsBirthdayAuto> SmsBirthdayAutoes { get; set; } // smsBirthdayAuto
-        public DbSet<SmsBrandname> SmsBrandnames { get; set; } // SMSBrandname
-        public DbSet<SmsCategory> SmsCategories { get; set; } // SMSCategories
-        public DbSet<SmsChoGui> SmsChoGuis { get; set; } // smsChoGui
-        public DbSet<SmsField> SmsFields { get; set; } // smsFields
-        public DbSet<SmsGroupReceive> SmsGroupReceives { get; set; } // SMSGroupReceives
-        public DbSet<SmsGroupReceiveSending> SmsGroupReceiveSendings { get; set; } // SMSGroupReceive_Sending
-        public DbSet<SmsHistory> SmsHistories { get; set; } // smsHistory
-        public DbSet<SmsListOfRecipient> SmsListOfRecipients { get; set; } // SMSListOfRecipients
-        public DbSet<SmsListWaitSending> SmsListWaitSendings { get; set; } // SMSListWaitSending
-        public DbSet<SmsNguoiNhan> SmsNguoiNhans { get; set; } // smsNguoiNhan
-        public DbSet<SmsNhomNhan> SmsNhomNhans { get; set; } // smsNhomNhan
-        public DbSet<SmsPhanLoai> SmsPhanLoais { get; set; } // smsPhanLoai
-        public DbSet<SmsSending> SmsSendings { get; set; } // SMSSending
-        public DbSet<SmsTemplate> SmsTemplates { get; set; } // SMSTemplates
-        public DbSet<SmsTinNhan> SmsTinNhans { get; set; } // smsTinNhan
-        public DbSet<SmsTinNhanNhomNhan> SmsTinNhanNhomNhans { get; set; } // smsTinNhan_NhomNhan
-        public DbSet<SocialComment> SocialComments { get; set; } // socialComment
-        public DbSet<SocialLike> SocialLikes { get; set; } // socialLike
-        public DbSet<SocialMediaLibrary> SocialMediaLibraries { get; set; } // socialMediaLibrary
-        public DbSet<SocialPost> SocialPosts { get; set; } // socialPosts
-        public DbSet<SocialShare> SocialShares { get; set; } // socialShare
-        public DbSet<SoTaiKhoan> SoTaiKhoans { get; set; } // SoTaiKhoan
-        public DbSet<SqCompareRose> SqCompareRoses { get; set; } // sqCompareRose
-        public DbSet<SqExpens> SqExpens { get; set; } // sqExpenses
-        public DbSet<StaffCustomer> StaffCustomers { get; set; } // Staff_Customer
-        public DbSet<SyncHistory> SyncHistories { get; set; } // SyncHistory
-        public DbSet<SystemsHistory> SystemsHistories { get; set; } // Systems_History
-        public DbSet<TaiKhoan> TaiKhoans { get; set; } // TaiKhoan
-        public DbSet<TblConfig> TblConfigs { get; set; } // tblConfig
-        public DbSet<TgTarget> TgTargets { get; set; } // tgTarget
-        public DbSet<ThoiDiemLienHe> ThoiDiemLienHes { get; set; } // ThoiDiemLienHe
-        public DbSet<TienIch> TienIches { get; set; } // TienIch
-        public DbSet<Time> Times { get; set; } // Times
-        public DbSet<Tinh> Tinhs { get; set; } // Tinh
-        public DbSet<TinhMap> TinhMaps { get; set; } // Tinh_Maps
-        public DbSet<TlbhQuaTrinhThucHien> TlbhQuaTrinhThucHiens { get; set; } // tlbhQuaTrinhThucHien
-        public DbSet<TlbhThanhLy> TlbhThanhLies { get; set; } // tlbhThanhLy
-        public DbSet<TlbhTrangThai> TlbhTrangThais { get; set; } // tlbhTrangThai
-        public DbSet<TlDinhMucHoaHong> TlDinhMucHoaHongs { get; set; } // tlDinhMucHoaHong
-        public DbSet<TqdaDangKy> TqdaDangKies { get; set; } // tqdaDangKy
-        public DbSet<TqdaNhatKy> TqdaNhatKies { get; set; } // tqdaNhatKy
-        public DbSet<TTransaction> TTransactions { get; set; } // tTransaction
-        public DbSet<TypeArea> TypeAreas { get; set; } // TypeArea
-        public DbSet<User> Users { get; set; } // Users
-        public DbSet<UsersOpenId> UsersOpenIds { get; set; } // Users_OpenID
-        public DbSet<VvbhHopDong> VvbhHopDongs { get; set; } // vvbhHopDong
-        public DbSet<VvbhLichThanhToan> VvbhLichThanhToans { get; set; } // vvbhLichThanhToan
-        public DbSet<VvbhPromotion> VvbhPromotions { get; set; } // vvbhPromotion
-        public DbSet<VvbhQuaTrinhThucHien> VvbhQuaTrinhThucHiens { get; set; } // vvbhQuaTrinhThucHien
-        public DbSet<VvbhTrangThai> VvbhTrangThais { get; set; } // vvbhTrangThai
-        public DbSet<WdCategory> WdCategories { get; set; } // wdCategory
-        public DbSet<WdFormAction> WdFormActions { get; set; } // wdFormAction
-        public DbSet<WdReportMailSent> WdReportMailSents { get; set; } // wdReportMailSent
-        public DbSet<WdTempSendMail> WdTempSendMails { get; set; } // wdTempSendMail
-        public DbSet<WdTempSendNotify> WdTempSendNotifies { get; set; } // wdTempSendNotify
-        public DbSet<WorkDaily> WorkDailies { get; set; } // WorkDaily
-        public DbSet<WorkTransation> WorkTransations { get; set; } // WorkTransation
-        public DbSet<Xa> Xas { get; set; } // Xa
-        public DbSet<XacNhanChuyenNhuong> XacNhanChuyenNhuongs { get; set; } // XacNhanChuyenNhuong
-
-        public FakeSaleOnlineDbContext()
-        {
-            _database = null;
-
-            AccessDatas = new FakeDbSet<AccessData>("PerId", "FormId", "Sdbid");
-            ActionDatas = new FakeDbSet<ActionData>("PerId", "FormId", "FeatureId");
-            Agents = new FakeDbSet<Agent>("AgentId");
-            AlAlerts = new FakeDbSet<AlAlert>("Id");
-            AStaffs = new FakeDbSet<AStaff>("StaffId");
-            Authentications = new FakeDbSet<Authentication>("AutheId");
-            BatDongSans = new FakeDbSet<BatDongSan>("MaBds");
-            BdsBangGias = new FakeDbSet<BdsBangGia>("Id");
-            BdsBranches = new FakeDbSet<BdsBranch>("Id");
-            BdsChuyenQuyens = new FakeDbSet<BdsChuyenQuyen>("Id");
-            BdsCoordinates = new FakeDbSet<BdsCoordinate>("Id");
-            BdsGcnqsdds = new FakeDbSet<BdsGcnqsdd>("MaGcn");
-            BdsGcnqsddBieuMaus = new FakeDbSet<BdsGcnqsddBieuMau>("Id");
-            BdsGcnqsddCaiDatHoSoes = new FakeDbSet<BdsGcnqsddCaiDatHoSo>("Id");
-            BdsGcnqsddCaiDatHoSoChiTiets = new FakeDbSet<BdsGcnqsddCaiDatHoSoChiTiet>("Id");
-            BdsGcnqsddHoSoes = new FakeDbSet<BdsGcnqsddHoSo>("Id");
-            BdsGcnqsddLichSus = new FakeDbSet<BdsGcnqsddLichSu>("Id");
-            BdsGcnqsddThongBaos = new FakeDbSet<BdsGcnqsddThongBao>("Id");
-            BdsGcnqsddTrangThais = new FakeDbSet<BdsGcnqsddTrangThai>("MaTt");
-            BdsGoiGias = new FakeDbSet<BdsGoiGia>("Id");
-            BdsHangMucs = new FakeDbSet<BdsHangMuc>("Id");
-            BdsHistories = new FakeDbSet<BdsHistory>("Id");
-            BdsHistoryStatus = new FakeDbSet<BdsHistoryStatu>("MaSp", "MaTt");
-            BdsLichSuCapNhats = new FakeDbSet<BdsLichSuCapNhat>("Id");
-            BdsLkmHinhAnhs = new FakeDbSet<BdsLkmHinhAnh>("Id");
-            BdsLoaiHangMucs = new FakeDbSet<BdsLoaiHangMuc>("MaHm");
-            BdsLoaiKieuMaus = new FakeDbSet<BdsLoaiKieuMau>("MaLkm");
-            BdsSanPhams = new FakeDbSet<BdsSanPham>("MaSp");
-            BdsSoCans = new FakeDbSet<BdsSoCan>("Id");
-            BdsTangLaus = new FakeDbSet<BdsTangLau>("Id");
-            BdsThiCongs = new FakeDbSet<BdsThiCong>("Id");
-            BdsTienIches = new FakeDbSet<BdsTienIch>("Id");
-            BdsTrangThais = new FakeDbSet<BdsTrangThai>("MaTt");
-            BgbhBanGiaos = new FakeDbSet<BgbhBanGiao>("MaBg");
-            BgbhBienBanChotChiSoes = new FakeDbSet<BgbhBienBanChotChiSo>("MaBbccs");
-            BgbhBienBanChotChiSoChiTiets = new FakeDbSet<BgbhBienBanChotChiSoChiTiet>("Id");
-            BgbhBienBanChotChiSoLichSus = new FakeDbSet<BgbhBienBanChotChiSoLichSu>("Id");
-            BgbhBienBanKiemTras = new FakeDbSet<BgbhBienBanKiemTra>("MaBbkt");
-            BgbhBienBanKiemTraLichSus = new FakeDbSet<BgbhBienBanKiemTraLichSu>("Id");
-            BgbhBoChiaKhoas = new FakeDbSet<BgbhBoChiaKhoa>("MaBoCk");
-            BgbhBoChiaKhoaChiTiets = new FakeDbSet<BgbhBoChiaKhoaChiTiet>("Id");
-            BgbhBoTaiLieux = new FakeDbSet<BgbhBoTaiLieu>("Id");
-            BgbhBoTaiLieuLichSus = new FakeDbSet<BgbhBoTaiLieuLichSu>("Id");
-            BgbhChiaKhoas = new FakeDbSet<BgbhChiaKhoa>("Id");
-            BgbhHangMucKiemTras = new FakeDbSet<BgbhHangMucKiemTra>("Id");
-            BgbhLoaiChiaKhoas = new FakeDbSet<BgbhLoaiChiaKhoa>("MaLck");
-            BgbhLoaiHangMucs = new FakeDbSet<BgbhLoaiHangMuc>("MaHm");
-            BgbhQuaTrinhThucHiens = new FakeDbSet<BgbhQuaTrinhThucHien>("Id");
-            BgbhTaiLieux = new FakeDbSet<BgbhTaiLieu>("Id");
-            BgbhTaiLieuChiTiets = new FakeDbSet<BgbhTaiLieuChiTiet>("Id");
-            BgbhThongBaos = new FakeDbSet<BgbhThongBao>("MaTb");
-            BgbhThongBaoLichSus = new FakeDbSet<BgbhThongBaoLichSu>("Id");
-            BgbhThongBaoXacNhans = new FakeDbSet<BgbhThongBaoXacNhan>("Id");
-            BgbhTrangThais = new FakeDbSet<BgbhTrangThai>("MaTt");
-            BgQbgLichSus = new FakeDbSet<BgQbgLichSu>("Id");
-            BgQbgTrangThais = new FakeDbSet<BgQbgTrangThai>("MaTt");
-            BgQuyBanGiaos = new FakeDbSet<BgQuyBanGiao>("Id");
-            BqtBangQuyetToans = new FakeDbSet<BqtBangQuyetToan>("MaQt");
-            BqtChiTiets = new FakeDbSet<BqtChiTiet>("Id");
-            BqtLichSus = new FakeDbSet<BqtLichSu>("Id");
-            BqtLoaiQuyetToans = new FakeDbSet<BqtLoaiQuyetToan>("Id");
-            BqtTinhTrangs = new FakeDbSet<BqtTinhTrang>("MaTt");
-            Branches = new FakeDbSet<Branch>("BranchId");
-            BranchStaffs = new FakeDbSet<BranchStaff>("Id");
-            CaiDatDinhMucHoaHongs = new FakeDbSet<CaiDatDinhMucHoaHong>("Id");
-            CareCategories = new FakeDbSet<CareCategory>("CateId");
-            CareCustomers = new FakeDbSet<CareCustomer>("KeyId");
-            CareProssesses = new FakeDbSet<CareProssess>("ProssessId");
-            CareStatus = new FakeDbSet<CareStatu>("StatusId");
-            CategoryDates = new FakeDbSet<CategoryDate>("Id");
-            CdCaiDatChungs = new FakeDbSet<CdCaiDatChung>("Id");
-            CdCustomerDemands = new FakeDbSet<CdCustomerDemand>("Id");
-            CdHistories = new FakeDbSet<CdHistory>("Id");
-            CdHowToKnows = new FakeDbSet<CdHowToKnow>("Id");
-            CdLevels = new FakeDbSet<CdLevel>("Id");
-            CdPurposes = new FakeDbSet<CdPurpose>("Id");
-            CdQuotations = new FakeDbSet<CdQuotation>("Id");
-            CdQuotationHistories = new FakeDbSet<CdQuotationHistory>("Id");
-            CdReasons = new FakeDbSet<CdReason>("Id");
-            ChatTinNhans = new FakeDbSet<ChatTinNhan>("MaTn");
-            ChCauHoiThuongGaps = new FakeDbSet<ChCauHoiThuongGap>("Id");
-            ChiTieuBanHangs = new FakeDbSet<ChiTieuBanHang>("MaCt");
-            ChucVus = new FakeDbSet<ChucVu>("MaCv");
-            ChuDauTus = new FakeDbSet<ChuDauTu>("MaCdt");
-            CiCheckInLists = new FakeDbSet<CiCheckInList>("Id");
-            CiLocations = new FakeDbSet<CiLocation>("Id");
-            CiRegistLists = new FakeDbSet<CiRegistList>("Id");
-            CnBieuMaus = new FakeDbSet<CnBieuMau>("Id");
-            CnChuyenNhuongs = new FakeDbSet<CnChuyenNhuong>("MaCn");
-            CnLichThanhToans = new FakeDbSet<CnLichThanhToan>("Id");
-            CnLoais = new FakeDbSet<CnLoai>("MaLcn");
-            CnNguoiDungTens = new FakeDbSet<CnNguoiDungTen>("Id");
-            CnNhatKyDuyets = new FakeDbSet<CnNhatKyDuyet>("Id");
-            CnThongTinKhacs = new FakeDbSet<CnThongTinKhac>("Id");
-            CnTrangThais = new FakeDbSet<CnTrangThai>("MaTt");
-            CommissionContractDetails = new FakeDbSet<CommissionContractDetail>("Id");
-            CommissionCostAllocations = new FakeDbSet<CommissionCostAllocation>("Id");
-            CommissionCostAllocationCates = new FakeDbSet<CommissionCostAllocationCate>("Id");
-            CommissionCostAllocationHistories = new FakeDbSet<CommissionCostAllocationHistory>("Id");
-            CommissionDetails = new FakeDbSet<CommissionDetail>("Id");
-            CommissionLoaiDks = new FakeDbSet<CommissionLoaiDk>("Id");
-            CommissionLoaiGias = new FakeDbSet<CommissionLoaiGia>("Id");
-            CommissionLoaiHoaHongs = new FakeDbSet<CommissionLoaiHoaHong>("Id");
-            CommissionLoaiNgays = new FakeDbSet<CommissionLoaiNgay>("Id");
-            CommissionLscns = new FakeDbSet<CommissionLscn>("Id");
-            CommissionMasters = new FakeDbSet<CommissionMaster>("Id");
-            CommissionMasterDetails = new FakeDbSet<CommissionMasterDetail>("Id");
-            CommissionNorms = new FakeDbSet<CommissionNorm>("Id");
-            CommissionPromotions = new FakeDbSet<CommissionPromotion>("Id");
-            CommissionRequests = new FakeDbSet<CommissionRequest>("Id");
-            CommissionRequestDetails = new FakeDbSet<CommissionRequestDetail>("Id");
-            CommissionRequestHistories = new FakeDbSet<CommissionRequestHistory>("Id");
-            CommissionRequestStatus = new FakeDbSet<CommissionRequestStatu>("Id");
-            Companies = new FakeDbSet<Company>("MaCt");
-            CompanyContacts = new FakeDbSet<CompanyContact>("Id");
-            ConfigMails = new FakeDbSet<ConfigMail>("MaNv", "Email");
-            CongVanDens = new FakeDbSet<CongVanDen>("Id");
-            CongVanDenNhanViens = new FakeDbSet<CongVanDenNhanVien>("MaCv", "MaNv");
-            CongVanDenPhongBans = new FakeDbSet<CongVanDenPhongBan>("MaCv", "MaPb");
-            CongVanDis = new FakeDbSet<CongVanDi>("Id");
-            ConnectionStringSuns = new FakeDbSet<ConnectionStringSun>("Id");
-            CsChinhSachBanHangs = new FakeDbSet<CsChinhSachBanHang>("Id");
-            CsLoaiChinhSaches = new FakeDbSet<CsLoaiChinhSach>("MaLcs");
-            CsLoaiGiaoDiches = new FakeDbSet<CsLoaiGiaoDich>("MaLgd");
-            CustomizeColumnGridViews = new FakeDbSet<CustomizeColumnGridView>("Id");
-            CustomizeColumnGridViewDetails = new FakeDbSet<CustomizeColumnGridViewDetail>("Id");
-            CustomizeColumnGridViewDetailProjects = new FakeDbSet<CustomizeColumnGridViewDetailProject>("Id");
-            CustomizeColumnGridViewFixedStyles = new FakeDbSet<CustomizeColumnGridViewFixedStyle>("Id");
-            CustomizeColumnGridViewModules = new FakeDbSet<CustomizeColumnGridViewModule>("Id");
-            CvCongVans = new FakeDbSet<CvCongVan>("Id");
-            CvdNhatKyXuLies = new FakeDbSet<CvdNhatKyXuLy>("Id");
-            CvdTrinhTrangs = new FakeDbSet<CvdTrinhTrang>("MaTt");
-            CvNhatKyXuLies = new FakeDbSet<CvNhatKyXuLy>("Id");
-            CvPhanLoais = new FakeDbSet<CvPhanLoai>("Id");
-            CvTaiLieux = new FakeDbSet<CvTaiLieu>("Id");
-            CvTrinhTrangs = new FakeDbSet<CvTrinhTrang>("MaTt");
-            DaBieuMaus = new FakeDbSet<DaBieuMau>("MaBm");
-            DaBieuThucs = new FakeDbSet<DaBieuThuc>("MaBt");
-            DaCaiDatDoanhSoes = new FakeDbSet<DaCaiDatDoanhSo>("Id");
-            DaCaiDatGiuChoes = new FakeDbSet<DaCaiDatGiuCho>("Id");
-            DaCaiDatGiuChoLs = new FakeDbSet<DaCaiDatGiuChoL>("Id");
-            DaCaiDatHinhThucMails = new FakeDbSet<DaCaiDatHinhThucMail>("MaHt");
-            DaCaiDatLaiSuats = new FakeDbSet<DaCaiDatLaiSuat>("Id");
-            DaCaiDatMails = new FakeDbSet<DaCaiDatMail>("Id");
-            DaCaiDatMailLs = new FakeDbSet<DaCaiDatMailL>("Id");
-            DaCaiDatThongBaos = new FakeDbSet<DaCaiDatThongBao>("Id");
-            DaCaiDatThues = new FakeDbSet<DaCaiDatThue>("Id");
-            DaCaiDatTimes = new FakeDbSet<DaCaiDatTime>("Id");
-            DaCaiDatTimeLs = new FakeDbSet<DaCaiDatTimeL>("Id");
-            DaCalculations = new FakeDbSet<DaCalculation>("CalId");
-            DaCategories = new FakeDbSet<DaCategory>("CateId");
-            DaChinhSachBanHangs = new FakeDbSet<DaChinhSachBanHang>("Id");
-            DaCongThucs = new FakeDbSet<DaCongThuc>("Id");
-            DaControls = new FakeDbSet<DaControl>("Id");
-            DaDetails = new FakeDbSet<DaDetail>("Id");
-            DaDonViTimes = new FakeDbSet<DaDonViTime>("Id");
-            DaiLies = new FakeDbSet<DaiLy>("MaDl");
-            DaiLyDangKies = new FakeDbSet<DaiLyDangKy>("MaDl", "Nam", "Thang");
-            DaKhuyenMais = new FakeDbSet<DaKhuyenMai>("Id");
-            DaKhuyenMaiLs = new FakeDbSet<DaKhuyenMaiL>("Id");
-            DaLichSus = new FakeDbSet<DaLichSu>("Id");
-            DaLichThanhToans = new FakeDbSet<DaLichThanhToan>("MaLtt");
-            DaLichThanhToanLichSus = new FakeDbSet<DaLichThanhToanLichSu>("Id");
-            DaLichThanhToanPheDuyets = new FakeDbSet<DaLichThanhToanPheDuyet>("Id");
-            DaLoaiBieuMaus = new FakeDbSet<DaLoaiBieuMau>("MaLbm");
-            DaLoaiKhuyenMais = new FakeDbSet<DaLoaiKhuyenMai>("Id");
-            DaLoaiThanhToans = new FakeDbSet<DaLoaiThanhToan>("MaLtt");
-            DaMasters = new FakeDbSet<DaMaster>("Id");
-            DaOptions = new FakeDbSet<DaOption>("Id");
-            DaSanPhanPhois = new FakeDbSet<DaSanPhanPhoi>("Id");
-            DaStatus = new FakeDbSet<DaStatu>("StatusId");
-            DaTableTemps = new FakeDbSet<DaTableTemp>("Id");
-            DaThttLichSus = new FakeDbSet<DaThttLichSu>("Id");
-            DaTruongHopThanhToans = new FakeDbSet<DaTruongHopThanhToan>("MaTh");
-            DaTypes = new FakeDbSet<DaType>("TypeId");
-            DaVaiTroes = new FakeDbSet<DaVaiTro>("MaVt");
-            DDashboards = new FakeDbSet<DDashboard>("Id");
-            DDashboardDetails = new FakeDbSet<DDashboardDetail>("Id");
-            DDashboardPositions = new FakeDbSet<DDashboardPosition>("Id");
-            DDashboardViews = new FakeDbSet<DDashboardView>("Id");
-            DhcnQuaTrinhThucHiens = new FakeDbSet<DhcnQuaTrinhThucHien>("MaHdcn", "Lan");
-            DinhMucHoaHongs = new FakeDbSet<DinhMucHoaHong>("Id");
-            DlMucDoYeuCaus = new FakeDbSet<DlMucDoYeuCau>("MaMdyc");
-            DlYeuCauHoTroes = new FakeDbSet<DlYeuCauHoTro>("MaDl", "Stt");
-            DocLoaiTaiLieux = new FakeDbSet<DocLoaiTaiLieu>("MaLtl");
-            DocTaiLieux = new FakeDbSet<DocTaiLieu>("MaTl");
-            DocViewTypes = new FakeDbSet<DocViewType>("Id");
-            DonViChietKhaus = new FakeDbSet<DonViChietKhau>("MaDvck");
-            DonViTinhs = new FakeDbSet<DonViTinh>("MaDvt");
-            DuAns = new FakeDbSet<DuAn>("MaDa");
-            DuAnBieuMaus = new FakeDbSet<DuAnBieuMau>("MaDa", "MaBm");
-            DuAnCompanies = new FakeDbSet<DuAnCompany>("Id");
-            DuAnImages = new FakeDbSet<DuAnImage>("Id");
-            DuAnLichThanhToans = new FakeDbSet<DuAnLichThanhToan>("MaDa", "DotTt");
-            DuAnNhanViens = new FakeDbSet<DuAnNhanVien>("Id");
-            DuAnPhapLies = new FakeDbSet<DuAnPhapLy>("Id");
-            DuAnPhotoes = new FakeDbSet<DuAnPhoto>("Id");
-            DuAnTienDoes = new FakeDbSet<DuAnTienDo>("MaDa", "DotTt", "Stt");
-            DuAnTienDoThiCongs = new FakeDbSet<DuAnTienDoThiCong>("Id");
-            DuAnTypes = new FakeDbSet<DuAnType>("Id");
-            DxBoPhanXuLies = new FakeDbSet<DxBoPhanXuLy>("Id");
-            DxDeXuats = new FakeDbSet<DxDeXuatSale>("Id");
-            DxLichSus = new FakeDbSet<DxLichSu>("Id");
-            DxLoaiDeXuats = new FakeDbSet<DxDeXuatSaleSale>("MaLdx");
-            DxNguyenNhans = new FakeDbSet<DxNguyenNhan>("Id");
-            DxPhanHois = new FakeDbSet<DxPhanHoi>("Id");
-            DxTaiLieux = new FakeDbSet<DxTaiLieu>("Id");
-            DxTinhTrangs = new FakeDbSet<DxTinhTrang>("Id");
-            DxXuLies = new FakeDbSet<DxXuLy>("Id");
-            Features = new FakeDbSet<Feature>("FeatureId");
-            Fields = new FakeDbSet<Field>("Id");
-            FieldDetails = new FakeDbSet<FieldDetail>("Id");
-            FieldGroups = new FakeDbSet<FieldGroup>("Id");
-            Forms = new FakeDbSet<Form>("FormId");
-            FormActions = new FakeDbSet<FormAction>("Id");
-            FormFeatures = new FakeDbSet<FormFeature>("FormId", "FeatureId");
-            HccnHanCheChuyenNhuongs = new FakeDbSet<HccnHanCheChuyenNhuong>("Id");
-            HccnHistories = new FakeDbSet<HccnHistory>("Id");
-            HccnLoaiHccns = new FakeDbSet<HccnLoaiHccn>("Id");
-            HccnTemplates = new FakeDbSet<HccnTemplate>("Id");
-            HdChuDauTus = new FakeDbSet<HdChuDauTu>("Id");
-            HdChuDauTuChinhSaches = new FakeDbSet<HdChuDauTuChinhSach>("Id");
-            HdmbLichThanhToans = new FakeDbSet<HdmbLichThanhToan>("Id");
-            HdmbPromotions = new FakeDbSet<HdmbPromotion>("Id");
-            HdmbQuaTrinhThucHiens = new FakeDbSet<HdmbQuaTrinhThucHien>("Id");
-            HdmbTinhTrangs = new FakeDbSet<HdmbTinhTrang>("MaTt");
-            HdptBieuMaus = new FakeDbSet<HdptBieuMau>("Id");
-            HdptCaiDatLaiSuats = new FakeDbSet<HdptCaiDatLaiSuat>("Id");
-            HdptGiaiNgans = new FakeDbSet<HdptGiaiNgan>("Id");
-            HdptLichTraLais = new FakeDbSet<HdptLichTraLai>("Id");
-            HdptLoais = new FakeDbSet<HdptLoai>("MaLhd");
-            HdptNguoiDungTens = new FakeDbSet<HdptNguoiDungTen>("Id");
-            HdptNhatKyDuyets = new FakeDbSet<HdptNhatKyDuyet>("Id");
-            HdptNoGocNganHangs = new FakeDbSet<HdptNoGocNganHang>("Id");
-            HdptPhongToas = new FakeDbSet<HdptPhongToa>("MaPt");
-            HdptThongTinKhacs = new FakeDbSet<HdptThongTinKhac>("Id");
-            HdptTrangThais = new FakeDbSet<HdptTrangThai>("MaTt");
-            HdtHopDongThues = new FakeDbSet<HdtHopDongThue>("Id");
-            HdTinhTrangs = new FakeDbSet<HdTinhTrang>("MaTt");
-            HdtLichThanhToans = new FakeDbSet<HdtLichThanhToan>("Id");
-            HdtThueMonBais = new FakeDbSet<HdtThueMonBai>("Id");
-            HdtThueMonBaiChiTiets = new FakeDbSet<HdtThueMonBaiChiTiet>("Id");
-            HdvtGiayChungNhanQsdds = new FakeDbSet<HdvtGiayChungNhanQsdd>("MaGcn");
-            HdvtGiayChungNhanQsdns = new FakeDbSet<HdvtGiayChungNhanQsdn>("MaGcn");
-            HdvtHinhThucVays = new FakeDbSet<HdvtHinhThucVay>("MaHt");
-            HdvtHopDongGopVons = new FakeDbSet<HdvtHopDongGopVon>("MaHdgv");
-            HdvtHopDongVayTiens = new FakeDbSet<HdvtHopDongVayTien>("MaHdvt");
-            HdvtLichThanhToans = new FakeDbSet<HdvtLichThanhToan>("Id");
-            HdvtPhuLucs = new FakeDbSet<HdvtPhuLuc>("MaPl");
-            HdvtTinhTrangs = new FakeDbSet<HdvtTinhTrang>("MaTt");
-            HinhThucNhacNoes = new FakeDbSet<HinhThucNhacNo>("MaHt");
-            HinhThucNhanChietKhaus = new FakeDbSet<HinhThucNhanChietKhau>("Id");
-            HinhThucThanhToans = new FakeDbSet<HinhThucThanhToan>("Id");
-            HinhThucThongBaos = new FakeDbSet<HinhThucThongBao>("MaHt");
-            HinhThucTiepNhans = new FakeDbSet<HinhThucTiepNhan>("Id");
-            HopDongMuaBans = new FakeDbSet<HopDongMuaBan>("MaHdmb");
-            HsBieuMaus = new FakeDbSet<HsBieuMau>("Id");
-            HsCategories = new FakeDbSet<HsCategory>("Id");
-            HsChamDiems = new FakeDbSet<HsChamDiem>("Id");
-            HsChiTiets = new FakeDbSet<HsChiTiet>("Id");
-            HsHoSoNoxhs = new FakeDbSet<HsHoSoNoxh>("MaHs");
-            HsLichSus = new FakeDbSet<HsLichSu>("Id");
-            HsLoaiHoSoes = new FakeDbSet<HsLoaiHoSo>("MaLoai");
-            HsNguoiDiKems = new FakeDbSet<HsNguoiDiKem>("Id");
-            HsNoiCaps = new FakeDbSet<HsNoiCap>("Id");
-            HsSettings = new FakeDbSet<HsSetting>("Id");
-            HsSettingDetails = new FakeDbSet<HsSettingDetail>("Id");
-            HsTieuChis = new FakeDbSet<HsTieuChi>("Id");
-            HsTrangThais = new FakeDbSet<HsTrangThai>("MaTt");
-            Huyens = new FakeDbSet<Huyen>("MaHuyen");
-            HuyenMaps = new FakeDbSet<HuyenMap>("MaHuyen");
-            Invoices = new FakeDbSet<Invoice>("Id");
-            InvoiceDetails = new FakeDbSet<InvoiceDetail>("Id");
-            InvoiceHistories = new FakeDbSet<InvoiceHistory>("Id");
-            KcStatus = new FakeDbSet<KcStatu>("Id");
-            KeHoachBanHangs = new FakeDbSet<KeHoachBanHang>("MaKhbh");
-            KhachHangs = new FakeDbSet<KhachHang>("MaKh");
-            KhachHangBirthdays = new FakeDbSet<KhachHangBirthday>("MaKh", "Nam");
-            KhachHangGhiChus = new FakeDbSet<KhachHangGhiChu>("MaKh", "Stt");
-            KhachHangNhatKies = new FakeDbSet<KhachHangNhatKy>("Id");
-            KhachHangNhatKyPhanHois = new FakeDbSet<KhachHangNhatKyPhanHoi>("Id");
-            KhachHangSanPhams = new FakeDbSet<KhachHangSanPham>("MaKh", "MaBds");
-            KhachHangSoTheoDois = new FakeDbSet<KhachHangSoTheoDoi>("KeyId");
-            KhbhBds = new FakeDbSet<KhbhBd>("Id");
-            KhbhBdsThuTucs = new FakeDbSet<KhbhBdsThuTuc>("Id");
-            KhbhDieuKhoanDaiLies = new FakeDbSet<KhbhDieuKhoanDaiLy>("Id");
-            KhbhKhachHangDangKies = new FakeDbSet<KhbhKhachHangDangKy>("Id");
-            KhbhLichThanhToans = new FakeDbSet<KhbhLichThanhToan>("MaKhbh", "DotTt");
-            KhbhNhanViens = new FakeDbSet<KhbhNhanVien>("Id");
-            KhbhNhanVienDangKies = new FakeDbSet<KhbhNhanVienDangKy>("Id");
-            KhbhOptionSchedules = new FakeDbSet<KhbhOptionSchedule>("KeyId", "DotTt");
-            KhbhQuyTrinhs = new FakeDbSet<KhbhQuyTrinh>("Id");
-            KhbhThuTucs = new FakeDbSet<KhbhThuTuc>("Id");
-            KhChuyenQuyens = new FakeDbSet<KhChuyenQuyen>("Id");
-            KhNganHangs = new FakeDbSet<KhNganHang>("MaNh");
-            KhNganHangChiNhanhs = new FakeDbSet<KhNganHangChiNhanh>("Id");
-            KhNganHangGoiVays = new FakeDbSet<KhNganHangGoiVay>("Id");
-            KhNotesTransfers = new FakeDbSet<KhNotesTransfer>("MaKh", "Stt");
-            KhoangGias = new FakeDbSet<KhoangGia>("Id");
-            KhstdDonViLienQuans = new FakeDbSet<KhstdDonViLienQuan>("KeyId", "DepartmentId");
-            KhstdLichSus = new FakeDbSet<KhstdLichSu>("Stt");
-            KhstdTinhTrangs = new FakeDbSet<KhstdTinhTrang>("MaTt");
-            Khus = new FakeDbSet<Khu>("MaKhu");
-            KieuThanhToans = new FakeDbSet<KieuThanhToan>("MaKtt");
-            KyKinhDoanhs = new FakeDbSet<KyKinhDoanh>("MaKkd", "Stt");
-            LgDictionaries = new FakeDbSet<LgDictionary>("Id");
-            LgLanguages = new FakeDbSet<LgLanguage>("Id");
-            LgTranslates = new FakeDbSet<LgTranslate>("Id");
-            LhContacts = new FakeDbSet<LhContact>("Id");
-            LhLichSus = new FakeDbSet<LhLichSu>("Id");
-            LhStaffReceptions = new FakeDbSet<LhStaffReception>("StaffId");
-            LichHens = new FakeDbSet<LichHen>("MaLh");
-            LichHenChuDes = new FakeDbSet<LichHenChuDe>("MaCd");
-            LichHenNhanViens = new FakeDbSet<LichHenNhanVien>("MaLh", "MaNv");
-            LichHenThoiDiems = new FakeDbSet<LichHenThoiDiem>("MaTd");
-            LichSuDuyTriLuongCbs = new FakeDbSet<LichSuDuyTriLuongCb>("Id");
-            LichSuKhoaCans = new FakeDbSet<LichSuKhoaCan>("Id");
-            LichSuXetDuyetCapBacs = new FakeDbSet<LichSuXetDuyetCapBac>("Id");
-            LoaiBds = new FakeDbSet<LoaiBd>("MaLbds");
-            LoaiBieuMaus = new FakeDbSet<LoaiBieuMau>("MaLbm");
-            LoaiCongVans = new FakeDbSet<LoaiCongVan>("MaLcv");
-            LoaiCongVanDens = new FakeDbSet<LoaiCongVanDen>("MaLcv");
-            LoaiDas = new FakeDbSet<LoaiDa>("MaLoaiDa");
-            LoaiDuongs = new FakeDbSet<LoaiDuong>("MaLd");
-            LoaiGiaoDiches = new FakeDbSet<LoaiGiaoDich>("MaLgd");
-            LoaiHinhKds = new FakeDbSet<LoaiHinhKd>("MaLhkd");
-            LoaiTiens = new FakeDbSet<LoaiTien>("MaLoaiTien");
-            LttLichSuCapNhats = new FakeDbSet<LttLichSuCapNhat>("MaLs");
-            LtTyGias = new FakeDbSet<LtTyGia>("Id");
-            MailAccounts = new FakeDbSet<MailAccount>("Id");
-            MailAdminTemps = new FakeDbSet<MailAdminTemp>("Id");
-            MailBirthdayAutoes = new FakeDbSet<MailBirthdayAuto>("Id");
-            MailCategories = new FakeDbSet<MailCategory>("CateId");
-            MailConfigs = new FakeDbSet<MailConfig>("Id");
-            MailFields = new FakeDbSet<MailField>("Id");
-            MailFileAttaches = new FakeDbSet<MailFileAttach>("Id");
-            MailHistories = new FakeDbSet<MailHistory>("Id");
-            MailHistoryOpens = new FakeDbSet<MailHistoryOpen>("Id");
-            MailReceives = new FakeDbSet<MailReceive>("ReceId");
-            MailReceiveLists = new FakeDbSet<MailReceiveList>("ListId");
-            MailSendings = new FakeDbSet<MailSending>("SendId");
-            MailSendingLists = new FakeDbSet<MailSendingList>("Id");
-            MailSendingReceives = new FakeDbSet<MailSendingReceive>("Id");
-            MailSettings = new FakeDbSet<MailSetting>("Id");
-            MailTemplates = new FakeDbSet<MailTemplate>("TempId");
-            MapsDetails = new FakeDbSet<MapsDetail>("Id");
-            MapsIcons = new FakeDbSet<MapsIcon>("Id");
-            MapsItemTypes = new FakeDbSet<MapsItemType>("Id");
-            MapsLayers = new FakeDbSet<MapsLayer>("Id");
-            MapsLayerProviders = new FakeDbSet<MapsLayerProvider>("Id");
-            MapsMasters = new FakeDbSet<MapsMaster>("Id");
-            MapsTypes = new FakeDbSet<MapsType>("Id");
-            MauThieps = new FakeDbSet<MauThiep>("MaThiep");
-            MegaOrderInfoes = new FakeDbSet<MegaOrderInfo>("MerTrxId");
-            MglbcBanChoThues = new FakeDbSet<MglbcBanChoThue>("MaBc");
-            MglbcBieuMaus = new FakeDbSet<MglbcBieuMau>("Id");
-            MglbcNhatKyXuLies = new FakeDbSet<MglbcNhatKyXuLy>("Id");
-            MglbcTienIches = new FakeDbSet<MglbcTienIch>("Id");
-            MglbcTrangThais = new FakeDbSet<MglbcTrangThai>("MaTt");
-            MglBieuMaus = new FakeDbSet<MglBieuMau>("MaBm");
-            MglCapDoes = new FakeDbSet<MglCapDo>("MaCd");
-            MglDatCocs = new FakeDbSet<MglDatCoc>("MaDc");
-            MglDonViTinhs = new FakeDbSet<MglDonViTinh>("Id");
-            MglgdBieuMaus = new FakeDbSet<MglgdBieuMau>("Id");
-            MglgdGiaoDiches = new FakeDbSet<MglgdGiaoDich>("MaGd");
-            MglgdNhatKyXuLies = new FakeDbSet<MglgdNhatKyXuLy>("Id");
-            MglgdTrangThais = new FakeDbSet<MglgdTrangThai>("MaTt");
-            MglLichSus = new FakeDbSet<MglLichSu>("MaLs");
-            MglmtBieuMaus = new FakeDbSet<MglmtBieuMau>("Id");
-            MglmtHuongs = new FakeDbSet<MglmtHuong>("Id");
-            MglmtHuyens = new FakeDbSet<MglmtHuyen>("Id");
-            MglmtLoaiDuongs = new FakeDbSet<MglmtLoaiDuong>("Id");
-            MglmtMuaThues = new FakeDbSet<MglmtMuaThue>("MaMt");
-            MglmtNhatKyXuLies = new FakeDbSet<MglmtNhatKyXuLy>("Id");
-            MglmtPhapLies = new FakeDbSet<MglmtPhapLy>("Id");
-            MglmtTienIches = new FakeDbSet<MglmtTienIch>("Id");
-            MglmtTrangThais = new FakeDbSet<MglmtTrangThai>("MaTt");
-            MglNguons = new FakeDbSet<MglNguon>("MaNguon");
-            MglTinhTrangs = new FakeDbSet<MglTinhTrang>("MaTt");
-            Modules = new FakeDbSet<Module>("ModulId");
-            MucDoHoanThiens = new FakeDbSet<MucDoHoanThien>("Id");
-            NBannerAds = new FakeDbSet<NBannerAd>("Id");
-            NCateAutoPosts = new FakeDbSet<NCateAutoPost>("Id");
-            NCategories = new FakeDbSet<NCategory>("Id");
-            NCateProjects = new FakeDbSet<NCateProject>("CateId", "ProId");
-            NganHangs = new FakeDbSet<NganHang>("MaNh");
-            NgheNghieps = new FakeDbSet<NgheNghiep>("MaNn");
-            NguoiDaiDiens = new FakeDbSet<NguoiDaiDien>("MaNdd");
-            NguoiMoiGiois = new FakeDbSet<NguoiMoiGioi>("MaNmg");
-            NhanViens = new FakeDbSet<NhanVienSale>("MaNv");
-            NhanVienDaiLies = new FakeDbSet<NhanVienDaiLy>("MaNv");
-            NhanVienLichSus = new FakeDbSet<NhanVienLichSu>("Id");
-            NhanVienNhatKies = new FakeDbSet<NhanVienNhatKy>("Id");
-            NhatKyTruyCaps = new FakeDbSet<NhatKyTruyCap>("Id");
-            NhiemVus = new FakeDbSet<NhiemVu>("MaNVu");
-            NhiemVuLichSus = new FakeDbSet<NhiemVuLichSu>("MaNVu", "Stt");
-            NhiemVuLoais = new FakeDbSet<NhiemVuLoai>("MaLnv");
-            NhiemVuMucDoes = new FakeDbSet<NhiemVuMucDo>("MaMd");
-            NhiemVuNhanViens = new FakeDbSet<NhiemVuNhanVien>("MaNVu", "MaNv");
-            NhiemVuTienDoes = new FakeDbSet<NhiemVuTienDo>("MaTd");
-            NhiemVuTinhTrangs = new FakeDbSet<NhiemVuTinhTrang>("MaTt");
-            NhomKhs = new FakeDbSet<NhomKh>("MaNkh");
-            NhomKinhDoanhs = new FakeDbSet<NhomKinhDoanh>("MaNkd");
-            NMediaLibraries = new FakeDbSet<NMediaLibrary>("Id");
-            NNews = new FakeDbSet<NNew>("Id");
-            NNewsCates = new FakeDbSet<NNewsCate>("NewsId", "CateId");
-            NnghQuaTrinhs = new FakeDbSet<NnghQuaTrinh>("Id");
-            NnghTinhTrangs = new FakeDbSet<NnghTinhTrang>("MaTt");
-            NnGiaHans = new FakeDbSet<NnGiaHan>("Id");
-            NnLichThanhToans = new FakeDbSet<NnLichThanhToan>("Id");
-            NnNhacNoes = new FakeDbSet<NnNhacNo>("MaNn");
-            NoteHistories = new FakeDbSet<NoteHistory>("Id");
-            NoteTypes = new FakeDbSet<NoteType>("Id");
-            NotifyCates = new FakeDbSet<NotifyCate>("Id");
-            Notifycations = new FakeDbSet<Notifycation>("Id");
-            NotifyForms = new FakeDbSet<NotifyForm>("Id");
-            NotifyGroups = new FakeDbSet<NotifyGroup>("NotifyId", "GroupId");
-            NotifyPayments = new FakeDbSet<NotifyPayment>("Id");
-            NotifyRegisters = new FakeDbSet<NotifyRegister>("Id");
-            NotifyScreens = new FakeDbSet<NotifyScreen>("Id");
-            NotifySends = new FakeDbSet<NotifySend>("Id");
-            NotifySendTypes = new FakeDbSet<NotifySendType>("Id");
-            NotifySettings = new FakeDbSet<NotifySetting>("Id");
-            NotifySettingManagerGroups = new FakeDbSet<NotifySettingManagerGroup>("SetId", "GroupId");
-            NotifySettingSendTypes = new FakeDbSet<NotifySettingSendType>("SetId", "SendTypeId");
-            NotifySettingUsers = new FakeDbSet<NotifySettingUser>("Id");
-            NotifySocketSessions = new FakeDbSet<NotifySocketSession>("Id");
-            NotifyTypes = new FakeDbSet<NotifyType>("Id");
-            NotifyUsers = new FakeDbSet<NotifyUser>("Id");
-            NPhotoLibraries = new FakeDbSet<NPhotoLibrary>("Id");
-            NtchBanQuanLies = new FakeDbSet<NtchBanQuanLy>("Id");
-            NtchBanQuanLyNbs = new FakeDbSet<NtchBanQuanLyNb>("Id");
-            NtchDaiDienKhachHangs = new FakeDbSet<NtchDaiDienKhachHang>("Id");
-            NtchNghiemThuCanHoes = new FakeDbSet<NtchNghiemThuCanHo>("Id");
-            NtchNghiemThuLichSus = new FakeDbSet<NtchNghiemThuLichSu>("Id");
-            NtchToBanGiaos = new FakeDbSet<NtchToBanGiao>("Id");
-            NvFormActions = new FakeDbSet<NvFormAction>("Id");
-            NvLichSus = new FakeDbSet<NvLichSu>("Id");
-            NvNghiepVus = new FakeDbSet<NvNghiepVu>("MaNVu");
-            NvThaoTacs = new FakeDbSet<NvThaoTac>("Id");
-            OptionSchedules = new FakeDbSet<OptionSchedule>("KeyId");
-            PayOrderInfoes = new FakeDbSet<PayOrderInfo>("OrderId");
-            PbxExtensions = new FakeDbSet<PbxExtension>("Id");
-            PbxHistoryCalls = new FakeDbSet<PbxHistoryCall>("Id");
-            PbxSettings = new FakeDbSet<PbxSetting>("Id");
-            PdcChuyenNhuongs = new FakeDbSet<PdcChuyenNhuong>("MaPcn");
-            PdcPhieuDatCocs = new FakeDbSet<PdcPhieuDatCoc>("MaPdc");
-            PdcPhieuDoiCans = new FakeDbSet<PdcPhieuDoiCan>("Id");
-            PdcPhieuDoiCanLichSus = new FakeDbSet<PdcPhieuDoiCanLichSu>("Id");
-            PdcQuaTrinhThucHiens = new FakeDbSet<PdcQuaTrinhThucHien>("Id");
-            PdcThanhLies = new FakeDbSet<PdcThanhLy>("MaPdc");
-            PdcTinhTrangs = new FakeDbSet<PdcTinhTrang>("MaTt");
-            PdkgdHinhAnhs = new FakeDbSet<PdkgdHinhAnh>("MaGd", "Stt");
-            PdkgdQuaTrinhThucHiens = new FakeDbSet<PdkgdQuaTrinhThucHien>("MaGd", "Lan");
-            PdkgdTienIches = new FakeDbSet<PdkgdTienIch>("MaPgd", "MaTienIch");
-            PdkgdTinhTrangs = new FakeDbSet<PdkgdTinhTrang>("MaTt");
-            PdkGiaoDiches = new FakeDbSet<PdkGiaoDich>("MaGd");
-            PdkPhieuDangKies = new FakeDbSet<PdkPhieuDangKy>("MaPdk");
-            PdkQuaTrinhThucHiens = new FakeDbSet<PdkQuaTrinhThucHien>("MaPdk", "Lan");
-            Permissions = new FakeDbSet<Permission>("PerId");
-            PgcBangTinhLaiMuons = new FakeDbSet<PgcBangTinhLaiMuon>("Id");
-            PgcBieuMaus = new FakeDbSet<PgcBieuMau>("Id");
-            PgcbmThongTinKhacs = new FakeDbSet<PgcbmThongTinKhac>("Id");
-            PgcChinhSaches = new FakeDbSet<PgcChinhSach>("Id");
-            PgcChungs = new FakeDbSet<PgcChung>("Id");
-            PgcChungLichSus = new FakeDbSet<PgcChungLichSu>("Id");
-            PgcDoiSpLichSus = new FakeDbSet<PgcDoiSpLichSu>("Id");
-            PgcGiaTriTinhChietKhaus = new FakeDbSet<PgcGiaTriTinhChietKhau>("Id");
-            PgcHinhThucThanhToans = new FakeDbSet<PgcHinhThucThanhToan>("MaHt");
-            PgcKhachHangs = new FakeDbSet<PgcKhachHang>("Id");
-            PgcLichSuChotLais = new FakeDbSet<PgcLichSuChotLai>("Id");
-            PgcLichThanhToans = new FakeDbSet<PgcLichThanhToan>("Id");
-            PgcLoaiChietKhaus = new FakeDbSet<PgcLoaiChietKhau>("Id");
-            PgcLoaiPhieuThuChis = new FakeDbSet<PgcLoaiPhieuThuChi>("Id");
-            PgcNghiepVus = new FakeDbSet<PgcNghiepVu>("Id");
-            PgcNhacNoes = new FakeDbSet<PgcNhacNo>("MaNn");
-            PgcNhanViens = new FakeDbSet<PgcNhanVien>("Id");
-            PgcPhieuChis = new FakeDbSet<PgcPhieuChi>("MaPc");
-            PgcPhieuChiChiTiets = new FakeDbSet<PgcPhieuChiChiTiet>("Id");
-            PgcPhieuChiLichSus = new FakeDbSet<PgcPhieuChiLichSu>("Id");
-            PgcPhieuGiuChoes = new FakeDbSet<PgcPhieuGiuCho>("MaPgc");
-            PgcPhieuThanhToans = new FakeDbSet<PgcPhieuThanhToan>("MaPtt");
-            PgcPhieuThus = new FakeDbSet<PgcPhieuThu>("MaPt");
-            PgcPhieuThuChiTiets = new FakeDbSet<PgcPhieuThuChiTiet>("Id");
-            PgcPhieuThuLichSus = new FakeDbSet<PgcPhieuThuLichSu>("Id");
-            PgcPhieuXacNhans = new FakeDbSet<PgcPhieuXacNhan>("MaPxn");
-            PgcPromotions = new FakeDbSet<PgcPromotion>("Id");
-            PgcptHoaDons = new FakeDbSet<PgcptHoaDon>("Id");
-            PgcPttLoais = new FakeDbSet<PgcPttLoai>("Id");
-            PgcPxnLoais = new FakeDbSet<PgcPxnLoai>("Id");
-            PgcQuaTrinhThucHiens = new FakeDbSet<PgcQuaTrinhThucHien>("Id");
-            PgcThanhToanSoms = new FakeDbSet<PgcThanhToanSom>("Id");
-            PgcThanhToanSomDetails = new FakeDbSet<PgcThanhToanSomDetail>("Id");
-            PgcTinhTrangs = new FakeDbSet<PgcTinhTrang>("MaTt");
-            PgcTrangThaiThanhToans = new FakeDbSet<PgcTrangThaiThanhToan>("MaTttt");
-            PgcUyQuyens = new FakeDbSet<PgcUyQuyen>("MaUq");
-            PgcUyQuyenBieuMaus = new FakeDbSet<PgcUyQuyenBieuMau>("Id");
-            PgcUyQuyenLichSus = new FakeDbSet<PgcUyQuyenLichSu>("Id");
-            PgdNhatKyXuLies = new FakeDbSet<PgdNhatKyXuLy>("MaGd", "Stt");
-            PhanKhus = new FakeDbSet<PhanKhu>("MaPk");
-            PhapLies = new FakeDbSet<PhapLy>("MaPl");
-            PhongBans = new FakeDbSet<PhongBanSale>("MaPb");
-            PhuongHuongs = new FakeDbSet<PhuongHuong>("MaPhuongHuong");
-            PhuongThucThanhToans = new FakeDbSet<PhuongThucThanhToan>("MaPt");
-            PhuongThucXuLies = new FakeDbSet<PhuongThucXuLy>("MaPt");
-            PkgBieuMaus = new FakeDbSet<PkgBieuMau>("Id");
-            PkgPhieuKyGuis = new FakeDbSet<PkgPhieuKyGui>("MaPkg");
-            PkgQuaTrinhThucHiens = new FakeDbSet<PkgQuaTrinhThucHien>("Id");
-            PkgTinhTrangs = new FakeDbSet<PkgTinhTrang>("MaTt");
-            PlBieuMaus = new FakeDbSet<PlBieuMau>("Id");
-            PlChangeCustomers = new FakeDbSet<PlChangeCustomer>("Id");
-            PlChangeDongSoHuus = new FakeDbSet<PlChangeDongSoHuu>("Id");
-            PlLichThanhToans = new FakeDbSet<PlLichThanhToan>("Id");
-            PlLichThanhToanCus = new FakeDbSet<PlLichThanhToanCu>("Id");
-            PlLoaiPhuLucs = new FakeDbSet<PlLoaiPhuLuc>("Id");
-            PlPhuLucs = new FakeDbSet<PlPhuLuc>("Id");
-            PlPromotions = new FakeDbSet<PlPromotion>("Id");
-            PlPromotionOlds = new FakeDbSet<PlPromotionOld>("Id");
-            PlQuaTrinhThucHiens = new FakeDbSet<PlQuaTrinhThucHien>("Id");
-            PlTinhTrangs = new FakeDbSet<PlTinhTrang>("MaTt");
-            PpChiTiets = new FakeDbSet<PpChiTiet>("MaPp", "MaSp");
-            PpDaiLies = new FakeDbSet<PpDaiLy>("MaGh", "MaDl");
-            PpGioHangs = new FakeDbSet<PpGioHang>("Id");
-            PpPhanPhois = new FakeDbSet<PpPhanPhoi>("Id");
-            PpSanPhams = new FakeDbSet<PpSanPham>("MaGh", "MaSp");
-            ProductViewGenerals = new FakeDbSet<ProductViewGeneral>("Id");
-            PtgPaymentSchedules = new FakeDbSet<PtgPaymentSchedule>("Id");
-            PtgPhieuTinhGias = new FakeDbSet<PtgPhieuTinhGia>("Id");
-            PtgPromotions = new FakeDbSet<PtgPromotion>("Id");
-            PtgTemplates = new FakeDbSet<PtgTemplate>("Id");
-            PtPhongToas = new FakeDbSet<PtPhongToa>("MaSp", "MaHdmb", "Stt");
-            PtQttHiens = new FakeDbSet<PtQttHien>("KeyId");
-            PtTinhTrangs = new FakeDbSet<PtTinhTrang>("MaTt");
-            PxlChiTiets = new FakeDbSet<PxlChiTiet>("Id");
-            PxlPhieuXuLies = new FakeDbSet<PxlPhieuXuLy>("Id");
-            PxlTinhTrangs = new FakeDbSet<PxlTinhTrang>("MaTt");
-            QuanHes = new FakeDbSet<QuanHe>("MaQh");
-            QuocGias = new FakeDbSet<QuocGia>("MaQg");
-            QuyDanhs = new FakeDbSet<QuyDanh>("MaQd");
-            QuyTacDanhSoes = new FakeDbSet<QuyTacDanhSo>("MaQt");
-            ReportFeatures = new FakeDbSet<ReportFeature>("Id");
-            Rings = new FakeDbSet<Ring>("Id");
-            RoseHoaHongs = new FakeDbSet<RoseHoaHong>("Id");
-            RptGroups = new FakeDbSet<RptGroup>("Id");
-            RptReports = new FakeDbSet<RptReport>("Id");
-            RrRegisteredRevenues = new FakeDbSet<RrRegisteredRevenue>("Id");
-            RrRegisteredRevenueDepartments = new FakeDbSet<RrRegisteredRevenueDepartment>("Id");
-            RrRegisteredRevenueGroups = new FakeDbSet<RrRegisteredRevenueGroup>("Id");
-            RrRegisteredRevenueStaffs = new FakeDbSet<RrRegisteredRevenueStaff>("Id");
-            RrRegisteredRevenueStaffHistories = new FakeDbSet<RrRegisteredRevenueStaffHistory>("Id");
-            SendMails = new FakeDbSet<SendMail>("KeySend");
-            SetDefaults = new FakeDbSet<SetDefault>("SetId");
-            SetHappyBirthdays = new FakeDbSet<SetHappyBirthday>("SetId");
-            SettingIcons = new FakeDbSet<SettingIcon>("Id");
-            SetupProcedures = new FakeDbSet<SetupProcedure>("Id");
-            ShowDataBies = new FakeDbSet<ShowDataBy>("Sdbid");
-            SmsBieuMaus = new FakeDbSet<SmsBieuMau>("MaBm");
-            SmsBirthdayAutoes = new FakeDbSet<SmsBirthdayAuto>("Id");
-            SmsBrandnames = new FakeDbSet<SmsBrandname>("Id");
-            SmsCategories = new FakeDbSet<SmsCategory>("CateId");
-            SmsChoGuis = new FakeDbSet<SmsChoGui>("Id");
-            SmsFields = new FakeDbSet<SmsField>("Id");
-            SmsGroupReceives = new FakeDbSet<SmsGroupReceive>("GroupId");
-            SmsGroupReceiveSendings = new FakeDbSet<SmsGroupReceiveSending>("KeyId");
-            SmsHistories = new FakeDbSet<SmsHistory>("Id");
-            SmsListOfRecipients = new FakeDbSet<SmsListOfRecipient>("ListId");
-            SmsListWaitSendings = new FakeDbSet<SmsListWaitSending>("KeyId");
-            SmsNguoiNhans = new FakeDbSet<SmsNguoiNhan>("Id");
-            SmsNhomNhans = new FakeDbSet<SmsNhomNhan>("MaNn");
-            SmsPhanLoais = new FakeDbSet<SmsPhanLoai>("MaPl");
-            SmsSendings = new FakeDbSet<SmsSending>("SendId");
-            SmsTemplates = new FakeDbSet<SmsTemplate>("TempId");
-            SmsTinNhans = new FakeDbSet<SmsTinNhan>("MaTn");
-            SmsTinNhanNhomNhans = new FakeDbSet<SmsTinNhanNhomNhan>("Id");
-            SocialComments = new FakeDbSet<SocialComment>("Id");
-            SocialLikes = new FakeDbSet<SocialLike>("Id");
-            SocialMediaLibraries = new FakeDbSet<SocialMediaLibrary>("Id");
-            SocialPosts = new FakeDbSet<SocialPost>("Id");
-            SocialShares = new FakeDbSet<SocialShare>("Id");
-            SoTaiKhoans = new FakeDbSet<SoTaiKhoan>("Id");
-            SqCompareRoses = new FakeDbSet<SqCompareRose>("Id");
-            SqExpens = new FakeDbSet<SqExpens>("Id");
-            StaffCustomers = new FakeDbSet<StaffCustomer>("StaffId", "CustomerId");
-            SyncHistories = new FakeDbSet<SyncHistory>("Id");
-            SystemsHistories = new FakeDbSet<SystemsHistory>("Id");
-            TaiKhoans = new FakeDbSet<TaiKhoan>("Id");
-            TblConfigs = new FakeDbSet<TblConfig>("Id");
-            TgTargets = new FakeDbSet<TgTarget>("Id");
-            ThoiDiemLienHes = new FakeDbSet<ThoiDiemLienHe>("MaTdlh");
-            TienIches = new FakeDbSet<TienIch>("MaTienIch");
-            Times = new FakeDbSet<Time>("TimeId");
-            Tinhs = new FakeDbSet<Tinh>("MaTinh");
-            TinhMaps = new FakeDbSet<TinhMap>("MaTinh");
-            TlbhQuaTrinhThucHiens = new FakeDbSet<TlbhQuaTrinhThucHien>("Id");
-            TlbhThanhLies = new FakeDbSet<TlbhThanhLy>("MaTl");
-            TlbhTrangThais = new FakeDbSet<TlbhTrangThai>("MaTt");
-            TlDinhMucHoaHongs = new FakeDbSet<TlDinhMucHoaHong>("MaDm");
-            TqdaDangKies = new FakeDbSet<TqdaDangKy>("Id");
-            TqdaNhatKies = new FakeDbSet<TqdaNhatKy>("Id");
-            TTransactions = new FakeDbSet<TTransaction>("Id");
-            TypeAreas = new FakeDbSet<TypeArea>("Id");
-            Users = new FakeDbSet<User>("UserId");
-            UsersOpenIds = new FakeDbSet<UsersOpenId>("OpenId", "OpenIdType");
-            VvbhHopDongs = new FakeDbSet<VvbhHopDong>("MaHdvv");
-            VvbhLichThanhToans = new FakeDbSet<VvbhLichThanhToan>("Id");
-            VvbhPromotions = new FakeDbSet<VvbhPromotion>("Id");
-            VvbhQuaTrinhThucHiens = new FakeDbSet<VvbhQuaTrinhThucHien>("Id");
-            VvbhTrangThais = new FakeDbSet<VvbhTrangThai>("MaTt");
-            WdCategories = new FakeDbSet<WdCategory>("Id");
-            WdFormActions = new FakeDbSet<WdFormAction>("Id");
-            WdReportMailSents = new FakeDbSet<WdReportMailSent>("Id");
-            WdTempSendMails = new FakeDbSet<WdTempSendMail>("Id");
-            WdTempSendNotifies = new FakeDbSet<WdTempSendNotify>("Id");
-            WorkDailies = new FakeDbSet<WorkDaily>("Id");
-            WorkTransations = new FakeDbSet<WorkTransation>("Id");
-            Xas = new FakeDbSet<Xa>("MaXa");
-            XacNhanChuyenNhuongs = new FakeDbSet<XacNhanChuyenNhuong>("MaXncn");
-
-        }
-
-        public int SaveChangesCount { get; private set; }
-        public virtual int SaveChanges()
-        {
-            ++SaveChangesCount;
-            return 1;
-        }
-
-        public virtual int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            return SaveChanges();
-        }
-
-        public virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            ++SaveChangesCount;
-            return Task<int>.Factory.StartNew(() => 1, cancellationToken);
-        }
-        public virtual Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-        {
-            ++SaveChangesCount;
-            return Task<int>.Factory.StartNew(x => 1, acceptAllChangesOnSuccess, cancellationToken);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-
-        private DatabaseFacade _database;
-        public DatabaseFacade Database { get { return _database; } }
-
-        public DbSet<TEntity> Set<TEntity>() where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry Add(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Task AddRangeAsync(params object[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual async Task AddRangeAsync(IEnumerable<object> entities, CancellationToken cancellationToken = default)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        public virtual async ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : class
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        public virtual async ValueTask<EntityEntry> AddAsync(object entity, CancellationToken cancellationToken = default)
-        {
-            await Task.CompletedTask;
-            throw new NotImplementedException();
-        }
-
-        public virtual void AddRange(IEnumerable<object> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void AddRange(params object[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry Attach(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void AttachRange(IEnumerable<object> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void AttachRange(params object[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry Entry(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual TEntity Find<TEntity>(params object[] keyValues) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual ValueTask<TEntity> FindAsync<TEntity>(object[] keyValues, CancellationToken cancellationToken) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual ValueTask<TEntity> FindAsync<TEntity>(params object[] keyValues) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual ValueTask<object> FindAsync(Type entityType, object[] keyValues, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual ValueTask<object> FindAsync(Type entityType, params object[] keyValues)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual object Find(Type entityType, params object[] keyValues)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry Remove(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry<TEntity> Remove<TEntity>(TEntity entity) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void RemoveRange(IEnumerable<object> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void RemoveRange(params object[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry Update(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual EntityEntry<TEntity> Update<TEntity>(TEntity entity) where TEntity : class
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void UpdateRange(IEnumerable<object> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual void UpdateRange(params object[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-    }
-
-    #endregion
-
-    #region Fake DbSet
-
-    // ************************************************************************
-    // Fake DbSet
-    // Implementing Find:
-    //      The Find method is difficult to implement in a generic fashion. If
-    //      you need to test code that makes use of the Find method it is
-    //      easiest to create a test DbSet for each of the entity types that
-    //      need to support find. You can then write logic to find that
-    //      particular type of entity, as shown below:
-    //      public class FakeBlogDbSet : FakeDbSet<Blog>
-    //      {
-    //          public override Blog Find(params object[] keyValues)
-    //          {
-    //              var id = (int) keyValues.Single();
-    //              return this.SingleOrDefault(b => b.BlogId == id);
-    //          }
-    //      }
-    //      Read more about it here: https://msdn.microsoft.com/en-us/data/dn314431.aspx
-    public class FakeDbSet<TEntity> : DbSet<TEntity>, IQueryable<TEntity>, IAsyncEnumerable<TEntity>, IListSource where TEntity : class
-    {
-        private readonly PropertyInfo[] _primaryKeys;
-        private readonly ObservableCollection<TEntity> _data;
-        private readonly IQueryable _query;
-
-        public FakeDbSet()
-        {
-            _primaryKeys = null;
-            _data        = new ObservableCollection<TEntity>();
-            _query       = _data.AsQueryable();
-        }
-
-        public FakeDbSet(params string[] primaryKeys)
-        {
-            _primaryKeys = typeof(TEntity).GetProperties().Where(x => primaryKeys.Contains(x.Name)).ToArray();
-            _data        = new ObservableCollection<TEntity>();
-            _query       = _data.AsQueryable();
-        }
-
-        public override TEntity Find(params object[] keyValues)
-        {
-            if (_primaryKeys == null)
-                throw new ArgumentException("No primary keys defined");
-            if (keyValues.Length != _primaryKeys.Length)
-                throw new ArgumentException("Incorrect number of keys passed to Find method");
-
-            var keyQuery = this.AsQueryable();
-            keyQuery = keyValues
-                .Select((t, i) => i)
-                .Aggregate(keyQuery,
-                    (current, x) =>
-                        current.Where(entity => _primaryKeys[x].GetValue(entity, null).Equals(keyValues[x])));
-
-            return keyQuery.SingleOrDefault();
-        }
-
-        public override ValueTask<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken)
-        {
-            return new ValueTask<TEntity>(Task<TEntity>.Factory.StartNew(() => Find(keyValues), cancellationToken));
-        }
-
-        public override ValueTask<TEntity> FindAsync(params object[] keyValues)
-        {
-            return new ValueTask<TEntity>(Task<TEntity>.Factory.StartNew(() => Find(keyValues)));
-        }
-
-        IAsyncEnumerator<TEntity> IAsyncEnumerable<TEntity>.GetAsyncEnumerator(CancellationToken cancellationToken)
-        {
-            return GetAsyncEnumerator(cancellationToken);
-        }
-
-        public override EntityEntry<TEntity> Add(TEntity entity)
-        {
-            _data.Add(entity);
-            return null;
-        }
-
-        public override ValueTask<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
-        {
-            return new ValueTask<EntityEntry<TEntity>>(Task<EntityEntry<TEntity>>.Factory.StartNew(() => Add(entity)));
-        }
-
-        public override void AddRange(params TEntity[] entities)
-        {
-            if (entities == null) throw new ArgumentNullException("entities");
-            foreach (var entity in entities.ToList())
-                _data.Add(entity);
-        }
-
-        public override void AddRange(IEnumerable<TEntity> entities)
-        {
-            AddRange(entities.ToArray());
-        }
-
-        public override Task AddRangeAsync(params TEntity[] entities)
-        {
-            if (entities == null) throw new ArgumentNullException("entities");
-            return Task.Factory.StartNew(() => AddRange(entities));
-        }
-
-        public override Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-        {
-            if (entities == null) throw new ArgumentNullException("entities");
-            return Task.Factory.StartNew(() => AddRange(entities));
-        }
-
-        public override void AttachRange(IEnumerable<TEntity> entities)
-        {
-            AddRange(entities.ToArray());
-        }
-
-        public override void AttachRange(params TEntity[] entities)
-        {
-            if (entities == null) throw new ArgumentNullException("entities");
-            AddRange(entities);
-        }
-
-        public override EntityEntry<TEntity> Remove(TEntity entity)
-        {
-            _data.Remove(entity);
-            return null;
-        }
-
-        public override void RemoveRange(params TEntity[] entities)
-        {
-            if (entities == null) throw new ArgumentNullException("entities");
-            foreach (var entity in entities.ToList())
-                _data.Remove(entity);
-        }
-
-        public override void RemoveRange(IEnumerable<TEntity> entities)
-        {
-            RemoveRange(entities.ToArray());
-        }
-
-        public override EntityEntry<TEntity> Update(TEntity entity)
-        {
-            _data.Remove(entity);
-            _data.Add(entity);
-            return null;
-        }
-
-        public override void UpdateRange(IEnumerable<TEntity> entities)    {
-            UpdateRange(entities.ToArray());
-        }
-
-        public override void UpdateRange(params TEntity[] entities)
-        {
-            if (entities == null) throw new ArgumentNullException("entities");
-            RemoveRange(entities);
-            AddRange(entities);
-        }
-
-        public IList GetList()
-        {
-            return _data;
-        }
-
-        IList IListSource.GetList()
-        {
-            return _data;
-        }
-
-        Type IQueryable.ElementType
-        {
-            get { return _query.ElementType; }
-        }
-
-        Expression IQueryable.Expression
-        {
-            get { return _query.Expression; }
-        }
-
-        IQueryProvider IQueryable.Provider
-        {
-            get { return new FakeDbAsyncQueryProvider<TEntity>(_data); }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _data.GetEnumerator();
-        }
-
-        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
-        {
-            return _data.GetEnumerator();
-        }
-
-        IAsyncEnumerator<TEntity> GetAsyncEnumerator(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return new FakeDbAsyncEnumerator<TEntity>(this.AsEnumerable().GetEnumerator());
-        }
-    }
-
-    public class FakeDbAsyncQueryProvider<TEntity> : FakeQueryProvider<TEntity>, IAsyncEnumerable<TEntity>, IAsyncQueryProvider
-    {
-        public FakeDbAsyncQueryProvider(Expression expression) : base(expression)
-        {
-        }
-
-        public FakeDbAsyncQueryProvider(IEnumerable<TEntity> enumerable) : base(enumerable)
-        {
-        }
-
-        public TResult ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
-        {
-            var expectedResultType = typeof(TResult).GetGenericArguments()[0];
-            var executionResult = typeof(IQueryProvider)
-                .GetMethods()
-                .First(method => method.Name == nameof(IQueryProvider.Execute) && method.IsGenericMethod)
-                .MakeGenericMethod(expectedResultType)
-                .Invoke(this, new object[] { expression });
-
-            return (TResult) typeof(Task).GetMethod(nameof(Task.FromResult))
-                ?.MakeGenericMethod(expectedResultType)
-                .Invoke(null, new[] { executionResult });
-        }
-
-        public IAsyncEnumerator<TEntity> GetAsyncEnumerator(CancellationToken cancellationToken = default)
-        {
-            return new FakeDbAsyncEnumerator<TEntity>(this.AsEnumerable().GetEnumerator());
-        }
-    }
-
-    public class FakeDbAsyncEnumerable<T> : EnumerableQuery<T>, IAsyncEnumerable<T>, IQueryable<T>
-    {
-        public FakeDbAsyncEnumerable(IEnumerable<T> enumerable)
-            : base(enumerable)
-        {
-        }
-
-        public FakeDbAsyncEnumerable(Expression expression)
-            : base(expression)
-        {
-        }
-
-        public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = new CancellationToken())
-        {
-            return new FakeDbAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
-        }
-
-        IAsyncEnumerator<T> IAsyncEnumerable<T>.GetAsyncEnumerator(CancellationToken cancellationToken)
-        {
-            return GetAsyncEnumerator(cancellationToken);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.AsEnumerable().GetEnumerator();
-        }
-    }
-
-    public class FakeDbAsyncEnumerator<T> : IAsyncEnumerator<T>
-    {
-        private readonly IEnumerator<T> _inner;
-
-        public FakeDbAsyncEnumerator(IEnumerator<T> inner)
-        {
-            _inner = inner;
-        }
-
-        public T Current
-        {
-            get { return _inner.Current; }
-        }
-        public ValueTask<bool> MoveNextAsync()
-        {
-            return new ValueTask<bool>(_inner.MoveNext());
-        }
-
-        public ValueTask DisposeAsync()
-        {
-            _inner.Dispose();
-            return new ValueTask(Task.CompletedTask);
-        }
-    }
-
-    public abstract class FakeQueryProvider<T> : IOrderedQueryable<T>, IQueryProvider
-    {
-        private IEnumerable<T> _enumerable;
-
-        protected FakeQueryProvider(Expression expression)
-        {
-            Expression = expression;
-        }
-
-        protected FakeQueryProvider(IEnumerable<T> enumerable)
-        {
-            _enumerable = enumerable;
-            Expression = enumerable.AsQueryable().Expression;
-        }
-
-        public IQueryable CreateQuery(Expression expression)
-        {
-            if (expression is MethodCallExpression m)
-            {
-                var resultType = m.Method.ReturnType; // it should be IQueryable<T>
-                var tElement = resultType.GetGenericArguments().First();
-                return (IQueryable) CreateInstance(tElement, expression);
-            }
-
-            return CreateQuery<T>(expression);
-        }
-
-        public IQueryable<TEntity> CreateQuery<TEntity>(Expression expression)
-        {
-            return (IQueryable<TEntity>) CreateInstance(typeof(TEntity), expression);
-        }
-
-        private object CreateInstance(Type tElement, Expression expression)
-        {
-            var queryType = GetType().GetGenericTypeDefinition().MakeGenericType(tElement);
-            return Activator.CreateInstance(queryType, expression);
-        }
-
-        public object Execute(Expression expression)
-        {
-            return CompileExpressionItem<object>(expression);
-        }
-
-        public TResult Execute<TResult>(Expression expression)
-        {
-            return CompileExpressionItem<TResult>(expression);
-        }
-
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
-        {
-            if (_enumerable == null) _enumerable = CompileExpressionItem<IEnumerable<T>>(Expression);
-            return _enumerable.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            if (_enumerable == null) _enumerable = CompileExpressionItem<IEnumerable<T>>(Expression);
-            return _enumerable.GetEnumerator();
-        }
-
-        public Type ElementType => typeof(T);
-
-        public Expression Expression { get; }
-
-        public IQueryProvider Provider => this;
-
-        private static TResult CompileExpressionItem<TResult>(Expression expression)
-        {
-            var visitor = new FakeExpressionVisitor();
-            var body = visitor.Visit(expression);
-            var f = Expression.Lambda<Func<TResult>>(body ?? throw new InvalidOperationException(string.Format("{0} is null", nameof(body))), (IEnumerable<ParameterExpression>) null);
-            return f.Compile()();
-        }
-    }
-
-    public class FakeExpressionVisitor : ExpressionVisitor
-    {
-    }
-
-    #endregion
-
     #region POCO classes
 
     // ****************************************************************************************************
@@ -3891,19 +2086,19 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Agent].([StaffCreate]) (FK_Agent_NhanVienCreate)
+        /// Parent NhanVien pointed by [Agent].([StaffCreate]) (FK_Agent_NhanVienCreate)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffCreate { get; set; } // FK_Agent_NhanVienCreate
+        public virtual NhanVien NhanVien_StaffCreate { get; set; } // FK_Agent_NhanVienCreate
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Agent].([StaffModify]) (FK_Agent_NhanVienModify)
+        /// Parent NhanVien pointed by [Agent].([StaffModify]) (FK_Agent_NhanVienModify)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffModify { get; set; } // FK_Agent_NhanVienModify
+        public virtual NhanVien NhanVien_StaffModify { get; set; } // FK_Agent_NhanVienModify
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Agent].([StaffId]) (FK_Agent_NhanVien)
+        /// Parent NhanVien pointed by [Agent].([StaffId]) (FK_Agent_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_Agent_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_Agent_NhanVien
 
         public Agent()
         {
@@ -3927,9 +2122,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [alAlert].([UserId]) (FK_alAlert_NhanVien)
+        /// Parent NhanVien pointed by [alAlert].([UserId]) (FK_alAlert_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_alAlert_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_alAlert_NhanVien
     }
 
     // aStaff
@@ -4211,14 +2406,14 @@ namespace Hpl.HrmDatabase
         public virtual BdsSanPham BdsSanPham { get; set; } // FK_bdsChuyenQuyen_bdsSanPham
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsChuyenQuyen].([MaNv]) (FK_bdsChuyenQuyen_NhanVien1)
+        /// Parent NhanVien pointed by [bdsChuyenQuyen].([MaNv]) (FK_bdsChuyenQuyen_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bdsChuyenQuyen_NhanVien1
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bdsChuyenQuyen_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsChuyenQuyen].([MaNvkd]) (FK_bdsChuyenQuyen_NhanVien)
+        /// Parent NhanVien pointed by [bdsChuyenQuyen].([MaNvkd]) (FK_bdsChuyenQuyen_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_bdsChuyenQuyen_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_bdsChuyenQuyen_NhanVien
     }
 
     // bdsCoordinates
@@ -4385,9 +2580,9 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_bdsGCNQSDDBieuMau_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDBieuMau].([MaNvn]) (FK_bdsGCNQSDDBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [bdsGCNQSDDBieuMau].([MaNvn]) (FK_bdsGCNQSDDBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bdsGCNQSDDBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bdsGCNQSDDBieuMau_NhanVien
     }
 
     // bdsGCNQSDDCaiDatHoSo
@@ -4424,14 +2619,14 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_bdsGCNQSDDCaiDatHoSo_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDCaiDatHoSo].([MaNvn]) (FK_bdsGCNQSDDCaiDatHoSo_NhanVien)
+        /// Parent NhanVien pointed by [bdsGCNQSDDCaiDatHoSo].([MaNvn]) (FK_bdsGCNQSDDCaiDatHoSo_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_bdsGCNQSDDCaiDatHoSo_NhanVien
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_bdsGCNQSDDCaiDatHoSo_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDCaiDatHoSo].([MaNvs]) (FK_bdsGCNQSDDCaiDatHoSo_NhanVien1)
+        /// Parent NhanVien pointed by [bdsGCNQSDDCaiDatHoSo].([MaNvs]) (FK_bdsGCNQSDDCaiDatHoSo_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_bdsGCNQSDDCaiDatHoSo_NhanVien1
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_bdsGCNQSDDCaiDatHoSo_NhanVien1
 
         public BdsGcnqsddCaiDatHoSo()
         {
@@ -4481,9 +2676,9 @@ namespace Hpl.HrmDatabase
         public virtual BdsGcnqsdd BdsGcnqsdd { get; set; } // FK_bdsGCNQSDDHoSo_bdsGCNQSDD1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDHoSo].([MaNvcn]) (FK_bdsGCNQSDDHoSoLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bdsGCNQSDDHoSo].([MaNvcn]) (FK_bdsGCNQSDDHoSoLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bdsGCNQSDDHoSoLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bdsGCNQSDDHoSoLichSu_NhanVien
     }
 
     // bdsGCNQSDDLichSu
@@ -4509,9 +2704,9 @@ namespace Hpl.HrmDatabase
         public virtual BdsGcnqsddTrangThai BdsGcnqsddTrangThai { get; set; } // FK_bdsGCNQSDDLichSu_bdsGCNQSDDTrangThai
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDLichSu].([MaNv]) (FK_bdsGCNQSDDLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bdsGCNQSDDLichSu].([MaNv]) (FK_bdsGCNQSDDLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bdsGCNQSDDLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bdsGCNQSDDLichSu_NhanVien
     }
 
     // bdsGCNQSDDThongBao
@@ -4565,14 +2760,14 @@ namespace Hpl.HrmDatabase
         public virtual MailTemplate MailTemplate { get; set; } // FK_bdsGCNQSDDThongBao_mailTemplates
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDThongBao].([MaNvcn]) (FK_bdsGCNQSDDThongBao_NhanVien1)
+        /// Parent NhanVien pointed by [bdsGCNQSDDThongBao].([MaNvcn]) (FK_bdsGCNQSDDThongBao_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bdsGCNQSDDThongBao_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bdsGCNQSDDThongBao_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsGCNQSDDThongBao].([MaNvt]) (FK_bdsGCNQSDDThongBao_NhanVien)
+        /// Parent NhanVien pointed by [bdsGCNQSDDThongBao].([MaNvt]) (FK_bdsGCNQSDDThongBao_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvt { get; set; } // FK_bdsGCNQSDDThongBao_NhanVien
+        public virtual NhanVien NhanVien_MaNvt { get; set; } // FK_bdsGCNQSDDThongBao_NhanVien
     }
 
     // bdsGCNQSDDTrangThai
@@ -4658,9 +2853,9 @@ namespace Hpl.HrmDatabase
         public virtual BdsSanPham BdsSanPham { get; set; } // FK_bdsHistory_bdsSanPham
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsHistory].([StaffId]) (FK_bdsHistory_NhanVien)
+        /// Parent NhanVien pointed by [bdsHistory].([StaffId]) (FK_bdsHistory_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bdsHistory_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bdsHistory_NhanVien
     }
 
     // bdsHistoryStatus
@@ -4698,9 +2893,9 @@ namespace Hpl.HrmDatabase
         public virtual BdsSanPham BdsSanPham { get; set; } // FK_bdsLichSuCapNhat_bdsSanPham
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsLichSuCapNhat].([MaNv]) (FK_bdsLichSuCapNhat_NhanVien)
+        /// Parent NhanVien pointed by [bdsLichSuCapNhat].([MaNv]) (FK_bdsLichSuCapNhat_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bdsLichSuCapNhat_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bdsLichSuCapNhat_NhanVien
     }
 
     // bdsLKMHinhAnh
@@ -4793,14 +2988,14 @@ namespace Hpl.HrmDatabase
         public virtual Khu Khu { get; set; } // FK_bdsLoaiKieuMau_Khu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsLoaiKieuMau].([MaNv]) (FK_bdsLoaiKieuMau_NhanVien)
+        /// Parent NhanVien pointed by [bdsLoaiKieuMau].([MaNv]) (FK_bdsLoaiKieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bdsLoaiKieuMau_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bdsLoaiKieuMau_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsLoaiKieuMau].([MaNvcn]) (FK_bdsLoaiKieuMau_NhanVien1)
+        /// Parent NhanVien pointed by [bdsLoaiKieuMau].([MaNvcn]) (FK_bdsLoaiKieuMau_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bdsLoaiKieuMau_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bdsLoaiKieuMau_NhanVien1
 
         public BdsLoaiKieuMau()
         {
@@ -5113,14 +3308,14 @@ namespace Hpl.HrmDatabase
         public virtual LoaiTien LoaiTien { get; set; } // FK_bdsSanPham_LoaiTien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsSanPham].([MaNvkd]) (FK_bdsSanPham_NhanVien)
+        /// Parent NhanVien pointed by [bdsSanPham].([MaNvkd]) (FK_bdsSanPham_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_bdsSanPham_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_bdsSanPham_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bdsSanPham].([MaNvkt]) (FK_bdsSanPham_NhanVien1)
+        /// Parent NhanVien pointed by [bdsSanPham].([MaNvkt]) (FK_bdsSanPham_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkt { get; set; } // FK_bdsSanPham_NhanVien1
+        public virtual NhanVien NhanVien_MaNvkt { get; set; } // FK_bdsSanPham_NhanVien1
 
         /// <summary>
         /// Parent PhanKhu pointed by [bdsSanPham].([MaPk]) (FK_bdsSanPham_PhanKhu)
@@ -5334,9 +3529,9 @@ namespace Hpl.HrmDatabase
         public virtual BgQuyBanGiao BgQuyBanGiao { get; set; } // FK_bgbhBanGiao_bgQuyBanGiao
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBanGiao].([MaNv]) (FK_bgbhBanGiao_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBanGiao].([MaNv]) (FK_bgbhBanGiao_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhBanGiao_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhBanGiao_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [bgbhBanGiao].([MaBg]) (FK_bgbhBanGiao_pgcPhieuGiuCho)
@@ -5386,14 +3581,14 @@ namespace Hpl.HrmDatabase
         public virtual BgbhBanGiao BgbhBanGiao { get; set; } // FK_bgbhBienBanChotChiSo_bgbhBanGiao
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBienBanChotChiSo].([MaNv]) (FK_bgbhBienBanChotChiSo_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBienBanChotChiSo].([MaNv]) (FK_bgbhBienBanChotChiSo_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bgbhBienBanChotChiSo_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bgbhBienBanChotChiSo_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBienBanChotChiSo].([MaNvcn]) (FK_bgbhBienBanChotChiSo_NhanVien1)
+        /// Parent NhanVien pointed by [bgbhBienBanChotChiSo].([MaNvcn]) (FK_bgbhBienBanChotChiSo_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bgbhBienBanChotChiSo_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bgbhBienBanChotChiSo_NhanVien1
 
         public BgbhBienBanChotChiSo()
         {
@@ -5439,9 +3634,9 @@ namespace Hpl.HrmDatabase
         public virtual BgbhBienBanChotChiSo BgbhBienBanChotChiSo { get; set; } // FK_bgbhBienBanChotChiSoLichSu_bgbhBienBanChotChiSo
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBienBanChotChiSoLichSu].([MaNv]) (FK_bgbhBienBanChotChiSoLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBienBanChotChiSoLichSu].([MaNv]) (FK_bgbhBienBanChotChiSoLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhBienBanChotChiSoLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhBienBanChotChiSoLichSu_NhanVien
     }
 
     // bgbhBienBanKiemTra
@@ -5478,14 +3673,14 @@ namespace Hpl.HrmDatabase
         public virtual BgbhBanGiao BgbhBanGiao { get; set; } // FK_bgbhBienBanKiemTra_bgbhBanGiao
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBienBanKiemTra].([MaNv]) (FK_bgbhBienBanKiemTra_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBienBanKiemTra].([MaNv]) (FK_bgbhBienBanKiemTra_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bgbhBienBanKiemTra_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bgbhBienBanKiemTra_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBienBanKiemTra].([MaNvcn]) (FK_bgbhBienBanKiemTra_NhanVien1)
+        /// Parent NhanVien pointed by [bgbhBienBanKiemTra].([MaNvcn]) (FK_bgbhBienBanKiemTra_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bgbhBienBanKiemTra_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bgbhBienBanKiemTra_NhanVien1
 
         public BgbhBienBanKiemTra()
         {
@@ -5512,9 +3707,9 @@ namespace Hpl.HrmDatabase
         public virtual BgbhBienBanKiemTra BgbhBienBanKiemTra { get; set; } // FK_bgbhBienBanKiemTraLichSu_bgbhBienBanKiemTra
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBienBanKiemTraLichSu].([MaNv]) (FK_bgbhBienBanKiemTraLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBienBanKiemTraLichSu].([MaNv]) (FK_bgbhBienBanKiemTraLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhBienBanKiemTraLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhBienBanKiemTraLichSu_NhanVien
     }
 
     // bgbhBoChiaKhoa
@@ -5551,14 +3746,14 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_bgbhBoChiaKhoa_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBoChiaKhoa].([MaNv]) (FK_bgbhBoChiaKhoa_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBoChiaKhoa].([MaNv]) (FK_bgbhBoChiaKhoa_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bgbhBoChiaKhoa_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bgbhBoChiaKhoa_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBoChiaKhoa].([MaNvcn]) (FK_bgbhBoChiaKhoa_NhanVien1)
+        /// Parent NhanVien pointed by [bgbhBoChiaKhoa].([MaNvcn]) (FK_bgbhBoChiaKhoa_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bgbhBoChiaKhoa_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bgbhBoChiaKhoa_NhanVien1
 
         public BgbhBoChiaKhoa()
         {
@@ -5632,14 +3827,14 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_bgbhBoTaiLieu_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBoTaiLieu].([MaNv]) (FK_bgbhBoTaiLieu_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBoTaiLieu].([MaNv]) (FK_bgbhBoTaiLieu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bgbhBoTaiLieu_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bgbhBoTaiLieu_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBoTaiLieu].([MaNvcn]) (FK_bgbhBoTaiLieu_NhanVien1)
+        /// Parent NhanVien pointed by [bgbhBoTaiLieu].([MaNvcn]) (FK_bgbhBoTaiLieu_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bgbhBoTaiLieu_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bgbhBoTaiLieu_NhanVien1
 
         public BgbhBoTaiLieu()
         {
@@ -5667,9 +3862,9 @@ namespace Hpl.HrmDatabase
         public virtual BgbhBoTaiLieu BgbhBoTaiLieu { get; set; } // FK_bgbhBoTaiLieuLichSu_bgbhBoTaiLieu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhBoTaiLieuLichSu].([MaNv]) (FK_bgbhBoTaiLieuLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bgbhBoTaiLieuLichSu].([MaNv]) (FK_bgbhBoTaiLieuLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhBoTaiLieuLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhBoTaiLieuLichSu_NhanVien
     }
 
     // bgbhChiaKhoa
@@ -5788,9 +3983,9 @@ namespace Hpl.HrmDatabase
         public virtual BgbhTrangThai BgbhTrangThai { get; set; } // FK_bgbhQuaTrinhThucHien_bgbhTrangThai
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhQuaTrinhThucHien].([MaNv]) (FK_bgbhQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [bgbhQuaTrinhThucHien].([MaNv]) (FK_bgbhQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhQuaTrinhThucHien_NhanVien
     }
 
     // bgbhTaiLieu
@@ -5872,9 +4067,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_bgbhThongBao_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhThongBao].([MaNv]) (FK_bgbhThongBao_NhanVien)
+        /// Parent NhanVien pointed by [bgbhThongBao].([MaNv]) (FK_bgbhThongBao_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhThongBao_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhThongBao_NhanVien
 
         public BgbhThongBao()
         {
@@ -5902,9 +4097,9 @@ namespace Hpl.HrmDatabase
         public virtual BgbhThongBao BgbhThongBao { get; set; } // FK_bgbhThongBaoLichSu_bgbhThongBao
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhThongBaoLichSu].([MaNv]) (FK_bgbhThongBaoLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bgbhThongBaoLichSu].([MaNv]) (FK_bgbhThongBaoLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhThongBaoLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhThongBaoLichSu_NhanVien
 
         public BgbhThongBaoLichSu()
         {
@@ -5934,9 +4129,9 @@ namespace Hpl.HrmDatabase
         public virtual BgbhThongBao BgbhThongBao { get; set; } // FK_bgbhThongBaoXacNhan_bgbhThongBao
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgbhThongBaoXacNhan].([MaNv]) (FK_bgbhThongBaoXacNhan_NhanVien)
+        /// Parent NhanVien pointed by [bgbhThongBaoXacNhan].([MaNv]) (FK_bgbhThongBaoXacNhan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgbhThongBaoXacNhan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgbhThongBaoXacNhan_NhanVien
     }
 
     // bgbhTrangThai
@@ -5987,9 +4182,9 @@ namespace Hpl.HrmDatabase
         public virtual BgQuyBanGiao BgQuyBanGiao { get; set; } // FK_bgQBGLichSu_bgQuyBanGiao
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgQBGLichSu].([MaNvcn]) (FK_bgQBGLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bgQBGLichSu].([MaNvcn]) (FK_bgQBGLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bgQBGLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bgQBGLichSu_NhanVien
     }
 
     // bgQBGTrangThai
@@ -6068,14 +4263,14 @@ namespace Hpl.HrmDatabase
         public virtual HopDongMuaBan HopDongMuaBan { get; set; } // FK_bgQuyBanGiao_HopDongMuaBan
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgQuyBanGiao].([MaNv]) (FK_bgQuyBanGiao_NhanVien)
+        /// Parent NhanVien pointed by [bgQuyBanGiao].([MaNv]) (FK_bgQuyBanGiao_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bgQuyBanGiao_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bgQuyBanGiao_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bgQuyBanGiao].([MaNvcn]) (FK_bgQuyBanGiao_NhanVien1)
+        /// Parent NhanVien pointed by [bgQuyBanGiao].([MaNvcn]) (FK_bgQuyBanGiao_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bgQuyBanGiao_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bgQuyBanGiao_NhanVien1
 
         /// <summary>
         /// Parent NtchNghiemThuCanHo pointed by [bgQuyBanGiao].([MaNtkh]) (FK_bgQuyBanGiao_ntchNghiemThuCanHo1)
@@ -6150,14 +4345,14 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_bqtBangQuyetToan_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bqtBangQuyetToan].([MaNv]) (FK_bqtBangQuyetToan_NhanVien)
+        /// Parent NhanVien pointed by [bqtBangQuyetToan].([MaNv]) (FK_bqtBangQuyetToan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_bqtBangQuyetToan_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_bqtBangQuyetToan_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bqtBangQuyetToan].([MaNvcn]) (FK_bqtBangQuyetToan_NhanVien1)
+        /// Parent NhanVien pointed by [bqtBangQuyetToan].([MaNvcn]) (FK_bqtBangQuyetToan_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_bqtBangQuyetToan_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_bqtBangQuyetToan_NhanVien1
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [bqtBangQuyetToan].([MaQt]) (FK_bqtBangQuyetToan_pgcPhieuGiuCho)
@@ -6213,9 +4408,9 @@ namespace Hpl.HrmDatabase
         public virtual BqtBangQuyetToan BqtBangQuyetToan { get; set; } // FK_bqtLichSu_bqtBangQuyetToan
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [bqtLichSu].([MaNv]) (FK_bqtLichSu_NhanVien)
+        /// Parent NhanVien pointed by [bqtLichSu].([MaNv]) (FK_bqtLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_bqtLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_bqtLichSu_NhanVien
     }
 
     // bqtLoaiQuyetToan
@@ -6342,7 +4537,7 @@ namespace Hpl.HrmDatabase
         public DateTime? DateCreate { get; set; } // DateCreate
 
         /// <summary>
-        /// Nhân viên nhập =&gt; NhanVienSale
+        /// Nhân viên nhập =&gt; NhanVien
         /// </summary>
         public int? StaffCreate { get; set; } // StaffCreate
 
@@ -6352,7 +4547,7 @@ namespace Hpl.HrmDatabase
         public DateTime? DateModify { get; set; } // DateModify
 
         /// <summary>
-        /// Nhân viên sửa =&gt; NhanVienSale
+        /// Nhân viên sửa =&gt; NhanVien
         /// </summary>
         public int? StaffModify { get; set; } // StaffModify
 
@@ -6393,9 +4588,9 @@ namespace Hpl.HrmDatabase
         public virtual ICollection<BranchStaff> BranchStaffs { get; set; } // Branch_Staff.FK_Branch_Staff_Branch
 
         /// <summary>
-        /// Child NhanViens where [NhanVienSale].[BranchID] point to this entity (FK_NhanVien_Branch)
+        /// Child NhanViens where [NhanVien].[BranchID] point to this entity (FK_NhanVien_Branch)
         /// </summary>
-        public virtual ICollection<NhanVienSale> NhanViens { get; set; } // NhanVienSale.FK_NhanVien_Branch
+        public virtual ICollection<NhanVien> NhanViens { get; set; } // NhanVien.FK_NhanVien_Branch
 
         /// <summary>
         /// Child PpDaiLies where [ppDaiLy].[MaDL] point to this entity (FK_ppDaiLy_Branch)
@@ -6412,7 +4607,7 @@ namespace Hpl.HrmDatabase
             IsLock = false;
             BdsBranches = new List<BdsBranch>();
             BranchStaffs = new List<BranchStaff>();
-            NhanViens = new List<NhanVienSale>();
+            NhanViens = new List<NhanVien>();
             PpDaiLies = new List<PpDaiLy>();
             TgTargets = new List<TgTarget>();
         }
@@ -6433,9 +4628,9 @@ namespace Hpl.HrmDatabase
         public virtual Branch Branch { get; set; } // FK_Branch_Staff_Branch
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Branch_Staff].([MaNv]) (FK_Branch_Staff_NhanVien)
+        /// Parent NhanVien pointed by [Branch_Staff].([MaNv]) (FK_Branch_Staff_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_Branch_Staff_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_Branch_Staff_NhanVien
     }
 
     // CaiDatDinhMucHoaHong
@@ -6510,9 +4705,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_CareCustomer_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CareCustomer].([StaffId]) (FK_CareCustomer_NhanVien)
+        /// Parent NhanVien pointed by [CareCustomer].([StaffId]) (FK_CareCustomer_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CareCustomer_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CareCustomer_NhanVien
 
         public CareCustomer()
         {
@@ -6543,9 +4738,9 @@ namespace Hpl.HrmDatabase
         public virtual CareStatu CareStatu { get; set; } // FK_careProssess_careStatus
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [careProssess].([StaffId]) (FK_careProssess_NhanVien)
+        /// Parent NhanVien pointed by [careProssess].([StaffId]) (FK_careProssess_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_careProssess_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_careProssess_NhanVien
     }
 
     // careStatus
@@ -6664,9 +4859,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_cdCustomerDemand_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cdCustomerDemand].([StaffId]) (FK_cdCustomerDemand_NhanVien)
+        /// Parent NhanVien pointed by [cdCustomerDemand].([StaffId]) (FK_cdCustomerDemand_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_cdCustomerDemand_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_cdCustomerDemand_NhanVien
 
         public CdCustomerDemand()
         {
@@ -6714,9 +4909,9 @@ namespace Hpl.HrmDatabase
         public virtual CdReason CdReason { get; set; } // FK_cdHistory_cdReason
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cdHistory].([StaffId]) (FK_cdHistory_NhanVien)
+        /// Parent NhanVien pointed by [cdHistory].([StaffId]) (FK_cdHistory_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_cdHistory_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_cdHistory_NhanVien
 
         public CdHistory()
         {
@@ -6845,19 +5040,19 @@ namespace Hpl.HrmDatabase
         public virtual CdCustomerDemand CdCustomerDemand { get; set; } // FK_cdQuotation_cdCustomerDemand
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cdQuotation].([ApprovedBy]) (FK_cdQuotation_NhanVien2)
+        /// Parent NhanVien pointed by [cdQuotation].([ApprovedBy]) (FK_cdQuotation_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_ApprovedBy { get; set; } // FK_cdQuotation_NhanVien2
+        public virtual NhanVien NhanVien_ApprovedBy { get; set; } // FK_cdQuotation_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cdQuotation].([StaffIdCreate]) (FK_cdQuotation_NhanVien)
+        /// Parent NhanVien pointed by [cdQuotation].([StaffIdCreate]) (FK_cdQuotation_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_cdQuotation_NhanVien
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_cdQuotation_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cdQuotation].([StaffIdModify]) (FK_cdQuotation_NhanVien1)
+        /// Parent NhanVien pointed by [cdQuotation].([StaffIdModify]) (FK_cdQuotation_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_cdQuotation_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_cdQuotation_NhanVien1
 
         public CdQuotation()
         {
@@ -6884,9 +5079,9 @@ namespace Hpl.HrmDatabase
         public virtual CdQuotation CdQuotation { get; set; } // FK_cdQuotationHistory_cdQuotation
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cdQuotationHistory].([StaffIdCreate]) (FK_cdQuotationHistory_NhanVien)
+        /// Parent NhanVien pointed by [cdQuotationHistory].([StaffIdCreate]) (FK_cdQuotationHistory_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_cdQuotationHistory_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_cdQuotationHistory_NhanVien
 
         public CdQuotationHistory()
         {
@@ -6927,9 +5122,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [chatTinNhan].([MaGui]) (FK_chatTinNhan_NhanVien)
+        /// Parent NhanVien pointed by [chatTinNhan].([MaGui]) (FK_chatTinNhan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_chatTinNhan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_chatTinNhan_NhanVien
     }
 
     // chCauHoiThuongGap
@@ -6965,9 +5160,9 @@ namespace Hpl.HrmDatabase
         // Reverse navigation
 
         /// <summary>
-        /// Child NhanViens where [NhanVienSale].[MaCV] point to this entity (FK_NhanVien_ChucVu)
+        /// Child NhanViens where [NhanVien].[MaCV] point to this entity (FK_NhanVien_ChucVu)
         /// </summary>
-        public virtual ICollection<NhanVienSale> NhanViens { get; set; } // NhanVienSale.FK_NhanVien_ChucVu
+        public virtual ICollection<NhanVien> NhanViens { get; set; } // NhanVien.FK_NhanVien_ChucVu
 
         /// <summary>
         /// Child NtchBanQuanLies where [ntchBanQuanLy].[MaCV] point to this entity (FK_ntchBanQuanLy_ChucVu)
@@ -6991,7 +5186,7 @@ namespace Hpl.HrmDatabase
 
         public ChucVu()
         {
-            NhanViens = new List<NhanVienSale>();
+            NhanViens = new List<NhanVien>();
             NtchBanQuanLies = new List<NtchBanQuanLy>();
             NtchBanQuanLyNbs = new List<NtchBanQuanLyNb>();
             NtchToBanGiaos = new List<NtchToBanGiao>();
@@ -7090,14 +5285,14 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_cnBieuMau_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cnBieuMau].([MaNvn]) (FK_cnBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [cnBieuMau].([MaNvn]) (FK_cnBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_cnBieuMau_NhanVien
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_cnBieuMau_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cnBieuMau].([MaNvs]) (FK_cnBieuMau_NhanVien1)
+        /// Parent NhanVien pointed by [cnBieuMau].([MaNvs]) (FK_cnBieuMau_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_cnBieuMau_NhanVien1
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_cnBieuMau_NhanVien1
     }
 
     // cnChuyenNhuong
@@ -7183,19 +5378,19 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang_MaKhncn { get; set; } // FK_cnChuyenNhuong_KhachHang1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cnChuyenNhuong].([MaNv]) (FK_cnChuyenNhuong_NhanVien)
+        /// Parent NhanVien pointed by [cnChuyenNhuong].([MaNv]) (FK_cnChuyenNhuong_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_cnChuyenNhuong_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_cnChuyenNhuong_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cnChuyenNhuong].([MaNvn]) (FK_cnChuyenNhuong_NhanVien1)
+        /// Parent NhanVien pointed by [cnChuyenNhuong].([MaNvn]) (FK_cnChuyenNhuong_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_cnChuyenNhuong_NhanVien1
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_cnChuyenNhuong_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cnChuyenNhuong].([MaNvs]) (FK_cnChuyenNhuong_NhanVien2)
+        /// Parent NhanVien pointed by [cnChuyenNhuong].([MaNvs]) (FK_cnChuyenNhuong_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_cnChuyenNhuong_NhanVien2
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_cnChuyenNhuong_NhanVien2
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [cnChuyenNhuong].([MaPgc]) (FK_cnChuyenNhuong_pgcPhieuGiuCho)
@@ -7307,9 +5502,9 @@ namespace Hpl.HrmDatabase
         public virtual CnTrangThai CnTrangThai { get; set; } // FK_cnNhatKyDuyet_cnTrangThai
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cnNhatKyDuyet].([MaNv]) (FK_cnNhatKyDuyet_NhanVien)
+        /// Parent NhanVien pointed by [cnNhatKyDuyet].([MaNv]) (FK_cnNhatKyDuyet_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_cnNhatKyDuyet_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_cnNhatKyDuyet_NhanVien
     }
 
     // cnThongTinKhac
@@ -7410,9 +5605,9 @@ namespace Hpl.HrmDatabase
         public virtual CommissionRequestStatu CommissionRequestStatu { get; set; } // FK_CommissionContractDetail_CommissionRequestStatus
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionContractDetail].([StaffProcessId]) (FK_CommissionContractDetail_NhanVien)
+        /// Parent NhanVien pointed by [CommissionContractDetail].([StaffProcessId]) (FK_CommissionContractDetail_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CommissionContractDetail_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CommissionContractDetail_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [CommissionContractDetail].([ContractId]) (FK_CommissionContractDetail_pgcPhieuGiuCho)
@@ -7464,24 +5659,24 @@ namespace Hpl.HrmDatabase
         public virtual CommissionMaster CommissionMaster { get; set; } // FK_CommissionCostAllocation_Commission_Master
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionCostAllocation].([StaffIdConfirm]) (FK_CommissionCostAllocation_NhanVien3)
+        /// Parent NhanVien pointed by [CommissionCostAllocation].([StaffIdConfirm]) (FK_CommissionCostAllocation_NhanVien3)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdConfirm { get; set; } // FK_CommissionCostAllocation_NhanVien3
+        public virtual NhanVien NhanVien_StaffIdConfirm { get; set; } // FK_CommissionCostAllocation_NhanVien3
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionCostAllocation].([StaffIdCreate]) (FK_CommissionCostAllocation_NhanVien1)
+        /// Parent NhanVien pointed by [CommissionCostAllocation].([StaffIdCreate]) (FK_CommissionCostAllocation_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_CommissionCostAllocation_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_CommissionCostAllocation_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionCostAllocation].([StaffIdModify]) (FK_CommissionCostAllocation_NhanVien2)
+        /// Parent NhanVien pointed by [CommissionCostAllocation].([StaffIdModify]) (FK_CommissionCostAllocation_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_CommissionCostAllocation_NhanVien2
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_CommissionCostAllocation_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionCostAllocation].([StaffId]) (FK_CommissionCostAllocation_NhanVien)
+        /// Parent NhanVien pointed by [CommissionCostAllocation].([StaffId]) (FK_CommissionCostAllocation_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_CommissionCostAllocation_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_CommissionCostAllocation_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [CommissionCostAllocation].([ContractId]) (FK_CommissionCostAllocation_pgcPhieuGiuCho)
@@ -7517,9 +5712,9 @@ namespace Hpl.HrmDatabase
         public virtual CommissionCostAllocation CommissionCostAllocation { get; set; } // FK_CommissionCostAllocationHistory_CommissionCostAllocation
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionCostAllocationHistory].([StaffId]) (FK_CommissionCostAllocationHistory_NhanVien)
+        /// Parent NhanVien pointed by [CommissionCostAllocationHistory].([StaffId]) (FK_CommissionCostAllocationHistory_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CommissionCostAllocationHistory_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CommissionCostAllocationHistory_NhanVien
     }
 
     // CommissionDetail
@@ -7621,9 +5816,9 @@ namespace Hpl.HrmDatabase
         public virtual CommissionMaster CommissionMaster { get; set; } // FK_Commission_LSCN_Commission_Master
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Commission_LSCN].([MaNvcn]) (FK_Commission_LSCN_NhanVien)
+        /// Parent NhanVien pointed by [Commission_LSCN].([MaNvcn]) (FK_Commission_LSCN_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_Commission_LSCN_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_Commission_LSCN_NhanVien
     }
 
     // Commission_Master
@@ -7733,14 +5928,14 @@ namespace Hpl.HrmDatabase
         public virtual CommissionLoaiNgay CommissionLoaiNgay { get; set; } // FK_Commission_Master_Commission_LoaiNgay
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Commission_Master].([MaNv]) (FK_Commission_Master_NhanVien)
+        /// Parent NhanVien pointed by [Commission_Master].([MaNv]) (FK_Commission_Master_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_Commission_Master_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_Commission_Master_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Commission_Master].([MaNvcn]) (FK_Commission_Master_NhanVien1)
+        /// Parent NhanVien pointed by [Commission_Master].([MaNvcn]) (FK_Commission_Master_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_Commission_Master_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_Commission_Master_NhanVien1
 
         public CommissionMaster()
         {
@@ -7802,9 +5997,9 @@ namespace Hpl.HrmDatabase
         public virtual Agent Agent { get; set; } // FK_CommissionNorms_Agent
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionNorms].([StaffId]) (FK_CommissionNorms_NhanVien)
+        /// Parent NhanVien pointed by [CommissionNorms].([StaffId]) (FK_CommissionNorms_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CommissionNorms_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CommissionNorms_NhanVien
 
         public CommissionNorm()
         {
@@ -7862,14 +6057,14 @@ namespace Hpl.HrmDatabase
         public virtual CommissionMaster CommissionMaster { get; set; } // FK_CommissionRequest_Commission_Master
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionRequest].([StaffIdModify]) (FK_CommissionRequest_NhanVien1)
+        /// Parent NhanVien pointed by [CommissionRequest].([StaffIdModify]) (FK_CommissionRequest_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_CommissionRequest_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_CommissionRequest_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionRequest].([StaffId]) (FK_CommissionRequest_NhanVien)
+        /// Parent NhanVien pointed by [CommissionRequest].([StaffId]) (FK_CommissionRequest_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_CommissionRequest_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_CommissionRequest_NhanVien
 
         public CommissionRequest()
         {
@@ -7922,9 +6117,9 @@ namespace Hpl.HrmDatabase
         public virtual CommissionRequestStatu CommissionRequestStatu { get; set; } // FK_CommissionContractHistory_CommissionRequestStatus
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CommissionRequestHistory].([StaffId]) (FK_CommissionRequestHistory_NhanVien)
+        /// Parent NhanVien pointed by [CommissionRequestHistory].([StaffId]) (FK_CommissionRequestHistory_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CommissionRequestHistory_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CommissionRequestHistory_NhanVien
     }
 
     // CommissionRequestStatus
@@ -8000,14 +6195,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Company].([MaNv]) (FK_Company_NhanVien)
+        /// Parent NhanVien pointed by [Company].([MaNv]) (FK_Company_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_Company_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_Company_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Company].([MaNvcn]) (FK_Company_NhanVien1)
+        /// Parent NhanVien pointed by [Company].([MaNvcn]) (FK_Company_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_Company_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_Company_NhanVien1
 
         public Company()
         {
@@ -8132,9 +6327,9 @@ namespace Hpl.HrmDatabase
         public virtual CongVanDen CongVanDen { get; set; } // FK_CongVanDen_NhanVien_CongVanDen
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CongVanDen_NhanVien].([MaNv]) (FK_CongVanDen_NhanVien_NhanVien)
+        /// Parent NhanVien pointed by [CongVanDen_NhanVien].([MaNv]) (FK_CongVanDen_NhanVien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CongVanDen_NhanVien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CongVanDen_NhanVien_NhanVien
     }
 
     // CongVanDen_PhongBan
@@ -8151,9 +6346,9 @@ namespace Hpl.HrmDatabase
         public virtual CongVanDen CongVanDen { get; set; } // FK_CongVanDen_PhongBan_CongVanDen
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [CongVanDen_PhongBan].([MaPb]) (FK_CongVanDen_PhongBan_PhongBan)
+        /// Parent PhongBan pointed by [CongVanDen_PhongBan].([MaPb]) (FK_CongVanDen_PhongBan_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_CongVanDen_PhongBan_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_CongVanDen_PhongBan_PhongBan
     }
 
     // CongVanDi
@@ -8201,19 +6396,19 @@ namespace Hpl.HrmDatabase
         public virtual LoaiCongVan LoaiCongVan { get; set; } // FK_CongVanDi_LoaiCongVan
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CongVanDi].([MaNvNhan]) (FK_CongVanDi_NhanVien)
+        /// Parent NhanVien pointed by [CongVanDi].([MaNvNhan]) (FK_CongVanDi_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvNhan { get; set; } // FK_CongVanDi_NhanVien
+        public virtual NhanVien NhanVien_MaNvNhan { get; set; } // FK_CongVanDi_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CongVanDi].([NguoiCn]) (FK_CongVanDi_NhanVien1)
+        /// Parent NhanVien pointed by [CongVanDi].([NguoiCn]) (FK_CongVanDi_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_NguoiCn { get; set; } // FK_CongVanDi_NhanVien1
+        public virtual NhanVien NhanVien_NguoiCn { get; set; } // FK_CongVanDi_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CongVanDi].([NguoiGui]) (FK_CongVanDi_NhanVien2)
+        /// Parent NhanVien pointed by [CongVanDi].([NguoiGui]) (FK_CongVanDi_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_NguoiGui { get; set; } // FK_CongVanDi_NhanVien2
+        public virtual NhanVien NhanVien_NguoiGui { get; set; } // FK_CongVanDi_NhanVien2
 
         public CongVanDi()
         {
@@ -8295,14 +6490,14 @@ namespace Hpl.HrmDatabase
         public virtual LoaiTien LoaiTien { get; set; } // FK_ChinhSachBanHang_LoaiTien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [csChinhSachBanHang].([MaNvn]) (FK_csChinhSachBanHang_NhanVien)
+        /// Parent NhanVien pointed by [csChinhSachBanHang].([MaNvn]) (FK_csChinhSachBanHang_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_csChinhSachBanHang_NhanVien
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_csChinhSachBanHang_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [csChinhSachBanHang].([MaNvs]) (FK_csChinhSachBanHang_NhanVien1)
+        /// Parent NhanVien pointed by [csChinhSachBanHang].([MaNvs]) (FK_csChinhSachBanHang_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_csChinhSachBanHang_NhanVien1
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_csChinhSachBanHang_NhanVien1
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [csChinhSachBanHang].([MaPgc]) (FK_csChinhSachBanHang_pgcPhieuGiuCho)
@@ -8380,9 +6575,9 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_CustomizeColumnGridView_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [CustomizeColumnGridView].([StaffId]) (FK_CustomizeColumnGridView_NhanVien)
+        /// Parent NhanVien pointed by [CustomizeColumnGridView].([StaffId]) (FK_CustomizeColumnGridView_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_CustomizeColumnGridView_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_CustomizeColumnGridView_NhanVien
 
         public CustomizeColumnGridView()
         {
@@ -8534,9 +6729,9 @@ namespace Hpl.HrmDatabase
         public virtual CvdTrinhTrang CvdTrinhTrang { get; set; } // FK_cvdNhatKyXuLy_cvdTrinhTrang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cvdNhatKyXuLy].([MaNv]) (FK_cvdNhatKyXuLy_NhanVien)
+        /// Parent NhanVien pointed by [cvdNhatKyXuLy].([MaNv]) (FK_cvdNhatKyXuLy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_cvdNhatKyXuLy_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_cvdNhatKyXuLy_NhanVien
     }
 
     // cvdTrinhTrang
@@ -8586,9 +6781,9 @@ namespace Hpl.HrmDatabase
         public virtual CongVanDi CongVanDi { get; set; } // FK_cvNhatKyXuLy_CongVanDi
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [cvNhatKyXuLy].([MaNv]) (FK_cvNhatKyXuLy_NhanVien)
+        /// Parent NhanVien pointed by [cvNhatKyXuLy].([MaNv]) (FK_cvNhatKyXuLy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_cvNhatKyXuLy_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_cvNhatKyXuLy_NhanVien
     }
 
     // cvPhanLoai
@@ -8740,9 +6935,9 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_daBieuMau_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daBieuMau].([MaNv]) (FK_daBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [daBieuMau].([MaNv]) (FK_daBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_daBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_daBieuMau_NhanVien
 
         public DaBieuMau()
         {
@@ -8849,14 +7044,14 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_daCaiDatGiuCho_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatGiuCho].([MaNvcn]) (FK_daCaiDatGiuCho_NhanVien1)
+        /// Parent NhanVien pointed by [daCaiDatGiuCho].([MaNvcn]) (FK_daCaiDatGiuCho_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_daCaiDatGiuCho_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_daCaiDatGiuCho_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatGiuCho].([MaNvt]) (FK_daCaiDatGiuCho_NhanVien)
+        /// Parent NhanVien pointed by [daCaiDatGiuCho].([MaNvt]) (FK_daCaiDatGiuCho_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvt { get; set; } // FK_daCaiDatGiuCho_NhanVien
+        public virtual NhanVien NhanVien_MaNvt { get; set; } // FK_daCaiDatGiuCho_NhanVien
 
         public DaCaiDatGiuCho()
         {
@@ -8881,9 +7076,9 @@ namespace Hpl.HrmDatabase
         public virtual DaCaiDatGiuCho DaCaiDatGiuCho { get; set; } // FK_daCaiDatGiuChoLS_daCaiDatGiuCho
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatGiuChoLS].([MaNvcn]) (FK_daCaiDatGiuChoLS_NhanVien)
+        /// Parent NhanVien pointed by [daCaiDatGiuChoLS].([MaNvcn]) (FK_daCaiDatGiuChoLS_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_daCaiDatGiuChoLS_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_daCaiDatGiuChoLS_NhanVien
     }
 
     // daCaiDat_HinhThucMail
@@ -8947,14 +7142,14 @@ namespace Hpl.HrmDatabase
         public virtual MailConfig MailConfig { get; set; } // FK_daCaiDatMail_mailConfig
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatMail].([StaffIdCreate]) (FK_daCaiDatMail_NhanVien)
+        /// Parent NhanVien pointed by [daCaiDatMail].([StaffIdCreate]) (FK_daCaiDatMail_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_daCaiDatMail_NhanVien
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_daCaiDatMail_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatMail].([StaffIdModify]) (FK_daCaiDatMail_NhanVien1)
+        /// Parent NhanVien pointed by [daCaiDatMail].([StaffIdModify]) (FK_daCaiDatMail_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_daCaiDatMail_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_daCaiDatMail_NhanVien1
 
         /// <summary>
         /// Parent WdFormAction pointed by [daCaiDatMail].([ActionId]) (FK_daCaiDatMail_wdFormAction)
@@ -8983,9 +7178,9 @@ namespace Hpl.HrmDatabase
         public virtual DaCaiDatMail DaCaiDatMail { get; set; } // FK_daCaiDatMailLS_daCaiDatMail
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatMailLS].([MaNv]) (FK_daCaiDatMailLS_NhanVien)
+        /// Parent NhanVien pointed by [daCaiDatMailLS].([MaNv]) (FK_daCaiDatMailLS_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_daCaiDatMailLS_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_daCaiDatMailLS_NhanVien
     }
 
     // daCaiDatThongBao
@@ -9056,14 +7251,14 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_daCaiDatTime_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatTime].([MaNv]) (FK_daCaiDatTime_NhanVien)
+        /// Parent NhanVien pointed by [daCaiDatTime].([MaNv]) (FK_daCaiDatTime_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_daCaiDatTime_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_daCaiDatTime_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatTime].([MaNvcn]) (FK_daCaiDatTime_NhanVien1)
+        /// Parent NhanVien pointed by [daCaiDatTime].([MaNvcn]) (FK_daCaiDatTime_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_daCaiDatTime_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_daCaiDatTime_NhanVien1
 
         public DaCaiDatTime()
         {
@@ -9087,9 +7282,9 @@ namespace Hpl.HrmDatabase
         public virtual DaCaiDatTime DaCaiDatTime { get; set; } // FK_daCaiDatTimeLS_daCaiDatTime
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daCaiDatTimeLS].([MaNvSua]) (FK_daCaiDatTimeLS_NhanVien)
+        /// Parent NhanVien pointed by [daCaiDatTimeLS].([MaNvSua]) (FK_daCaiDatTimeLS_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_daCaiDatTimeLS_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_daCaiDatTimeLS_NhanVien
     }
 
     // daCalculation
@@ -9347,14 +7542,14 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_daKhuyenMai_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daKhuyenMai].([MaNvcn]) (FK_daKhuyenMai_NhanVien1)
+        /// Parent NhanVien pointed by [daKhuyenMai].([MaNvcn]) (FK_daKhuyenMai_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_daKhuyenMai_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_daKhuyenMai_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daKhuyenMai].([MaNvt]) (FK_daKhuyenMai_NhanVien)
+        /// Parent NhanVien pointed by [daKhuyenMai].([MaNvt]) (FK_daKhuyenMai_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvt { get; set; } // FK_daKhuyenMai_NhanVien
+        public virtual NhanVien NhanVien_MaNvt { get; set; } // FK_daKhuyenMai_NhanVien
 
         public DaKhuyenMai()
         {
@@ -9380,9 +7575,9 @@ namespace Hpl.HrmDatabase
         public virtual DaKhuyenMai DaKhuyenMai { get; set; } // FK_daKhuyenMaiLS_daKhuyenMai
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daKhuyenMaiLS].([MaNvcn]) (FK_daKhuyenMaiLS_NhanVien)
+        /// Parent NhanVien pointed by [daKhuyenMaiLS].([MaNvcn]) (FK_daKhuyenMaiLS_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_daKhuyenMaiLS_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_daKhuyenMaiLS_NhanVien
     }
 
     // daLichSu
@@ -9404,9 +7599,9 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_daLichSu_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [daLichSu].([MaNv]) (FK_daLichSu_NhanVien)
+        /// Parent NhanVien pointed by [daLichSu].([MaNv]) (FK_daLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_daLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_daLichSu_NhanVien
     }
 
     // daLichThanhToan
@@ -9905,9 +8100,9 @@ namespace Hpl.HrmDatabase
         public virtual DocLoaiTaiLieu DocLoaiTaiLieu { get; set; } // FK_docTaiLieu_docLoaiTaiLieu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [docTaiLieu].([MaNv]) (FK_docTaiLieu_NhanVien)
+        /// Parent NhanVien pointed by [docTaiLieu].([MaNv]) (FK_docTaiLieu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_docTaiLieu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_docTaiLieu_NhanVien
     }
 
     // docViewType
@@ -10000,12 +8195,12 @@ namespace Hpl.HrmDatabase
         public DateTime? NgayDang { get; set; } // NgayDang
 
         /// <summary>
-        /// Mã nhân viên nhập =&gt; NhanVienSale
+        /// Mã nhân viên nhập =&gt; NhanVien
         /// </summary>
         public int? MaNv { get; set; } // MaNV
 
         /// <summary>
-        /// Mã nhân viên cập nhật =&gt; NhanVienSale
+        /// Mã nhân viên cập nhật =&gt; NhanVien
         /// </summary>
         public int? MaNvUpdate { get; set; } // MaNVUpdate
 
@@ -10493,9 +8688,9 @@ namespace Hpl.HrmDatabase
         public virtual DuAn DuAn { get; set; } // FK_DuAn_NhanVien_DuAn
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [DuAn_NhanVien].([StaffId]) (FK_DuAn_NhanVien_NhanVien)
+        /// Parent NhanVien pointed by [DuAn_NhanVien].([StaffId]) (FK_DuAn_NhanVien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_DuAn_NhanVien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_DuAn_NhanVien_NhanVien
     }
 
     // DuAn_PhapLy
@@ -10636,14 +8831,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent DxDeXuatSale pointed by [dxBoPhanXuLy].([MaDx]) (FK_dxBoPhanXuLy_dxDeXuat)
+        /// Parent DxDeXuat pointed by [dxBoPhanXuLy].([MaDx]) (FK_dxBoPhanXuLy_dxDeXuat)
         /// </summary>
-        public virtual DxDeXuatSale DxDeXuatSale { get; set; } // FK_dxBoPhanXuLy_dxDeXuat
+        public virtual DxDeXuat DxDeXuat { get; set; } // FK_dxBoPhanXuLy_dxDeXuat
 
         /// <summary>
-        /// Parent DxDeXuatSaleSale pointed by [dxBoPhanXuLy].([MaLdx]) (FK_dxBoPhanXuLy_dxLoaiDeXuat)
+        /// Parent DxLoaiDeXuat pointed by [dxBoPhanXuLy].([MaLdx]) (FK_dxBoPhanXuLy_dxLoaiDeXuat)
         /// </summary>
-        public virtual DxDeXuatSaleSale DxDeXuatSaleSale { get; set; } // FK_dxBoPhanXuLy_dxLoaiDeXuat
+        public virtual DxLoaiDeXuat DxLoaiDeXuat { get; set; } // FK_dxBoPhanXuLy_dxLoaiDeXuat
 
         /// <summary>
         /// Parent DxNguyenNhan pointed by [dxBoPhanXuLy].([MaNn]) (FK_dxBoPhanXuLy_dxNguyenNhan)
@@ -10656,9 +8851,9 @@ namespace Hpl.HrmDatabase
         public virtual DxTinhTrang DxTinhTrang { get; set; } // FK_dxBoPhanXuLy_dxTinhTrang
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [dxBoPhanXuLy].([MaPb]) (FK_dxBoPhanXuLy_PhongBan)
+        /// Parent PhongBan pointed by [dxBoPhanXuLy].([MaPb]) (FK_dxBoPhanXuLy_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_dxBoPhanXuLy_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_dxBoPhanXuLy_PhongBan
 
         public DxBoPhanXuLy()
         {
@@ -10667,7 +8862,7 @@ namespace Hpl.HrmDatabase
     }
 
     // dxDeXuat
-    public class DxDeXuatSale
+    public class DxDeXuat
     {
         public Guid Id { get; set; } // ID (Primary key)
         public string SoDx { get; set; } // SoDX (length: 50)
@@ -10718,16 +8913,16 @@ namespace Hpl.HrmDatabase
         public virtual HinhThucTiepNhan HinhThucTiepNhan { get; set; } // FK_dxDeXuat_HinhThucTiepNhan
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [dxDeXuat].([MaNvn]) (FK_pgcDeXuat_NhanVien)
+        /// Parent NhanVien pointed by [dxDeXuat].([MaNvn]) (FK_pgcDeXuat_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcDeXuat_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcDeXuat_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [dxDeXuat].([MaPgc]) (FK_pgcDeXuat_pgcPhieuGiuCho)
         /// </summary>
         public virtual PgcPhieuGiuCho PgcPhieuGiuCho { get; set; } // FK_pgcDeXuat_pgcPhieuGiuCho
 
-        public DxDeXuatSale()
+        public DxDeXuat()
         {
             DxBoPhanXuLies = new List<DxBoPhanXuLy>();
             DxLichSus = new List<DxLichSu>();
@@ -10749,15 +8944,15 @@ namespace Hpl.HrmDatabase
         public int? StatusSms { get; set; } // StatusSMS
 
         // Foreign keys
-        //DxDeXuatSaleSale
+
         /// <summary>
-        /// Parent DxDeXuatSale pointed by [dxLichSu].([RefId]) (FK_pgcDeXuatLichSu_pgcDeXuat)
+        /// Parent DxDeXuat pointed by [dxLichSu].([RefId]) (FK_pgcDeXuatLichSu_pgcDeXuat)
         /// </summary>
-        public virtual DxDeXuatSale DxDeXuatSale { get; set; } // FK_pgcDeXuatLichSu_pgcDeXuat
+        public virtual DxDeXuat DxDeXuat { get; set; } // FK_pgcDeXuatLichSu_pgcDeXuat
     }
 
     // dxLoaiDeXuat
-    public class DxDeXuatSaleSale
+    public class DxLoaiDeXuat
     {
         public int MaLdx { get; set; } // MaLDX (Primary key)
         public string TenLdx { get; set; } // TenLDX (length: 100)
@@ -10770,7 +8965,7 @@ namespace Hpl.HrmDatabase
         /// </summary>
         public virtual ICollection<DxBoPhanXuLy> DxBoPhanXuLies { get; set; } // dxBoPhanXuLy.FK_dxBoPhanXuLy_dxLoaiDeXuat
 
-        public DxDeXuatSaleSale()
+        public DxLoaiDeXuat()
         {
             DxBoPhanXuLies = new List<DxBoPhanXuLy>();
         }
@@ -10794,9 +8989,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [dxNguyenNhan].([MaPb]) (FK_dxNguyenNhan_PhongBan)
+        /// Parent PhongBan pointed by [dxNguyenNhan].([MaPb]) (FK_dxNguyenNhan_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_dxNguyenNhan_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_dxNguyenNhan_PhongBan
 
         public DxNguyenNhan()
         {
@@ -10816,9 +9011,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent DxDeXuatSale pointed by [dxPhanHoi].([MaDx]) (FK_dxPhanHoi_dxDeXuat)
+        /// Parent DxDeXuat pointed by [dxPhanHoi].([MaDx]) (FK_dxPhanHoi_dxDeXuat)
         /// </summary>
-        public virtual DxDeXuatSale DxDeXuatSale { get; set; } // FK_dxPhanHoi_dxDeXuat
+        public virtual DxDeXuat DxDeXuat { get; set; } // FK_dxPhanHoi_dxDeXuat
     }
 
     // dxTaiLieu
@@ -10831,9 +9026,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent DxDeXuatSale pointed by [dxTaiLieu].([MaDx]) (FK_dxTaiLieu_dxDeXuat)
+        /// Parent DxDeXuat pointed by [dxTaiLieu].([MaDx]) (FK_dxTaiLieu_dxDeXuat)
         /// </summary>
-        public virtual DxDeXuatSale DxDeXuatSale { get; set; } // FK_dxTaiLieu_dxDeXuat
+        public virtual DxDeXuat DxDeXuat { get; set; } // FK_dxTaiLieu_dxDeXuat
     }
 
     // dxTinhTrang
@@ -10853,12 +9048,12 @@ namespace Hpl.HrmDatabase
         /// <summary>
         /// Child DxDeXuats where [dxDeXuat].[MaTT] point to this entity (FK_dxDeXuat_dxTinhTrang)
         /// </summary>
-        public virtual ICollection<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat.FK_dxDeXuat_dxTinhTrang
+        public virtual ICollection<DxDeXuat> DxDeXuats { get; set; } // dxDeXuat.FK_dxDeXuat_dxTinhTrang
 
         public DxTinhTrang()
         {
             DxBoPhanXuLies = new List<DxBoPhanXuLy>();
-            DxDeXuats = new List<DxDeXuatSale>();
+            DxDeXuats = new List<DxDeXuat>();
         }
     }
 
@@ -11128,7 +9323,7 @@ namespace Hpl.HrmDatabase
         public string DienGiai { get; set; } // DienGiai (length: 300)
 
         /// <summary>
-        /// Nhân viên nhập =&gt; NhanVienSale
+        /// Nhân viên nhập =&gt; NhanVien
         /// </summary>
         public int CreateStaff { get; set; } // CreateStaff
 
@@ -11138,7 +9333,7 @@ namespace Hpl.HrmDatabase
         public DateTime CreateDate { get; set; } // CreateDate
 
         /// <summary>
-        /// Nhân viên sửa =&gt; NhanVienSale
+        /// Nhân viên sửa =&gt; NhanVien
         /// </summary>
         public int? ModifyStaff { get; set; } // ModifyStaff
 
@@ -11360,9 +9555,9 @@ namespace Hpl.HrmDatabase
         public virtual HopDongMuaBan HopDongMuaBan { get; set; } // FK_hdmbQuaTrinhThucHien_HopDongMuaBan
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdmbQuaTrinhThucHien].([MaNv]) (FK_hdmbQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [hdmbQuaTrinhThucHien].([MaNv]) (FK_hdmbQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_hdmbQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_hdmbQuaTrinhThucHien_NhanVien
     }
 
     // hdmbTinhTrang
@@ -11421,14 +9616,14 @@ namespace Hpl.HrmDatabase
         public virtual HdptPhongToa HdptPhongToa { get; set; } // FK_hdptBieuMau_hdptPhongToa
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdptBieuMau].([MaNvn]) (FK_hdptBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [hdptBieuMau].([MaNvn]) (FK_hdptBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_hdptBieuMau_NhanVien
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_hdptBieuMau_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdptBieuMau].([MaNvs]) (FK_hdptBieuMau_NhanVien1)
+        /// Parent NhanVien pointed by [hdptBieuMau].([MaNvs]) (FK_hdptBieuMau_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_hdptBieuMau_NhanVien1
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_hdptBieuMau_NhanVien1
     }
 
     // hdptCaiDatLaiSuat
@@ -11536,9 +9731,9 @@ namespace Hpl.HrmDatabase
         public virtual HdptTrangThai HdptTrangThai { get; set; } // FK_hdptNhatKyDuyet_hdptTrangThai
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdptNhatKyDuyet].([MaNv]) (FK_hdptNhatKyDuyet_NhanVien)
+        /// Parent NhanVien pointed by [hdptNhatKyDuyet].([MaNv]) (FK_hdptNhatKyDuyet_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_hdptNhatKyDuyet_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_hdptNhatKyDuyet_NhanVien
     }
 
     // hdptNoGocNganHang
@@ -11587,7 +9782,7 @@ namespace Hpl.HrmDatabase
         public int? MaNh { get; set; } // MaNH
         public int? MaCn { get; set; } // MaCN
         public int? MaGoiVay { get; set; } // MaGoiVay
-        public string NhanVienSale { get; set; } // NhanVienSale (length: 150)
+        public string NhanVien { get; set; } // NhanVien (length: 150)
         public string SoDt { get; set; } // SoDT (length: 50)
         public DateTime? NgayChotLai { get; set; } // NgayChotLai
         public decimal? LaiSuat { get; set; } // LaiSuat
@@ -11662,14 +9857,14 @@ namespace Hpl.HrmDatabase
         public virtual KhNganHangGoiVay KhNganHangGoiVay { get; set; } // FK_hdptPhongToa_khNganHangGoiVay
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdptPhongToa].([MaNv]) (FK_hdptPhongToa_NhanVien)
+        /// Parent NhanVien pointed by [hdptPhongToa].([MaNv]) (FK_hdptPhongToa_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_hdptPhongToa_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_hdptPhongToa_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdptPhongToa].([MaNvcn]) (FK_hdptPhongToa_NhanVienCN)
+        /// Parent NhanVien pointed by [hdptPhongToa].([MaNvcn]) (FK_hdptPhongToa_NhanVienCN)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_hdptPhongToa_NhanVienCN
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_hdptPhongToa_NhanVienCN
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [hdptPhongToa].([MaPgc]) (FK_hdptPhongToa_pgcPhieuGiuCho)
@@ -11894,19 +10089,19 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_hdvtGiayChungNhanQSDD_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtGiayChungNhanQSDD].([MaNv]) (FK_hdvtGiayChungNhanQSDD_NhanVien1)
+        /// Parent NhanVien pointed by [hdvtGiayChungNhanQSDD].([MaNv]) (FK_hdvtGiayChungNhanQSDD_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_hdvtGiayChungNhanQSDD_NhanVien1
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_hdvtGiayChungNhanQSDD_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtGiayChungNhanQSDD].([MaNvcn]) (FK_hdvtGiayChungNhanQSDD_NhanVien2)
+        /// Parent NhanVien pointed by [hdvtGiayChungNhanQSDD].([MaNvcn]) (FK_hdvtGiayChungNhanQSDD_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_hdvtGiayChungNhanQSDD_NhanVien2
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_hdvtGiayChungNhanQSDD_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtGiayChungNhanQSDD].([MaNvkd]) (FK_hdvtGiayChungNhanQSDD_NhanVien)
+        /// Parent NhanVien pointed by [hdvtGiayChungNhanQSDD].([MaNvkd]) (FK_hdvtGiayChungNhanQSDD_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_hdvtGiayChungNhanQSDD_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_hdvtGiayChungNhanQSDD_NhanVien
     }
 
     // hdvtGiayChungNhanQSDN
@@ -11962,19 +10157,19 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_hdvtGiayChungNhanQSDN_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtGiayChungNhanQSDN].([MaNv]) (FK_hdvtGiayChungNhanQSDN_NhanVien1)
+        /// Parent NhanVien pointed by [hdvtGiayChungNhanQSDN].([MaNv]) (FK_hdvtGiayChungNhanQSDN_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_hdvtGiayChungNhanQSDN_NhanVien1
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_hdvtGiayChungNhanQSDN_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtGiayChungNhanQSDN].([MaNvcn]) (FK_hdvtGiayChungNhanQSDN_NhanVien2)
+        /// Parent NhanVien pointed by [hdvtGiayChungNhanQSDN].([MaNvcn]) (FK_hdvtGiayChungNhanQSDN_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_hdvtGiayChungNhanQSDN_NhanVien2
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_hdvtGiayChungNhanQSDN_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtGiayChungNhanQSDN].([MaNvkd]) (FK_hdvtGiayChungNhanQSDN_NhanVien)
+        /// Parent NhanVien pointed by [hdvtGiayChungNhanQSDN].([MaNvkd]) (FK_hdvtGiayChungNhanQSDN_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_hdvtGiayChungNhanQSDN_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_hdvtGiayChungNhanQSDN_NhanVien
     }
 
     // hdvtHinhThucVay
@@ -12077,9 +10272,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_hdvtHopDongVayTien_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtHopDongVayTien].([MaNvkd]) (FK_hdvtHopDongVayTien_NhanVien)
+        /// Parent NhanVien pointed by [hdvtHopDongVayTien].([MaNvkd]) (FK_hdvtHopDongVayTien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_hdvtHopDongVayTien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_hdvtHopDongVayTien_NhanVien
 
         public HdvtHopDongVayTien()
         {
@@ -12144,9 +10339,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_hdvtPhuLuc_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hdvtPhuLuc].([MaNvkd]) (FK_hdvtPhuLuc_NhanVien)
+        /// Parent NhanVien pointed by [hdvtPhuLuc].([MaNvkd]) (FK_hdvtPhuLuc_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_hdvtPhuLuc_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_hdvtPhuLuc_NhanVien
     }
 
     // hdvtTinhTrang
@@ -12271,11 +10466,11 @@ namespace Hpl.HrmDatabase
         /// <summary>
         /// Child DxDeXuats where [dxDeXuat].[MaHT] point to this entity (FK_dxDeXuat_HinhThucTiepNhan)
         /// </summary>
-        public virtual ICollection<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat.FK_dxDeXuat_HinhThucTiepNhan
+        public virtual ICollection<DxDeXuat> DxDeXuats { get; set; } // dxDeXuat.FK_dxDeXuat_HinhThucTiepNhan
 
         public HinhThucTiepNhan()
         {
-            DxDeXuats = new List<DxDeXuatSale>();
+            DxDeXuats = new List<DxDeXuat>();
         }
     }
 
@@ -12606,14 +10801,14 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_hsHoSoNOXH_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hsHoSoNOXH].([MaNv]) (FK_hsHoSoNOXH_NhanVien)
+        /// Parent NhanVien pointed by [hsHoSoNOXH].([MaNv]) (FK_hsHoSoNOXH_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_hsHoSoNOXH_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_hsHoSoNOXH_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hsHoSoNOXH].([MaNvcn]) (FK_hsHoSoNOXH_NhanVien1)
+        /// Parent NhanVien pointed by [hsHoSoNOXH].([MaNvcn]) (FK_hsHoSoNOXH_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_hsHoSoNOXH_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_hsHoSoNOXH_NhanVien1
 
         /// <summary>
         /// Parent PdcPhieuDatCoc pointed by [hsHoSoNOXH].([DepositId]) (FK_hsHoSoNOXH_pdcPhieuDatCoc)
@@ -12738,14 +10933,14 @@ namespace Hpl.HrmDatabase
         public virtual Khu Khu { get; set; } // FK_hsSetting_Khu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hsSetting].([MaNv]) (FK_hsSetting_NhanVien)
+        /// Parent NhanVien pointed by [hsSetting].([MaNv]) (FK_hsSetting_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_hsSetting_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_hsSetting_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [hsSetting].([MaNvcn]) (FK_hsSetting_NhanVien1)
+        /// Parent NhanVien pointed by [hsSetting].([MaNvcn]) (FK_hsSetting_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_hsSetting_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_hsSetting_NhanVien1
 
         public HsSetting()
         {
@@ -12923,14 +11118,14 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_Invoice_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Invoice].([StaffIdModify]) (FK_Invoice_NhanVienModify)
+        /// Parent NhanVien pointed by [Invoice].([StaffIdModify]) (FK_Invoice_NhanVienModify)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_Invoice_NhanVienModify
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_Invoice_NhanVienModify
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [Invoice].([StaffId]) (FK_Invoice_NhanVienCreate)
+        /// Parent NhanVien pointed by [Invoice].([StaffId]) (FK_Invoice_NhanVienCreate)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_Invoice_NhanVienCreate
+        public virtual NhanVien Staff { get; set; } // FK_Invoice_NhanVienCreate
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [Invoice].([DepositId]) (FK_Invoice_pgcPhieuGiuCho)
@@ -13651,9 +11846,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHangNhatKy KhachHangNhatKy { get; set; } // FK_KhachHang_NhatKy_PhanHoi_KhachHang_NhatKy
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [KhachHang_NhatKy_PhanHoi].([MaNv]) (FK_KhachHang_NhatKy_PhanHoi_NhanVien)
+        /// Parent NhanVien pointed by [KhachHang_NhatKy_PhanHoi].([MaNv]) (FK_KhachHang_NhatKy_PhanHoi_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_KhachHang_NhatKy_PhanHoi_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_KhachHang_NhatKy_PhanHoi_NhanVien
     }
 
     // KhachHang_SanPham
@@ -13711,14 +11906,14 @@ namespace Hpl.HrmDatabase
         public virtual KhstdTinhTrang KhstdTinhTrang { get; set; } // FK_KhachHang_SoTheoDoi_khstd_TinhTrang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [KhachHang_SoTheoDoi].([MaNv]) (FK_KhachHang_SoTheoDoi_NhanVien)
+        /// Parent NhanVien pointed by [KhachHang_SoTheoDoi].([MaNv]) (FK_KhachHang_SoTheoDoi_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_KhachHang_SoTheoDoi_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_KhachHang_SoTheoDoi_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [KhachHang_SoTheoDoi].([MaNvcn]) (FK_KhachHang_SoTheoDoi_NhanVien1)
+        /// Parent NhanVien pointed by [KhachHang_SoTheoDoi].([MaNvcn]) (FK_KhachHang_SoTheoDoi_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_KhachHang_SoTheoDoi_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_KhachHang_SoTheoDoi_NhanVien1
 
         public KhachHangSoTheoDoi()
         {
@@ -13896,9 +12091,9 @@ namespace Hpl.HrmDatabase
         public virtual KeHoachBanHang KeHoachBanHang { get; set; } // FK_khbhNhanVien_KeHoachBanHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [khbhNhanVien].([MaNv]) (FK_khbhNhanVien_NhanVien)
+        /// Parent NhanVien pointed by [khbhNhanVien].([MaNv]) (FK_khbhNhanVien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_khbhNhanVien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_khbhNhanVien_NhanVien
     }
 
     // khbhNhanVienDangKy
@@ -13983,14 +12178,14 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_khChuyenQuyen_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [khChuyenQuyen].([MaNv]) (FK_khChuyenQuyen_NhanVien1)
+        /// Parent NhanVien pointed by [khChuyenQuyen].([MaNv]) (FK_khChuyenQuyen_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_khChuyenQuyen_NhanVien1
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_khChuyenQuyen_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [khChuyenQuyen].([MaNvql]) (FK_khChuyenQuyen_NhanVien)
+        /// Parent NhanVien pointed by [khChuyenQuyen].([MaNvql]) (FK_khChuyenQuyen_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvql { get; set; } // FK_khChuyenQuyen_NhanVien
+        public virtual NhanVien NhanVien_MaNvql { get; set; } // FK_khChuyenQuyen_NhanVien
     }
 
     // khNganHang
@@ -14086,14 +12281,14 @@ namespace Hpl.HrmDatabase
         public virtual KhNganHangChiNhanh KhNganHangChiNhanh { get; set; } // FK_khNganHangGoiVay_khNganHangChiNhanh
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [khNganHangGoiVay].([MaNv]) (FK_khNganHangGoiVay_NhanVien2)
+        /// Parent NhanVien pointed by [khNganHangGoiVay].([MaNv]) (FK_khNganHangGoiVay_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_khNganHangGoiVay_NhanVien2
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_khNganHangGoiVay_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [khNganHangGoiVay].([MaNvcn]) (FK_khNganHangGoiVay_NhanVien1)
+        /// Parent NhanVien pointed by [khNganHangGoiVay].([MaNvcn]) (FK_khNganHangGoiVay_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_khNganHangGoiVay_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_khNganHangGoiVay_NhanVien1
 
         public KhNganHangGoiVay()
         {
@@ -14154,9 +12349,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHangSoTheoDoi KhachHangSoTheoDoi { get; set; } // FK_khstd_DonViLienQuan_KhachHang_SoTheoDoi
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [khstd_DonViLienQuan].([DepartmentId]) (FK_khstd_DonViLienQuan_khstd_DonViLienQuan)
+        /// Parent PhongBan pointed by [khstd_DonViLienQuan].([DepartmentId]) (FK_khstd_DonViLienQuan_khstd_DonViLienQuan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_khstd_DonViLienQuan_khstd_DonViLienQuan
+        public virtual PhongBan PhongBan { get; set; } // FK_khstd_DonViLienQuan_khstd_DonViLienQuan
     }
 
     // khstd_LichSu
@@ -14176,9 +12371,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHangSoTheoDoi KhachHangSoTheoDoi { get; set; } // FK_khstd_LichSu_KhachHang_SoTheoDoi
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [khstd_LichSu].([MaNv]) (FK_khstd_LichSu_NhanVien)
+        /// Parent NhanVien pointed by [khstd_LichSu].([MaNv]) (FK_khstd_LichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_khstd_LichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_khstd_LichSu_NhanVien
     }
 
     // khstd_TinhTrang
@@ -14410,9 +12605,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [lhLichSu].([MaNv]) (FK_lhLichSu_NhanVien)
+        /// Parent NhanVien pointed by [lhLichSu].([MaNv]) (FK_lhLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_lhLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_lhLichSu_NhanVien
     }
 
     // lhStaffReception
@@ -14473,9 +12668,9 @@ namespace Hpl.HrmDatabase
         public virtual LichHenThoiDiem LichHenThoiDiem { get; set; } // FK_LichHen_LichHen_ThoiDiem
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [LichHen].([MaNv]) (FK_LichHen_NhanVien)
+        /// Parent NhanVien pointed by [LichHen].([MaNv]) (FK_LichHen_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_LichHen_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_LichHen_NhanVien
 
         /// <summary>
         /// Parent NhiemVu pointed by [LichHen].([MaNVu]) (FK_LichHen_NhiemVu)
@@ -14571,14 +12766,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [LichSuDuyTriLuongCB].([MaNvcn]) (FK_LichSuDuyTriLuongCB_NhanVien1)
+        /// Parent NhanVien pointed by [LichSuDuyTriLuongCB].([MaNvcn]) (FK_LichSuDuyTriLuongCB_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_LichSuDuyTriLuongCB_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_LichSuDuyTriLuongCB_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [LichSuDuyTriLuongCB].([MaNvkd]) (FK_LichSuDuyTriLuongCB_NhanVien)
+        /// Parent NhanVien pointed by [LichSuDuyTriLuongCB].([MaNvkd]) (FK_LichSuDuyTriLuongCB_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_LichSuDuyTriLuongCB_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_LichSuDuyTriLuongCB_NhanVien
     }
 
     // LichSuKhoaCan
@@ -14624,14 +12819,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [LichSuXetDuyetCapBac].([MaNvcn]) (FK_LichSuXetDuyetCapBac_NhanVien1)
+        /// Parent NhanVien pointed by [LichSuXetDuyetCapBac].([MaNvcn]) (FK_LichSuXetDuyetCapBac_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_LichSuXetDuyetCapBac_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_LichSuXetDuyetCapBac_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [LichSuXetDuyetCapBac].([MaNvkd]) (FK_LichSuXetDuyetCapBac_NhanVien)
+        /// Parent NhanVien pointed by [LichSuXetDuyetCapBac].([MaNvkd]) (FK_LichSuXetDuyetCapBac_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_LichSuXetDuyetCapBac_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_LichSuXetDuyetCapBac_NhanVien
 
         /// <summary>
         /// Parent NhomKinhDoanh pointed by [LichSuXetDuyetCapBac].([MaNkd]) (FK_LichSuXetDuyetCapBac_NhomKinhDoanh)
@@ -14639,9 +12834,9 @@ namespace Hpl.HrmDatabase
         public virtual NhomKinhDoanh NhomKinhDoanh { get; set; } // FK_LichSuXetDuyetCapBac_NhomKinhDoanh
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [LichSuXetDuyetCapBac].([MaPb]) (FK_LichSuXetDuyetCapBac_PhongBan)
+        /// Parent PhongBan pointed by [LichSuXetDuyetCapBac].([MaPb]) (FK_LichSuXetDuyetCapBac_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_LichSuXetDuyetCapBac_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_LichSuXetDuyetCapBac_PhongBan
     }
 
     // LoaiBDS
@@ -15008,9 +13203,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailConfig].([StaffId]) (FK_mailConfig_NhanVien)
+        /// Parent NhanVien pointed by [mailConfig].([StaffId]) (FK_mailConfig_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_mailConfig_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_mailConfig_NhanVien
 
         public MailConfig()
         {
@@ -15112,14 +13307,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailReceives].([StaffModify]) (FK_mailReceives_NhanVien1)
+        /// Parent NhanVien pointed by [mailReceives].([StaffModify]) (FK_mailReceives_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffModify { get; set; } // FK_mailReceives_NhanVien1
+        public virtual NhanVien NhanVien_StaffModify { get; set; } // FK_mailReceives_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailReceives].([StaffId]) (FK_mailReceives_NhanVien)
+        /// Parent NhanVien pointed by [mailReceives].([StaffId]) (FK_mailReceives_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_mailReceives_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_mailReceives_NhanVien
 
         public MailReceive()
         {
@@ -15209,14 +13404,14 @@ namespace Hpl.HrmDatabase
         public virtual MailConfig MailConfig { get; set; } // FK_mailSending_mailConfig
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailSending].([StaffModify]) (FK_mailSending_NhanVien1)
+        /// Parent NhanVien pointed by [mailSending].([StaffModify]) (FK_mailSending_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffModify { get; set; } // FK_mailSending_NhanVien1
+        public virtual NhanVien NhanVien_StaffModify { get; set; } // FK_mailSending_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailSending].([StaffId]) (FK_mailSending_NhanVien)
+        /// Parent NhanVien pointed by [mailSending].([StaffId]) (FK_mailSending_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_mailSending_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_mailSending_NhanVien
 
         public MailSending()
         {
@@ -15341,14 +13536,14 @@ namespace Hpl.HrmDatabase
         public virtual MailCategory MailCategory { get; set; } // FK_mailTemplates_mailCategory
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailTemplates].([StaffModify]) (FK_mailTemplates_NhanVien1)
+        /// Parent NhanVien pointed by [mailTemplates].([StaffModify]) (FK_mailTemplates_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffModify { get; set; } // FK_mailTemplates_NhanVien1
+        public virtual NhanVien NhanVien_StaffModify { get; set; } // FK_mailTemplates_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mailTemplates].([StaffId]) (FK_mailTemplates_NhanVien)
+        /// Parent NhanVien pointed by [mailTemplates].([StaffId]) (FK_mailTemplates_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_mailTemplates_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_mailTemplates_NhanVien
 
         public MailTemplate()
         {
@@ -15672,9 +13867,9 @@ namespace Hpl.HrmDatabase
         public virtual MglNguon MglNguon { get; set; } // FK_mglbcBanChoThue_mglNguon
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglbcBanChoThue].([MaNvkd]) (FK_mglbcBanChoThue_NhanVien2)
+        /// Parent NhanVien pointed by [mglbcBanChoThue].([MaNvkd]) (FK_mglbcBanChoThue_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_mglbcBanChoThue_NhanVien2
+        public virtual NhanVien NhanVien { get; set; } // FK_mglbcBanChoThue_NhanVien2
 
         /// <summary>
         /// Parent PhapLy pointed by [mglbcBanChoThue].([MaPl]) (FK_mglbcBanChoThue_PhapLy)
@@ -15737,14 +13932,14 @@ namespace Hpl.HrmDatabase
         public virtual MglbcBanChoThue MglbcBanChoThue { get; set; } // FK_mglbcNhatKyXuLy_mglbcBanChoThue
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglbcNhatKyXuLy].([MaNvg]) (FK_mglbcNhatKyXuLy_NhanVien)
+        /// Parent NhanVien pointed by [mglbcNhatKyXuLy].([MaNvg]) (FK_mglbcNhatKyXuLy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvg { get; set; } // FK_mglbcNhatKyXuLy_NhanVien
+        public virtual NhanVien NhanVien_MaNvg { get; set; } // FK_mglbcNhatKyXuLy_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglbcNhatKyXuLy].([MaNvn]) (FK_mglbcNhatKyXuLy_NhanVien1)
+        /// Parent NhanVien pointed by [mglbcNhatKyXuLy].([MaNvn]) (FK_mglbcNhatKyXuLy_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_mglbcNhatKyXuLy_NhanVien1
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_mglbcNhatKyXuLy_NhanVien1
 
         /// <summary>
         /// Parent PhuongThucXuLy pointed by [mglbcNhatKyXuLy].([MaPt]) (FK_mglbcNhatKyXuLy_PhuongThucXuLy)
@@ -15824,9 +14019,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglBieuMau].([MaNv]) (FK_mglBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [mglBieuMau].([MaNv]) (FK_mglBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_mglBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_mglBieuMau_NhanVien
 
         public MglBieuMau()
         {
@@ -15911,19 +14106,19 @@ namespace Hpl.HrmDatabase
         public virtual MglTinhTrang MglTinhTrang { get; set; } // FK_mglDatCoc_mglTinhTrang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglDatCoc].([MaNv]) (FK_mglDatCoc_NhanVien2)
+        /// Parent NhanVien pointed by [mglDatCoc].([MaNv]) (FK_mglDatCoc_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_mglDatCoc_NhanVien2
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_mglDatCoc_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglDatCoc].([MaNvbh]) (FK_mglDatCoc_NhanVien1)
+        /// Parent NhanVien pointed by [mglDatCoc].([MaNvbh]) (FK_mglDatCoc_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvbh { get; set; } // FK_mglDatCoc_NhanVien1
+        public virtual NhanVien NhanVien_MaNvbh { get; set; } // FK_mglDatCoc_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglDatCoc].([MaNvkt]) (FK_mglDatCoc_NhanVien)
+        /// Parent NhanVien pointed by [mglDatCoc].([MaNvkt]) (FK_mglDatCoc_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkt { get; set; } // FK_mglDatCoc_NhanVien
+        public virtual NhanVien NhanVien_MaNvkt { get; set; } // FK_mglDatCoc_NhanVien
 
         public MglDatCoc()
         {
@@ -16006,19 +14201,19 @@ namespace Hpl.HrmDatabase
         public virtual MglmtMuaThue MglmtMuaThue { get; set; } // FK_mglgdGiaoDich_mglmtMuaThue
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglgdGiaoDich].([MaNv]) (FK_mglgdGiaoDich_NhanVien2)
+        /// Parent NhanVien pointed by [mglgdGiaoDich].([MaNv]) (FK_mglgdGiaoDich_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_mglgdGiaoDich_NhanVien2
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_mglgdGiaoDich_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglgdGiaoDich].([MaNvbc]) (FK_mglgdGiaoDich_NhanVien1)
+        /// Parent NhanVien pointed by [mglgdGiaoDich].([MaNvbc]) (FK_mglgdGiaoDich_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvbc { get; set; } // FK_mglgdGiaoDich_NhanVien1
+        public virtual NhanVien NhanVien_MaNvbc { get; set; } // FK_mglgdGiaoDich_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglgdGiaoDich].([MaNvmt]) (FK_mglgdGiaoDich_NhanVien)
+        /// Parent NhanVien pointed by [mglgdGiaoDich].([MaNvmt]) (FK_mglgdGiaoDich_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvmt { get; set; } // FK_mglgdGiaoDich_NhanVien
+        public virtual NhanVien NhanVien_MaNvmt { get; set; } // FK_mglgdGiaoDich_NhanVien
 
         public MglgdGiaoDich()
         {
@@ -16050,9 +14245,9 @@ namespace Hpl.HrmDatabase
         public virtual MglgdTrangThai MglgdTrangThai { get; set; } // FK_mglgdNhatKyXuLy_mglgdTrangThai
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglgdNhatKyXuLy].([MaNv]) (FK_mglgdNhatKyXuLy_NhanVien)
+        /// Parent NhanVien pointed by [mglgdNhatKyXuLy].([MaNv]) (FK_mglgdNhatKyXuLy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_mglgdNhatKyXuLy_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_mglgdNhatKyXuLy_NhanVien
     }
 
     // mglgdTrangThai
@@ -16105,9 +14300,9 @@ namespace Hpl.HrmDatabase
         public virtual MglTinhTrang MglTinhTrang { get; set; } // FK_mglLichSu_mglTinhTrang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglLichSu].([MaNv]) (FK_mglLichSu_NhanVien)
+        /// Parent NhanVien pointed by [mglLichSu].([MaNv]) (FK_mglLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_mglLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_mglLichSu_NhanVien
     }
 
     // mglmtBieuMau
@@ -16306,9 +14501,9 @@ namespace Hpl.HrmDatabase
         public virtual MglNguon MglNguon { get; set; } // FK_mglmtMuaThue_mglNguon
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglmtMuaThue].([MaNvkd]) (FK_mglMuaThue_NhanVien)
+        /// Parent NhanVien pointed by [mglmtMuaThue].([MaNvkd]) (FK_mglMuaThue_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_mglMuaThue_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_mglMuaThue_NhanVien
 
         public MglmtMuaThue()
         {
@@ -16344,14 +14539,14 @@ namespace Hpl.HrmDatabase
         public virtual MglmtMuaThue MglmtMuaThue { get; set; } // FK_mglmtNhatKyXuLy_mglMuaThue
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglmtNhatKyXuLy].([MaNvg]) (FK_mglmtNhatKyXuLy_NhanVien)
+        /// Parent NhanVien pointed by [mglmtNhatKyXuLy].([MaNvg]) (FK_mglmtNhatKyXuLy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvg { get; set; } // FK_mglmtNhatKyXuLy_NhanVien
+        public virtual NhanVien NhanVien_MaNvg { get; set; } // FK_mglmtNhatKyXuLy_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [mglmtNhatKyXuLy].([MaNvn]) (FK_mglmtNhatKyXuLy_NhanVien1)
+        /// Parent NhanVien pointed by [mglmtNhatKyXuLy].([MaNvn]) (FK_mglmtNhatKyXuLy_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_mglmtNhatKyXuLy_NhanVien1
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_mglmtNhatKyXuLy_NhanVien1
 
         /// <summary>
         /// Parent PhuongThucXuLy pointed by [mglmtNhatKyXuLy].([MaPt]) (FK_mglmtNhatKyXuLy_PhuongThucXuLy)
@@ -16646,8 +14841,8 @@ namespace Hpl.HrmDatabase
         public int? MaXa { get; set; } // MaXa
     }
 
-    // NhanVienSale
-    public class NhanVienSale
+    // NhanVien
+    public class NhanVien
     {
         public int MaNv { get; set; } // MaNV (Primary key)
 
@@ -16726,7 +14921,7 @@ namespace Hpl.HrmDatabase
         public string HoKhau { get; set; } // HoKhau (length: 250)
 
         /// <summary>
-        /// Phòng ban =&gt; PhongBanSale
+        /// Phòng ban =&gt; PhongBan
         /// </summary>
         public int? MaPb { get; set; } // MaPB
 
@@ -16791,12 +14986,12 @@ namespace Hpl.HrmDatabase
         public byte? GioiTinh { get; set; } // GioiTinh
 
         /// <summary>
-        /// Nhân viên quản lý =&gt; NhanVienSale
+        /// Nhân viên quản lý =&gt; NhanVien
         /// </summary>
         public int? MaQl { get; set; } // MaQL
 
         /// <summary>
-        /// Nhân viên quản lý 2 =&gt; NhanVienSale
+        /// Nhân viên quản lý 2 =&gt; NhanVien
         /// </summary>
         public int? MaQl2 { get; set; } // MaQL2
 
@@ -16831,7 +15026,7 @@ namespace Hpl.HrmDatabase
         public string DiaChiLl { get; set; } // DiaChiLL (length: 50)
 
         /// <summary>
-        /// Nhân viên cập nhật =&gt; NhanVienSale
+        /// Nhân viên cập nhật =&gt; NhanVien
         /// </summary>
         public int? MaNvcn { get; set; } // MaNVCN
 
@@ -17360,7 +15555,7 @@ namespace Hpl.HrmDatabase
         /// <summary>
         /// Child DxDeXuats where [dxDeXuat].[MaNVN] point to this entity (FK_pgcDeXuat_NhanVien)
         /// </summary>
-        public virtual ICollection<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat.FK_pgcDeXuat_NhanVien
+        public virtual ICollection<DxDeXuat> DxDeXuats { get; set; } // dxDeXuat.FK_pgcDeXuat_NhanVien
 
         /// <summary>
         /// Child HdmbQuaTrinhThucHiens where [hdmbQuaTrinhThucHien].[MaNV] point to this entity (FK_hdmbQuaTrinhThucHien_NhanVien)
@@ -17985,36 +16180,36 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent Branch pointed by [NhanVienSale].([BranchId]) (FK_NhanVien_Branch)
+        /// Parent Branch pointed by [NhanVien].([BranchId]) (FK_NhanVien_Branch)
         /// </summary>
         public virtual Branch Branch { get; set; } // FK_NhanVien_Branch
 
         /// <summary>
-        /// Parent ChucVu pointed by [NhanVienSale].([MaCv]) (FK_NhanVien_ChucVu)
+        /// Parent ChucVu pointed by [NhanVien].([MaCv]) (FK_NhanVien_ChucVu)
         /// </summary>
         public virtual ChucVu ChucVu { get; set; } // FK_NhanVien_ChucVu
 
         /// <summary>
-        /// Parent NhomKinhDoanh pointed by [NhanVienSale].([MaNkd]) (FK_NhanVien_NhomKinhDoanh)
+        /// Parent NhomKinhDoanh pointed by [NhanVien].([MaNkd]) (FK_NhanVien_NhomKinhDoanh)
         /// </summary>
         public virtual NhomKinhDoanh NhomKinhDoanh { get; set; } // FK_NhanVien_NhomKinhDoanh
 
         /// <summary>
-        /// Parent Permission pointed by [NhanVienSale].([PerId]) (FK_NhanVien_Permissions)
+        /// Parent Permission pointed by [NhanVien].([PerId]) (FK_NhanVien_Permissions)
         /// </summary>
         public virtual Permission Permission { get; set; } // FK_NhanVien_Permissions
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [NhanVienSale].([MaPb]) (FK_NhanVien_PhongBan)
+        /// Parent PhongBan pointed by [NhanVien].([MaPb]) (FK_NhanVien_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_NhanVien_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_NhanVien_PhongBan
 
         /// <summary>
-        /// Parent QuyDanh pointed by [NhanVienSale].([MaQd]) (FK_NhanVien_QuyDanh)
+        /// Parent QuyDanh pointed by [NhanVien].([MaQd]) (FK_NhanVien_QuyDanh)
         /// </summary>
         public virtual QuyDanh QuyDanh { get; set; } // FK_NhanVien_QuyDanh
 
-        public NhanVienSale()
+        public NhanVien()
         {
             IsCdt = false;
             Gender = 1;
@@ -18115,7 +16310,7 @@ namespace Hpl.HrmDatabase
             DaLichSus = new List<DaLichSu>();
             DocTaiLieux = new List<DocTaiLieu>();
             DuAnNhanViens = new List<DuAnNhanVien>();
-            DxDeXuats = new List<DxDeXuatSale>();
+            DxDeXuats = new List<DxDeXuat>();
             HdmbQuaTrinhThucHiens = new List<HdmbQuaTrinhThucHien>();
             HdptBieuMaus_MaNvn = new List<HdptBieuMau>();
             HdptBieuMaus_MaNvs = new List<HdptBieuMau>();
@@ -18297,9 +16492,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [NhanVien_LichSu].([RefId]) (FK_NhanVien_LichSu_NhanVien)
+        /// Parent NhanVien pointed by [NhanVien_LichSu].([RefId]) (FK_NhanVien_LichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_NhanVien_LichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_NhanVien_LichSu_NhanVien
     }
 
     // NhanVienNhatKy
@@ -18345,9 +16540,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [NhanVienNhatKy].([MaNv]) (FK_NhanVienNhatKy_NhanVien)
+        /// Parent NhanVien pointed by [NhanVienNhatKy].([MaNv]) (FK_NhanVienNhatKy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_NhanVienNhatKy_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_NhanVienNhatKy_NhanVien
     }
 
     // NhatKyTruyCap
@@ -18405,9 +16600,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [NhiemVu].([MaNv]) (FK_NhiemVu_NhanVien)
+        /// Parent NhanVien pointed by [NhiemVu].([MaNv]) (FK_NhiemVu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_NhiemVu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_NhiemVu_NhanVien
 
         /// <summary>
         /// Parent NhiemVuLoai pointed by [NhiemVu].([MaLnv]) (FK_NhiemVu_NhiemVu_Loai)
@@ -18452,9 +16647,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [NhiemVu_LichSu].([MaNv]) (FK_NhiemVu_LichSu_NhanVien)
+        /// Parent NhanVien pointed by [NhiemVu_LichSu].([MaNv]) (FK_NhiemVu_LichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_NhiemVu_LichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_NhiemVu_LichSu_NhanVien
 
         /// <summary>
         /// Parent NhiemVu pointed by [NhiemVu_LichSu].([MaNVu]) (FK_NhiemVu_LichSu_NhiemVu)
@@ -18514,9 +16709,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [NhiemVu_NhanVien].([MaNv]) (FK_NhiemVu_NhanVien_NhanVien)
+        /// Parent NhanVien pointed by [NhiemVu_NhanVien].([MaNv]) (FK_NhiemVu_NhanVien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_NhiemVu_NhanVien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_NhiemVu_NhanVien_NhanVien
 
         /// <summary>
         /// Parent NhiemVu pointed by [NhiemVu_NhanVien].([MaNVu]) (FK_NhiemVu_NhanVien_NhiemVu)
@@ -18608,9 +16803,9 @@ namespace Hpl.HrmDatabase
         public virtual ICollection<LichSuXetDuyetCapBac> LichSuXetDuyetCapBacs { get; set; } // LichSuXetDuyetCapBac.FK_LichSuXetDuyetCapBac_NhomKinhDoanh
 
         /// <summary>
-        /// Child NhanViens where [NhanVienSale].[MaNKD] point to this entity (FK_NhanVien_NhomKinhDoanh)
+        /// Child NhanViens where [NhanVien].[MaNKD] point to this entity (FK_NhanVien_NhomKinhDoanh)
         /// </summary>
-        public virtual ICollection<NhanVienSale> NhanViens { get; set; } // NhanVienSale.FK_NhanVien_NhomKinhDoanh
+        public virtual ICollection<NhanVien> NhanViens { get; set; } // NhanVien.FK_NhanVien_NhomKinhDoanh
 
         /// <summary>
         /// Child NvLichSus where [nvLichSu].[MaNKD] point to this entity (FK_nvLichSu_NhomKinhDoanh)
@@ -18630,7 +16825,7 @@ namespace Hpl.HrmDatabase
         public NhomKinhDoanh()
         {
             LichSuXetDuyetCapBacs = new List<LichSuXetDuyetCapBac>();
-            NhanViens = new List<NhanVienSale>();
+            NhanViens = new List<NhanVien>();
             NvLichSus = new List<NvLichSu>();
             RoseHoaHongs = new List<RoseHoaHong>();
             RrRegisteredRevenueGroups = new List<RrRegisteredRevenueGroup>();
@@ -18710,9 +16905,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [nnghQuaTrinh].([MaNv]) (FK_nnghQuaTrinh_NhanVien)
+        /// Parent NhanVien pointed by [nnghQuaTrinh].([MaNv]) (FK_nnghQuaTrinh_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_nnghQuaTrinh_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_nnghQuaTrinh_NhanVien
 
         /// <summary>
         /// Parent NnghTinhTrang pointed by [nnghQuaTrinh].([MaTt]) (FK_nnghQuaTrinh_nnghTinhTrang)
@@ -18786,9 +16981,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_nnGiaHan_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [nnGiaHan].([MaNv]) (FK_nnGiaHan_NhanVien)
+        /// Parent NhanVien pointed by [nnGiaHan].([MaNv]) (FK_nnGiaHan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_nnGiaHan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_nnGiaHan_NhanVien
 
         /// <summary>
         /// Parent NnghTinhTrang pointed by [nnGiaHan].([MaTt]) (FK_nnGiaHan_nnghTinhTrang)
@@ -18906,14 +17101,14 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_nnNhacNo_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [nnNhacNo].([MaNvn]) (FK_nnNhacNo_NhanVien)
+        /// Parent NhanVien pointed by [nnNhacNo].([MaNvn]) (FK_nnNhacNo_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_nnNhacNo_NhanVien
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_nnNhacNo_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [nnNhacNo].([MaNvs]) (FK_nnNhacNo_NhanVien1)
+        /// Parent NhanVien pointed by [nnNhacNo].([MaNvs]) (FK_nnNhacNo_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_nnNhacNo_NhanVien1
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_nnNhacNo_NhanVien1
 
         public NnNhacNo()
         {
@@ -18935,9 +17130,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [NoteHistory].([StaffCreate]) (FK_NoteHistory_NhanVien)
+        /// Parent NhanVien pointed by [NoteHistory].([StaffCreate]) (FK_NoteHistory_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_NoteHistory_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_NoteHistory_NhanVien
 
         /// <summary>
         /// Parent NoteType pointed by [NoteHistory].([TypeId]) (FK_NoteHistory_NoteType)
@@ -19394,9 +17589,9 @@ namespace Hpl.HrmDatabase
         public virtual ChucVu ChucVu { get; set; } // FK_ntchBanQuanLy_ChucVu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [ntchBanQuanLy].([MaNv]) (FK_ntchBanQuanLy_NhanVien)
+        /// Parent NhanVien pointed by [ntchBanQuanLy].([MaNv]) (FK_ntchBanQuanLy_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_ntchBanQuanLy_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_ntchBanQuanLy_NhanVien
 
         /// <summary>
         /// Parent NtchNghiemThuCanHo pointed by [ntchBanQuanLy].([MaNt]) (FK_ntchBanQuanLy_ntchNghiemThuCanHo)
@@ -19423,9 +17618,9 @@ namespace Hpl.HrmDatabase
         public virtual ChucVu ChucVu { get; set; } // FK_ntchBanQuanLyNB_ChucVu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [ntchBanQuanLyNB].([MaNv]) (FK_ntchBanQuanLyNB_NhanVien)
+        /// Parent NhanVien pointed by [ntchBanQuanLyNB].([MaNv]) (FK_ntchBanQuanLyNB_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_ntchBanQuanLyNB_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_ntchBanQuanLyNB_NhanVien
 
         /// <summary>
         /// Parent NtchNghiemThuCanHo pointed by [ntchBanQuanLyNB].([MaNt]) (FK_ntchBanQuanLyNB_ntchNghiemThuCanHo)
@@ -19513,14 +17708,14 @@ namespace Hpl.HrmDatabase
         public virtual HopDongMuaBan HopDongMuaBan { get; set; } // FK_ntchNghiemThuCanHo_HopDongMuaBan
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [ntchNghiemThuCanHo].([MaNv]) (FK_ntchNghiemThuCanHo_NhanVien)
+        /// Parent NhanVien pointed by [ntchNghiemThuCanHo].([MaNv]) (FK_ntchNghiemThuCanHo_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_ntchNghiemThuCanHo_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_ntchNghiemThuCanHo_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [ntchNghiemThuCanHo].([MaNvcn]) (FK_ntchNghiemThuCanHo_NhanVien1)
+        /// Parent NhanVien pointed by [ntchNghiemThuCanHo].([MaNvcn]) (FK_ntchNghiemThuCanHo_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_ntchNghiemThuCanHo_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_ntchNghiemThuCanHo_NhanVien1
 
         public NtchNghiemThuCanHo()
         {
@@ -19546,9 +17741,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [ntchNghiemThuLichSu].([MaNv]) (FK_ntchNghiemThuLichSu_NhanVien)
+        /// Parent NhanVien pointed by [ntchNghiemThuLichSu].([MaNv]) (FK_ntchNghiemThuLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_ntchNghiemThuLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_ntchNghiemThuLichSu_NhanVien
 
         /// <summary>
         /// Parent NtchNghiemThuCanHo pointed by [ntchNghiemThuLichSu].([MaNt]) (FK_ntchNghiemThuLichSu_ntchNghiemThuCanHo)
@@ -19572,9 +17767,9 @@ namespace Hpl.HrmDatabase
         public virtual ChucVu ChucVu { get; set; } // FK_ntchToBanGiao_ChucVu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [ntchToBanGiao].([MaNv]) (FK_ntchToBanGiao_NhanVien)
+        /// Parent NhanVien pointed by [ntchToBanGiao].([MaNv]) (FK_ntchToBanGiao_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_ntchToBanGiao_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_ntchToBanGiao_NhanVien
 
         /// <summary>
         /// Parent NtchNghiemThuCanHo pointed by [ntchToBanGiao].([MaNt]) (FK_ntchToBanGiao_ntchNghiemThuCanHo)
@@ -19631,9 +17826,9 @@ namespace Hpl.HrmDatabase
         public virtual ChucVu ChucVu { get; set; } // FK_nvLichSu_ChucVu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [nvLichSu].([RefId]) (FK_nvLichSu_NhanVien)
+        /// Parent NhanVien pointed by [nvLichSu].([RefId]) (FK_nvLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_nvLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_nvLichSu_NhanVien
 
         /// <summary>
         /// Parent NhomKinhDoanh pointed by [nvLichSu].([MaNkd]) (FK_nvLichSu_NhomKinhDoanh)
@@ -19641,9 +17836,9 @@ namespace Hpl.HrmDatabase
         public virtual NhomKinhDoanh NhomKinhDoanh { get; set; } // FK_nvLichSu_NhomKinhDoanh
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [nvLichSu].([MaPb]) (FK_nvLichSu_PhongBan)
+        /// Parent PhongBan pointed by [nvLichSu].([MaPb]) (FK_nvLichSu_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_nvLichSu_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_nvLichSu_PhongBan
     }
 
     // nvNghiepVu
@@ -19758,9 +17953,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_pbxHistoryCall_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pbxHistoryCall].([StaffId]) (FK_pbxHistoryCall_NhanVien)
+        /// Parent NhanVien pointed by [pbxHistoryCall].([StaffId]) (FK_pbxHistoryCall_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pbxHistoryCall_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pbxHistoryCall_NhanVien
 
         /// <summary>
         /// Parent NhomKh pointed by [pbxHistoryCall].([GroupId]) (FK_pbxHistoryCall_NhomKH)
@@ -19926,9 +18121,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pdcQuaTrinhThucHien].([MaNv]) (FK_pdcQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [pdcQuaTrinhThucHien].([MaNv]) (FK_pdcQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pdcQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pdcQuaTrinhThucHien_NhanVien
 
         /// <summary>
         /// Parent PdcPhieuDatCoc pointed by [pdcQuaTrinhThucHien].([MaPdc]) (FK_pdcQuaTrinhThucHien_pdcPhieuDatCoc)
@@ -20155,9 +18350,9 @@ namespace Hpl.HrmDatabase
         public virtual LoaiTien LoaiTien { get; set; } // FK_pdkGiaoDich_LoaiTien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pdkGiaoDich].([MaNv1]) (FK_pdkGiaoDich_NhanVien)
+        /// Parent NhanVien pointed by [pdkGiaoDich].([MaNv1]) (FK_pdkGiaoDich_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pdkGiaoDich_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pdkGiaoDich_NhanVien
     }
 
     // pdkPhieuDangKy
@@ -20219,15 +18414,15 @@ namespace Hpl.HrmDatabase
         public virtual ICollection<ActionData> ActionDatas { get; set; } // ActionData.FK_ActionData_Permissions
 
         /// <summary>
-        /// Child NhanViens where [NhanVienSale].[PerID] point to this entity (FK_NhanVien_Permissions)
+        /// Child NhanViens where [NhanVien].[PerID] point to this entity (FK_NhanVien_Permissions)
         /// </summary>
-        public virtual ICollection<NhanVienSale> NhanViens { get; set; } // NhanVienSale.FK_NhanVien_Permissions
+        public virtual ICollection<NhanVien> NhanViens { get; set; } // NhanVien.FK_NhanVien_Permissions
 
         public Permission()
         {
             AccessDatas = new List<AccessData>();
             ActionDatas = new List<ActionData>();
-            NhanViens = new List<NhanVienSale>();
+            NhanViens = new List<NhanVien>();
         }
     }
 
@@ -20300,9 +18495,9 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_pgcBieuMau_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcBieuMau].([MaNv]) (FK_pgcBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [pgcBieuMau].([MaNv]) (FK_pgcBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcBieuMau_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcBieuMau].([MaPgc]) (FK_pgcBieuMau_pgcPhieuGiuCho)
@@ -20423,9 +18618,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_pgcChung_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcChung].([MaNvct]) (FK_pgcChung_NhanVien)
+        /// Parent NhanVien pointed by [pgcChung].([MaNvct]) (FK_pgcChung_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcChung_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcChung_NhanVien
 
         public PgcChung()
         {
@@ -20467,9 +18662,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcDoiSPLichSu].([MaNv]) (FK_pgcDoiSPLichSu_NhanVien)
+        /// Parent NhanVien pointed by [pgcDoiSPLichSu].([MaNv]) (FK_pgcDoiSPLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcDoiSPLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcDoiSPLichSu_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcDoiSPLichSu].([MaPgc]) (FK_pgcDoiSPLichSu_pgcPhieuGiuCho)
@@ -20747,9 +18942,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcNhanVien].([MaNv]) (FK_pgcNhanVien_NhanVien)
+        /// Parent NhanVien pointed by [pgcNhanVien].([MaNv]) (FK_pgcNhanVien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcNhanVien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcNhanVien_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcNhanVien].([MaPgc]) (FK_pgcNhanVien_pgcPhieuGiuCho)
@@ -20827,9 +19022,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcPhieuChi].([MaNv]) (FK_pgcPhieuChi_NhanVien)
+        /// Parent NhanVien pointed by [pgcPhieuChi].([MaNv]) (FK_pgcPhieuChi_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcPhieuChi_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcPhieuChi_NhanVien
 
         /// <summary>
         /// Parent PgcLoaiPhieuThuChi pointed by [pgcPhieuChi].([MaLoai]) (FK_pgcPhieuChi_pgcLoaiPhieuThuChi)
@@ -21151,7 +19346,7 @@ namespace Hpl.HrmDatabase
         /// <summary>
         /// Child DxDeXuats where [dxDeXuat].[MaPGC] point to this entity (FK_pgcDeXuat_pgcPhieuGiuCho)
         /// </summary>
-        public virtual ICollection<DxDeXuatSale> DxDeXuats { get; set; } // dxDeXuat.FK_pgcDeXuat_pgcPhieuGiuCho
+        public virtual ICollection<DxDeXuat> DxDeXuats { get; set; } // dxDeXuat.FK_pgcDeXuat_pgcPhieuGiuCho
 
         /// <summary>
         /// Child HccnHanCheChuyenNhuongs where [hccnHanCheChuyenNhuong].[MaPGC] point to this entity (FK_hccnHanCheChuyenNhuong_pgcPhieuGiuCho)
@@ -21366,9 +19561,9 @@ namespace Hpl.HrmDatabase
         public virtual NguoiDaiDien NguoiDaiDien { get; set; } // FK_pgcPhieuGiuCho_NguoiDaiDien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcPhieuGiuCho].([MaNvkd]) (FK_pgcPhieuGiuCho_NhanVien)
+        /// Parent NhanVien pointed by [pgcPhieuGiuCho].([MaNvkd]) (FK_pgcPhieuGiuCho_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcPhieuGiuCho_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcPhieuGiuCho_NhanVien
 
         /// <summary>
         /// Parent PgcChung pointed by [pgcPhieuGiuCho].([MaGcc]) (FK_pgcPhieuGiuCho_pgcChung)
@@ -21396,7 +19591,7 @@ namespace Hpl.HrmDatabase
             CommissionContractDetails = new List<CommissionContractDetail>();
             CommissionCostAllocations = new List<CommissionCostAllocation>();
             CsChinhSachBanHangs = new List<CsChinhSachBanHang>();
-            DxDeXuats = new List<DxDeXuatSale>();
+            DxDeXuats = new List<DxDeXuat>();
             HccnHanCheChuyenNhuongs = new List<HccnHanCheChuyenNhuong>();
             HdptPhongToas = new List<HdptPhongToa>();
             HdtHopDongThues = new List<HdtHopDongThue>();
@@ -21466,9 +19661,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcPhieuThanhToan].([MaNv]) (FK_pgcPhieuThanhToan_NhanVien)
+        /// Parent NhanVien pointed by [pgcPhieuThanhToan].([MaNv]) (FK_pgcPhieuThanhToan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcPhieuThanhToan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcPhieuThanhToan_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcPhieuThanhToan].([MaPgc]) (FK_pgcPhieuThanhToan_pgcPhieuGiuCho)
@@ -21590,9 +19785,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcPhieuThu].([MaNv]) (FK_pgcPhieuThu_NhanVien)
+        /// Parent NhanVien pointed by [pgcPhieuThu].([MaNv]) (FK_pgcPhieuThu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcPhieuThu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcPhieuThu_NhanVien
 
         /// <summary>
         /// Parent PgcHinhThucThanhToan pointed by [pgcPhieuThu].([MaHt]) (FK_pgcPhieuThu_pgcHinhThucThanhToan)
@@ -21689,14 +19884,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcPhieuXacNhan].([MaNv]) (FK_pgcPhieuXacNhan_NhanVien)
+        /// Parent NhanVien pointed by [pgcPhieuXacNhan].([MaNv]) (FK_pgcPhieuXacNhan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_pgcPhieuXacNhan_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_pgcPhieuXacNhan_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcPhieuXacNhan].([MaNvcn]) (FK_pgcPhieuXacNhan_NhanVienCN)
+        /// Parent NhanVien pointed by [pgcPhieuXacNhan].([MaNvcn]) (FK_pgcPhieuXacNhan_NhanVienCN)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_pgcPhieuXacNhan_NhanVienCN
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_pgcPhieuXacNhan_NhanVienCN
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcPhieuXacNhan].([MaPgc]) (FK_pgcPhieuXacNhan_pgcPhieuGiuCho)
@@ -21794,9 +19989,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcQuaTrinhThucHien].([MaNv]) (FK_pgcQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [pgcQuaTrinhThucHien].([MaNv]) (FK_pgcQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcQuaTrinhThucHien_NhanVien
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcQuaTrinhThucHien].([MaPgc]) (FK_pgcQuaTrinhThucHien_pgcPhieuGiuCho)
@@ -21948,14 +20143,14 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang_MaKhuq { get; set; } // FK_pgcUyQuyen_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcUyQuyen].([MaNvn]) (FK_pgcUyQuyen_NhanVien)
+        /// Parent NhanVien pointed by [pgcUyQuyen].([MaNvn]) (FK_pgcUyQuyen_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvn { get; set; } // FK_pgcUyQuyen_NhanVien
+        public virtual NhanVien NhanVien_MaNvn { get; set; } // FK_pgcUyQuyen_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcUyQuyen].([MaNvs]) (FK_pgcUyQuyen_NhanVien1)
+        /// Parent NhanVien pointed by [pgcUyQuyen].([MaNvs]) (FK_pgcUyQuyen_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvs { get; set; } // FK_pgcUyQuyen_NhanVien1
+        public virtual NhanVien NhanVien_MaNvs { get; set; } // FK_pgcUyQuyen_NhanVien1
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [pgcUyQuyen].([MaPgc]) (FK_pgcUyQuyen_pgcPhieuGiuCho)
@@ -21988,9 +20183,9 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_pgcUyQuyenBieuMau_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcUyQuyenBieuMau].([MaNvcn]) (FK_pgcUyQuyenBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [pgcUyQuyenBieuMau].([MaNvcn]) (FK_pgcUyQuyenBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcUyQuyenBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcUyQuyenBieuMau_NhanVien
 
         /// <summary>
         /// Parent PgcUyQuyen pointed by [pgcUyQuyenBieuMau].([MaUq]) (FK_pgcUyQuyenBieuMau_pgcUyQuyen)
@@ -22011,9 +20206,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pgcUyQuyenLichSu].([MaNv]) (FK_pgcUyQuyenLichSu_NhanVien)
+        /// Parent NhanVien pointed by [pgcUyQuyenLichSu].([MaNv]) (FK_pgcUyQuyenLichSu_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pgcUyQuyenLichSu_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pgcUyQuyenLichSu_NhanVien
 
         /// <summary>
         /// Parent PgcUyQuyen pointed by [pgcUyQuyenLichSu].([MaUq]) (FK_pgcUyQuyenLichSu_pgcUyQuyen)
@@ -22107,8 +20302,8 @@ namespace Hpl.HrmDatabase
         }
     }
 
-    // PhongBanSale
-    public class PhongBanSale
+    // PhongBan
+    public class PhongBan
     {
         public int MaPb { get; set; } // MaPB (Primary key)
         public string TenPb { get; set; } // TenPB (length: 50)
@@ -22144,9 +20339,9 @@ namespace Hpl.HrmDatabase
         public virtual ICollection<LichSuXetDuyetCapBac> LichSuXetDuyetCapBacs { get; set; } // LichSuXetDuyetCapBac.FK_LichSuXetDuyetCapBac_PhongBan
 
         /// <summary>
-        /// Child NhanViens where [NhanVienSale].[MaPB] point to this entity (FK_NhanVien_PhongBan)
+        /// Child NhanViens where [NhanVien].[MaPB] point to this entity (FK_NhanVien_PhongBan)
         /// </summary>
-        public virtual ICollection<NhanVienSale> NhanViens { get; set; } // NhanVienSale.FK_NhanVien_PhongBan
+        public virtual ICollection<NhanVien> NhanViens { get; set; } // NhanVien.FK_NhanVien_PhongBan
 
         /// <summary>
         /// Child NvLichSus where [nvLichSu].[MaPB] point to this entity (FK_nvLichSu_PhongBan)
@@ -22163,14 +20358,14 @@ namespace Hpl.HrmDatabase
         /// </summary>
         public virtual ICollection<RrRegisteredRevenueDepartment> RrRegisteredRevenueDepartments { get; set; } // rrRegisteredRevenueDepartment.FK_rrRegisteredRevenueDepartment_PhongBan
 
-        public PhongBanSale()
+        public PhongBan()
         {
             CongVanDenPhongBans = new List<CongVanDenPhongBan>();
             DxBoPhanXuLies = new List<DxBoPhanXuLy>();
             DxNguyenNhans = new List<DxNguyenNhan>();
             KhstdDonViLienQuans = new List<KhstdDonViLienQuan>();
             LichSuXetDuyetCapBacs = new List<LichSuXetDuyetCapBac>();
-            NhanViens = new List<NhanVienSale>();
+            NhanViens = new List<NhanVien>();
             NvLichSus = new List<NvLichSu>();
             RoseHoaHongs = new List<RoseHoaHong>();
             RrRegisteredRevenueDepartments = new List<RrRegisteredRevenueDepartment>();
@@ -22277,9 +20472,9 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_pkgBieuMau_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pkgBieuMau].([MaNv]) (FK_pkgBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [pkgBieuMau].([MaNv]) (FK_pkgBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pkgBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pkgBieuMau_NhanVien
 
         /// <summary>
         /// Parent PkgPhieuKyGui pointed by [pkgBieuMau].([MaPkg]) (FK_pkgBieuMau_pkgPhieuKyGui)
@@ -22353,9 +20548,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [pkgQuaTrinhThucHien].([MaNv]) (FK_pkgQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [pkgQuaTrinhThucHien].([MaNv]) (FK_pkgQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_pkgQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_pkgQuaTrinhThucHien_NhanVien
 
         /// <summary>
         /// Parent PkgPhieuKyGui pointed by [pkgQuaTrinhThucHien].([MaPkg]) (FK_pkgQuaTrinhThucHien_pkgPhieuKyGui)
@@ -22414,9 +20609,9 @@ namespace Hpl.HrmDatabase
         public virtual DaBieuMau DaBieuMau { get; set; } // FK_hdvvPhuLucBieuMau_daBieuMau
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [plBieuMau].([MaNv]) (FK_hdvvPhuLucBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [plBieuMau].([MaNv]) (FK_hdvvPhuLucBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_hdvvPhuLucBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_hdvvPhuLucBieuMau_NhanVien
 
         /// <summary>
         /// Parent PlPhuLuc pointed by [plBieuMau].([MaPl]) (FK_plBieuMau_plPhuLuc)
@@ -22755,14 +20950,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [plPhuLuc].([MaNv]) (FK_hdvvPhuLuc_NhanVien)
+        /// Parent NhanVien pointed by [plPhuLuc].([MaNv]) (FK_hdvvPhuLuc_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_hdvvPhuLuc_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_hdvvPhuLuc_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [plPhuLuc].([MaNvcn]) (FK_hdvvPhuLuc_NhanVien1)
+        /// Parent NhanVien pointed by [plPhuLuc].([MaNvcn]) (FK_hdvvPhuLuc_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_hdvvPhuLuc_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_hdvvPhuLuc_NhanVien1
 
         /// <summary>
         /// Parent PgcPhieuGiuCho pointed by [plPhuLuc].([MaPgc]) (FK_plPhuLuc_pgcPhieuGiuCho)
@@ -23426,14 +21621,14 @@ namespace Hpl.HrmDatabase
         public virtual ICollection<KhachHang> KhachHangs { get; set; } // KhachHang.FK_KhachHang_QuyDanh
 
         /// <summary>
-        /// Child NhanViens where [NhanVienSale].[MaQD] point to this entity (FK_NhanVien_QuyDanh)
+        /// Child NhanViens where [NhanVien].[MaQD] point to this entity (FK_NhanVien_QuyDanh)
         /// </summary>
-        public virtual ICollection<NhanVienSale> NhanViens { get; set; } // NhanVienSale.FK_NhanVien_QuyDanh
+        public virtual ICollection<NhanVien> NhanViens { get; set; } // NhanVien.FK_NhanVien_QuyDanh
 
         public QuyDanh()
         {
             KhachHangs = new List<KhachHang>();
-            NhanViens = new List<NhanVienSale>();
+            NhanViens = new List<NhanVien>();
         }
     }
 
@@ -23501,14 +21696,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [roseHoaHong].([MaNvkd]) (FK_roseHoaHong_NhanVien)
+        /// Parent NhanVien pointed by [roseHoaHong].([MaNvkd]) (FK_roseHoaHong_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvkd { get; set; } // FK_roseHoaHong_NhanVien
+        public virtual NhanVien NhanVien_MaNvkd { get; set; } // FK_roseHoaHong_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [roseHoaHong].([MaNvTao]) (FK_roseHoaHong_NhanVien1)
+        /// Parent NhanVien pointed by [roseHoaHong].([MaNvTao]) (FK_roseHoaHong_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvTao { get; set; } // FK_roseHoaHong_NhanVien1
+        public virtual NhanVien NhanVien_MaNvTao { get; set; } // FK_roseHoaHong_NhanVien1
 
         /// <summary>
         /// Parent NhomKinhDoanh pointed by [roseHoaHong].([MaNkd]) (FK_roseHoaHong_NhomKinhDoanh)
@@ -23516,9 +21711,9 @@ namespace Hpl.HrmDatabase
         public virtual NhomKinhDoanh NhomKinhDoanh { get; set; } // FK_roseHoaHong_NhomKinhDoanh
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [roseHoaHong].([MaPb]) (FK_roseHoaHong_PhongBan)
+        /// Parent PhongBan pointed by [roseHoaHong].([MaPb]) (FK_roseHoaHong_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_roseHoaHong_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_roseHoaHong_PhongBan
     }
 
     // rptGroups
@@ -23620,14 +21815,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenue].([StaffIdCreate]) (FK_rrRegisteredRevenue_NhanVien)
+        /// Parent NhanVien pointed by [rrRegisteredRevenue].([StaffIdCreate]) (FK_rrRegisteredRevenue_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenue_NhanVien
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenue_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenue].([StaffIdModify]) (FK_rrRegisteredRevenue_NhanVien1)
+        /// Parent NhanVien pointed by [rrRegisteredRevenue].([StaffIdModify]) (FK_rrRegisteredRevenue_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenue_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenue_NhanVien1
     }
 
     // rrRegisteredRevenueDepartment
@@ -23647,19 +21842,19 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueDepartment].([StaffIdCreate]) (FK_rrRegisteredRevenueDepartment_NhanVien)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueDepartment].([StaffIdCreate]) (FK_rrRegisteredRevenueDepartment_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenueDepartment_NhanVien
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenueDepartment_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueDepartment].([StaffIdModify]) (FK_rrRegisteredRevenueDepartment_NhanVien1)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueDepartment].([StaffIdModify]) (FK_rrRegisteredRevenueDepartment_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenueDepartment_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenueDepartment_NhanVien1
 
         /// <summary>
-        /// Parent PhongBanSale pointed by [rrRegisteredRevenueDepartment].([DepId]) (FK_rrRegisteredRevenueDepartment_PhongBan)
+        /// Parent PhongBan pointed by [rrRegisteredRevenueDepartment].([DepId]) (FK_rrRegisteredRevenueDepartment_PhongBan)
         /// </summary>
-        public virtual PhongBanSale PhongBanSale { get; set; } // FK_rrRegisteredRevenueDepartment_PhongBan
+        public virtual PhongBan PhongBan { get; set; } // FK_rrRegisteredRevenueDepartment_PhongBan
     }
 
     // rrRegisteredRevenueGroup
@@ -23679,14 +21874,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueGroup].([StaffIdCreate]) (FK_rrRegisteredRevenueGroup_NhanVien)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueGroup].([StaffIdCreate]) (FK_rrRegisteredRevenueGroup_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenueGroup_NhanVien
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenueGroup_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueGroup].([StaffIdModify]) (FK_rrRegisteredRevenueGroup_NhanVien1)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueGroup].([StaffIdModify]) (FK_rrRegisteredRevenueGroup_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenueGroup_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenueGroup_NhanVien1
 
         /// <summary>
         /// Parent NhomKinhDoanh pointed by [rrRegisteredRevenueGroup].([GroupId]) (FK_rrRegisteredRevenueGroup_NhomKinhDoanh)
@@ -23712,19 +21907,19 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueStaff].([StaffIdCreate]) (FK_rrRegisteredRevenueStaff_NhanVien1)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueStaff].([StaffIdCreate]) (FK_rrRegisteredRevenueStaff_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenueStaff_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdCreate { get; set; } // FK_rrRegisteredRevenueStaff_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueStaff].([StaffIdModify]) (FK_rrRegisteredRevenueStaff_NhanVien2)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueStaff].([StaffIdModify]) (FK_rrRegisteredRevenueStaff_NhanVien2)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenueStaff_NhanVien2
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_rrRegisteredRevenueStaff_NhanVien2
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [rrRegisteredRevenueStaff].([StaffId]) (FK_rrRegisteredRevenueStaff_NhanVien)
+        /// Parent NhanVien pointed by [rrRegisteredRevenueStaff].([StaffId]) (FK_rrRegisteredRevenueStaff_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_rrRegisteredRevenueStaff_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_rrRegisteredRevenueStaff_NhanVien
     }
 
     // rrRegisteredRevenueStaffHistory
@@ -23836,9 +22031,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [smsBieuMau].([MaNv]) (FK_smsBieuMau_NhanVien)
+        /// Parent NhanVien pointed by [smsBieuMau].([MaNv]) (FK_smsBieuMau_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_smsBieuMau_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_smsBieuMau_NhanVien
 
         /// <summary>
         /// Parent SmsPhanLoai pointed by [smsBieuMau].([MaPl]) (FK_smsBieuMau_smsPhanLoai)
@@ -23943,14 +22138,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSGroupReceives].([StaffModify]) (FK_SMSGroupReceives_NhanVien1)
+        /// Parent NhanVien pointed by [SMSGroupReceives].([StaffModify]) (FK_SMSGroupReceives_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffModify { get; set; } // FK_SMSGroupReceives_NhanVien1
+        public virtual NhanVien NhanVien_StaffModify { get; set; } // FK_SMSGroupReceives_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSGroupReceives].([StaffId]) (FK_SMSGroupReceives_NhanVien)
+        /// Parent NhanVien pointed by [SMSGroupReceives].([StaffId]) (FK_SMSGroupReceives_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_SMSGroupReceives_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_SMSGroupReceives_NhanVien
 
         public SmsGroupReceive()
         {
@@ -24032,9 +22227,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_SMSListOfRecipients_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSListOfRecipients].([StaffId]) (FK_SMSListOfRecipients_NhanVien)
+        /// Parent NhanVien pointed by [SMSListOfRecipients].([StaffId]) (FK_SMSListOfRecipients_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_SMSListOfRecipients_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_SMSListOfRecipients_NhanVien
 
         /// <summary>
         /// Parent SmsGroupReceive pointed by [SMSListOfRecipients].([GroupId]) (FK_SMSListOfRecipients_SMSGroupReceives)
@@ -24114,9 +22309,9 @@ namespace Hpl.HrmDatabase
         public virtual KhachHang KhachHang { get; set; } // FK_smsNguoiNhan_KhachHang
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [smsNguoiNhan].([MaNv]) (FK_smsNguoiNhan_NhanVien)
+        /// Parent NhanVien pointed by [smsNguoiNhan].([MaNv]) (FK_smsNguoiNhan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_smsNguoiNhan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_smsNguoiNhan_NhanVien
 
         /// <summary>
         /// Parent SmsNhomNhan pointed by [smsNguoiNhan].([MaNn]) (FK_smsNguoiNhan_smsNhomNhan)
@@ -24153,9 +22348,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [smsNhomNhan].([MaNv]) (FK_smsNhomNhan_NhanVien)
+        /// Parent NhanVien pointed by [smsNhomNhan].([MaNv]) (FK_smsNhomNhan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_smsNhomNhan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_smsNhomNhan_NhanVien
 
         /// <summary>
         /// Parent SmsPhanLoai pointed by [smsNhomNhan].([MaPl]) (FK_smsNhomNhan_smsPhanLoai)
@@ -24226,14 +22421,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSSending].([StaffModify]) (FK_SMSSending_NhanVien1)
+        /// Parent NhanVien pointed by [SMSSending].([StaffModify]) (FK_SMSSending_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffModify { get; set; } // FK_SMSSending_NhanVien1
+        public virtual NhanVien NhanVien_StaffModify { get; set; } // FK_SMSSending_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSSending].([StaffId]) (FK_SMSSending_NhanVien)
+        /// Parent NhanVien pointed by [SMSSending].([StaffId]) (FK_SMSSending_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_SMSSending_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_SMSSending_NhanVien
 
         public SmsSending()
         {
@@ -24258,14 +22453,14 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSTemplates].([StaffIdModify]) (FK_SMSTemplates_NhanVien1)
+        /// Parent NhanVien pointed by [SMSTemplates].([StaffIdModify]) (FK_SMSTemplates_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_StaffIdModify { get; set; } // FK_SMSTemplates_NhanVien1
+        public virtual NhanVien NhanVien_StaffIdModify { get; set; } // FK_SMSTemplates_NhanVien1
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [SMSTemplates].([StaffId]) (FK_SMSTemplates_NhanVien)
+        /// Parent NhanVien pointed by [SMSTemplates].([StaffId]) (FK_SMSTemplates_NhanVien)
         /// </summary>
-        public virtual NhanVienSale Staff { get; set; } // FK_SMSTemplates_NhanVien
+        public virtual NhanVien Staff { get; set; } // FK_SMSTemplates_NhanVien
 
         /// <summary>
         /// Parent SmsCategory pointed by [SMSTemplates].([CateId]) (FK_SMSTemplates_SMSCategories)
@@ -24299,9 +22494,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [smsTinNhan].([MaNv]) (FK_smsTinNhan_NhanVien)
+        /// Parent NhanVien pointed by [smsTinNhan].([MaNv]) (FK_smsTinNhan_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_smsTinNhan_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_smsTinNhan_NhanVien
 
         public SmsTinNhan()
         {
@@ -24736,9 +22931,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [tlbhQuaTrinhThucHien].([MaNv]) (FK_tlbhQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [tlbhQuaTrinhThucHien].([MaNv]) (FK_tlbhQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_tlbhQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_tlbhQuaTrinhThucHien_NhanVien
 
         /// <summary>
         /// Parent TlbhThanhLy pointed by [tlbhQuaTrinhThucHien].([MaTl]) (FK_tlbhQuaTrinhThucHien_tlbhThanhLy)
@@ -24908,14 +23103,14 @@ namespace Hpl.HrmDatabase
         public virtual BdsSanPham BdsSanPham { get; set; } // FK_tTransaction_bdsSanPham
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [tTransaction].([MaNv]) (FK_tTransaction_NhanVien)
+        /// Parent NhanVien pointed by [tTransaction].([MaNv]) (FK_tTransaction_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNv { get; set; } // FK_tTransaction_NhanVien
+        public virtual NhanVien NhanVien_MaNv { get; set; } // FK_tTransaction_NhanVien
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [tTransaction].([MaNvcn]) (FK_tTransaction_NhanVien1)
+        /// Parent NhanVien pointed by [tTransaction].([MaNvcn]) (FK_tTransaction_NhanVien1)
         /// </summary>
-        public virtual NhanVienSale NhanVien_MaNvcn { get; set; } // FK_tTransaction_NhanVien1
+        public virtual NhanVien NhanVien_MaNvcn { get; set; } // FK_tTransaction_NhanVien1
     }
 
     // TypeArea
@@ -25156,9 +23351,9 @@ namespace Hpl.HrmDatabase
         // Foreign keys
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [vvbhQuaTrinhThucHien].([MaNv]) (FK_vvbhQuaTrinhThucHien_NhanVien)
+        /// Parent NhanVien pointed by [vvbhQuaTrinhThucHien].([MaNv]) (FK_vvbhQuaTrinhThucHien_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_vvbhQuaTrinhThucHien_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_vvbhQuaTrinhThucHien_NhanVien
 
         /// <summary>
         /// Parent VvbhHopDong pointed by [vvbhQuaTrinhThucHien].([MaHdvv]) (FK_vvbhQuaTrinhThucHien_vvbhHopDong)
@@ -25377,9 +23572,9 @@ namespace Hpl.HrmDatabase
         public virtual Khu Khu { get; set; } // FK_WorkDaily_Khu
 
         /// <summary>
-        /// Parent NhanVienSale pointed by [WorkDaily].([StaffId]) (FK_WorkDaily_NhanVien)
+        /// Parent NhanVien pointed by [WorkDaily].([StaffId]) (FK_WorkDaily_NhanVien)
         /// </summary>
-        public virtual NhanVienSale NhanVienSale { get; set; } // FK_WorkDaily_NhanVien
+        public virtual NhanVien NhanVien { get; set; } // FK_WorkDaily_NhanVien
 
         /// <summary>
         /// Parent WdFormAction pointed by [WorkDaily].([ActionId]) (FK_WorkDaily_wdFormAction)
@@ -25539,7 +23734,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DateModify).HasColumnName(@"DateModify").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.StaffModify).HasColumnName(@"StaffModify").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsLock).HasColumnName(@"IsLock").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.Avatar).HasColumnName(@"Avatar").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.PositionAvatar).HasColumnName(@"PositionAvatar").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
 
@@ -25566,9 +23761,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.CreateDate).HasColumnName(@"CreateDate").HasColumnType("datetime").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.AlAlerts).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_alAlert_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.AlAlerts).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_alAlert_NhanVien");
 
-            builder.HasIndex(x => new { x.FormId, x.UserId, x.LinkId }).HasName("NonClusteredIndex-20170717-211632");
+            builder.HasIndex(x => new { x.FormId, x.UserId, x.LinkId }).HasDatabaseName("NonClusteredIndex-20170717-211632");
         }
     }
 
@@ -25596,7 +23791,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.AgentId).HasColumnName(@"AgentID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.PerId).HasColumnName(@"PerID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsLock).HasColumnName(@"IsLock").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.KeyCode).HasColumnName(@"KeyCode").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
 
             // Foreign keys
@@ -25642,9 +23837,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LoaiBds).HasColumnName(@"LoaiBDS").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.LoaiBdsKhac).HasColumnName(@"LoaiBDSKhac").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.Rong).HasColumnName(@"Rong").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Dai).HasColumnName(@"Dai").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DienTichChung).HasColumnName(@"DienTichChung").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Rong).HasColumnName(@"Rong").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Dai).HasColumnName(@"Dai").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DienTichChung).HasColumnName(@"DienTichChung").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKh2).HasColumnName(@"MaKH2").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaDl).HasColumnName(@"MaDL").HasColumnType("int").IsRequired(false);
@@ -25665,27 +23860,27 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Toilet).HasColumnName(@"Toilet").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.PhongKhach).HasColumnName(@"PhongKhach").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DtPhongKhach).HasColumnName(@"DTPhongKhach").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DtPhongKhach).HasColumnName(@"DTPhongKhach").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaLd).HasColumnName(@"MaLD").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DienTichKv).HasColumnName(@"DienTichKV").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DienTichHb).HasColumnName(@"DienTichHB").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DienTichKv).HasColumnName(@"DienTichKV").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DienTichHb).HasColumnName(@"DienTichHB").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.TangCao).HasColumnName(@"TangCao").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaLo).HasColumnName(@"MaLo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.HinhAnh).HasColumnName(@"HinhAnh").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.ViTriX).HasColumnName(@"ViTriX").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.ViTriY).HasColumnName(@"ViTriY").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.ViTriX).HasColumnName(@"ViTriX").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.ViTriY).HasColumnName(@"ViTriY").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.ViTriTang).HasColumnName(@"ViTriTang").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongDocSach).HasColumnName(@"PhongDocSach").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.PhongNgv).HasColumnName(@"PhongNGV").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Bep).HasColumnName(@"Bep").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.SanTruoc).HasColumnName(@"SanTruoc").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.DtSanTruoc).HasColumnName(@"DTSanTruoc").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DtSanTruoc).HasColumnName(@"DTSanTruoc").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.SanSau).HasColumnName(@"SanSau").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.DtSanSau).HasColumnName(@"DTSanSau").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DuongTruoc).HasColumnName(@"DuongTruoc").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DuongBen).HasColumnName(@"DuongBen").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DuongSau).HasColumnName(@"DuongSau").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DtSanSau).HasColumnName(@"DTSanSau").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DuongTruoc).HasColumnName(@"DuongTruoc").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DuongBen).HasColumnName(@"DuongBen").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DuongSau).HasColumnName(@"DuongSau").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhapLyKhac).HasColumnName(@"PhapLyKhac").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.MaLgd).HasColumnName(@"MaLGD").HasColumnType("tinyint").IsRequired(false);
@@ -25778,8 +23973,8 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("bigint").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MaSp).HasColumnName(@"MaSP").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Latitude).HasColumnName(@"latitude").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Longitude).HasColumnName(@"longitude").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Latitude).HasColumnName(@"latitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Longitude).HasColumnName(@"longitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
         }
     }
 
@@ -25854,7 +24049,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.BdsGcnqsdd).WithMany(b => b.BdsGcnqsddBieuMaus).HasForeignKey(c => c.MaGcn).HasConstraintName("FK_bdsGCNQSDDBieuMau_bdsGCNQSDD");
             builder.HasOne(a => a.DaBieuMau).WithMany(b => b.BdsGcnqsddBieuMaus).HasForeignKey(c => c.MaBm).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDBieuMau_daBieuMau");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BdsGcnqsddBieuMaus).HasForeignKey(c => c.MaNvn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BdsGcnqsddBieuMaus).HasForeignKey(c => c.MaNvn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDBieuMau_NhanVien");
         }
     }
 
@@ -25926,7 +24121,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BdsGcnqsdd).WithMany(b => b.BdsGcnqsddHoSoes).HasForeignKey(c => c.MaGcn).HasConstraintName("FK_bdsGCNQSDDHoSo_bdsGCNQSDD1");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BdsGcnqsddHoSoes).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDHoSoLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BdsGcnqsddHoSoes).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDHoSoLichSu_NhanVien");
         }
     }
 
@@ -25948,7 +24143,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.BdsGcnqsdd).WithMany(b => b.BdsGcnqsddLichSus).HasForeignKey(c => c.MaGcn).HasConstraintName("FK_bdsGCNQSDDLichSu_bdsGCNQSDD");
             builder.HasOne(a => a.BdsGcnqsddTrangThai).WithMany(b => b.BdsGcnqsddLichSus).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDLichSu_bdsGCNQSDDTrangThai");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BdsGcnqsddLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BdsGcnqsddLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsGCNQSDDLichSu_NhanVien");
         }
     }
 
@@ -26028,7 +24223,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MaSp).HasColumnName(@"MaSP").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenHm).HasColumnName(@"TenHM").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTien).HasColumnName(@"ThanhTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TenDvt).HasColumnName(@"TenDVT").HasColumnType("nvarchar(20)").IsRequired(false).HasMaxLength(20);
@@ -26054,7 +24249,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BdsSanPham).WithMany(b => b.BdsHistories).HasForeignKey(c => c.ProductId).HasConstraintName("FK_bdsHistory_bdsSanPham");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BdsHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsHistory_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BdsHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsHistory_NhanVien");
         }
     }
 
@@ -26081,13 +24276,13 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MaSp).HasColumnName(@"MaSP").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.GiaBan).HasColumnName(@"GiaBan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.PhiBaoTri).HasColumnName(@"PhiBaoTri").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DonGiaXd).HasColumnName(@"DonGiaXD").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTienXd).HasColumnName(@"ThanhTienXD").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.DienTichKv).HasColumnName(@"DienTichKV").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichKv).HasColumnName(@"DienTichKV").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DonGiaKv).HasColumnName(@"DonGiaKV").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTienKv).HasColumnName(@"ThanhTienKV").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTienHm).HasColumnName(@"ThanhTienHM").HasColumnType("money").IsRequired(false);
@@ -26098,7 +24293,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BdsSanPham).WithMany(b => b.BdsLichSuCapNhats).HasForeignKey(c => c.MaSp).HasConstraintName("FK_bdsLichSuCapNhat_bdsSanPham");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BdsLichSuCapNhats).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsLichSuCapNhat_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BdsLichSuCapNhats).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsLichSuCapNhat_NhanVien");
         }
     }
 
@@ -26151,8 +24346,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaKhu).HasColumnName(@"MaKhu").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.PhongNgu).HasColumnName(@"PhongNgu").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongTam).HasColumnName(@"PhongTam").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTich2).HasColumnName(@"DienTich2").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTich2).HasColumnName(@"DienTich2").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.NgayTao).HasColumnName(@"NgayTao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayCn).HasColumnName(@"NgayCN").HasColumnType("datetime").IsRequired(false);
@@ -26195,18 +24390,18 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenDuong).HasColumnName(@"TenDuong").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.TenLmk).HasColumnName(@"TenLMK").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TenVt).HasColumnName(@"TenVT").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTichSan).HasColumnName(@"DienTichSan").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.HeSo).HasColumnName(@"HeSo").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTichSan).HasColumnName(@"DienTichSan").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DonGiaXd).HasColumnName(@"DonGiaXD").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTienXd).HasColumnName(@"ThanhTienXD").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.DienTichKv).HasColumnName(@"DienTichKV").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichKv).HasColumnName(@"DienTichKV").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DonGiaKv).HasColumnName(@"DonGiaKV").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTienKv).HasColumnName(@"ThanhTienKV").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTienHm).HasColumnName(@"ThanhTienHM").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTien).HasColumnName(@"ThanhTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLt).HasColumnName(@"MaLT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DuongRong).HasColumnName(@"DuongRong").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.DuongRong).HasColumnName(@"DuongRong").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhongKhach).HasColumnName(@"PhongKhach").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongNgu).HasColumnName(@"PhongNgu").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongTam).HasColumnName(@"PhongTam").HasColumnType("tinyint").IsRequired(false);
@@ -26214,18 +24409,18 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LauSo).HasColumnName(@"LauSo").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ViTri).HasColumnName(@"ViTri").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
-            builder.Property(x => x.TyLeMg).HasColumnName(@"TyLeMG").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeMg).HasColumnName(@"TyLeMG").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiMg).HasColumnName(@"PhiMG").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaHuong).HasColumnName(@"MaHuong").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaLd).HasColumnName(@"MaLD").HasColumnType("smallint").IsRequired(false);
-            builder.Property(x => x.NgangKv).HasColumnName(@"NgangKV").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.DaiKv).HasColumnName(@"DaiKV").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.SauKv).HasColumnName(@"SauKV").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.NgangXd).HasColumnName(@"NgangXD").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.DaiXd).HasColumnName(@"DaiXD").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.SauXd).HasColumnName(@"SauXD").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.MatDoXd).HasColumnName(@"MatDoXD").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.NgangKv).HasColumnName(@"NgangKV").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.DaiKv).HasColumnName(@"DaiKV").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.SauKv).HasColumnName(@"SauKV").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.NgangXd).HasColumnName(@"NgangXD").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.DaiXd).HasColumnName(@"DaiXD").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.SauXd).HasColumnName(@"SauXD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.MatDoXd).HasColumnName(@"MatDoXD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NgayCn).HasColumnName(@"NgayCN").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaNvcn).HasColumnName(@"MaNVCN").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayNhap).HasColumnName(@"NgayNhap").HasColumnType("datetime").IsRequired(false);
@@ -26240,7 +24435,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DotTt).HasColumnName(@"DotTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoThua).HasColumnName(@"SoThua").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.DiaChiNha).HasColumnName(@"DiaChiNha").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DuToanXayTho).HasColumnName(@"DuToanXayTho").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DuToanVatXayTho).HasColumnName(@"DuToanVATXayTho").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiaTriDuToan).HasColumnName(@"GiaTriDuToan").HasColumnType("money").IsRequired(false);
@@ -26249,13 +24444,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GiaTriQuyetToan).HasColumnName(@"GiaTriQuyetToan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaTc).HasColumnName(@"MaTC").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.ViaHe).HasColumnName(@"ViaHe").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtSanTruoc).HasColumnName(@"DTSanTruoc").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtSanSau).HasColumnName(@"DTSanSau").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.MatTien).HasColumnName(@"MatTien").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.ChieuSau).HasColumnName(@"ChieuSau").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.ViaHe).HasColumnName(@"ViaHe").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtSanTruoc).HasColumnName(@"DTSanTruoc").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtSanSau).HasColumnName(@"DTSanSau").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.MatTien).HasColumnName(@"MatTien").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.ChieuSau).HasColumnName(@"ChieuSau").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DonGiaTimTuong).HasColumnName(@"DonGiaTimTuong").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DonGiaTimTuongVat).HasColumnName(@"DonGiaTimTuongVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiaBan).HasColumnName(@"GiaBan").HasColumnType("money").IsRequired(false);
@@ -26263,30 +24458,30 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TongGiaBan).HasColumnName(@"TongGiaBan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongGiaBanVat).HasColumnName(@"TongGiaBanVAT").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBaoTri).HasColumnName(@"PhiBaoTri").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaHuong2).HasColumnName(@"MaHuong2").HasColumnType("smallint").IsRequired(false);
-            builder.Property(x => x.DtpKhach).HasColumnName(@"DTPKhach").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtpNgu1).HasColumnName(@"DTPNgu1").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtpNgu2).HasColumnName(@"DTPNgu2").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtpNgu3).HasColumnName(@"DTPNgu3").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtpNgu4).HasColumnName(@"DTPNgu4").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtpNgu5).HasColumnName(@"DTPNgu5").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtBep).HasColumnName(@"DTBep").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Dtvs1).HasColumnName(@"DTVS1").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Dtvs2).HasColumnName(@"DTVS2").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Dtvs3).HasColumnName(@"DTVS3").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Dtvs4).HasColumnName(@"DTVS4").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Dtvs5).HasColumnName(@"DTVS5").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtpTho).HasColumnName(@"DTPTho").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtBanCong).HasColumnName(@"DTBanCong").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtLogia).HasColumnName(@"DTLogia").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DtpKhach).HasColumnName(@"DTPKhach").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtpNgu1).HasColumnName(@"DTPNgu1").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtpNgu2).HasColumnName(@"DTPNgu2").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtpNgu3).HasColumnName(@"DTPNgu3").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtpNgu4).HasColumnName(@"DTPNgu4").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtpNgu5).HasColumnName(@"DTPNgu5").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtBep).HasColumnName(@"DTBep").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Dtvs1).HasColumnName(@"DTVS1").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Dtvs2).HasColumnName(@"DTVS2").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Dtvs3).HasColumnName(@"DTVS3").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Dtvs4).HasColumnName(@"DTVS4").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Dtvs5).HasColumnName(@"DTVS5").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtpTho).HasColumnName(@"DTPTho").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtBanCong).HasColumnName(@"DTBanCong").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtLogia).HasColumnName(@"DTLogia").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.MaCt).HasColumnName(@"MaCT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaLhm).HasColumnName(@"MaLHM").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenTang).HasColumnName(@"TenTang").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.PaymentTerm).HasColumnName(@"PaymentTerm").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.Size).HasColumnName(@"Size").HasColumnType("decimal(5,2)").IsRequired(false);
-            builder.Property(x => x.Discount).HasColumnName(@"Discount").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.Size).HasColumnName(@"Size").HasColumnType("decimal(5,2)").HasPrecision(5,2).IsRequired(false);
+            builder.Property(x => x.Discount).HasColumnName(@"Discount").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.DiscountMoney).HasColumnName(@"DiscountMoney").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.Supply).HasColumnName(@"Supply").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsUse).HasColumnName(@"IsUse").HasColumnType("bit").IsRequired(false);
@@ -26318,10 +24513,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MucDichSd).HasColumnName(@"MucDichSD").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TiepGiapDuong1).HasColumnName(@"TiepGiapDuong1").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TiepGiapDuong2).HasColumnName(@"TiepGiapDuong2").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.ChiGioiXdPhiaTruocLui).HasColumnName(@"ChiGioiXDPhiaTruocLui").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.ChiGioiXdPhiaSauLui).HasColumnName(@"ChiGioiXDPhiaSauLui").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.ChieuDai).HasColumnName(@"ChieuDai").HasColumnType("decimal(12,6)").IsRequired(false);
-            builder.Property(x => x.ChieuRong).HasColumnName(@"ChieuRong").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.ChiGioiXdPhiaTruocLui).HasColumnName(@"ChiGioiXDPhiaTruocLui").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.ChiGioiXdPhiaSauLui).HasColumnName(@"ChiGioiXDPhiaSauLui").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.ChieuDai).HasColumnName(@"ChieuDai").HasColumnType("decimal(12,6)").HasPrecision(12,6).IsRequired(false);
+            builder.Property(x => x.ChieuRong).HasColumnName(@"ChieuRong").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.SoTangCao).HasColumnName(@"SoTangCao").HasColumnType("nvarchar(15)").IsRequired(false).HasMaxLength(15);
             builder.Property(x => x.DonGiaVatpbt).HasColumnName(@"DonGiaVATPBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TypeId).HasColumnName(@"TypeId").HasColumnType("tinyint").IsRequired(false);
@@ -26333,8 +24528,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongGiaBanVatpbt).HasColumnName(@"TongGiaBanVATPBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.IsCanGoc).HasColumnName(@"IsCanGoc").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.BdsLoaiKieuMau).WithMany(b => b.BdsSanPhams).HasForeignKey(c => c.MaLkm).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bdsSanPham_bdsLoaiKieuMau");
@@ -26483,7 +24678,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.BgbhBoTaiLieu).WithMany(b => b.BgbhBanGiaos).HasForeignKey(c => c.MaBoTl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBanGiao_bgbhBoTaiLieu");
             builder.HasOne(a => a.BgbhTrangThai).WithMany(b => b.BgbhBanGiaos).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBanGiao_bgbhTrangThai");
             builder.HasOne(a => a.BgQuyBanGiao).WithMany(b => b.BgbhBanGiaos).HasForeignKey(c => c.MaQbg).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBanGiao_bgQuyBanGiao");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhBanGiaos).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBanGiao_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhBanGiaos).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBanGiao_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithOne(b => b.BgbhBanGiao).HasForeignKey<BgbhBanGiao>(c => c.MaBg).HasConstraintName("FK_bgbhBanGiao_pgcPhieuGiuCho");
         }
     }
@@ -26551,7 +24746,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BgbhBienBanChotChiSo).WithMany(b => b.BgbhBienBanChotChiSoLichSus).HasForeignKey(c => c.MaBbccs).HasConstraintName("FK_bgbhBienBanChotChiSoLichSu_bgbhBienBanChotChiSo");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhBienBanChotChiSoLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBienBanChotChiSoLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhBienBanChotChiSoLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBienBanChotChiSoLichSu_NhanVien");
         }
     }
 
@@ -26598,7 +24793,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BgbhBienBanKiemTra).WithMany(b => b.BgbhBienBanKiemTraLichSus).HasForeignKey(c => c.MaBbkt).HasConstraintName("FK_bgbhBienBanKiemTraLichSu_bgbhBienBanKiemTra");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhBienBanKiemTraLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBienBanKiemTraLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhBienBanKiemTraLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBienBanKiemTraLichSu_NhanVien");
         }
     }
 
@@ -26691,7 +24886,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BgbhBoTaiLieu).WithMany(b => b.BgbhBoTaiLieuLichSus).HasForeignKey(c => c.MaBoTl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBoTaiLieuLichSu_bgbhBoTaiLieu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhBoTaiLieuLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBoTaiLieuLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhBoTaiLieuLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhBoTaiLieuLichSu_NhanVien");
         }
     }
 
@@ -26780,7 +24975,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.BgbhBanGiao).WithMany(b => b.BgbhQuaTrinhThucHiens).HasForeignKey(c => c.MaBg).HasConstraintName("FK_bgbhQuaTrinhThucHien_bgbhBanGiao");
             builder.HasOne(a => a.BgbhTrangThai).WithMany(b => b.BgbhQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhQuaTrinhThucHien_bgbhTrangThai");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhQuaTrinhThucHien_NhanVien");
         }
     }
 
@@ -26850,7 +25045,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.HopDongMuaBan).WithMany(b => b.BgbhThongBaos).HasForeignKey(c => c.MaHd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBao_HopDongMuaBan");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.BgbhThongBaos).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBao_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhThongBaos).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBao_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhThongBaos).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBao_NhanVien");
         }
     }
 
@@ -26871,7 +25066,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BgbhThongBao).WithMany(b => b.BgbhThongBaoLichSus).HasForeignKey(c => c.MaTb).HasConstraintName("FK_bgbhThongBaoLichSu_bgbhThongBao");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhThongBaoLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBaoLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhThongBaoLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBaoLichSu_NhanVien");
         }
     }
 
@@ -26896,7 +25091,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BgbhThongBao).WithMany(b => b.BgbhThongBaoXacNhans).HasForeignKey(c => c.MaTb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBaoXacNhan_bgbhThongBao");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgbhThongBaoXacNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBaoXacNhan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgbhThongBaoXacNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgbhThongBaoXacNhan_NhanVien");
         }
     }
 
@@ -26931,7 +25126,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.BgQbgTrangThai).WithMany(b => b.BgQbgLichSus).HasForeignKey(c => c.TrangThai).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgQBGLichSu_bgQBGTrangThai");
             builder.HasOne(a => a.BgQuyBanGiao).WithMany(b => b.BgQbgLichSus).HasForeignKey(c => c.MaQuy).HasConstraintName("FK_bgQBGLichSu_bgQuyBanGiao");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BgQbgLichSus).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgQBGLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BgQbgLichSus).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgQBGLichSu_NhanVien");
         }
     }
 
@@ -26960,8 +25155,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.NgayBgdk).HasColumnName(@"NgayBGDK").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaSp).HasColumnName(@"MaSP").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DienTichBg).HasColumnName(@"DienTichBG").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.TyLeDaNop).HasColumnName(@"TyLeDaNop").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichBg).HasColumnName(@"DienTichBG").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.TyLeDaNop).HasColumnName(@"TyLeDaNop").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.MaHd).HasColumnName(@"MaHD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayTao).HasColumnName(@"NgayTao").HasColumnType("datetime").IsRequired(false);
@@ -26983,7 +25178,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.NtchNghiemThuCanHo_MaNtkh).WithMany(b => b.BgQuyBanGiaos_MaNtkh).HasForeignKey(c => c.MaNtkh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgQuyBanGiao_ntchNghiemThuCanHo1");
             builder.HasOne(a => a.NtchNghiemThuCanHo_MaNtnb).WithMany(b => b.BgQuyBanGiaos_MaNtnb).HasForeignKey(c => c.MaNtnb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bgQuyBanGiao_ntchNghiemThuCanHo");
 
-            builder.HasIndex(x => x.CodeUnique).HasName("IX_bgQuyBanGiao").IsUnique();
+            builder.HasIndex(x => x.CodeUnique).HasDatabaseName("IX_bgQuyBanGiao").IsUnique();
         }
     }
 
@@ -26998,12 +25193,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaQt).HasColumnName(@"MaQT").HasColumnType("int").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.SoQt).HasColumnName(@"SoQT").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayLap).HasColumnName(@"NgayLap").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DienTichHd).HasColumnName(@"DienTichHD").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichHd).HasColumnName(@"DienTichHD").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.GiaTriHd).HasColumnName(@"GiaTriHD").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiaTriPhaiNop).HasColumnName(@"GiaTriPhaiNop").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.DtBanGiao).HasColumnName(@"DTBanGiao").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtTang).HasColumnName(@"DTTang").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DtGiam).HasColumnName(@"DTGiam").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DtBanGiao).HasColumnName(@"DTBanGiao").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtTang).HasColumnName(@"DTTang").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DtGiam).HasColumnName(@"DTGiam").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.SoTienTang).HasColumnName(@"SoTienTang").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoTienGiam).HasColumnName(@"SoTienGiam").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiamTruTb).HasColumnName(@"GiamTruTB").HasColumnType("money").IsRequired(false);
@@ -27067,7 +25262,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.BqtBangQuyetToan).WithMany(b => b.BqtLichSus).HasForeignKey(c => c.MaQt).HasConstraintName("FK_bqtLichSu_bqtBangQuyetToan");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BqtLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bqtLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BqtLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_bqtLichSu_NhanVien");
         }
     }
 
@@ -27126,7 +25321,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DateModify).HasColumnName(@"DateModify").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.StaffModify).HasColumnName(@"StaffModify").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsLock).HasColumnName(@"IsLock").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.Avatar).HasColumnName(@"Avatar").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.PositionAvatar).HasColumnName(@"PositionAvatar").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.CompanyName).HasColumnName(@"CompanyName").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
@@ -27150,7 +25345,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.Branch).WithMany(b => b.BranchStaffs).HasForeignKey(c => c.BranchId).HasConstraintName("FK_Branch_Staff_Branch");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.BranchStaffs).HasForeignKey(c => c.MaNv).HasConstraintName("FK_Branch_Staff_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.BranchStaffs).HasForeignKey(c => c.MaNv).HasConstraintName("FK_Branch_Staff_NhanVien");
         }
     }
 
@@ -27210,7 +25405,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.CareCategory).WithMany(b => b.CareCustomers).HasForeignKey(c => c.CateId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CareCustomer_careCategory");
             builder.HasOne(a => a.CareStatu).WithMany(b => b.CareCustomers).HasForeignKey(c => c.StatusId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CareCustomer_careStatus");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.CareCustomers).HasForeignKey(c => c.CustomerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CareCustomer_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CareCustomers).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CareCustomer_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CareCustomers).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CareCustomer_NhanVien");
         }
     }
 
@@ -27232,7 +25427,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.CareCustomer).WithMany(b => b.CareProssesses).HasForeignKey(c => c.CareId).HasConstraintName("FK_careProssess_CareCustomer");
             builder.HasOne(a => a.CareStatu).WithMany(b => b.CareProssesses).HasForeignKey(c => c.StatusId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_careProssess_careStatus");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CareProssesses).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_careProssess_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CareProssesses).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_careProssess_NhanVien");
         }
     }
 
@@ -27315,7 +25510,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.CdPurpose).WithMany(b => b.CdCustomerDemands).HasForeignKey(c => c.PurposeId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdCustomerDemand_cdPurpose");
             builder.HasOne(a => a.DuAn).WithMany(b => b.CdCustomerDemands).HasForeignKey(c => c.ProjectId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdCustomerDemand_DuAn");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.CdCustomerDemands).HasForeignKey(c => c.CustomerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdCustomerDemand_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CdCustomerDemands).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdCustomerDemand_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CdCustomerDemands).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdCustomerDemand_NhanVien");
         }
     }
 
@@ -27342,7 +25537,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.CdCustomerDemand).WithMany(b => b.CdHistories).HasForeignKey(c => c.RefId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdHistory_cdCustomerDemand");
             builder.HasOne(a => a.CdLevel).WithMany(b => b.CdHistories).HasForeignKey(c => c.LevelId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdHistory_cdLevel");
             builder.HasOne(a => a.CdReason).WithMany(b => b.CdHistories).HasForeignKey(c => c.ReasonId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdHistory_cdReason");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CdHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdHistory_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CdHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdHistory_NhanVien");
         }
     }
 
@@ -27436,7 +25631,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.CdQuotation).WithMany(b => b.CdQuotationHistories).HasForeignKey(c => c.RefId).HasConstraintName("FK_cdQuotationHistory_cdQuotation");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CdQuotationHistories).HasForeignKey(c => c.StaffIdCreate).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdQuotationHistory_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CdQuotationHistories).HasForeignKey(c => c.StaffIdCreate).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cdQuotationHistory_NhanVien");
         }
     }
 
@@ -27470,7 +25665,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.ChatTinNhans).HasForeignKey(c => c.MaGui).HasConstraintName("FK_chatTinNhan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.ChatTinNhans).HasForeignKey(c => c.MaGui).HasConstraintName("FK_chatTinNhan_NhanVien");
         }
     }
 
@@ -27518,8 +25713,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TenCv).HasColumnName(@"TenCV").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TenVt).HasColumnName(@"TenVT").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.Pp).HasColumnName(@"PP").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.Mgl).HasColumnName(@"MGL").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Pp).HasColumnName(@"PP").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.Mgl).HasColumnName(@"MGL").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
         }
     }
 
@@ -27561,7 +25756,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DeviceName).HasColumnName(@"DeviceName").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.Distance).HasColumnName(@"Distance").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Distance).HasColumnName(@"Distance").HasColumnType("float").HasPrecision(53).IsRequired(false);
         }
     }
 
@@ -27697,12 +25892,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayGh).HasColumnName(@"NgayGH").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("decimal(6,3)").IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("decimal(6,3)").HasPrecision(6,3).IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -27710,7 +25905,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsPay).HasColumnName(@"IsPay").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LoaiNn).HasColumnName(@"LoaiNN").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsDelay).HasColumnName(@"IsDelay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaKgd).HasColumnName(@"MaKGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.CodeUnique).HasColumnName(@"CodeUnique").HasColumnType("nvarchar(30)").IsRequired(false).HasMaxLength(30);
@@ -27770,7 +25965,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.CnChuyenNhuong).WithMany(b => b.CnNhatKyDuyets).HasForeignKey(c => c.MaCn).HasConstraintName("FK_cnNhatKyDuyet_cnChuyenNhuong");
             builder.HasOne(a => a.CnTrangThai).WithMany(b => b.CnNhatKyDuyets).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cnNhatKyDuyet_cnTrangThai");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CnNhatKyDuyets).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cnNhatKyDuyet_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CnNhatKyDuyets).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cnNhatKyDuyet_NhanVien");
         }
     }
 
@@ -27824,7 +26019,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.StatusId).HasColumnName(@"StatusID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Amount).HasColumnName(@"Amount").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.Promotion).HasColumnName(@"Promotion").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.Rate).HasColumnName(@"Rate").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rate).HasColumnName(@"Rate").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.StaffProcessId).HasColumnName(@"StaffProcessID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateProcess).HasColumnName(@"DateProcess").HasColumnType("datetime").IsRequired(false);
@@ -27834,10 +26029,10 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.AStaff).WithMany(b => b.CommissionContractDetails).HasForeignKey(c => c.StaffAgentId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractDetail_aStaff");
             builder.HasOne(a => a.CommissionMaster).WithMany(b => b.CommissionContractDetails).HasForeignKey(c => c.CommissionId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractDetail_Commission_Master");
             builder.HasOne(a => a.CommissionRequestStatu).WithMany(b => b.CommissionContractDetails).HasForeignKey(c => c.StatusId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractDetail_CommissionRequestStatus");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CommissionContractDetails).HasForeignKey(c => c.StaffProcessId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractDetail_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CommissionContractDetails).HasForeignKey(c => c.StaffProcessId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractDetail_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.CommissionContractDetails).HasForeignKey(c => c.ContractId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractDetail_pgcPhieuGiuCho");
 
-            builder.HasIndex(x => x.CodeUnique).HasName("IX_CommissionContractDetail").IsUnique();
+            builder.HasIndex(x => x.CodeUnique).HasDatabaseName("IX_CommissionContractDetail").IsUnique();
         }
     }
 
@@ -27854,7 +26049,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DateApprove).HasColumnName(@"DateApprove").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.ContractId).HasColumnName(@"ContractID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ContractValue).HasColumnName(@"ContractValue").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.Percentage).HasColumnName(@"Percentage").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Percentage).HasColumnName(@"Percentage").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.StaffIdCreate).HasColumnName(@"StaffIDCreate").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateCreate).HasColumnName(@"DateCreate").HasColumnType("datetime").IsRequired(false);
@@ -27904,7 +26099,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.CommissionCostAllocation).WithMany(b => b.CommissionCostAllocationHistories).HasForeignKey(c => c.RefId).HasConstraintName("FK_CommissionCostAllocationHistory_CommissionCostAllocation");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CommissionCostAllocationHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionCostAllocationHistory_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CommissionCostAllocationHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionCostAllocationHistory_NhanVien");
         }
     }
 
@@ -27920,7 +26115,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ComissionId).HasColumnName(@"ComissionID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TagretFrom).HasColumnName(@"TagretFrom").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TagretTo).HasColumnName(@"TagretTo").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Proportion).HasColumnName(@"Proportion").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.Proportion).HasColumnName(@"Proportion").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.CommissionNorm).WithMany(b => b.CommissionDetails).HasForeignKey(c => c.ComissionId).HasConstraintName("FK_CommissionDetail_Staff");
@@ -27996,7 +26191,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.CommissionMaster).WithMany(b => b.CommissionLscns).HasForeignKey(c => c.IdCommission).HasConstraintName("FK_Commission_LSCN_Commission_Master");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CommissionLscns).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Commission_LSCN_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CommissionLscns).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Commission_LSCN_NhanVien");
         }
     }
 
@@ -28020,7 +26215,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DsTenSan).HasColumnName(@"DSTenSan").HasColumnType("nvarchar(max)").IsRequired(false);
             builder.Property(x => x.MaLoaiGia).HasColumnName(@"MaLoaiGia").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaLoaiNgay).HasColumnName(@"MaLoaiNgay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,10)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(18,10)").HasPrecision(18,10).IsRequired(false);
             builder.Property(x => x.TienMat).HasColumnName(@"TienMat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TuNgay).HasColumnName(@"TuNgay").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DenNgay).HasColumnName(@"DenNgay").HasColumnType("datetime").IsRequired(false);
@@ -28040,7 +26235,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TienThuongPhat).HasColumnName(@"TienThuongPhat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.Dktt).HasColumnName(@"DKTT").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaCsbh).HasColumnName(@"MaCSBH").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeTamTinh).HasColumnName(@"TyLeTamTinh").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeTamTinh).HasColumnName(@"TyLeTamTinh").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.DkTamTinh).HasColumnName(@"DKTamTinh").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.TienMatTamTinh).HasColumnName(@"TienMatTamTinh").HasColumnType("money").IsRequired(false);
 
@@ -28066,7 +26261,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Muc).HasColumnName(@"Muc").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Target).HasColumnName(@"Target").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TargetTo).HasColumnName(@"TargetTo").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeHh).HasColumnName(@"TyLeHH").HasColumnType("decimal(18,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHh).HasColumnName(@"TyLeHH").HasColumnType("decimal(18,2)").HasPrecision(18,2).IsRequired(false);
             builder.Property(x => x.TienMat).HasColumnName(@"TienMat").HasColumnType("money").IsRequired(false);
 
             // Foreign keys
@@ -28086,7 +26281,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.AgentId).HasColumnName(@"AgentID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateFrom).HasColumnName(@"DateFrom").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DateTo).HasColumnName(@"DateTo").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.Proportion).HasColumnName(@"Proportion").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.Proportion).HasColumnName(@"Proportion").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.ComissionName).HasColumnName(@"ComissionName").HasColumnType("nvarchar(100)").IsRequired(false).HasMaxLength(100);
             builder.Property(x => x.Amount).HasColumnName(@"Amount").HasColumnType("int").IsRequired(false);
@@ -28096,7 +26291,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.Agent).WithMany(b => b.CommissionNorms).HasForeignKey(c => c.AgentId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionNorms_Agent");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CommissionNorms).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionNorms_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CommissionNorms).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionNorms_NhanVien");
         }
     }
 
@@ -28181,7 +26376,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.CommissionRequest).WithMany(b => b.CommissionRequestHistories).HasForeignKey(c => c.RequestId).HasConstraintName("FK_CommissionRequestHistory_CommissionRequest");
             builder.HasOne(a => a.CommissionRequestStatu).WithMany(b => b.CommissionRequestHistories).HasForeignKey(c => c.StatusId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionContractHistory_CommissionRequestStatus");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CommissionRequestHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionRequestHistory_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CommissionRequestHistories).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CommissionRequestHistory_NhanVien");
         }
     }
 
@@ -28326,7 +26521,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.CongVanDen).WithMany(b => b.CongVanDenNhanViens).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CongVanDen_NhanVien_CongVanDen");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CongVanDenNhanViens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CongVanDen_NhanVien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CongVanDenNhanViens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CongVanDen_NhanVien_NhanVien");
         }
     }
 
@@ -28343,7 +26538,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.CongVanDen).WithMany(b => b.CongVanDenPhongBans).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CongVanDen_PhongBan_CongVanDen");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.CongVanDenPhongBans).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CongVanDen_PhongBan_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.CongVanDenPhongBans).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CongVanDen_PhongBan_PhongBan");
         }
     }
 
@@ -28411,7 +26606,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
             builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNgay).HasColumnName(@"SoNgay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeCkls).HasColumnName(@"TyLeCKLS").HasColumnType("decimal(10,6)").IsRequired(false);
+            builder.Property(x => x.TyLeCkls).HasColumnName(@"TyLeCKLS").HasColumnType("decimal(10,6)").HasPrecision(10,6).IsRequired(false);
             builder.Property(x => x.TienTp).HasColumnName(@"TienTP").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLt).HasColumnName(@"MaLT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.DotTt).HasColumnName(@"DotTT").HasColumnType("tinyint").IsRequired(false);
@@ -28482,7 +26677,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DuAn).WithMany(b => b.CustomizeColumnGridViews).HasForeignKey(c => c.ProjectId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomizeColumnGridView_DuAn");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CustomizeColumnGridViews).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomizeColumnGridView_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CustomizeColumnGridViews).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomizeColumnGridView_NhanVien");
         }
     }
 
@@ -28604,7 +26799,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.CongVanDen).WithMany(b => b.CvdNhatKyXuLies).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvdNhatKyXuLy_CongVanDen");
             builder.HasOne(a => a.CvdTrinhTrang).WithMany(b => b.CvdNhatKyXuLies).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvdNhatKyXuLy_cvdTrinhTrang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CvdNhatKyXuLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvdNhatKyXuLy_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CvdNhatKyXuLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvdNhatKyXuLy_NhanVien");
         }
     }
 
@@ -28642,7 +26837,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.CongVanDi).WithMany(b => b.CvNhatKyXuLies).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvNhatKyXuLy_CongVanDi");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.CvNhatKyXuLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvNhatKyXuLy_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.CvNhatKyXuLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_cvNhatKyXuLy_NhanVien");
         }
     }
 
@@ -28728,7 +26923,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.DaLoaiBieuMau).WithMany(b => b.DaBieuMaus).HasForeignKey(c => c.MaLbm).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daBieuMau_daLoaiBieuMau");
             builder.HasOne(a => a.DuAn).WithMany(b => b.DaBieuMaus).HasForeignKey(c => c.MaDa).HasConstraintName("FK_daBieuMau_DuAn");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DaBieuMaus).HasForeignKey(c => c.MaNv).HasConstraintName("FK_daBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DaBieuMaus).HasForeignKey(c => c.MaNv).HasConstraintName("FK_daBieuMau_NhanVien");
         }
     }
 
@@ -28762,7 +26957,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TuNgay).HasColumnName(@"TuNgay").HasColumnType("datetime").IsRequired();
             builder.Property(x => x.DenNgay).HasColumnName(@"DenNgay").HasColumnType("datetime").IsRequired();
             builder.Property(x => x.TypeId).HasColumnName(@"TypeID").HasColumnType("int").IsRequired();
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvNhap).HasColumnName(@"MaNVNhap").HasColumnType("int").IsRequired(false);
@@ -28817,7 +27012,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaCaiDatGiuCho).WithMany(b => b.DaCaiDatGiuChoLs).HasForeignKey(c => c.MaCd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatGiuChoLS_daCaiDatGiuCho");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DaCaiDatGiuChoLs).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatGiuChoLS_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DaCaiDatGiuChoLs).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatGiuChoLS_NhanVien");
         }
     }
 
@@ -28845,9 +27040,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.DateFrom).HasColumnName(@"DateFrom").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DateTo).HasColumnName(@"DateTo").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoNgay).HasColumnName(@"SoNgay").HasColumnType("decimal(8,0)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoNgay).HasColumnName(@"SoNgay").HasColumnType("decimal(8,0)").HasPrecision(8,0).IsRequired(false);
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
         }
     }
@@ -28903,7 +27098,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaCaiDatMail).WithMany(b => b.DaCaiDatMailLs).HasForeignKey(c => c.MaCdMail).HasConstraintName("FK_daCaiDatMailLS_daCaiDatMail");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DaCaiDatMailLs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatMailLS_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DaCaiDatMailLs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatMailLS_NhanVien");
         }
     }
 
@@ -28934,7 +27129,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("uniqueidentifier").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.TuNgay).HasColumnName(@"TuNgay").HasColumnType("datetime").IsRequired();
             builder.Property(x => x.DenNgay).HasColumnName(@"DenNgay").HasColumnType("datetime").IsRequired();
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,2)").IsRequired();
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired();
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvNhap).HasColumnName(@"MaNVNhap").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayNhap).HasColumnName(@"NgayNhap").HasColumnType("datetime").IsRequired(false);
@@ -28991,7 +27186,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaCaiDatTime).WithMany(b => b.DaCaiDatTimeLs).HasForeignKey(c => c.MaCdt).HasConstraintName("FK_daCaiDatTimeLS_daCaiDatTime");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DaCaiDatTimeLs).HasForeignKey(c => c.MaNvSua).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatTimeLS_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DaCaiDatTimeLs).HasForeignKey(c => c.MaNvSua).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daCaiDatTimeLS_NhanVien");
         }
     }
 
@@ -29170,7 +27365,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TenKhuyenMai).HasColumnName(@"TenKhuyenMai").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.TenQuaTang).HasColumnName(@"TenQuaTang").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.GiaTri).HasColumnName(@"GiaTri").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.IsHienVat).HasColumnName(@"IsHienVat").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaThtt).HasColumnName(@"MaTHTT").HasColumnType("int").IsRequired(false);
@@ -29182,10 +27377,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayCn).HasColumnName(@"NgayCN").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.MaGttck).HasColumnName(@"MaGTTCK").HasColumnType("smallint").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.DieuKien).HasColumnName(@"DieuKien").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaCsbh).HasColumnName(@"MaCSBH").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaLoaiCk).HasColumnName(@"MaLoaiCK").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaLoaiKm).HasColumnName(@"MaLoaiKM").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
@@ -29216,7 +27411,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaKhuyenMai).WithMany(b => b.DaKhuyenMaiLs).HasForeignKey(c => c.MaKm).HasConstraintName("FK_daKhuyenMaiLS_daKhuyenMai");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DaKhuyenMaiLs).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daKhuyenMaiLS_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DaKhuyenMaiLs).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daKhuyenMaiLS_NhanVien");
         }
     }
 
@@ -29238,7 +27433,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DuAn).WithMany(b => b.DaLichSus).HasForeignKey(c => c.MaDa).HasConstraintName("FK_daLichSu_DuAn");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DaLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DaLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_daLichSu_NhanVien");
         }
     }
 
@@ -29254,15 +27449,15 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DotTt).HasColumnName(@"DotTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoNgay).HasColumnName(@"SoNgay").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.OptionId).HasColumnName(@"OptionID").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.MaTh).HasColumnName(@"MaTH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaLoaiTt).HasColumnName(@"MaLoaiTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Round).HasColumnName(@"Round").HasColumnType("int").IsRequired(false);
@@ -29428,8 +27623,8 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.StaffId).HasColumnName(@"StaffID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SpinDienTichCh).HasColumnName(@"spinDienTichCH").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.SpinDienTichTt).HasColumnName(@"spinDienTichTT").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.SpinDienTichCh).HasColumnName(@"spinDienTichCH").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.SpinDienTichTt).HasColumnName(@"spinDienTichTT").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.SpinDonGia).HasColumnName(@"spinDonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SpinGiaBan).HasColumnName(@"spinGiaBan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SpinDonGiaQsdDat).HasColumnName(@"spinDonGiaQSDDat").HasColumnType("money").IsRequired(false);
@@ -29463,8 +27658,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SpinPhiBaoTriCc).HasColumnName(@"spinPhiBaoTriCC").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SpinDonGiaVatpbtcc).HasColumnName(@"spinDonGiaVATPBTCC").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SpinGiaBanVatpbtcc).HasColumnName(@"spinGiaBanVATPBTCC").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.SpinDienTichDat).HasColumnName(@"spinDienTichDat").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.SpinDienTichSanXd).HasColumnName(@"spinDienTichSanXD").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.SpinDienTichDat).HasColumnName(@"spinDienTichDat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.SpinDienTichSanXd).HasColumnName(@"spinDienTichSanXD").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.SpinDonGiaDat).HasColumnName(@"spinDonGiaDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SpinTienDat).HasColumnName(@"spinTienDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SpinDonGiaXd).HasColumnName(@"spinDonGiaXD").HasColumnType("money").IsRequired(false);
@@ -29519,11 +27714,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ShortName).HasColumnName(@"ShortName").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MacDinh).HasColumnName(@"MacDinh").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.ChietKhau).HasColumnName(@"ChietKhau").HasColumnType("decimal(4,2)").IsRequired(false);
+            builder.Property(x => x.ChietKhau).HasColumnName(@"ChietKhau").HasColumnType("decimal(4,2)").HasPrecision(4,2).IsRequired(false);
             builder.Property(x => x.TienThuong).HasColumnName(@"TienThuong").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLtt).HasColumnName(@"MaLTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.Ngay).HasColumnName(@"Ngay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,6)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,6)").HasPrecision(8,6).IsRequired(false);
             builder.Property(x => x.MaCsbh).HasColumnName(@"MaCSBH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Khoa).HasColumnName(@"Khoa").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaNvn).HasColumnName(@"MaNVN").HasColumnType("int").IsRequired(false);
@@ -29651,8 +27846,8 @@ namespace Hpl.HrmDatabase
             builder.HasKey(x => x.Id).HasName("PK_DinhMucHoaHong").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedNever();
-            builder.Property(x => x.Pp).HasColumnName(@"PP").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.Mgl).HasColumnName(@"MGL").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Pp).HasColumnName(@"PP").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.Mgl).HasColumnName(@"MGL").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
     }
@@ -29729,7 +27924,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DocLoaiTaiLieu).WithMany(b => b.DocTaiLieux).HasForeignKey(c => c.MaLtl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_docTaiLieu_docLoaiTaiLieu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DocTaiLieux).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_docTaiLieu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DocTaiLieux).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_docTaiLieu_NhanVien");
         }
     }
 
@@ -29796,9 +27991,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoGiayPhep).HasColumnName(@"SoGiayPhep").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayCap).HasColumnName(@"NgayCap").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NoiCap).HasColumnName(@"NoiCap").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.ViTriX).HasColumnName(@"ViTriX").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.ViTriY).HasColumnName(@"ViTriY").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.ViTriX).HasColumnName(@"ViTriX").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.ViTriY).HasColumnName(@"ViTriY").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.ImageUrl).HasColumnName(@"ImageUrl").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.SubdivisionScheme).HasColumnName(@"SubdivisionScheme").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
             builder.Property(x => x.NameUnsigned).HasColumnName(@"NameUnsigned").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
@@ -29811,17 +28006,17 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ApproverId).HasColumnName(@"ApproverID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateOfApproval).HasColumnName(@"DateOfApproval").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsDeleted).HasColumnName(@"IsDeleted").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.HeSoDa).HasColumnName(@"HeSoDA").HasColumnType("decimal(10,2)").IsRequired(false);
+            builder.Property(x => x.HeSoDa).HasColumnName(@"HeSoDA").HasColumnType("decimal(10,2)").HasPrecision(10,2).IsRequired(false);
             builder.Property(x => x.IsUseQualifyContract).HasColumnName(@"IsUseQualifyContract").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsQualifyContract).HasColumnName(@"IsQualifyContract").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsUseRatePaid).HasColumnName(@"IsUseRatePaid").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.RatePaidMin).HasColumnName(@"RatePaidMin").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.RatePaidMin).HasColumnName(@"RatePaidMin").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.IsUseRateTotalPaid).HasColumnName(@"IsUseRateTotalPaid").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.RateTotalPaid).HasColumnName(@"RateTotalPaid").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.RateTotalPaid).HasColumnName(@"RateTotalPaid").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.IsUseQualifyHandover).HasColumnName(@"IsUseQualifyHandover").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsQualifyHandover).HasColumnName(@"IsQualifyHandover").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsUseRevenue).HasColumnName(@"IsUseRevenue").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.RateTotalRevenue).HasColumnName(@"RateTotalRevenue").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.RateTotalRevenue).HasColumnName(@"RateTotalRevenue").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.IsUuTien).HasColumnName(@"IsUuTien").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsUuTienAuto).HasColumnName(@"IsUuTienAuto").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsFloor).HasColumnName(@"IsFloor").HasColumnType("bit").IsRequired(false);
@@ -29953,7 +28148,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DuAn).WithMany(b => b.DuAnNhanViens).HasForeignKey(c => c.ProjectId).HasConstraintName("FK_DuAn_NhanVien_DuAn");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DuAnNhanViens).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DuAn_NhanVien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DuAnNhanViens).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DuAn_NhanVien_NhanVien");
         }
     }
 
@@ -30076,18 +28271,18 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
             // Foreign keys
-            builder.HasOne(a => a.DxDeXuatSale).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaDx).HasConstraintName("FK_dxBoPhanXuLy_dxDeXuat");
-            builder.HasOne(a => a.DxDeXuatSaleSale).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaLdx).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxBoPhanXuLy_dxLoaiDeXuat");
+            builder.HasOne(a => a.DxDeXuat).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaDx).HasConstraintName("FK_dxBoPhanXuLy_dxDeXuat");
+            builder.HasOne(a => a.DxLoaiDeXuat).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaLdx).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxBoPhanXuLy_dxLoaiDeXuat");
             builder.HasOne(a => a.DxNguyenNhan).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaNn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxBoPhanXuLy_dxNguyenNhan");
             builder.HasOne(a => a.DxTinhTrang).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxBoPhanXuLy_dxTinhTrang");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxBoPhanXuLy_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.DxBoPhanXuLies).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxBoPhanXuLy_PhongBan");
         }
     }
 
     // dxDeXuat
-    public class DxDeXuatConfigurationSale : IEntityTypeConfiguration<DxDeXuatSale>
+    public class DxDeXuatConfiguration : IEntityTypeConfiguration<DxDeXuat>
     {
-        public void Configure(EntityTypeBuilder<DxDeXuatSale> builder)
+        public void Configure(EntityTypeBuilder<DxDeXuat> builder)
         {
             builder.ToTable("dxDeXuat", "dbo");
             builder.HasKey(x => x.Id).HasName("PK_pgcDeXuat").IsClustered();
@@ -30109,7 +28304,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.DxTinhTrang).WithMany(b => b.DxDeXuats).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxDeXuat_dxTinhTrang");
             builder.HasOne(a => a.HinhThucTiepNhan).WithMany(b => b.DxDeXuats).HasForeignKey(c => c.MaHt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxDeXuat_HinhThucTiepNhan");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.DxDeXuats).HasForeignKey(c => c.MaNvn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcDeXuat_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.DxDeXuats).HasForeignKey(c => c.MaNvn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcDeXuat_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.DxDeXuats).HasForeignKey(c => c.MaPgc).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcDeXuat_pgcPhieuGiuCho");
         }
     }
@@ -30132,14 +28327,14 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.StatusSms).HasColumnName(@"StatusSMS").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.DxDeXuatSale).WithMany(b => b.DxLichSus).HasForeignKey(c => c.RefId).HasConstraintName("FK_pgcDeXuatLichSu_pgcDeXuat");
+            builder.HasOne(a => a.DxDeXuat).WithMany(b => b.DxLichSus).HasForeignKey(c => c.RefId).HasConstraintName("FK_pgcDeXuatLichSu_pgcDeXuat");
         }
     }
 
     // dxLoaiDeXuat
-    public class DxLoaiDeXuatConfigurationSale : IEntityTypeConfiguration<DxDeXuatSaleSale>
+    public class DxLoaiDeXuatConfiguration : IEntityTypeConfiguration<DxLoaiDeXuat>
     {
-        public void Configure(EntityTypeBuilder<DxDeXuatSaleSale> builder)
+        public void Configure(EntityTypeBuilder<DxLoaiDeXuat> builder)
         {
             builder.ToTable("dxLoaiDeXuat", "dbo");
             builder.HasKey(x => x.MaLdx).HasName("PK_pgcLoaiDeXuat").IsClustered();
@@ -30164,7 +28359,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.DxNguyenNhans).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxNguyenNhan_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.DxNguyenNhans).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_dxNguyenNhan_PhongBan");
         }
     }
 
@@ -30183,7 +28378,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaDx).HasColumnName(@"MaDX").HasColumnType("uniqueidentifier").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.DxDeXuatSale).WithMany(b => b.DxPhanHois).HasForeignKey(c => c.MaDx).HasConstraintName("FK_dxPhanHoi_dxDeXuat");
+            builder.HasOne(a => a.DxDeXuat).WithMany(b => b.DxPhanHois).HasForeignKey(c => c.MaDx).HasConstraintName("FK_dxPhanHoi_dxDeXuat");
         }
     }
 
@@ -30200,7 +28395,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.FileName).HasColumnName(@"FileName").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
             // Foreign keys
-            builder.HasOne(a => a.DxDeXuatSale).WithMany(b => b.DxTaiLieux).HasForeignKey(c => c.MaDx).HasConstraintName("FK_dxTaiLieu_dxDeXuat");
+            builder.HasOne(a => a.DxDeXuat).WithMany(b => b.DxTaiLieux).HasForeignKey(c => c.MaDx).HasConstraintName("FK_dxTaiLieu_dxDeXuat");
         }
     }
 
@@ -30466,7 +28661,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DateCreate).HasColumnName(@"DateCreate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.StaffModify).HasColumnName(@"StaffModify").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateModify).HasColumnName(@"DateModify").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TyLeHhtt).HasColumnName(@"TyLeHHTT").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeHhtt).HasColumnName(@"TyLeHHTT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.NgayHh).HasColumnName(@"NgayHH").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.PrentId).HasColumnName(@"PrentID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -30494,7 +28689,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaHdcdt).HasColumnName(@"MaHDCDT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TargetFrom).HasColumnName(@"TargetFrom").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TargetTo).HasColumnName(@"TargetTo").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Percents).HasColumnName(@"Percents").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.Percents).HasColumnName(@"Percents").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.Note).HasColumnName(@"Note").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
             // Foreign keys
@@ -30518,13 +28713,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.OptionId).HasColumnName(@"OptionID").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayGh).HasColumnName(@"NgayGH").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -30533,11 +28728,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsPay).HasColumnName(@"IsPay").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LoaiNn).HasColumnName(@"LoaiNN").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsDelay).HasColumnName(@"IsDelay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaKgd).HasColumnName(@"MaKGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.CodeUnique).HasColumnName(@"CodeUnique").HasColumnType("nvarchar(30)").IsRequired(false).HasMaxLength(30);
-            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaLoaiTt).HasColumnName(@"MaLoaiTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoNgayCham).HasColumnName(@"SoNgayCham").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DaThuDot).HasColumnName(@"DaThuDot").HasColumnType("money").IsRequired(false);
@@ -30567,8 +28762,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaPgc).HasColumnName(@"MaPGC").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TieuDe).HasColumnName(@"TieuDe").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NgayHuong).HasColumnName(@"NgayHuong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.PromotionId).HasColumnName(@"PromotionID").HasColumnType("int").IsRequired(false);
@@ -30578,10 +28773,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsLuyKe).HasColumnName(@"IsLuyKe").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsTuTinh).HasColumnName(@"IsTuTinh").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.HopDongMuaBan).WithMany(b => b.HdmbPromotions).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_hdmbPromotion_HopDongMuaBan");
@@ -30607,7 +28802,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.HdmbTinhTrang).WithMany(b => b.HdmbQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdmbQuaTrinhThucHien_hdmbTinhTrang");
             builder.HasOne(a => a.HopDongMuaBan).WithMany(b => b.HdmbQuaTrinhThucHiens).HasForeignKey(c => c.MaHdmb).HasConstraintName("FK_hdmbQuaTrinhThucHien_HopDongMuaBan");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.HdmbQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdmbQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.HdmbQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdmbQuaTrinhThucHien_NhanVien");
         }
     }
 
@@ -30668,7 +28863,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DenNgay).HasColumnName(@"DenNgay").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNh).HasColumnName(@"MaNH").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
         }
     }
 
@@ -30683,7 +28878,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("bigint").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MaPt).HasColumnName(@"MaPT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayGiaiNgan).HasColumnName(@"NgayGiaiNgan").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.TyLeGn).HasColumnName(@"TyLeGN").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeGn).HasColumnName(@"TyLeGN").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.SoTienGn).HasColumnName(@"SoTienGN").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
@@ -30706,7 +28901,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayTinhLai).HasColumnName(@"NgayTinhLai").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.TienLai).HasColumnName(@"TienLai").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.SoTienTinhLai).HasColumnName(@"SoTienTinhLai").HasColumnType("money").IsRequired(false);
@@ -30769,7 +28964,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.HdptPhongToa).WithMany(b => b.HdptNhatKyDuyets).HasForeignKey(c => c.MaPt).HasConstraintName("FK_hdptNhatKyDuyet_hdptPhongToa");
             builder.HasOne(a => a.HdptTrangThai).WithMany(b => b.HdptNhatKyDuyets).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdptNhatKyDuyet_hdptTrangThai");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.HdptNhatKyDuyets).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdptNhatKyDuyet_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.HdptNhatKyDuyets).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdptNhatKyDuyet_NhanVien");
         }
     }
 
@@ -30823,15 +29018,15 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNh).HasColumnName(@"MaNH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCn).HasColumnName(@"MaCN").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaGoiVay).HasColumnName(@"MaGoiVay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.NhanVienSale).HasColumnName(@"NhanVienSale").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
+            builder.Property(x => x.NhanVien).HasColumnName(@"NhanVien").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.SoDt).HasColumnName(@"SoDT").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayChotLai).HasColumnName(@"NgayChotLai").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.GiaTriHoTro).HasColumnName(@"GiaTriHoTro").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoThangVay).HasColumnName(@"SoThangVay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoTienHoTroLs).HasColumnName(@"SoTienHoTroLS").HasColumnType("decimal(20,10)").IsRequired(false);
-            builder.Property(x => x.LaiSuatPhat).HasColumnName(@"LaiSuatPhat").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoTienPhiTnth).HasColumnName(@"SoTienPhiTNTH").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.SoTienHoTroLs).HasColumnName(@"SoTienHoTroLS").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
+            builder.Property(x => x.LaiSuatPhat).HasColumnName(@"LaiSuatPhat").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoTienPhiTnth).HasColumnName(@"SoTienPhiTNTH").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.HdptTrangThai).WithMany(b => b.HdptPhongToas).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdptPhongToa_hdptTrangThai");
@@ -30890,16 +29085,16 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaPgc).HasColumnName(@"MaPGC").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoHopDong).HasColumnName(@"SoHopDong").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayKy).HasColumnName(@"NgayKy").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.ThoiHanThue).HasColumnName(@"ThoiHanThue").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.ThoiHanThue).HasColumnName(@"ThoiHanThue").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.DonViTinh).HasColumnName(@"DonViTinh").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayHetHan).HasColumnName(@"NgayHetHan").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.GiaTinhTienThue).HasColumnName(@"GiaTinhTienThue").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TySuatLoiNhuan).HasColumnName(@"TySuatLoiNhuan").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TySuatLoiNhuan).HasColumnName(@"TySuatLoiNhuan").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.LoiNhuan).HasColumnName(@"LoiNhuan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThueMonBai).HasColumnName(@"ThueMonBai").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeTncn).HasColumnName(@"TyLeTNCN").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeTncn).HasColumnName(@"TyLeTNCN").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.ThueTncn).HasColumnName(@"ThueTNCN").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeGtgt).HasColumnName(@"TyLeGTGT").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeGtgt).HasColumnName(@"TyLeGTGT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.ThueGtgt).HasColumnName(@"ThueGTGT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.BaoHiem).HasColumnName(@"BaoHiem").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThucNhan).HasColumnName(@"ThucNhan").HasColumnType("money").IsRequired(false);
@@ -31001,8 +29196,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NguonGocSuDung).HasColumnName(@"NguonGocSuDung").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.TaiSanTrenDat).HasColumnName(@"TaiSanTrenDat").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.DienTichSdc).HasColumnName(@"DienTichSDC").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTichSdr).HasColumnName(@"DienTichSDR").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichSdc).HasColumnName(@"DienTichSDC").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTichSdr).HasColumnName(@"DienTichSDR").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.PhiTruocBa).HasColumnName(@"PhiTruocBa").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.PhiDiaChinh).HasColumnName(@"PhiDiaChinh").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaNvkd).HasColumnName(@"MaNVKD").HasColumnType("int").IsRequired(false);
@@ -31055,8 +29250,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NguonGocSuDung).HasColumnName(@"NguonGocSuDung").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.TaiSanTrenDat).HasColumnName(@"TaiSanTrenDat").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.DienTichSdc).HasColumnName(@"DienTichSDC").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.DienTichSdr).HasColumnName(@"DienTichSDR").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.DienTichSdc).HasColumnName(@"DienTichSDC").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.DienTichSdr).HasColumnName(@"DienTichSDR").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.PhiTruocBa).HasColumnName(@"PhiTruocBa").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.PhiDiaChinh).HasColumnName(@"PhiDiaChinh").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaNvkd).HasColumnName(@"MaNVKD").HasColumnType("int").IsRequired(false);
@@ -31137,7 +29332,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayBd).HasColumnName(@"NgayBD").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThoiHan).HasColumnName(@"ThoiHan").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(6,3)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(6,3)").HasPrecision(6,3).IsRequired(false);
             builder.Property(x => x.TienLai).HasColumnName(@"TienLai").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.PhiCongChung).HasColumnName(@"PhiCongChung").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -31153,7 +29348,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.HdvtTinhTrang).WithMany(b => b.HdvtHopDongVayTiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtHopDongVayTien_hdvtTinhTrang");
             builder.HasOne(a => a.HopDongMuaBan).WithMany(b => b.HdvtHopDongVayTiens).HasForeignKey(c => c.MaHdmb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtHopDongVayTien_HopDongMuaBan");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.HdvtHopDongVayTiens).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtHopDongVayTien_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.HdvtHopDongVayTiens).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtHopDongVayTien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.HdvtHopDongVayTiens).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtHopDongVayTien_NhanVien");
         }
     }
 
@@ -31197,7 +29392,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DenNgay).HasColumnName(@"DenNgay").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvkd).HasColumnName(@"MaNVKD").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(6,3)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(6,3)").HasPrecision(6,3).IsRequired(false);
             builder.Property(x => x.TienLai).HasColumnName(@"TienLai").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThoiHan).HasColumnName(@"ThoiHan").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("int").IsRequired(false);
@@ -31207,7 +29402,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.HdvtHopDongVayTien).WithOne(b => b.HdvtPhuLuc).HasForeignKey<HdvtPhuLuc>(c => c.MaPl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtPhuLuc_hdvtHopDongVayTien");
             builder.HasOne(a => a.HdvtTinhTrang).WithMany(b => b.HdvtPhuLucs).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtPhuLuc_hdvtTinhTrang");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.HdvtPhuLucs).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtPhuLuc_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.HdvtPhuLucs).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtPhuLuc_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.HdvtPhuLucs).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvtPhuLuc_NhanVien");
         }
     }
 
@@ -31315,8 +29510,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayBanGiao).HasColumnName(@"NgayBanGiao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.IsDeleted).HasColumnName(@"IsDeleted").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.DonGiaVatpbt).HasColumnName(@"DonGiaVATPBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongGiaTriHd).HasColumnName(@"TongGiaTriHD").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
@@ -31382,7 +29577,7 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
         }
     }
 
@@ -31397,7 +29592,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("bigint").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.MaHs).HasColumnName(@"MaHS").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaTc).HasColumnName(@"MaTC").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Diem).HasColumnName(@"Diem").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.Diem).HasColumnName(@"Diem").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.HsHoSoNoxh).WithMany(b => b.HsChamDiems).HasForeignKey(c => c.MaHs).HasConstraintName("FK_hsChamDiem_hsHoSoNOXH");
@@ -31458,7 +29653,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TangLau).HasColumnName(@"TangLau").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaBoHs).HasColumnName(@"MaBoHS").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.SoDiem).HasColumnName(@"SoDiem").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.SoDiem).HasColumnName(@"SoDiem").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.HinhThuc).HasColumnName(@"HinhThuc").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CateId).HasColumnName(@"CateID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TinhTrangDk).HasColumnName(@"TinhTrangDK").HasColumnType("int").IsRequired(false);
@@ -31471,10 +29666,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DotBanHang).HasColumnName(@"DotBanHang").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaBm).HasColumnName(@"MaBM").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NoiDung).HasColumnName(@"NoiDung").HasColumnType("ntext").IsRequired(false);
-            builder.Property(x => x.Diem1).HasColumnName(@"Diem1").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Diem2).HasColumnName(@"Diem2").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Diem3).HasColumnName(@"Diem3").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.Diem4).HasColumnName(@"Diem4").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.Diem1).HasColumnName(@"Diem1").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Diem2).HasColumnName(@"Diem2").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Diem3).HasColumnName(@"Diem3").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.Diem4).HasColumnName(@"Diem4").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.MaNvcd).HasColumnName(@"MaNVCD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayBghs).HasColumnName(@"NgayBGHS").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.CateId2).HasColumnName(@"CateID2").HasColumnType("int").IsRequired(false);
@@ -31621,7 +29816,7 @@ namespace Hpl.HrmDatabase
 
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.Diem).HasColumnName(@"Diem").HasColumnType("decimal(8,2)").IsRequired(false);
+            builder.Property(x => x.Diem).HasColumnName(@"Diem").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
             builder.Property(x => x.ParentId).HasColumnName(@"ParentID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("nvarchar(5)").IsRequired(false).HasMaxLength(5);
             builder.Property(x => x.IsDt).HasColumnName(@"IsDT").HasColumnType("bit").IsRequired(false);
@@ -31656,8 +29851,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenHuyen).HasColumnName(@"TenHuyen").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.TenHuyenEn).HasColumnName(@"TenHuyenEN").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaTinh).HasColumnName(@"MaTinh").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.Tinh).WithMany(b => b.Huyens).HasForeignKey(c => c.MaTinh).HasConstraintName("FK_Huyen_Tinh");
@@ -31889,7 +30084,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaPttt).HasColumnName(@"MaPTTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoPhongNgu).HasColumnName(@"SoPhongNgu").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.KhuVuc).HasColumnName(@"KhuVuc").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNmg).HasColumnName(@"MaNMG").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaDl).HasColumnName(@"MaDL").HasColumnType("int").IsRequired(false);
@@ -32025,7 +30220,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHangNhatKy).WithMany(b => b.KhachHangNhatKyPhanHois).HasForeignKey(c => c.NhatKyId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_KhachHang_NhatKy_PhanHoi_KhachHang_NhatKy");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.KhachHangNhatKyPhanHois).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_KhachHang_NhatKy_PhanHoi_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.KhachHangNhatKyPhanHois).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_KhachHang_NhatKy_PhanHoi_NhanVien");
         }
     }
 
@@ -32194,7 +30389,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KeHoachBanHang).WithMany(b => b.KhbhNhanViens).HasForeignKey(c => c.MaKhbh).HasConstraintName("FK_khbhNhanVien_KeHoachBanHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.KhbhNhanViens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khbhNhanVien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.KhbhNhanViens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khbhNhanVien_NhanVien");
         }
     }
 
@@ -32386,7 +30581,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHangSoTheoDoi).WithMany(b => b.KhstdDonViLienQuans).HasForeignKey(c => c.KeyId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khstd_DonViLienQuan_KhachHang_SoTheoDoi");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.KhstdDonViLienQuans).HasForeignKey(c => c.DepartmentId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khstd_DonViLienQuan_khstd_DonViLienQuan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.KhstdDonViLienQuans).HasForeignKey(c => c.DepartmentId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khstd_DonViLienQuan_khstd_DonViLienQuan");
         }
     }
 
@@ -32406,7 +30601,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHangSoTheoDoi).WithMany(b => b.KhstdLichSus).HasForeignKey(c => c.KeyId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khstd_LichSu_KhachHang_SoTheoDoi");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.KhstdLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khstd_LichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.KhstdLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_khstd_LichSu_NhanVien");
         }
     }
 
@@ -32475,7 +30670,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.SlMin).HasColumnName(@"SLMin").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SlMax).HasColumnName(@"SLMax").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MucPhi).HasColumnName(@"MucPhi").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.MucPhi).HasColumnName(@"MucPhi").HasColumnType("float").HasPrecision(53).IsRequired(false);
         }
     }
 
@@ -32490,7 +30685,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Id).HasColumnName(@"ID").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.DicValue).HasColumnName(@"DicValue").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
 
-            builder.HasIndex(x => x.DicValue).HasName("IX_lgDictionary").IsUnique();
+            builder.HasIndex(x => x.DicValue).HasDatabaseName("IX_lgDictionary").IsUnique();
         }
     }
 
@@ -32561,7 +30756,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.LhLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_lhLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.LhLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_lhLichSu_NhanVien");
         }
     }
 
@@ -32613,7 +30808,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.KhachHang).WithMany(b => b.LichHens).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_KhachHang");
             builder.HasOne(a => a.LichHenChuDe).WithMany(b => b.LichHens).HasForeignKey(c => c.MaCd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_LichHen_ChuDe");
             builder.HasOne(a => a.LichHenThoiDiem).WithMany(b => b.LichHens).HasForeignKey(c => c.MaTd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_LichHen_ThoiDiem");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.LichHens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.LichHens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_NhanVien");
             builder.HasOne(a => a.NhiemVu).WithMany(b => b.LichHens).HasForeignKey(c => c.MaNVu).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_NhiemVu");
             builder.HasOne(a => a.Time_TimeId).WithMany(b => b.LichHens_TimeId).HasForeignKey(c => c.TimeId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_Times");
             builder.HasOne(a => a.Time_TimeId2).WithMany(b => b.LichHens_TimeId2).HasForeignKey(c => c.TimeId2).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichHen_Times1");
@@ -32742,7 +30937,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.NhanVien_MaNvcn).WithMany(b => b.LichSuXetDuyetCapBacs_MaNvcn).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichSuXetDuyetCapBac_NhanVien1");
             builder.HasOne(a => a.NhanVien_MaNvkd).WithMany(b => b.LichSuXetDuyetCapBacs_MaNvkd).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichSuXetDuyetCapBac_NhanVien");
             builder.HasOne(a => a.NhomKinhDoanh).WithMany(b => b.LichSuXetDuyetCapBacs).HasForeignKey(c => c.MaNkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichSuXetDuyetCapBac_NhomKinhDoanh");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.LichSuXetDuyetCapBacs).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichSuXetDuyetCapBac_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.LichSuXetDuyetCapBacs).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_LichSuXetDuyetCapBac_PhongBan");
         }
     }
 
@@ -32907,9 +31102,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayTao).HasColumnName(@"NgayTao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MuaVao).HasColumnName(@"MuaVao").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.LaiSuatMv).HasColumnName(@"LaiSuatMV").HasColumnType("decimal(6,3)").IsRequired(false);
+            builder.Property(x => x.LaiSuatMv).HasColumnName(@"LaiSuatMV").HasColumnType("decimal(6,3)").HasPrecision(6,3).IsRequired(false);
             builder.Property(x => x.BanRa).HasColumnName(@"BanRa").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.LaiSuatBr).HasColumnName(@"LaiSuatBR").HasColumnType("decimal(6,3)").IsRequired(false);
+            builder.Property(x => x.LaiSuatBr).HasColumnName(@"LaiSuatBR").HasColumnType("decimal(6,3)").HasPrecision(6,3).IsRequired(false);
             builder.Property(x => x.MaNvcn).HasColumnName(@"MaNVCN").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayCn).HasColumnName(@"NgayCN").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -33012,7 +31207,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsForgotPassword).HasColumnName(@"IsForgotPassword").HasColumnType("bit").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.MailConfigs).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mailConfig_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.MailConfigs).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mailConfig_NhanVien");
         }
     }
 
@@ -33297,11 +31492,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IconId).HasColumnName(@"IconID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.FormId).HasColumnName(@"FormID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.LinkId).HasColumnName(@"LinkID").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.Width).HasColumnName(@"Width").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Height).HasColumnName(@"Height").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Width).HasColumnName(@"Width").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Height).HasColumnName(@"Height").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.BorderWidth).HasColumnName(@"BorderWidth").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BorderColor).HasColumnName(@"BorderColor").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Opacity).HasColumnName(@"Opacity").HasColumnType("numeric(2,1)").IsRequired(false);
+            builder.Property(x => x.Opacity).HasColumnName(@"Opacity").HasColumnType("numeric(2,1)").HasPrecision(2,1).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.MapsIcon).WithMany(b => b.MapsDetails).HasForeignKey(c => c.IconId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mapsDetail_mapsIcon");
@@ -33451,18 +31646,18 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvkd).HasColumnName(@"MaNVKD").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeHh).HasColumnName(@"TyLeHH").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHh).HasColumnName(@"TyLeHH").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaNvkt).HasColumnName(@"MaNVKT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsBan).HasColumnName(@"IsBan").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.KyHieu).HasColumnName(@"KyHieu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaLbds).HasColumnName(@"MaLBDS").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTien).HasColumnName(@"ThanhTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiaGoc).HasColumnName(@"GiaGoc").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLt).HasColumnName(@"MaLT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DuongRong).HasColumnName(@"DuongRong").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.DuongRong).HasColumnName(@"DuongRong").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhongKhach).HasColumnName(@"PhongKhach").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongNgu).HasColumnName(@"PhongNgu").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongTam).HasColumnName(@"PhongTam").HasColumnType("tinyint").IsRequired(false);
@@ -33472,17 +31667,17 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ChiaSe).HasColumnName(@"ChiaSe").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.DiaChi).HasColumnName(@"DiaChi").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.MaHuyen).HasColumnName(@"MaHuyen").HasColumnType("smallint").IsRequired(false);
-            builder.Property(x => x.TyLeMg).HasColumnName(@"TyLeMG").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeMg).HasColumnName(@"TyLeMG").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiMg).HasColumnName(@"PhiMG").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaHuong).HasColumnName(@"MaHuong").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaLd).HasColumnName(@"MaLD").HasColumnType("smallint").IsRequired(false);
-            builder.Property(x => x.NgangKv).HasColumnName(@"NgangKV").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.DaiKv).HasColumnName(@"DaiKV").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.SauKv).HasColumnName(@"SauKV").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.NgangXd).HasColumnName(@"NgangXD").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.DaiXd).HasColumnName(@"DaiXD").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.SauXd).HasColumnName(@"SauXD").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.NgangKv).HasColumnName(@"NgangKV").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.DaiKv).HasColumnName(@"DaiKV").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.SauKv).HasColumnName(@"SauKV").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.NgangXd).HasColumnName(@"NgangXD").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.DaiXd).HasColumnName(@"DaiXD").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.SauXd).HasColumnName(@"SauXD").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.NoiBat).HasColumnName(@"NoiBat").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.NgayCn).HasColumnName(@"NgayCN").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaCd).HasColumnName(@"MaCD").HasColumnType("smallint").IsRequired(false);
@@ -33503,7 +31698,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.MglbcTrangThai).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_mglbcTrangThai");
             builder.HasOne(a => a.MglCapDo).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaCd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_mglCapDo");
             builder.HasOne(a => a.MglNguon).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaNguon).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_mglNguon");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_NhanVien2");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_NhanVien2");
             builder.HasOne(a => a.PhapLy).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaPl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_PhapLy");
             builder.HasOne(a => a.PhuongHuong).WithMany(b => b.MglbcBanChoThues).HasForeignKey(c => c.MaHuong).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglbcBanChoThue_PhuongHuong");
         }
@@ -33604,7 +31799,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Khoa).HasColumnName(@"Khoa").HasColumnType("bit").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.MglBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.MglBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglBieuMau_NhanVien");
         }
     }
 
@@ -33640,7 +31835,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNvbh).HasColumnName(@"MaNVBH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaBds).HasColumnName(@"MaBDS").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.GiaBds).HasColumnName(@"GiaBDS").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaTyGia).HasColumnName(@"MaTyGia").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.DiaChiBds).HasColumnName(@"DiaChiBDS").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
@@ -33709,8 +31904,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.MaMt).HasColumnName(@"MaMT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaBc).HasColumnName(@"MaBC").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeHhmt).HasColumnName(@"TyLeHHMT").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.TyLeHhbc).HasColumnName(@"TyLeHHBC").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHhmt).HasColumnName(@"TyLeHHMT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.TyLeHhbc).HasColumnName(@"TyLeHHBC").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaNvmt).HasColumnName(@"MaNVMT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvbc).HasColumnName(@"MaNVBC").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
@@ -33743,7 +31938,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.MglgdGiaoDich).WithMany(b => b.MglgdNhatKyXuLies).HasForeignKey(c => c.MaGd).HasConstraintName("FK_mglgdNhatKyXuLy_mglgdGiaoDich");
             builder.HasOne(a => a.MglgdTrangThai).WithMany(b => b.MglgdNhatKyXuLies).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglgdNhatKyXuLy_mglgdTrangThai");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.MglgdNhatKyXuLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglgdNhatKyXuLy_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.MglgdNhatKyXuLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglgdNhatKyXuLy_NhanVien");
         }
     }
 
@@ -33780,7 +31975,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.MglDatCoc).WithMany(b => b.MglLichSus).HasForeignKey(c => c.MaDc).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglLichSu_mglDatCoc");
             builder.HasOne(a => a.MglTinhTrang).WithMany(b => b.MglLichSus).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglLichSu_mglTinhTrang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.MglLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.MglLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglLichSu_NhanVien");
         }
     }
 
@@ -33870,20 +32065,20 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayDk).HasColumnName(@"NgayDK").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.ThoiHan).HasColumnName(@"ThoiHan").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeHh).HasColumnName(@"TyLeHH").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHh).HasColumnName(@"TyLeHH").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvkd).HasColumnName(@"MaNVKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNvkt).HasColumnName(@"MaNVKT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.IsMua).HasColumnName(@"IsMua").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaLbds).HasColumnName(@"MaLBDS").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.MaDa).HasColumnName(@"MaDA").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DienTichTu).HasColumnName(@"DienTichTu").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.DienTichDen).HasColumnName(@"DienTichDen").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.DienTichTu).HasColumnName(@"DienTichTu").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.DienTichDen).HasColumnName(@"DienTichDen").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.GiaTu).HasColumnName(@"GiaTu").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiaDen).HasColumnName(@"GiaDen").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLt).HasColumnName(@"MaLT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DuongRongTu).HasColumnName(@"DuongRongTu").HasColumnType("decimal(6,2)").IsRequired(false);
-            builder.Property(x => x.DuongRongDen).HasColumnName(@"DuongRongDen").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.DuongRongTu).HasColumnName(@"DuongRongTu").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
+            builder.Property(x => x.DuongRongDen).HasColumnName(@"DuongRongDen").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhKhTu).HasColumnName(@"PhKhTu").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhKhDen).HasColumnName(@"PhKhDen").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhNguTu).HasColumnName(@"PhNguTu").HasColumnType("tinyint").IsRequired(false);
@@ -33909,7 +32104,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.MglCapDo).WithMany(b => b.MglmtMuaThues).HasForeignKey(c => c.MaCd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglmtMuaThue_mglCapDo");
             builder.HasOne(a => a.MglmtTrangThai).WithMany(b => b.MglmtMuaThues).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglMuaThue_mglmtTrangThai");
             builder.HasOne(a => a.MglNguon).WithMany(b => b.MglmtMuaThues).HasForeignKey(c => c.MaNguon).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglmtMuaThue_mglNguon");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.MglmtMuaThues).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglMuaThue_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.MglmtMuaThues).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_mglMuaThue_NhanVien");
         }
     }
 
@@ -34204,12 +32399,12 @@ namespace Hpl.HrmDatabase
         }
     }
 
-    // NhanVienSale
-    public class NhanVienConfigurationSale : IEntityTypeConfiguration<NhanVienSale>
+    // NhanVien
+    public class NhanVienConfiguration : IEntityTypeConfiguration<NhanVien>
     {
-        public void Configure(EntityTypeBuilder<NhanVienSale> builder)
+        public void Configure(EntityTypeBuilder<NhanVien> builder)
         {
-            builder.ToTable("NhanVienSale", "dbo");
+            builder.ToTable("NhanVien", "dbo");
             builder.HasKey(x => x.MaNv).HasName("PK_NhanVien").IsClustered();
 
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
@@ -34249,7 +32444,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaDm).HasColumnName(@"MaDM").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsCdt).HasColumnName(@"IsCDT").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.DienThoaiNb).HasColumnName(@"DienThoaiNB").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.DiaChiLl).HasColumnName(@"DiaChiLL").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaNvcn).HasColumnName(@"MaNVCN").HasColumnType("int").IsRequired(false);
@@ -34270,7 +32465,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.ChucVu).WithMany(b => b.NhanViens).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVien_ChucVu");
             builder.HasOne(a => a.NhomKinhDoanh).WithMany(b => b.NhanViens).HasForeignKey(c => c.MaNkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVien_NhomKinhDoanh");
             builder.HasOne(a => a.Permission).WithMany(b => b.NhanViens).HasForeignKey(c => c.PerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVien_Permissions");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.NhanViens).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVien_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.NhanViens).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVien_PhongBan");
             builder.HasOne(a => a.QuyDanh).WithMany(b => b.NhanViens).HasForeignKey(c => c.MaQd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVien_QuyDanh");
         }
     }
@@ -34323,7 +32518,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NhanVienLichSus).HasForeignKey(c => c.RefId).HasConstraintName("FK_NhanVien_LichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NhanVienLichSus).HasForeignKey(c => c.RefId).HasConstraintName("FK_NhanVien_LichSu_NhanVien");
         }
     }
 
@@ -34362,7 +32557,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GioiTinh).HasColumnName(@"GioiTinh").HasColumnType("nvarchar(10)").IsRequired(false).HasMaxLength(10);
             builder.Property(x => x.MaQl).HasColumnName(@"MaQL").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaQl2).HasColumnName(@"MaQL2").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rose).HasColumnName(@"Rose").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.DienThoaiNb).HasColumnName(@"DienThoaiNB").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.DiaChiLl).HasColumnName(@"DiaChiLL").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.MaNvcn).HasColumnName(@"MaNVCN").HasColumnType("int").IsRequired(false);
@@ -34373,7 +32568,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.BranchId).HasColumnName(@"BranchID").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NhanVienNhatKies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVienNhatKy_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NhanVienNhatKies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhanVienNhatKy_NhanVien");
         }
     }
 
@@ -34424,7 +32619,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DaNhac).HasColumnName(@"DaNhac").HasColumnType("bit").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NhiemVus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NhiemVus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_NhanVien");
             builder.HasOne(a => a.NhiemVuLoai).WithMany(b => b.NhiemVus).HasForeignKey(c => c.MaLnv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_NhiemVu_Loai");
             builder.HasOne(a => a.NhiemVuMucDo).WithMany(b => b.NhiemVus).HasForeignKey(c => c.MaMd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_NhiemVu_MucDo");
             builder.HasOne(a => a.NhiemVuTienDo).WithMany(b => b.NhiemVus).HasForeignKey(c => c.MaTd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_NhiemVu_TienDo");
@@ -34450,7 +32645,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("nchar(10)").IsRequired(false).IsFixedLength().HasMaxLength(10);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NhiemVuLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_LichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NhiemVuLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_LichSu_NhanVien");
             builder.HasOne(a => a.NhiemVu).WithMany(b => b.NhiemVuLichSus).HasForeignKey(c => c.MaNVu).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NhiemVu_LichSu_NhiemVu");
         }
     }
@@ -34498,7 +32693,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DaNhac).HasColumnName(@"DaNhac").HasColumnType("bit").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NhiemVuNhanViens).HasForeignKey(c => c.MaNv).HasConstraintName("FK_NhiemVu_NhanVien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NhiemVuNhanViens).HasForeignKey(c => c.MaNv).HasConstraintName("FK_NhiemVu_NhanVien_NhanVien");
             builder.HasOne(a => a.NhiemVu).WithMany(b => b.NhiemVuNhanViens).HasForeignKey(c => c.MaNVu).HasConstraintName("FK_NhiemVu_NhanVien_NhiemVu");
         }
     }
@@ -34644,7 +32839,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NnghQuaTrinhs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnghQuaTrinh_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NnghQuaTrinhs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnghQuaTrinh_NhanVien");
             builder.HasOne(a => a.NnghTinhTrang).WithMany(b => b.NnghQuaTrinhs).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnghQuaTrinh_nnghTinhTrang");
             builder.HasOne(a => a.NnGiaHan).WithMany(b => b.NnghQuaTrinhs).HasForeignKey(c => c.MaGh).HasConstraintName("FK_nnghQuaTrinh_nnGiaHan");
         }
@@ -34691,7 +32886,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHang).WithMany(b => b.NnGiaHans).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnGiaHan_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NnGiaHans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnGiaHan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NnGiaHans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnGiaHan_NhanVien");
             builder.HasOne(a => a.NnghTinhTrang).WithMany(b => b.NnGiaHans).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnGiaHan_nnghTinhTrang");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.NnGiaHans).HasForeignKey(c => c.MaPgc).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nnGiaHan_pgcPhieuGiuCho");
         }
@@ -34731,10 +32926,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ListSoTien).HasColumnName(@"ListSoTien").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.ListTienLai).HasColumnName(@"ListTienLai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.SoTb).HasColumnName(@"SoTB").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.TyLePhat).HasColumnName(@"TyLePhat").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.TyLePhat).HasColumnName(@"TyLePhat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.SoTienPhat).HasColumnName(@"SoTienPhat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongGiaTri).HasColumnName(@"TongGiaTri").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeNop).HasColumnName(@"TyLeNop").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.TyLeNop).HasColumnName(@"TyLeNop").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.SoNgayChamMax).HasColumnName(@"SoNgayChamMax").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
@@ -34809,7 +33004,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LinkId).HasColumnName(@"LinkID").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NoteHistories).HasForeignKey(c => c.StaffCreate).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NoteHistory_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NoteHistories).HasForeignKey(c => c.StaffCreate).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NoteHistory_NhanVien");
             builder.HasOne(a => a.NoteType).WithMany(b => b.NoteHistories).HasForeignKey(c => c.TypeId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_NoteHistory_NoteType");
         }
     }
@@ -35155,7 +33350,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.ChucVu).WithMany(b => b.NtchBanQuanLies).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchBanQuanLy_ChucVu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NtchBanQuanLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchBanQuanLy_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NtchBanQuanLies).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchBanQuanLy_NhanVien");
             builder.HasOne(a => a.NtchNghiemThuCanHo).WithMany(b => b.NtchBanQuanLies).HasForeignKey(c => c.MaNt).HasConstraintName("FK_ntchBanQuanLy_ntchNghiemThuCanHo");
         }
     }
@@ -35175,7 +33370,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.ChucVu).WithMany(b => b.NtchBanQuanLyNbs).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchBanQuanLyNB_ChucVu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NtchBanQuanLyNbs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchBanQuanLyNB_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NtchBanQuanLyNbs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchBanQuanLyNB_NhanVien");
             builder.HasOne(a => a.NtchNghiemThuCanHo).WithMany(b => b.NtchBanQuanLyNbs).HasForeignKey(c => c.MaNt).HasConstraintName("FK_ntchBanQuanLyNB_ntchNghiemThuCanHo");
         }
     }
@@ -35240,7 +33435,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NtchNghiemThuLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchNghiemThuLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NtchNghiemThuLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchNghiemThuLichSu_NhanVien");
             builder.HasOne(a => a.NtchNghiemThuCanHo).WithMany(b => b.NtchNghiemThuLichSus).HasForeignKey(c => c.MaNt).HasConstraintName("FK_ntchNghiemThuLichSu_ntchNghiemThuCanHo");
         }
     }
@@ -35260,7 +33455,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.ChucVu).WithMany(b => b.NtchToBanGiaos).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchToBanGiao_ChucVu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NtchToBanGiaos).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchToBanGiao_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NtchToBanGiaos).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ntchToBanGiao_NhanVien");
             builder.HasOne(a => a.NtchNghiemThuCanHo).WithMany(b => b.NtchToBanGiaos).HasForeignKey(c => c.MaNt).HasConstraintName("FK_ntchToBanGiao_ntchNghiemThuCanHo");
         }
     }
@@ -35307,9 +33502,9 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.ChucVu).WithMany(b => b.NvLichSus).HasForeignKey(c => c.MaCv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nvLichSu_ChucVu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.NvLichSus).HasForeignKey(c => c.RefId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nvLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.NvLichSus).HasForeignKey(c => c.RefId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nvLichSu_NhanVien");
             builder.HasOne(a => a.NhomKinhDoanh).WithMany(b => b.NvLichSus).HasForeignKey(c => c.MaNkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nvLichSu_NhomKinhDoanh");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.NvLichSus).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nvLichSu_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.NvLichSus).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_nvLichSu_PhongBan");
         }
     }
 
@@ -35426,7 +33621,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHang).WithMany(b => b.PbxHistoryCalls).HasForeignKey(c => c.CustomerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pbxHistoryCall_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PbxHistoryCalls).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pbxHistoryCall_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PbxHistoryCalls).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pbxHistoryCall_NhanVien");
             builder.HasOne(a => a.NhomKh).WithMany(b => b.PbxHistoryCalls).HasForeignKey(c => c.GroupId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pbxHistoryCall_NhomKH");
         }
     }
@@ -35568,7 +33763,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PdcQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdcQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PdcQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdcQuaTrinhThucHien_NhanVien");
             builder.HasOne(a => a.PdcPhieuDatCoc).WithMany(b => b.PdcQuaTrinhThucHiens).HasForeignKey(c => c.MaPdc).HasConstraintName("FK_pdcQuaTrinhThucHien_pdcPhieuDatCoc");
             builder.HasOne(a => a.PdcTinhTrang).WithMany(b => b.PdcQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdcQuaTrinhThucHien_pdcTinhTrang");
         }
@@ -35682,9 +33877,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoPhieu).HasColumnName(@"SoPhieu").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayKy).HasColumnName(@"NgayKy").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaNv1).HasColumnName(@"MaNV1").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe1).HasColumnName(@"TyLe1").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.TyLe1).HasColumnName(@"TyLe1").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaNv2).HasColumnName(@"MaNV2").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe2).HasColumnName(@"TyLe2").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.TyLe2).HasColumnName(@"TyLe2").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKh2).HasColumnName(@"MaKH2").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NguoiLienHe).HasColumnName(@"NguoiLienHe").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
@@ -35716,19 +33911,19 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.Share).HasColumnName(@"Share").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.PhongKhach).HasColumnName(@"PhongKhach").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.DtPhongKhach).HasColumnName(@"DTPhongKhach").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DtPhongKhach).HasColumnName(@"DTPhongKhach").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.PhongNgu).HasColumnName(@"PhongNgu").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongWc).HasColumnName(@"PhongWC").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhongDocSach).HasColumnName(@"PhongDocSach").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.PhongNgv).HasColumnName(@"PhongNGV").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Bep).HasColumnName(@"Bep").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.SanTruoc).HasColumnName(@"SanTruoc").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.DtSanTruoc).HasColumnName(@"DTSanTruoc").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DtSanTruoc).HasColumnName(@"DTSanTruoc").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.SanSau).HasColumnName(@"SanSau").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.DtSanSau).HasColumnName(@"DTSanSau").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DuongTruoc).HasColumnName(@"DuongTruoc").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DuongBen).HasColumnName(@"DuongBen").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DuongSau).HasColumnName(@"DuongSau").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.DtSanSau).HasColumnName(@"DTSanSau").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DuongTruoc).HasColumnName(@"DuongTruoc").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DuongBen).HasColumnName(@"DuongBen").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DuongSau).HasColumnName(@"DuongSau").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.PhapLyKhac).HasColumnName(@"PhapLyKhac").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.MaLgd).HasColumnName(@"MaLGD").HasColumnType("tinyint").IsRequired(false);
@@ -35736,16 +33931,16 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.ViTriTang).HasColumnName(@"ViTriTang").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.LoaiBds).HasColumnName(@"LoaiBDS").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.LoaiBdsKhac).HasColumnName(@"LoaiBDSKhac").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.Rong).HasColumnName(@"Rong").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Dai).HasColumnName(@"Dai").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.Rong).HasColumnName(@"Rong").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Dai).HasColumnName(@"Dai").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.DienTichXd).HasColumnName(@"DienTichXD").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaHuong).HasColumnName(@"MaHuong").HasColumnType("tinyint").IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.BatDongSan).WithMany(b => b.PdkGiaoDiches).HasForeignKey(c => c.MaBds).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdkGiaoDich_BatDongSan");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.PdkGiaoDiches).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdkGiaoDich_KhachHang");
             builder.HasOne(a => a.LoaiTien).WithMany(b => b.PdkGiaoDiches).HasForeignKey(c => c.MaLoaiTien).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdkGiaoDich_LoaiTien");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PdkGiaoDiches).HasForeignKey(c => c.MaNv1).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdkGiaoDich_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PdkGiaoDiches).HasForeignKey(c => c.MaNv1).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pdkGiaoDich_NhanVien");
         }
     }
 
@@ -35765,7 +33960,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaBds).HasColumnName(@"MaBDS").HasColumnType("nchar(12)").IsRequired(false).IsFixedLength().HasMaxLength(12);
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNdd).HasColumnName(@"MaNDD").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.Dtsd).HasColumnName(@"DTSD").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Dtsd).HasColumnName(@"DTSD").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTien).HasColumnName(@"ThanhTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLoaiTien).HasColumnName(@"MaLoaiTien").HasColumnType("tinyint").IsRequired(false);
@@ -35831,15 +34026,15 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.HanNop).HasColumnName(@"HanNop").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayNop).HasColumnName(@"NgayNop").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.SoNgayMuon).HasColumnName(@"SoNgayMuon").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuatMuon).HasColumnName(@"LaiSuatMuon").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuatMuon).HasColumnName(@"LaiSuatMuon").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoTienNoDot).HasColumnName(@"SoTienNoDot").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoNgayMuonNoDot).HasColumnName(@"SoNgayMuonNoDot").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuatMuonNoDot).HasColumnName(@"LaiSuatMuonNoDot").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuatMuonNoDot).HasColumnName(@"LaiSuatMuonNoDot").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuonNoDot).HasColumnName(@"LaiMuonNoDot").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.HanBanGiao).HasColumnName(@"HanBanGiao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.SoNgayMuonBg).HasColumnName(@"SoNgayMuonBG").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuatMuonBg).HasColumnName(@"LaiSuatMuonBG").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuatMuonBg).HasColumnName(@"LaiSuatMuonBG").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuonBg).HasColumnName(@"LaiMuonBG").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
@@ -35877,7 +34072,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaBieuMau).WithMany(b => b.PgcBieuMaus).HasForeignKey(c => c.MaBm).HasConstraintName("FK_pgcBieuMau_daBieuMau");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcBieuMau_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcBieuMaus).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcBieuMau_pgcPhieuGiuCho");
         }
     }
@@ -35916,7 +34111,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
             builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.SoNgay).HasColumnName(@"SoNgay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeCkls).HasColumnName(@"TyLeCKLS").HasColumnType("decimal(10,6)").IsRequired(false);
+            builder.Property(x => x.TyLeCkls).HasColumnName(@"TyLeCKLS").HasColumnType("decimal(10,6)").HasPrecision(10,6).IsRequired(false);
             builder.Property(x => x.TienTp).HasColumnName(@"TienTP").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLt).HasColumnName(@"MaLT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.DotTt).HasColumnName(@"DotTT").HasColumnType("tinyint").IsRequired(false);
@@ -35955,7 +34150,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.AStaff).WithMany(b => b.PgcChungs).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcChung_aStaff");
             builder.HasOne(a => a.DuAn).WithMany(b => b.PgcChungs).HasForeignKey(c => c.MaDa).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcChung_DuAn");
             builder.HasOne(a => a.KhachHang).WithMany(b => b.PgcChungs).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcChung_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcChungs).HasForeignKey(c => c.MaNvct).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcChung_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcChungs).HasForeignKey(c => c.MaNvct).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcChung_NhanVien");
         }
     }
 
@@ -35996,7 +34191,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcDoiSpLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcDoiSPLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcDoiSpLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcDoiSPLichSu_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcDoiSpLichSus).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcDoiSPLichSu_pgcPhieuGiuCho");
         }
     }
@@ -36065,7 +34260,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayTinhLai).HasColumnName(@"NgayTinhLai").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.TienLai).HasColumnName(@"TienLai").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.SoTienTinhLai).HasColumnName(@"SoTienTinhLai").HasColumnType("money").IsRequired(false);
@@ -36093,13 +34288,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.OptionId).HasColumnName(@"OptionID").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayGh).HasColumnName(@"NgayGH").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,6)").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,6)").HasPrecision(18,6).IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -36108,11 +34303,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsPay).HasColumnName(@"IsPay").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LoaiNn).HasColumnName(@"LoaiNN").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsDelay).HasColumnName(@"IsDelay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaKgd).HasColumnName(@"MaKGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.CodeUnique).HasColumnName(@"CodeUnique").HasColumnType("nvarchar(30)").IsRequired(false).HasMaxLength(30);
-            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaLoaiTt).HasColumnName(@"MaLoaiTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoNgayCham).HasColumnName(@"SoNgayCham").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DaThuDot).HasColumnName(@"DaThuDot").HasColumnType("money").IsRequired(false);
@@ -36208,11 +34403,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNkd).HasColumnName(@"MaNKD").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaPb).HasColumnName(@"MaPB").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BranchId).HasColumnName(@"BranchID").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcNhanViens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcNhanVien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcNhanViens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcNhanVien_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcNhanViens).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcNhanVien_pgcPhieuGiuCho");
         }
     }
@@ -36274,12 +34469,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Idls).HasColumnName(@"IDLS").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcPhieuChis).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuChi_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcPhieuChis).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuChi_NhanVien");
             builder.HasOne(a => a.PgcLoaiPhieuThuChi).WithMany(b => b.PgcPhieuChis).HasForeignKey(c => c.MaLoai).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuChi_pgcLoaiPhieuThuChi");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcPhieuChis).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcPhieuChi_pgcPhieuGiuCho");
             builder.HasOne(a => a.SoTaiKhoan).WithMany(b => b.PgcPhieuChis).HasForeignKey(c => c.MaSoTk).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuChi_SoTaiKhoan");
 
-            builder.HasIndex(x => x.SoPhieu).HasName("IX_pgcPhieuChi").IsUnique();
+            builder.HasIndex(x => x.SoPhieu).HasDatabaseName("IX_pgcPhieuChi").IsUnique();
         }
     }
 
@@ -36342,7 +34537,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaKh).HasColumnName(@"MaKH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.CustomerIdf1).HasColumnName(@"CustomerIDF1").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaNdd).HasColumnName(@"MaNDD").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Dtsd).HasColumnName(@"DTSD").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.Dtsd).HasColumnName(@"DTSD").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThanhTien).HasColumnName(@"ThanhTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.Vat).HasColumnName(@"VAT").HasColumnType("money").IsRequired(false);
@@ -36366,9 +34561,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaGd2).HasColumnName(@"MaGD2").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.GiaTriCk).HasColumnName(@"GiaTriCK").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaDvck).HasColumnName(@"MaDVCK").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.PhuThuTyLe).HasColumnName(@"PhuThuTyLe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.PhuThuTyLe).HasColumnName(@"PhuThuTyLe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhuThu).HasColumnName(@"PhuThu").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeMg).HasColumnName(@"TyLeMG").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeMg).HasColumnName(@"TyLeMG").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiMoiGioi).HasColumnName(@"PhiMoiGioi").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaCtp).HasColumnName(@"MaCTP").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.OrderId).HasColumnName(@"OrderID").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
@@ -36380,7 +34575,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaKhbh).HasColumnName(@"MaKHBH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgayGd).HasColumnName(@"NgayGD").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.TienCk).HasColumnName(@"TienCK").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeCktts).HasColumnName(@"TyLeCKTTS").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeCktts).HasColumnName(@"TyLeCKTTS").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.TienCktts).HasColumnName(@"TienCKTTS").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienCkKhac).HasColumnName(@"TienCKKhac").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.Options).HasColumnName(@"Options").HasColumnType("bit").IsRequired(false);
@@ -36389,8 +34584,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GiaTriHdCoc).HasColumnName(@"GiaTriHDCoc").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.NgayBanGiao).HasColumnName(@"NgayBanGiao").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayBanGiaoKh).HasColumnName(@"NgayBanGiaoKH").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiMuonBg).HasColumnName(@"LaiMuonBG").HasColumnType("decimal(12,6)").IsRequired(false);
-            builder.Property(x => x.LaiMuonKh).HasColumnName(@"LaiMuonKH").HasColumnType("decimal(12,6)").IsRequired(false);
+            builder.Property(x => x.LaiMuonBg).HasColumnName(@"LaiMuonBG").HasColumnType("decimal(12,6)").HasPrecision(12,6).IsRequired(false);
+            builder.Property(x => x.LaiMuonKh).HasColumnName(@"LaiMuonKH").HasColumnType("decimal(12,6)").HasPrecision(12,6).IsRequired(false);
             builder.Property(x => x.IsRateOutIn).HasColumnName(@"IsRateOutIn").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Cmtnd).HasColumnName(@"CMTND").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.HoKhau).HasColumnName(@"HoKhau").HasColumnType("tinyint").IsRequired(false);
@@ -36475,7 +34670,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TienDatXd).HasColumnName(@"TienDatXD").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienDatXdvat).HasColumnName(@"TienDatXDVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.GiaTriHoanThien).HasColumnName(@"GiaTriHoanThien").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.DienTich).HasColumnName(@"DienTich").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.CompanyId).HasColumnName(@"CompanyID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaTknh).HasColumnName(@"MaTKNH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DonGiaDat).HasColumnName(@"DonGiaDat").HasColumnType("money").IsRequired(false);
@@ -36503,7 +34698,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.KhachHang_MaKh).WithMany(b => b.PgcPhieuGiuChoes_MaKh).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuGiuCho_KhachHang");
             builder.HasOne(a => a.MucDoHoanThien).WithMany(b => b.PgcPhieuGiuChoes).HasForeignKey(c => c.MaMdht).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuGiuCho_MucDoHoanThien");
             builder.HasOne(a => a.NguoiDaiDien).WithMany(b => b.PgcPhieuGiuChoes).HasForeignKey(c => c.MaNdd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuGiuCho_NguoiDaiDien");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcPhieuGiuChoes).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuGiuCho_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcPhieuGiuChoes).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuGiuCho_NhanVien");
             builder.HasOne(a => a.PgcChung).WithMany(b => b.PgcPhieuGiuChoes).HasForeignKey(c => c.MaGcc).HasConstraintName("FK_pgcPhieuGiuCho_pgcChung");
             builder.HasOne(a => a.PgcTinhTrang).WithMany(b => b.PgcPhieuGiuChoes).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuGiuCho_pgcTinhTrang");
         }
@@ -36525,9 +34720,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.KhoanThanhToan).HasColumnName(@"KhoanThanhToan").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.TuongUngTt).HasColumnName(@"TuongUngTT").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.VatDat).HasColumnName(@"VATDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DaNop).HasColumnName(@"DaNop").HasColumnType("money").IsRequired(false);
@@ -36552,7 +34747,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LoaiPtt).HasColumnName(@"LoaiPTT").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcPhieuThanhToans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThanhToan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcPhieuThanhToans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThanhToan_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcPhieuThanhToans).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcPhieuThanhToan_pgcPhieuGiuCho");
         }
     }
@@ -36596,14 +34791,14 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.PhiMoiGioi).HasColumnName(@"PhiMoiGioi").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.KhoanKhac).HasColumnName(@"KhoanKhac").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoGxn).HasColumnName(@"SoGXN").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("decimal(6,3)").IsRequired(false);
+            builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("decimal(6,3)").HasPrecision(6,3).IsRequired(false);
             builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ChietKhau).HasColumnName(@"ChietKhau").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.PhuThu).HasColumnName(@"PhuThu").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienTt).HasColumnName(@"TienTT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaCs).HasColumnName(@"MaCS").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DieuKien).HasColumnName(@"DieuKien").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuatCs).HasColumnName(@"LaiSuatCS").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuatCs).HasColumnName(@"LaiSuatCS").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.TienLaiCs).HasColumnName(@"TienLaiCS").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLoai).HasColumnName(@"MaLoai").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaCt).HasColumnName(@"MaCT").HasColumnType("int").IsRequired(false);
@@ -36646,13 +34841,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Idls).HasColumnName(@"IDLS").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcPhieuThus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcPhieuThus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThu_NhanVien");
             builder.HasOne(a => a.PgcHinhThucThanhToan).WithMany(b => b.PgcPhieuThus).HasForeignKey(c => c.MaHt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThu_pgcHinhThucThanhToan");
             builder.HasOne(a => a.PgcLoaiPhieuThuChi).WithMany(b => b.PgcPhieuThus).HasForeignKey(c => c.MaLoai).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThu_pgcLoaiPhieuThuChi");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcPhieuThus).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcPhieuThu_pgcPhieuGiuCho");
             builder.HasOne(a => a.SoTaiKhoan_MaNh).WithMany(b => b.PgcPhieuThus).HasForeignKey(c => c.MaNh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPhieuThu_SoTaiKhoan");
 
-            builder.HasIndex(x => x.SoPhieu).HasName("IX_pgcPhieuThu").IsUnique();
+            builder.HasIndex(x => x.SoPhieu).HasDatabaseName("IX_pgcPhieuThu").IsUnique();
         }
     }
 
@@ -36748,8 +34943,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaPgc).HasColumnName(@"MaPGC").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TieuDe).HasColumnName(@"TieuDe").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NgayHuong).HasColumnName(@"NgayHuong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.PromotionId).HasColumnName(@"PromotionID").HasColumnType("int").IsRequired(false);
@@ -36759,10 +34954,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsLuyKe).HasColumnName(@"IsLuyKe").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsTuTinh).HasColumnName(@"IsTuTinh").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.DaKhuyenMai).WithMany(b => b.PgcPromotions).HasForeignKey(c => c.PromotionId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcPromotion_daKhuyenMai");
@@ -36837,7 +35032,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Idls).HasColumnName(@"IDLS").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcQuaTrinhThucHien_NhanVien");
             builder.HasOne(a => a.PgcPhieuGiuCho).WithMany(b => b.PgcQuaTrinhThucHiens).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_pgcQuaTrinhThucHien_pgcPhieuGiuCho");
             builder.HasOne(a => a.PgcTinhTrang).WithMany(b => b.PgcQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcQuaTrinhThucHien_pgcTinhTrang");
         }
@@ -36857,7 +35052,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.SoCt).HasColumnName(@"SoCT").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.NgayCt).HasColumnName(@"NgayCT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaCtkm).HasColumnName(@"MaCTKM").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("numeric(8,4)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("numeric(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.MaHtgt).HasColumnName(@"MaHTGT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.MaNvcn).HasColumnName(@"MaNVCN").HasColumnType("int").IsRequired(false);
@@ -36967,7 +35162,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaBieuMau).WithMany(b => b.PgcUyQuyenBieuMaus).HasForeignKey(c => c.MaBm).HasConstraintName("FK_pgcUyQuyenBieuMau_daBieuMau");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcUyQuyenBieuMaus).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcUyQuyenBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcUyQuyenBieuMaus).HasForeignKey(c => c.MaNvcn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcUyQuyenBieuMau_NhanVien");
             builder.HasOne(a => a.PgcUyQuyen).WithMany(b => b.PgcUyQuyenBieuMaus).HasForeignKey(c => c.MaUq).HasConstraintName("FK_pgcUyQuyenBieuMau_pgcUyQuyen");
         }
     }
@@ -36988,7 +35183,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Duyet).HasColumnName(@"Duyet").HasColumnType("tinyint").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PgcUyQuyenLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcUyQuyenLichSu_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PgcUyQuyenLichSus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pgcUyQuyenLichSu_NhanVien");
             builder.HasOne(a => a.PgcUyQuyen).WithMany(b => b.PgcUyQuyenLichSus).HasForeignKey(c => c.MaUq).HasConstraintName("FK_pgcUyQuyenLichSu_pgcUyQuyen");
         }
     }
@@ -37045,12 +35240,12 @@ namespace Hpl.HrmDatabase
         }
     }
 
-    // PhongBanSale
-    public class PhongBanConfigurationSale : IEntityTypeConfiguration<PhongBanSale>
+    // PhongBan
+    public class PhongBanConfiguration : IEntityTypeConfiguration<PhongBan>
     {
-        public void Configure(EntityTypeBuilder<PhongBanSale> builder)
+        public void Configure(EntityTypeBuilder<PhongBan> builder)
         {
-            builder.ToTable("PhongBanSale", "dbo");
+            builder.ToTable("PhongBan", "dbo");
             builder.HasKey(x => x.MaPb).HasName("PK_PhongBan").IsClustered();
 
             builder.Property(x => x.MaPb).HasColumnName(@"MaPB").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
@@ -37124,7 +35319,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaBieuMau).WithMany(b => b.PkgBieuMaus).HasForeignKey(c => c.MaBm).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pkgBieuMau_daBieuMau");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PkgBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pkgBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PkgBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pkgBieuMau_NhanVien");
             builder.HasOne(a => a.PkgPhieuKyGui).WithMany(b => b.PkgBieuMaus).HasForeignKey(c => c.MaPkg).HasConstraintName("FK_pkgBieuMau_pkgPhieuKyGui");
         }
     }
@@ -37152,7 +35347,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.GiaBan).HasColumnName(@"GiaBan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongGiaBan).HasColumnName(@"TongGiaBan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoTienChenh).HasColumnName(@"SoTienChenh").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLePmg).HasColumnName(@"TyLePMG").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePmg).HasColumnName(@"TyLePMG").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiMoiGioi).HasColumnName(@"PhiMoiGioi").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.IsThuongLuong).HasColumnName(@"IsThuongLuong").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.TuNgay).HasColumnName(@"TuNgay").HasColumnType("datetime").IsRequired(false);
@@ -37182,7 +35377,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PkgQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pkgQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PkgQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pkgQuaTrinhThucHien_NhanVien");
             builder.HasOne(a => a.PkgPhieuKyGui).WithMany(b => b.PkgQuaTrinhThucHiens).HasForeignKey(c => c.MaPkg).HasConstraintName("FK_pkgQuaTrinhThucHien_pkgPhieuKyGui");
             builder.HasOne(a => a.PkgTinhTrang).WithMany(b => b.PkgQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_pkgQuaTrinhThucHien_pkgTinhTrang");
         }
@@ -37227,7 +35422,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.DaBieuMau).WithMany(b => b.PlBieuMaus).HasForeignKey(c => c.MaBm).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvvPhuLucBieuMau_daBieuMau");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.PlBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvvPhuLucBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.PlBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_hdvvPhuLucBieuMau_NhanVien");
             builder.HasOne(a => a.PlPhuLuc).WithMany(b => b.PlBieuMaus).HasForeignKey(c => c.MaPl).HasConstraintName("FK_plBieuMau_plPhuLuc");
         }
     }
@@ -37326,13 +35521,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.OptionId).HasColumnName(@"OptionID").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayGh).HasColumnName(@"NgayGH").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -37340,13 +35535,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsPay).HasColumnName(@"IsPay").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LoaiNn).HasColumnName(@"LoaiNN").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsDelay).HasColumnName(@"IsDelay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaKgd).HasColumnName(@"MaKGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsNew).HasColumnName(@"IsNew").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.TienCk).HasColumnName(@"TienCK").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaLoaiTt).HasColumnName(@"MaLoaiTT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.Round).HasColumnName(@"Round").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
@@ -37370,13 +35565,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.OptionId).HasColumnName(@"OptionID").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayGh).HasColumnName(@"NgayGH").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -37384,12 +35579,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsPay).HasColumnName(@"IsPay").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LoaiNn).HasColumnName(@"LoaiNN").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsDelay).HasColumnName(@"IsDelay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaKgd).HasColumnName(@"MaKGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsNew).HasColumnName(@"IsNew").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.MaLoaiTt).HasColumnName(@"MaLoaiTT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.Round).HasColumnName(@"Round").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
@@ -37433,12 +35628,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaLgd).HasColumnName(@"MaLGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.MaLttid).HasColumnName(@"MaLTTID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaLoaiPhuLuc).HasColumnName(@"MaLoaiPhuLuc").HasColumnType("smallint").IsRequired(false);
-            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.MaHttt).HasColumnName(@"MaHTTT").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.DienTichCl).HasColumnName(@"DienTichCL").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.TyLeCl).HasColumnName(@"TyLeCL").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.DkTinhGia).HasColumnName(@"DKTinhGia").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.DienTichCl).HasColumnName(@"DienTichCL").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.TyLeCl).HasColumnName(@"TyLeCL").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.DkTinhGia).HasColumnName(@"DKTinhGia").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.TienChenhLech).HasColumnName(@"TienChenhLech").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaNh).HasColumnName(@"MaNH").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DonGiaSauCkkm).HasColumnName(@"DonGiaSauCKKM").HasColumnType("money").IsRequired(false);
@@ -37487,8 +35682,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TieuDe).HasColumnName(@"TieuDe").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NgayHuong).HasColumnName(@"NgayHuong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.PromotionId).HasColumnName(@"PromotionID").HasColumnType("int").IsRequired(false);
@@ -37497,11 +35692,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaLoaiCk).HasColumnName(@"MaLoaiCK").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.IsLuyKe).HasColumnName(@"IsLuyKe").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Show).HasColumnName(@"Show").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.IsTuTinh).HasColumnName(@"IsTuTinh").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.PlPhuLuc).WithMany(b => b.PlPromotions).HasForeignKey(c => c.MaPl).HasConstraintName("FK_plPromotion_plPhuLuc");
@@ -37520,8 +35715,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TieuDe).HasColumnName(@"TieuDe").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NgayHuong).HasColumnName(@"NgayHuong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.PromotionId).HasColumnName(@"PromotionID").HasColumnType("int").IsRequired(false);
@@ -37530,11 +35725,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaLoaiCk).HasColumnName(@"MaLoaiCK").HasColumnType("smallint").IsRequired(false);
             builder.Property(x => x.IsLuyKe).HasColumnName(@"IsLuyKe").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.Show).HasColumnName(@"Show").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.IsTuTinh).HasColumnName(@"IsTuTinh").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.PlPhuLuc).WithMany(b => b.PlPromotionOlds).HasForeignKey(c => c.MaPl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_plPromotionOld_plPhuLuc");
@@ -37792,11 +35987,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DotTt).HasColumnName(@"DotTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienCk).HasColumnName(@"TienCK").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
@@ -37859,7 +36054,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenChietKhau).HasColumnName(@"TenChietKhau").HasColumnType("nvarchar(200)").IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.MaPtg).HasColumnName(@"MaPTG").HasColumnType("bigint").IsRequired(false);
             builder.Property(x => x.TienMat).HasColumnName(@"TienMat").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.IsLuyKe).HasColumnName(@"IsLuyKe").HasColumnType("bit").IsRequired(false);
@@ -37925,7 +36120,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayKyHdtcts).HasColumnName(@"NgayKyHDTCTS").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.SoTienVay).HasColumnName(@"SoTienVay").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.ThoiHanVay).HasColumnName(@"ThoiHanVay").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.MaNh).HasColumnName(@"MaNH").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.MaTtbds).HasColumnName(@"MaTTBDS").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.MaTt).HasColumnName(@"MaTT").HasColumnType("tinyint").IsRequired(false);
@@ -38049,7 +36244,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaQg).HasColumnName(@"MaQG").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.TenQg).HasColumnName(@"TenQG").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
 
-            builder.HasIndex(x => x.TenQg).HasName("IX_QuocGia").IsUnique();
+            builder.HasIndex(x => x.TenQg).HasDatabaseName("IX_QuocGia").IsUnique();
         }
     }
 
@@ -38128,9 +36323,9 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DoanhThu).HasColumnName(@"DoanhThu").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DoanhThuNhom).HasColumnName(@"DoanhThuNhom").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.LuongCoBan).HasColumnName(@"LuongCoBan").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeHoaHongCaNhan).HasColumnName(@"TyLeHoaHongCaNhan").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHoaHongCaNhan).HasColumnName(@"TyLeHoaHongCaNhan").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.HoaHongCaNhan).HasColumnName(@"HoaHongCaNhan").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeHoaHongNhom).HasColumnName(@"TyLeHoaHongNhom").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeHoaHongNhom).HasColumnName(@"TyLeHoaHongNhom").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.HoaHongNhom).HasColumnName(@"HoaHongNhom").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongTienNhan).HasColumnName(@"TongTienNhan").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.NgayTao).HasColumnName(@"NgayTao").HasColumnType("datetime").IsRequired(false);
@@ -38143,7 +36338,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.NhanVien_MaNvkd).WithMany(b => b.RoseHoaHongs_MaNvkd).HasForeignKey(c => c.MaNvkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_roseHoaHong_NhanVien");
             builder.HasOne(a => a.NhanVien_MaNvTao).WithMany(b => b.RoseHoaHongs_MaNvTao).HasForeignKey(c => c.MaNvTao).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_roseHoaHong_NhanVien1");
             builder.HasOne(a => a.NhomKinhDoanh).WithMany(b => b.RoseHoaHongs).HasForeignKey(c => c.MaNkd).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_roseHoaHong_NhomKinhDoanh");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.RoseHoaHongs).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_roseHoaHong_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.RoseHoaHongs).HasForeignKey(c => c.MaPb).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_roseHoaHong_PhongBan");
         }
     }
 
@@ -38203,42 +36398,42 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Number10).HasColumnName(@"Number10").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Number11).HasColumnName(@"Number11").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Number12).HasColumnName(@"Number12").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Amount1).HasColumnName(@"Amount1").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount2).HasColumnName(@"Amount2").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount3).HasColumnName(@"Amount3").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount4).HasColumnName(@"Amount4").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount5).HasColumnName(@"Amount5").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount6).HasColumnName(@"Amount6").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount7).HasColumnName(@"Amount7").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount8).HasColumnName(@"Amount8").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount9).HasColumnName(@"Amount9").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount10).HasColumnName(@"Amount10").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount11).HasColumnName(@"Amount11").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Amount12).HasColumnName(@"Amount12").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast1).HasColumnName(@"Forecast1").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast2).HasColumnName(@"Forecast2").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast3).HasColumnName(@"Forecast3").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast4).HasColumnName(@"Forecast4").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast5).HasColumnName(@"Forecast5").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast6).HasColumnName(@"Forecast6").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast7).HasColumnName(@"Forecast7").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast8).HasColumnName(@"Forecast8").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast9).HasColumnName(@"Forecast9").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast10).HasColumnName(@"Forecast10").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast11).HasColumnName(@"Forecast11").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Forecast12).HasColumnName(@"Forecast12").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast1).HasColumnName(@"AmountForecast1").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast2).HasColumnName(@"AmountForecast2").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast3).HasColumnName(@"AmountForecast3").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast4).HasColumnName(@"AmountForecast4").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast5).HasColumnName(@"AmountForecast5").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast6).HasColumnName(@"AmountForecast6").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast7).HasColumnName(@"AmountForecast7").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast8).HasColumnName(@"AmountForecast8").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast9).HasColumnName(@"AmountForecast9").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast10).HasColumnName(@"AmountForecast10").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast11).HasColumnName(@"AmountForecast11").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.AmountForecast12).HasColumnName(@"AmountForecast12").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Amount1).HasColumnName(@"Amount1").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount2).HasColumnName(@"Amount2").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount3).HasColumnName(@"Amount3").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount4).HasColumnName(@"Amount4").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount5).HasColumnName(@"Amount5").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount6).HasColumnName(@"Amount6").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount7).HasColumnName(@"Amount7").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount8).HasColumnName(@"Amount8").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount9).HasColumnName(@"Amount9").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount10).HasColumnName(@"Amount10").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount11).HasColumnName(@"Amount11").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Amount12).HasColumnName(@"Amount12").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast1).HasColumnName(@"Forecast1").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast2).HasColumnName(@"Forecast2").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast3).HasColumnName(@"Forecast3").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast4).HasColumnName(@"Forecast4").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast5).HasColumnName(@"Forecast5").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast6).HasColumnName(@"Forecast6").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast7).HasColumnName(@"Forecast7").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast8).HasColumnName(@"Forecast8").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast9).HasColumnName(@"Forecast9").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast10).HasColumnName(@"Forecast10").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast11).HasColumnName(@"Forecast11").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Forecast12).HasColumnName(@"Forecast12").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast1).HasColumnName(@"AmountForecast1").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast2).HasColumnName(@"AmountForecast2").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast3).HasColumnName(@"AmountForecast3").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast4).HasColumnName(@"AmountForecast4").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast5).HasColumnName(@"AmountForecast5").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast6).HasColumnName(@"AmountForecast6").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast7).HasColumnName(@"AmountForecast7").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast8).HasColumnName(@"AmountForecast8").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast9).HasColumnName(@"AmountForecast9").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast10).HasColumnName(@"AmountForecast10").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast11).HasColumnName(@"AmountForecast11").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.AmountForecast12).HasColumnName(@"AmountForecast12").HasColumnType("float").HasPrecision(53).IsRequired(false);
             builder.Property(x => x.StaffIdCreate).HasColumnName(@"StaffIDCreate").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateCreate).HasColumnName(@"DateCreate").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.DateModify).HasColumnName(@"DateModify").HasColumnType("datetime").IsRequired(false);
@@ -38272,7 +36467,7 @@ namespace Hpl.HrmDatabase
             // Foreign keys
             builder.HasOne(a => a.NhanVien_StaffIdCreate).WithMany(b => b.RrRegisteredRevenueDepartments_StaffIdCreate).HasForeignKey(c => c.StaffIdCreate).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_rrRegisteredRevenueDepartment_NhanVien");
             builder.HasOne(a => a.NhanVien_StaffIdModify).WithMany(b => b.RrRegisteredRevenueDepartments_StaffIdModify).HasForeignKey(c => c.StaffIdModify).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_rrRegisteredRevenueDepartment_NhanVien1");
-            builder.HasOne(a => a.PhongBanSale).WithMany(b => b.RrRegisteredRevenueDepartments).HasForeignKey(c => c.DepId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_rrRegisteredRevenueDepartment_PhongBan");
+            builder.HasOne(a => a.PhongBan).WithMany(b => b.RrRegisteredRevenueDepartments).HasForeignKey(c => c.DepId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_rrRegisteredRevenueDepartment_PhongBan");
         }
     }
 
@@ -38467,7 +36662,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.SmsBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsBieuMau_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.SmsBieuMaus).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsBieuMau_NhanVien");
             builder.HasOne(a => a.SmsPhanLoai).WithMany(b => b.SmsBieuMaus).HasForeignKey(c => c.MaPl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsBieuMau_smsPhanLoai");
         }
     }
@@ -38651,7 +36846,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHang).WithMany(b => b.SmsListOfRecipients).HasForeignKey(c => c.CustomerId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_SMSListOfRecipients_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.SmsListOfRecipients).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_SMSListOfRecipients_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.SmsListOfRecipients).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_SMSListOfRecipients_NhanVien");
             builder.HasOne(a => a.SmsGroupReceive).WithMany(b => b.SmsListOfRecipients).HasForeignKey(c => c.GroupId).HasConstraintName("FK_SMSListOfRecipients_SMSGroupReceives");
         }
     }
@@ -38708,7 +36903,7 @@ namespace Hpl.HrmDatabase
 
             // Foreign keys
             builder.HasOne(a => a.KhachHang).WithMany(b => b.SmsNguoiNhans).HasForeignKey(c => c.MaKh).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNguoiNhan_KhachHang");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.SmsNguoiNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNguoiNhan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.SmsNguoiNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNguoiNhan_NhanVien");
             builder.HasOne(a => a.SmsNhomNhan).WithMany(b => b.SmsNguoiNhans).HasForeignKey(c => c.MaNn).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNguoiNhan_smsNhomNhan");
         }
     }
@@ -38728,7 +36923,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("smallint").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.SmsNhomNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNhomNhan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.SmsNhomNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNhomNhan_NhanVien");
             builder.HasOne(a => a.SmsPhanLoai).WithMany(b => b.SmsNhomNhans).HasForeignKey(c => c.MaPl).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsNhomNhan_smsPhanLoai");
         }
     }
@@ -38816,7 +37011,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaNv).HasColumnName(@"MaNV").HasColumnType("int").IsRequired(false);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.SmsTinNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsTinNhan_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.SmsTinNhans).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_smsTinNhan_NhanVien");
         }
     }
 
@@ -38973,10 +37168,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TongCk).HasColumnName(@"TongCK").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.PhaiThuDot1).HasColumnName(@"PhaiThuDot1").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DaThuDot1).HasColumnName(@"DaThuDot1").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.SoTienHtls).HasColumnName(@"SoTienHTLS").HasColumnType("decimal(20,10)").IsRequired(false);
-            builder.Property(x => x.NoTruocHan).HasColumnName(@"NoTruocHan").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.SoTienHtls).HasColumnName(@"SoTienHTLS").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
+            builder.Property(x => x.NoTruocHan).HasColumnName(@"NoTruocHan").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
             builder.Property(x => x.GiaTriDoiChieu).HasColumnName(@"GiaTriDoiChieu").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.TyLe).HasColumnName(@"TyLe").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.Amount).HasColumnName(@"Amount").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DaTra).HasColumnName(@"DaTra").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.UuDai).HasColumnName(@"UuDai").HasColumnType("money").IsRequired(false);
@@ -39108,8 +37303,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
             builder.Property(x => x.Month).HasColumnName(@"Month").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.Year).HasColumnName(@"Year").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.Quantity).HasColumnName(@"Quantity").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.CommissionRate).HasColumnName(@"CommissionRate").HasColumnType("decimal(18,0)").IsRequired(false);
+            builder.Property(x => x.Quantity).HasColumnName(@"Quantity").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.CommissionRate).HasColumnName(@"CommissionRate").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
             builder.Property(x => x.BranchId).HasColumnName(@"BranchID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.StaffCreate).HasColumnName(@"StaffCreate").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DateCreate).HasColumnName(@"DateCreate").HasColumnType("datetime").IsRequired(false);
@@ -39177,8 +37372,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.TenTinhEn).HasColumnName(@"TenTinhEN").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IconUrl).HasColumnName(@"IconUrl").HasColumnType("nvarchar(250)").IsRequired(false).HasMaxLength(250);
-            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").IsRequired(false);
-            builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").IsRequired(false);
+            builder.Property(x => x.Latitude).HasColumnName(@"Latitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
+            builder.Property(x => x.Longitude).HasColumnName(@"Longitude").HasColumnType("float").HasPrecision(53).IsRequired(false);
         }
     }
 
@@ -39211,7 +37406,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.TlbhQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_tlbhQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.TlbhQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_tlbhQuaTrinhThucHien_NhanVien");
             builder.HasOne(a => a.TlbhThanhLy).WithMany(b => b.TlbhQuaTrinhThucHiens).HasForeignKey(c => c.MaTl).HasConstraintName("FK_tlbhQuaTrinhThucHien_tlbhThanhLy");
             builder.HasOne(a => a.TlbhTrangThai).WithMany(b => b.TlbhQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_tlbhQuaTrinhThucHien_tlbhTrangThai");
         }
@@ -39242,7 +37437,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayTra).HasColumnName(@"NgayTra").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.IsNhanCoc).HasColumnName(@"IsNhanCoc").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.ApprovedPay).HasColumnName(@"ApprovedPay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePhat).HasColumnName(@"TyLePhat").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.TyLePhat).HasColumnName(@"TyLePhat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.TongCong).HasColumnName(@"TongCong").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DaTra).HasColumnName(@"DaTra").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DaThu).HasColumnName(@"DaThu").HasColumnType("money").IsRequired(false);
@@ -39280,12 +37475,12 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.MaDm).HasColumnName(@"MaDM").HasColumnType("tinyint").IsRequired().ValueGeneratedNever();
             builder.Property(x => x.TenDm).HasColumnName(@"TenDM").HasColumnType("nvarchar(20)").IsRequired(false).HasMaxLength(20);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
-            builder.Property(x => x.PpdqNhom).HasColumnName(@"PPDQ_Nhom").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.Ppdq).HasColumnName(@"PPDQ").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.MglNhom).HasColumnName(@"MGL_Nhom").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.Mgl).HasColumnName(@"MGL").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.TyLeBh).HasColumnName(@"TyLeBH").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.TyLeKt).HasColumnName(@"TyLeKT").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.PpdqNhom).HasColumnName(@"PPDQ_Nhom").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.Ppdq).HasColumnName(@"PPDQ").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.MglNhom).HasColumnName(@"MGL_Nhom").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.Mgl).HasColumnName(@"MGL").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.TyLeBh).HasColumnName(@"TyLeBH").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.TyLeKt).HasColumnName(@"TyLeKT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
         }
     }
 
@@ -39433,8 +37628,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.NgayNhap).HasColumnName(@"NgayNhap").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.MaNvs).HasColumnName(@"MaNVS").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.NgaySua).HasColumnName(@"NgaySua").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(18,0)").IsRequired(false);
-            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(18,4)").IsRequired(false);
+            builder.Property(x => x.DienTichTt).HasColumnName(@"DienTichTT").HasColumnType("decimal(18,0)").HasPrecision(18,0).IsRequired(false);
+            builder.Property(x => x.DienTichCh).HasColumnName(@"DienTichCH").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
             builder.Property(x => x.DonGiaSauCkkm).HasColumnName(@"DonGiaSauCKKM").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TongGiaTriCh).HasColumnName(@"TongGiaTriCH").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DonGiaVatpbt).HasColumnName(@"DonGiaVATPBT").HasColumnType("money").IsRequired(false);
@@ -39483,13 +37678,13 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.OptionId).HasColumnName(@"OptionID").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.NgayTt).HasColumnName(@"NgayTT").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.NgayGh).HasColumnName(@"NgayGH").HasColumnType("datetime").IsRequired(false);
-            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").IsRequired(false);
-            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.LaiSuat).HasColumnName(@"LaiSuat").HasColumnType("decimal(18,4)").HasPrecision(18,4).IsRequired(false);
+            builder.Property(x => x.TyLeTt).HasColumnName(@"TyLeTT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.LaiMuon).HasColumnName(@"LaiMuon").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.SoNgayGiam).HasColumnName(@"SoNgayGiam").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaKtt).HasColumnName(@"MaKTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.TuongUng).HasColumnName(@"TuongUng").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeVat).HasColumnName(@"TyLeVAT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.ThueVat).HasColumnName(@"ThueVAT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.TienSdDat).HasColumnName(@"TienSDDat").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
@@ -39498,11 +37693,11 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsPay).HasColumnName(@"IsPay").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.LoaiNn).HasColumnName(@"LoaiNN").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.IsDelay).HasColumnName(@"IsDelay").HasColumnType("bit").IsRequired(false);
-            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLePbt).HasColumnName(@"TyLePBT").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.PhiBt).HasColumnName(@"PhiBT").HasColumnType("money").IsRequired(false);
             builder.Property(x => x.MaKgd).HasColumnName(@"MaKGD").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.CodeUnique).HasColumnName(@"CodeUnique").HasColumnType("nvarchar(30)").IsRequired(false).HasMaxLength(30);
-            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").IsRequired(false);
+            builder.Property(x => x.TyLeLuyKe).HasColumnName(@"TyLeLuyKe").HasColumnType("decimal(6,2)").HasPrecision(6,2).IsRequired(false);
             builder.Property(x => x.MaLoaiTt).HasColumnName(@"MaLoaiTT").HasColumnType("tinyint").IsRequired(false);
             builder.Property(x => x.SoNgayCham).HasColumnName(@"SoNgayCham").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.DaThuDot).HasColumnName(@"DaThuDot").HasColumnType("money").IsRequired(false);
@@ -39532,8 +37727,8 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Stt).HasColumnName(@"STT").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.MaPgc).HasColumnName(@"MaPGC").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.TieuDe).HasColumnName(@"TieuDe").HasColumnType("nvarchar(150)").IsRequired(false).HasMaxLength(150);
-            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").IsRequired(false);
-            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.PhanTram).HasColumnName(@"PhanTram").HasColumnType("decimal(8,2)").HasPrecision(8,2).IsRequired(false);
+            builder.Property(x => x.SoTien).HasColumnName(@"SoTien").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
             builder.Property(x => x.GhiChu).HasColumnName(@"GhiChu").HasColumnType("nvarchar(500)").IsRequired(false).HasMaxLength(500);
             builder.Property(x => x.NgayHuong).HasColumnName(@"NgayHuong").HasColumnType("datetime").IsRequired(false);
             builder.Property(x => x.PromotionId).HasColumnName(@"PromotionID").HasColumnType("int").IsRequired(false);
@@ -39543,10 +37738,10 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsLuyKe).HasColumnName(@"IsLuyKe").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.IsTuTinh).HasColumnName(@"IsTuTinh").HasColumnType("bit").IsRequired(false);
             builder.Property(x => x.DonGia).HasColumnName(@"DonGia").HasColumnType("money").IsRequired(false);
-            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").IsRequired(false);
+            builder.Property(x => x.SoLuong).HasColumnName(@"SoLuong").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
             builder.Property(x => x.MaPl).HasColumnName(@"MaPL").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").IsRequired(false);
-            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").IsRequired(false);
+            builder.Property(x => x.TyLeCkTruocVat).HasColumnName(@"TyLeCKTruocVAT").HasColumnType("decimal(8,4)").HasPrecision(8,4).IsRequired(false);
+            builder.Property(x => x.SoTienCkTruocVat).HasColumnName(@"SoTienCKTruocVAT").HasColumnType("decimal(20,10)").HasPrecision(20,10).IsRequired(false);
 
             // Foreign keys
             builder.HasOne(a => a.VvbhHopDong).WithMany(b => b.VvbhPromotions).HasForeignKey(c => c.MaPgc).HasConstraintName("FK_vvbhPromotion_vvbhHopDong");
@@ -39569,7 +37764,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.DienGiai).HasColumnName(@"DienGiai").HasColumnType("nvarchar(300)").IsRequired(false).HasMaxLength(300);
 
             // Foreign keys
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.VvbhQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_vvbhQuaTrinhThucHien_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.VvbhQuaTrinhThucHiens).HasForeignKey(c => c.MaNv).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_vvbhQuaTrinhThucHien_NhanVien");
             builder.HasOne(a => a.VvbhHopDong).WithMany(b => b.VvbhQuaTrinhThucHiens).HasForeignKey(c => c.MaHdvv).HasConstraintName("FK_vvbhQuaTrinhThucHien_vvbhHopDong");
             builder.HasOne(a => a.VvbhTrangThai).WithMany(b => b.VvbhQuaTrinhThucHiens).HasForeignKey(c => c.MaTt).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_vvbhQuaTrinhThucHien_vvbhTrangThai");
         }
@@ -39722,7 +37917,7 @@ namespace Hpl.HrmDatabase
             builder.HasOne(a => a.DuAn).WithMany(b => b.WorkDailies).HasForeignKey(c => c.ProjectId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_WorkDaily_DuAn");
             builder.HasOne(a => a.FormAction).WithMany(b => b.WorkDailies).HasForeignKey(c => c.ActionId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_WorkDaily_FormAction");
             builder.HasOne(a => a.Khu).WithMany(b => b.WorkDailies).HasForeignKey(c => c.BlockId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_WorkDaily_Khu");
-            builder.HasOne(a => a.NhanVienSale).WithMany(b => b.WorkDailies).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_WorkDaily_NhanVien");
+            builder.HasOne(a => a.NhanVien).WithMany(b => b.WorkDailies).HasForeignKey(c => c.StaffId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_WorkDaily_NhanVien");
             builder.HasOne(a => a.WdFormAction).WithMany(b => b.WorkDailies).HasForeignKey(c => c.ActionId).OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_WorkDaily_wdFormAction");
         }
     }
