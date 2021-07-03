@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="bin\Debug\**" />
-    <EmbeddedResource Remove="bin\Debug\**" />
-    <None Remove="bin\Debug\**" />
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="bin\Release\net5.0\XmlApi\GetDomainList.xml" />
-    <Content Include="bin\Release\net5.0\XmlApi\GetUserInfo.xml" />
     <Content Include="XmlApi\Response.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -39,7 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="bin\Release\net5.0\logs\" />
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

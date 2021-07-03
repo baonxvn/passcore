@@ -1,13 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
+using SyncOosToAd.MyService;
+using Unosquare.PassCore.Common;
+using Unosquare.PassCore.PasswordProvider;
 
 namespace SyncOosToAd
 {
     public class Startup
     {
+        private const string AppSettingsSectionName = "AppSettings";
+
         IConfigurationRoot Configuration { get; }
 
         public Startup()
@@ -22,35 +27,16 @@ namespace SyncOosToAd
         {
             services.AddLogging();
             services.AddSingleton<IConfigurationRoot>(Configuration);
-            services.AddSingleton<IMyService, MyService>();
+            services.AddSingleton<IMyService, MyService.MyService>();
+
+            //Cac service su dung
+            services.Configure<PasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));
+            services.AddSingleton<IPasswordChangeProvider, PasswordChangeProvider>();
+            services.AddSingleton((ILogger)new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+                    (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
+                .CreateLogger());
         }
-    }
-
-    public class MyService : IMyService
-    {
-        private readonly string _baseUrl;
-        private readonly string _token;
-        private readonly ILogger<MyService> _logger;
-
-        public MyService(ILoggerFactory loggerFactory, IConfigurationRoot config)
-        {
-            var baseUrl = config["SomeConfigItem:BaseUrl"];
-            var token = config["SomeConfigItem:Token"];
-
-            _baseUrl = baseUrl;
-            _token = token;
-            _logger = loggerFactory.CreateLogger<MyService>();
-        }
-
-        public async Task MyServiceMethod()
-        {
-            _logger.LogDebug(_baseUrl);
-            _logger.LogDebug(_token);
-        }
-    }
-
-    public interface IMyService
-    {
-        Task MyServiceMethod();
     }
 }

@@ -515,7 +515,7 @@ namespace Unosquare.PassCore.PasswordProvider
             return listResult;
         }
 
-        public ApiResultAd CreateUser(UserInfoAd user, string pw)
+        public ApiResultAd CreateAdUser(UserInfoAd user, string pw)
         {
             _logger.Information("PasswordChangeProvider.CreateUser");
 

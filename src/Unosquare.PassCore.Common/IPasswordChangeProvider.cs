@@ -33,7 +33,7 @@
 
         public string GetUserNewUserFormAd(string username);
 
-        public ApiResultAd CreateUser(UserInfoAd user, string pw);
+        public ApiResultAd CreateAdUser(UserInfoAd user, string pw);
 
         public List<ApiResultAd> UpdateUserInfo(List<NhanVienViewModel> listNvs);
 

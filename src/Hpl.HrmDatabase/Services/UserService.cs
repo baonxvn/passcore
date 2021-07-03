@@ -830,7 +830,7 @@ namespace Hpl.HrmDatabase.Services
         public static List<NhanVienViewModel> GetAllNhanVienErrorUser()
         {
             var db = new HrmDbContext();
-            var dt = new DateTime(2021, 6, 1);
+            var dt = new DateTime(2021, 7, 1);
             try
             {
                 var listNvs = from nv in db.NhanViens

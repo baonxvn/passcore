@@ -58,7 +58,7 @@
             throw new NotImplementedException();
         }
 
-        public ApiResultAd CreateUser(UserInfoAd user, string pw)
+        public ApiResultAd CreateAdUser(UserInfoAd user, string pw)
         {
             throw new NotImplementedException();
         }

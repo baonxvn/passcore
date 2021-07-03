@@ -146,7 +146,7 @@ namespace Unosquare.PassCore.Web.Controllers
                     description = "Tạo từ tool thần thánh"
                 };
 
-                var obj = _passwordChangeProvider.CreateUser(user, pw);
+                var obj = _passwordChangeProvider.CreateAdUser(user, pw);
                 if (obj != null)
                 {
                     result.Payload = obj;

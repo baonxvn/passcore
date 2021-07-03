@@ -27,6 +27,5 @@
         public string MaKy { get; set; }
         public string PhongBan6 { get; set; }
         public string MaPb6 { get; set; }
-
     }
 }
