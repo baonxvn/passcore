@@ -69,18 +69,19 @@ namespace SyncOosToAd
                     string ten = UsernameGenerator.ConvertToUnSign(model.Ten);
                     string ho = UsernameGenerator.ConvertToUnSign(model.Ho);
                     string dienThoai = "";
+                    string pw = "Hpl@123";
                     string hoVaTen = ho + " " + ten;
                     try
                     {
                         dienThoai = "+84" + int.Parse(model.DienThoai.Trim());
+                        pw = model.DienThoai.Trim().Substring(0, 6);
                     }
                     catch (Exception e)
                     {
-                        Log.Error("Số điện thoại lỗi " + e.Message);
+                        Log.Error( model.MaPhongBan + " Số điện thoại lỗi " + e.Message);
                     }
 
                     //Tạo user trên AD
-                    string pw = "Hpl@123";
                     UserInfoAd userAd = new UserInfoAd
                     {
                         userPrincipalName = "",
@@ -96,11 +97,12 @@ namespace SyncOosToAd
                         employeeID = model.MaNhanVien,
                         description = "Created by tool. Time: " + DateTime.Now.ToString("G")
                     };
+                    //TẠO USER AD
                     var userInfo = _passwordChangeProvider.CreateUser(userAd, pw).UserInfo;
 
                     if (userInfo != null)
                     {
-                        //Tạo user trên HRM và MDaemon
+                        //TẠO USER HRM
                         var nhanVien = UserService.CreateUserHrm(model.MaNhanVien, userInfo.sAMAccountName);
                         Log.Information(userInfo.sAMAccountName + " created on HRM.");
                     }
@@ -109,7 +111,7 @@ namespace SyncOosToAd
                         Log.Error("Không tạo được user trên AD cho mã Nhân Viên: " + model.MaNhanVien + ". Errors: ");
                     }
 
-                    //Tạo email
+                    //TẠO EMAIL
                     CreateUserInput input = new CreateUserInput();
                     input.Domain = "haiphatland.com.vn";
                     input.Username = userInfo.sAMAccountName;

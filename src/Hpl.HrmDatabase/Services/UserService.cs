@@ -47,7 +47,7 @@ namespace Hpl.HrmDatabase.Services
             switch (nvList.ToList().Count)
             {
                 case > 1:
-                    nhanVien.TenDangNhap = "Username này bị trùng lặp, yêu cầu kiểm tra lại";
+                    nhanVien.TenDangNhap = nhanVien.TenDangNhap + " này bị trùng lặp, yêu cầu kiểm tra lại";
                     break;
                 case 1:
                     nhanVien = nvList.FirstOrDefault();
@@ -62,6 +62,7 @@ namespace Hpl.HrmDatabase.Services
                         {
                             case 0:
                                 //Tạo user mới hoàn toàn ở đây
+                                //CASE NÀY KHÔNG THỂ XẢY RA
                                 break;
                             case 1:
                                 //fix lại các trường hợp lỗi gmail.com
@@ -114,7 +115,7 @@ namespace Hpl.HrmDatabase.Services
                                 break;
                         }
                     }
-                    else
+                    else//TẠO MỚI USER
                     {
                         //Tạo người dùng
                         user = new SysNguoiDung();
@@ -159,10 +160,13 @@ namespace Hpl.HrmDatabase.Services
                         user.HrisTuCapBac = 0;
                         //int? CbTuCapBac { get; set; } // CB_TuCapBac
                         user.CbTuCapBac = 0;
+
                         //string EmailAccount { get; set; } // EmailAccount (length: 250)
-                        user.EmailAccount = userName + "@haiphatland.com.vn";
+                        //=>KHÔNG TẠO CÁI NÀY, VÌ BỊ LỖI KHÔNG SỬA THÔNG TIN USER ĐƯỢC
+                        //user.EmailAccount = userName + "@haiphatland.com.vn"; 
                         //string EmailPassword { get; set; } // EmailPassword (length: 250)
-                        user.EmailPassword = "[81DC9BDB52D04DC20036DBD8313ED055]";
+                        //user.EmailPassword = "[81DC9BDB52D04DC20036DBD8313ED055]";
+
                         //string NdHoVaTen { get; set; } // ND_HoVaTen (length: 50)
                         user.NdHoVaTen = nhanVien.Ho + " " + nhanVien.Ten;
                         //string NdMaNhanVien { get; set; } // ND_MaNhanVien (length: 50)
@@ -171,9 +175,6 @@ namespace Hpl.HrmDatabase.Services
                         //string Token { get; set; } // Token (length: 500)
                         user.Token = "";
                         //string RedirectUrl { get; set; } // RedirectURL (length: 250)
-
-                        //Cập nhật Quyền ở đây
-                        //TODO
 
                         //Cập nhật lại email vào hồ sơ nhân sự
                         var newNv1 = db.NhanViens.FirstOrDefault(x => x.NhanVienId == nhanVien.NhanVienID);
