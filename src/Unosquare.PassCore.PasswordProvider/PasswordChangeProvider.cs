@@ -31,13 +31,16 @@ namespace Unosquare.PassCore.PasswordProvider
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="options">The options.</param>
-        public PasswordChangeProvider(
-            ILogger logger,
-            IOptions<PasswordChangeOptions> options)
+        public PasswordChangeProvider(ILogger logger, IOptions<PasswordChangeOptions> options)
         {
             _logger = logger;
             _options = options.Value;
             SetIdType();
+        }
+
+        public string Test()
+        {
+            return "cc";
         }
 
         /// <summary>
@@ -574,7 +577,6 @@ namespace Unosquare.PassCore.PasswordProvider
             childEntry.Invoke("SetPassword", new object[] { pw });
             childEntry.CommitChanges();
 
-            //Cach 2 Create User
             //Add user vao Group
             string groupName = "Employees";
             GroupPrincipal group = GroupPrincipal.FindByIdentity(principalContext, groupName);

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using SyncOosToAd.MyService;
 using Unosquare.PassCore.Common;
@@ -13,20 +13,38 @@ namespace SyncOosToAd
     {
         private const string AppSettingsSectionName = "AppSettings";
 
-        IConfigurationRoot Configuration { get; }
+        private IConfiguration _configuration;
+        private IServiceProvider _provider;
 
-        public Startup()
+        //IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration => _configuration;
+        // access the built service pipeline
+        public IServiceProvider Provider => _provider;
+
+        // access the built configuration
+
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json");
+            _configuration = configuration;
+            //var builder = new ConfigurationBuilder()
+            //    .AddJsonFile("appsettings.json");
 
-            Configuration = builder.Build();
+            //_configuration = builder.Build();
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        static IHostBuilder CreateHostBuilder(string[] args)
         {
-            services.AddLogging();
-            services.AddSingleton<IConfigurationRoot>(Configuration);
+            return Host.CreateDefaultBuilder(args);
+        }
+
+        public void ConfigureServices()
+        {
+            // instantiate
+            IServiceCollection services = new ServiceCollection();
+
+            //services.AddLogging();
+            //services.AddSingleton<IConfigurationRoot>(configuration);
+            services.AddSingleton<IConfiguration>(_configuration);
             services.AddSingleton<IMyService, MyService.MyService>();
 
             //Cac service su dung
@@ -37,6 +55,9 @@ namespace SyncOosToAd
                 .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
                     (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
                 .CreateLogger());
+
+
+            _provider = services.BuildServiceProvider();
         }
     }
 }

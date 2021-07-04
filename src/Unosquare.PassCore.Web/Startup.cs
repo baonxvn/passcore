@@ -93,7 +93,7 @@ namespace Unosquare.PassCore.Web
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
-            services.AddControllers();
+            //services.AddControllers();
             //End Enable Cross-Origin Requests (CORS) in ASP.NET Core
 
             services.AddSingleton<IServiceCommon, ServiceCommon>();

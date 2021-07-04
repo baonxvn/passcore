@@ -12,74 +12,77 @@ using System.Xml.Linq;
 using Hpl.HrmDatabase;
 using Hpl.HrmDatabase.Services;
 using Hpl.HrmDatabase.ViewModels;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Serilog;
 using SyncOosToAd.MyService;
 using Unosquare.PassCore.Common;
-using Unosquare.PassCore.Web.MdaemonServices;
-using Unosquare.PassCore.Web.Models;
-using Serilog;
+using Unosquare.PassCore.PasswordProvider;
 
 namespace SyncOosToAd
 {
     class Program
     {
-        private static readonly ILogger _logger;
-        private readonly ClientSettings _options;
-        private readonly IPasswordChangeProvider _passwordChangeProvider;
+        public static IConfigurationRoot configuration;
+        private const string AppSettingsSectionName = "AppSettings";
+
+        private PasswordChangeOptions _options;
+        private static ILogger _logger;
+        private static IPasswordChangeProvider _passwordChangeProvider;
 
         static async Task Main(string[] args)
         {
-            IServiceCollection services = new ServiceCollection();
-            // Startup.cs finally :)
-            Startup startup = new Startup();
-            startup.ConfigureServices(services);
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            using IHost host = CreateHostBuilder(args).Build();
+            var services = host.Services;
+            using IServiceScope serviceScope = services.CreateScope();
+            IServiceProvider provider = serviceScope.ServiceProvider;
 
-            //configure console logging
-            //serviceProvider
-            //    .GetService<ILoggerFactory>()
-            //    .AddConsole(LogLevel.Debug);
+            _logger = provider.GetRequiredService<ILogger>();
+            _passwordChangeProvider = provider.GetRequiredService<IPasswordChangeProvider>();
 
-            //var logger = serviceProvider.GetService<ILoggerFactory>()
-            //    .CreateLogger<Program>();
+            //var res = _passwordChangeProvider.GetUserInfo("baonx", "1");
 
-            _logger.Debug("Logger is working!");
+            _logger.Error("xx");
 
 
+            var listNvs = GetAllNhanVienErrorUser();
 
-            // Get Service and call method
-            var service = serviceProvider.GetService<IMyService>();
-            service.MyServiceMethod();
+            HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
 
-            Log.Information("----START HAI PHAT LAND ACM----");
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
-                    (utcDateTime, wt) => wt.File($"logs/acm-log-{utcDateTime}.txt"))
-                .CreateLogger();
-
-            //Console.WriteLine("Hello World!");
-
-            //var res = await TestApiMdaemon();
-            var listNvs = await GetAllNhanVienErrorUser();
-
-            HplServices hplServices = new HplServices();
             await hplServices.CreateUserAllSys(listNvs);
 
-            //Log.Information(JsonConvert.SerializeObject(res));
-
-            //Console.WriteLine(res);
         }
 
-        public static async Task<List<NhanVienViewModel>> GetAllNhanVienErrorUser()
+        static IHostBuilder CreateHostBuilder(string[] args)
         {
-            var db = new HrmDbContext();
-            List<NhanVienViewModel> listNvs = new List<NhanVienViewModel>();
+            configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetParent(AppContext.BaseDirectory)?.FullName)
+                .AddJsonFile("appsettings.json", false)
+                .Build();
 
-            listNvs = UserService.GetAllNhanVienErrorUser();
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureServices((_, services) =>
+                    services
+                        .Configure<PasswordChangeOptions>(configuration.GetSection(AppSettingsSectionName))
+                        .AddSingleton<IPasswordChangeProvider, PasswordChangeProvider>()
+                        .AddSingleton((ILogger)new LoggerConfiguration()
+                            .MinimumLevel.Verbose()
+                            .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+                            (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
+                        .CreateLogger()));
+
+            //.WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+            //(utcDateTime, wt) =>
+            //    wt.File($"logs/acm-log-{utcDateTime}.txt",
+            //    outputTemplate: "[{Timestamp:yyyyMMdd HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"))
+        }
+
+        public static List<NhanVienViewModel> GetAllNhanVienErrorUser()
+        {
+            var listNvs = UserService.GetAllNhanVienErrorUser();
 
             return listNvs;
         }
@@ -94,15 +97,10 @@ namespace SyncOosToAd
         {
             //username += "@haiphatland.local";
             username += "@baonx.com";
-            _logger.Information("GetUserInfo: " + username);
+            //_logger.Information("GetUserInfo: " + username);
             var obj = _passwordChangeProvider.GetUserInfo(username, pw);
 
             return JsonConvert.SerializeObject(obj);
-        }
-
-        public void TestConnectAd()
-        {
-
         }
 
         public static async Task<string> TestApiMdaemon()

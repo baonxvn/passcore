@@ -1,39 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
+using System.Linq;
 using System.Threading.Tasks;
 using Hpl.HrmDatabase;
 using Hpl.HrmDatabase.Services;
 using Hpl.HrmDatabase.ViewModels;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Serilog;
 using Unosquare.PassCore.Common;
+using Unosquare.PassCore.PasswordProvider;
 using Unosquare.PassCore.Web.MdaemonServices;
 
 namespace SyncOosToAd
 {
     public class HplServices
     {
+        private readonly ILogger _logger;
         private readonly IPasswordChangeProvider _passwordChangeProvider;
 
-        public HplServices()
-        {
-
-        }
-
-        public HplServices(IPasswordChangeProvider passwordChangeProvider)
+        public HplServices(IPasswordChangeProvider passwordChangeProvider, ILogger logger)
         {
             _passwordChangeProvider = passwordChangeProvider;
+            _logger = logger;
+            //Log.Logger = new LoggerConfiguration()
+            //    .MinimumLevel.Information()
+            //    .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
+            //        (utcDateTime, wt) => wt.File($"logs/acm-log-{utcDateTime}.txt"))
+            //    .CreateLogger();
+            //Log.Information("----START HAI PHAT LAND ACM----");
         }
 
         public async Task CreateUserAllSys(List<NhanVienViewModel> listNvs)
         {
-            Log.Information("----START HAI PHAT LAND ACM----");
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
-                    (utcDateTime, wt) => wt.File($"logs/acm-log-{utcDateTime}.txt"))
-                .CreateLogger();
+            _logger.Information("----START HAI PHAT LAND ACM----");
 
             foreach (var model in listNvs)
             {
@@ -81,9 +83,10 @@ namespace SyncOosToAd
                     var userInfoAd = _passwordChangeProvider.CreateAdUser(userAd, pw);
                     var userInfo = userInfoAd.UserInfo;
 
+                    //TẠO USER HRM
                     if (userInfo != null)
                     {
-                        //TẠO USER HRM
+
                         var nhanVien = UserService.CreateUserHrm(model.MaNhanVien, userInfo.sAMAccountName);
                         Log.Information(userInfo.sAMAccountName + " created on HRM.");
                     }
