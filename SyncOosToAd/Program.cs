@@ -45,15 +45,11 @@ namespace SyncOosToAd
 
             //var res = _passwordChangeProvider.GetUserInfo("baonx", "1");
 
-            _logger.Error("xx");
-
-
             var listNvs = GetAllNhanVienErrorUser();
 
             HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
 
             await hplServices.CreateUserAllSys(listNvs);
-
         }
 
         static IHostBuilder CreateHostBuilder(string[] args)
@@ -71,7 +67,7 @@ namespace SyncOosToAd
                         .AddSingleton((ILogger)new LoggerConfiguration()
                             .MinimumLevel.Verbose()
                             .WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
-                            (utcDateTime, wt) => wt.File($"logs/LDAP_Win-log-{utcDateTime}.txt"))
+                            (utcDateTime, wt) => wt.File($"logs/acm-log-{utcDateTime}.txt"))
                         .CreateLogger()));
 
             //.WriteTo.Map("UtcDateTime", DateTime.UtcNow.ToString("yyyyMMdd"),
@@ -82,7 +78,9 @@ namespace SyncOosToAd
 
         public static List<NhanVienViewModel> GetAllNhanVienErrorUser()
         {
-            var listNvs = UserService.GetAllNhanVienErrorUser();
+            var dt = new DateTime(2021, 6, 1);
+
+            var listNvs = UserService.GetAllNhanVienErrorUser(dt);
 
             return listNvs;
         }

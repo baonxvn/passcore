@@ -522,7 +522,7 @@ namespace Unosquare.PassCore.PasswordProvider
         {
             _logger.Information("PasswordChangeProvider.CreateUser");
 
-            var result = new ApiResultAd { UserInfo = null };
+            var result = new ApiResultAd();
 
             string fixedUsername = "";
             string username = user.sAMAccountName;
@@ -562,9 +562,9 @@ namespace Unosquare.PassCore.PasswordProvider
             childEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value = user.telephoneNumber;
             childEntry.Properties[UserPropertiesAd.Description].Value = user.description;
             //Thong tin phong ban
-            childEntry.Properties[UserPropertiesAd.EmployeeId].Value = "MaNhanVien";
-            childEntry.Properties[UserPropertiesAd.Department].Value = "Phong Ban";
-            childEntry.Properties[UserPropertiesAd.Title].Value = "Chuc Danh";
+            childEntry.Properties[UserPropertiesAd.EmployeeId].Value = user.employeeID;
+            childEntry.Properties[UserPropertiesAd.Department].Value = user.department;
+            childEntry.Properties[UserPropertiesAd.Title].Value = user.title;
             //Enable user
             childEntry.Properties[UserPropertiesAd.UserAccountControl].Value = 66048;
             childEntry.Properties[UserPropertiesAd.PwdLastSet].Value = 0;
@@ -572,10 +572,10 @@ namespace Unosquare.PassCore.PasswordProvider
 
             childEntry.CommitChanges();
 
-            ouEntry.CommitChanges();
-
             childEntry.Invoke("SetPassword", new object[] { pw });
             childEntry.CommitChanges();
+
+            ouEntry.CommitChanges();
 
             //Add user vao Group
             string groupName = "Employees";
@@ -584,20 +584,6 @@ namespace Unosquare.PassCore.PasswordProvider
             group.Save();
 
             var userPrincipal = UserPrincipal.FindByIdentity(principalContext, _idType, fixedUsername);
-            var userInfo = new UserInfoAd
-            {
-                isLocked = userPrincipal.IsAccountLockedOut(),
-                userPrincipalName = userPrincipal.UserPrincipalName,
-                sAMAccountName = userPrincipal.SamAccountName,
-                name = userPrincipal.Name,
-                sn = userPrincipal.Surname,
-                givenName = userPrincipal.GivenName,
-                displayName = userPrincipal.DisplayName,
-                mail = userPrincipal.EmailAddress,
-                telephoneNumber = userPrincipal.VoiceTelephoneNumber,
-                description = userPrincipal.Description
-            };
-
             //Update lại mot so thong tin cua nhan su
             if (userPrincipal.GetUnderlyingObject() is DirectoryEntry directoryEntry)
             {
@@ -613,8 +599,8 @@ namespace Unosquare.PassCore.PasswordProvider
             userPrincipal.Dispose();
             group.Dispose();
 
+            _logger.Information(user.sAMAccountName + " created on AD at " + DateTime.Now.ToString("G"));
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
-            result.UserInfo = userInfo;
 
             return result;
         }

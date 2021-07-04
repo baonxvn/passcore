@@ -182,11 +182,9 @@
 
                 listObj.Add(await GetResponse(xmlDoc));
 
-                //Add Mailing list;
+                //Add Mailing list; Mặc định add vào all @haiphatland.com.vn
                 listObj.Add(await MailingUpdateList("all", inputMail));
                 //listObj.Add(await MailingUpdateList(inputMail.MailList.Split("@")[0], inputMail));
-
-                ////Mặc định add vào all @haiphatland.com.vn
 
                 //var xmlNodeListAll = (XmlElement)xmlDoc.SelectSingleNode(_paraNode + "/ListMembership")!;
                 //XmlElement mailAll = xmlDoc.CreateElement("List");

@@ -3,11 +3,138 @@ using System.Collections.Generic;
 using System.Linq;
 using Hpl.HrmDatabase.ViewModels;
 using Microsoft.IdentityModel.Protocols;
+using Serilog;
 
 namespace Hpl.HrmDatabase.Services
 {
     public class UserService
     {
+        public static NhanVienViewModel CreateUserHrm2(NhanVienViewModel model, string userName)
+        {
+            var db = new HrmDbContext();
+
+            //Fix username
+            var user = db.SysNguoiDungs.FirstOrDefault(x => x.TenDangNhap == model.TenDangNhap);
+            if (user != null) //Fix lai user name
+            {
+                //Fix lai email va user name
+                var newEmployee = db.NhanViens.FirstOrDefault(x => x.NhanVienId == model.NhanVienID);
+                if (newEmployee != null)
+                {
+                    //Update lai Email ca nhan
+                    if (!string.IsNullOrEmpty(newEmployee.Email))
+                    {
+                        if (string.IsNullOrEmpty(newEmployee.EmailCaNhan))
+                        {
+                            newEmployee.EmailCaNhan = newEmployee.Email;
+                            model.EmailCaNhan = user.TenDangNhap.ToLower();
+                        }
+                    }
+
+                    //Cap nhat lai email cty cua User
+                    newEmployee.Email = userName + "@haiphatland.com.vn";
+                    model.Email = userName + "@haiphatland.com.vn";
+                }
+
+                //Fix user name
+                user.TenDangNhap = userName;
+
+                //db.SaveChanges();
+                db.Dispose();
+            }
+            else//TẠO MỚI USER
+            {
+                //Tạo người dùng
+                user = new SysNguoiDung();
+                //int NguoiDungId { get; set; } // NguoiDungID (Primary key)
+                //int? NhanVienId { get; set; } // NhanVienID
+                user.NhanVienId = model.NhanVienID;
+                //string TenDangNhap { get; set; } // TenDangNhap (length: 50)
+                user.TenDangNhap = userName;
+                //string MatKhau { get; set; } // MatKhau (length: 50)
+                user.MatKhau = "[81DC9BDB52D04DC20036DBD8313ED055]";
+                //DateTime? LastLogin { get; set; } // LastLogin
+                //DateTime? LastLogout { get; set; } // LastLogout
+                //bool? Active { get; set; } // Active
+                user.Active = true;
+                //bool? IsPortalAccount { get; set; } // IsPortalAccount
+                user.IsPortalAccount = true;
+                //bool? IsAdAccount { get; set; } // IsADAccount
+                user.IsAdAccount = false;
+                //byte[] Settings { get; set; } // Settings (length: 2147483647)
+                user.Settings = new byte[] { 0, 0 };
+                //int? NhomNguoiDungId { get; set; } // NhomNguoiDungID
+                user.NhomNguoiDungId = 0;
+                //string ActiveModule { get; set; } // ActiveModule (length: 50)
+                user.ActiveModule = "";
+                //bool? IsDeleted { get; set; } // IsDeleted
+                user.IsDeleted = false;
+                //int? NhomQuyenId { get; set; } // NhomQuyenID
+                user.NhomQuyenId = 7;
+                //int? CapBacDanhGia { get; set; } // CapBacDanhGia
+                user.CapBacDanhGia = 0;
+                //bool? DanhGiaReadOnly { get; set; } // DanhGia_ReadOnly
+                user.DanhGiaReadOnly = false;
+                //int? CreatedById { get; set; } // CreatedByID
+                user.CreatedById = 1561;
+                //DateTime? CreatedDate { get; set; } // CreatedDate
+                user.CreatedDate = DateTime.Now;
+                //int? ModifyById { get; set; } // ModifyByID
+                //DateTime? ModifyDate { get; set; } // ModifyDate
+                //string Aid { get; set; } // AID (length: 50)
+                //DateTime? DueDate { get; set; } // DueDate
+                //int? HrisTuCapBac { get; set; } // HRIS_TuCapBac
+                user.HrisTuCapBac = 0;
+                //int? CbTuCapBac { get; set; } // CB_TuCapBac
+                user.CbTuCapBac = 0;
+
+                //string EmailAccount { get; set; } // EmailAccount (length: 250)
+                //=>KHÔNG TẠO CÁI NÀY, VÌ BỊ LỖI KHÔNG SỬA THÔNG TIN USER ĐƯỢC
+                //user.EmailAccount = userName + "@haiphatland.com.vn"; 
+                //string EmailPassword { get; set; } // EmailPassword (length: 250)
+                //user.EmailPassword = "[81DC9BDB52D04DC20036DBD8313ED055]";
+
+                //string NdHoVaTen { get; set; } // ND_HoVaTen (length: 50)
+                user.NdHoVaTen = model.Ho + " " + model.Ten;
+                //string NdMaNhanVien { get; set; } // ND_MaNhanVien (length: 50)
+                user.NdMaNhanVien = model.MaNhanVien;
+                //string DeviceId { get; set; } // DeviceId (length: 500)
+                //string Token { get; set; } // Token (length: 500)
+                user.Token = "";
+                //string RedirectUrl { get; set; } // RedirectURL (length: 250)
+
+                //Cập nhật lại email vào hồ sơ nhân sự
+                var newNv = db.NhanViens.FirstOrDefault(x => x.NhanVienId == model.NhanVienID);
+                if (newNv != null)
+                {
+                    if (!string.IsNullOrEmpty(newNv.Email))
+                    {
+                        if (string.IsNullOrEmpty(newNv.EmailCaNhan))
+                        {
+                            newNv.EmailCaNhan = newNv.Email;
+                            model.EmailCaNhan = newNv.Email;
+                        }
+                    }
+
+                    newNv.Email = userName + "@haiphatland.com.vn";
+                    model.Email = userName + "@haiphatland.com.vn";
+                }
+
+                db.SysNguoiDungs.Add(user);
+                //db.SaveChanges();
+                db.Dispose();//=>Dispose de connection ben trong ham TaoQuyenNguoiDung dc mo
+
+                //CẬP NHẬT QUYỀN CƠ BẢN NGƯỜI DÙNG
+                //TaoQuyenNguoiDung(user.NguoiDungId);
+            }
+
+            //Cap nhat lai userName moi cho Nhan Vien va return
+            model.TenDangNhap = userName;
+
+
+            return model;
+        }
+
         public static NhanVienViewModel CreateUserHrm(string maNhanVien, string userName)
         {
             var db = new HrmDbContext();
@@ -106,6 +233,8 @@ namespace Hpl.HrmDatabase.Services
                                 //Fix user name
                                 user.TenDangNhap = userName;
                                 db.SaveChanges();
+                                db.SaveChanges();
+                                db.Dispose();
 
                                 nhanVien.TenDangNhap = userName;
 
@@ -192,11 +321,12 @@ namespace Hpl.HrmDatabase.Services
                             newNv1.Email = user.EmailAccount;
                         }
 
-                        //Lấy thông tin người dùng để tạo email
+                        //Cap nhat lai thong tin dang nhap
                         nhanVien.TenDangNhap = userName;
 
                         db.SysNguoiDungs.Add(user);
                         db.SaveChanges();
+                        db.Dispose();
 
                         //CẬP NHẬT QUYỀN CƠ BẢN NGƯỜI DÙNG
                         TaoQuyenNguoiDung(user.NguoiDungId);
@@ -208,8 +338,6 @@ namespace Hpl.HrmDatabase.Services
                     nhanVien = null;
                     break;
             }
-
-            db.Dispose();
 
             return nhanVien;
         }
@@ -827,10 +955,9 @@ namespace Hpl.HrmDatabase.Services
         /// Trả về danh sách nhân viên lỗi user trên DB HRM
         /// </summary>
         /// <returns>List NhanVienViewModel</returns>
-        public static List<NhanVienViewModel> GetAllNhanVienErrorUser()
+        public static List<NhanVienViewModel> GetAllNhanVienErrorUser(DateTime dt)
         {
             var db = new HrmDbContext();
-            var dt = new DateTime(2021, 7, 1);
             try
             {
                 var listNvs = from nv in db.NhanViens

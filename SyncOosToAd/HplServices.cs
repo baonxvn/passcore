@@ -39,9 +39,10 @@ namespace SyncOosToAd
 
             foreach (var model in listNvs)
             {
+                if (!model.MaNhanVien.Equals("ĐLK-151")) continue;
                 try
                 {
-                    string username = UsernameGenerator.CreateUsernameFromName(model.Ho, model.Ten);
+                    string userName = UsernameGenerator.CreateUsernameFromName(model.Ho, model.Ten);
                     PhongBan phongBan = UserService.GetPhongBanCap1CuaNhanVien(model.MaNhanVien);
                     string tenPhongBan = "HAI PHAT LAND COMPANY";
                     if (phongBan != null)
@@ -67,7 +68,7 @@ namespace SyncOosToAd
                     UserInfoAd userAd = new UserInfoAd
                     {
                         userPrincipalName = "",
-                        sAMAccountName = username,
+                        sAMAccountName = userName,
                         name = "",
                         sn = ten,
                         givenName = ho,
@@ -83,17 +84,11 @@ namespace SyncOosToAd
                     var userInfoAd = _passwordChangeProvider.CreateAdUser(userAd, pw);
                     var userInfo = userInfoAd.UserInfo;
 
-                    //TẠO USER HRM
-                    if (userInfo != null)
-                    {
+                    userName = userInfo.sAMAccountName;
 
-                        var nhanVien = UserService.CreateUserHrm(model.MaNhanVien, userInfo.sAMAccountName);
-                        Log.Information(userInfo.sAMAccountName + " created on HRM.");
-                    }
-                    else
-                    {
-                        Log.Error("Không tạo được user trên AD cho mã Nhân Viên: " + model.MaNhanVien + ". Errors: ");
-                    }
+                    //TẠO USER HRM
+                    var nhanVien = UserService.CreateUserHrm2(model, userName);
+                    _logger.Information(userName + " created on HRM at " + DateTime.Now.ToString("G"));
 
                     //TẠO EMAIL
                     CreateUserInput input = new CreateUserInput();
@@ -107,12 +102,12 @@ namespace SyncOosToAd
                     input.MailList = "";
                     input.Group = "";
                     var res = await MdaemonXmlApi.CreateUser(input);
-                    Log.Information(userInfo.sAMAccountName + " created on MDaemon. RES: " + JsonConvert.SerializeObject(res));
 
+                    _logger.Information(userInfo.sAMAccountName + " created on MDaemon at " + DateTime.Now.ToString("G"));
                 }
                 catch (Exception e)
                 {
-                    Log.Error("Error create user for MaNhanVien: " + model.MaNhanVien + ". Errors: " + e.Message);
+                    _logger.Error("Error create user for MaNhanVien: " + model.MaNhanVien + ". Errors: " + e.Message);
                 }
             }
         }
