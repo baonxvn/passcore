@@ -728,6 +728,96 @@ namespace Hpl.HrmDatabase.Services
             return nhanVien;
         }
 
+        public static NhanVienViewModel GetNhanVienByMaNhanVien(string maNhanVien)
+        {
+            var db = new HrmDbContext();
+            var nhanVien = new NhanVienViewModel();
+            //var qr1 = db.SysNguoiDungs.Where(x => x.TenDangNhap == username);
+
+            var query = from n in db.NhanViens
+                        join u in db.SysNguoiDungs on n.NhanVienId equals u.NhanVienId into table1
+                        from u in table1.DefaultIfEmpty()
+                        join cv in db.NsDsChucVus on n.ChucVuId equals cv.ChucVuId into table2
+                        from cv in table2.DefaultIfEmpty()
+                        join cd in db.NsDsChucDanhs on n.ChucDanhId equals cd.ChucDanhId into table3
+                        from cd in table3.DefaultIfEmpty()
+                        join p in db.PhongBans on n.PhongBanId equals p.PhongBanId into table4
+                        from p in table4.DefaultIfEmpty()
+                        where n.MaNhanVien == maNhanVien
+                        select new NhanVienViewModel
+                        {
+                            NhanVienID = n.NhanVienId,
+                            Ho = n.Ho,
+                            Ten = n.HoTen,
+                            GioiTinh = n.GioiTinh,
+                            MaNhanVien = n.MaNhanVien,
+                            TenDangNhap = u.TenDangNhap,
+                            Email = n.Email,
+                            EmailCaNhan = n.EmailCaNhan,
+                            DienThoai = n.DienThoai,
+                            CMTND = n.Cmtnd,
+                            TenChucVu = cv.TenChucVu,
+                            TenChucDanh = cd.TenChucDanh,
+                            PhongBanId = p.PhongBanId,
+                            TenPhongBan = p.Ten,
+                            MaPhongBan = p.MaPhongBan
+                        };
+
+            var nvList = query.ToList();
+            switch (nvList.ToList().Count)
+            {
+                case > 1:
+                    nhanVien.TenDangNhap = "Username này bị trùng lặp, yêu cầu kiểm tra lại";
+                    break;
+                case 1:
+                    nhanVien = nvList.FirstOrDefault();
+                    var pbList = db.PhongBans.ToList();
+
+                    var child = pbList.First(x => nhanVien != null && x.PhongBanId == nhanVien.PhongBanId);
+                    var parents = FindAllParents(pbList, child).ToList();
+
+                    int index = 0;
+                    if (nhanVien != null)
+                    {
+                        foreach (var phongBan in parents)
+                        {
+                            index++;
+                            switch (index)
+                            {
+                                case 1:
+                                    nhanVien.PhongBanCha = phongBan.Ten;
+                                    nhanVien.MaCha = phongBan.MaPhongBan;
+                                    break;
+                                case 2:
+                                    nhanVien.PhongBanOng = phongBan.Ten;
+                                    nhanVien.MaOng = phongBan.MaPhongBan;
+                                    break;
+                                case 3:
+                                    nhanVien.PhongBanCo = phongBan.Ten;
+                                    nhanVien.MaCo = phongBan.MaPhongBan;
+                                    break;
+                                case 4:
+                                    nhanVien.PhongBanKy = phongBan.Ten;
+                                    nhanVien.MaKy = phongBan.MaPhongBan;
+                                    break;
+                                case 5:
+                                    nhanVien.PhongBan6 = phongBan.Ten;
+                                    nhanVien.MaPb6 = phongBan.MaPhongBan;
+                                    break;
+                            }
+                        }
+                    }
+
+                    break;
+
+                default:
+                    nhanVien = null;
+                    break;
+            }
+
+            return nhanVien;
+        }
+
         /// <summary>
         /// Lấy thông tin phòng ban Cấp 1 của Nhân Viên theo Ma Nhân Viên
         /// </summary>

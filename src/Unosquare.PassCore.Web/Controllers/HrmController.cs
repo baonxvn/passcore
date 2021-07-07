@@ -65,6 +65,26 @@
         }
 
         [HttpGet]
+        [Route("GetUserInfoTheoMaNhanVien")]
+        public string GetUserInfoTheoMaNhanVien(string maNhanVien)
+        {
+            var result = new ApiResult();
+
+            var obj = UserService.GetNhanVienByMaNhanVien(maNhanVien);
+
+            if (obj != null)
+            {
+                result.Payload = obj;
+            }
+            else
+            {
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.UserNotFound, "Không tồn tại user."));
+            }
+
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpGet]
         [Route("FixUsernameNhanVien")]
         public async Task<string> FixUsernameNhanVien(string maNhanVien)
         {
