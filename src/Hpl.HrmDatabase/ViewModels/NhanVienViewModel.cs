@@ -1,4 +1,6 @@
-﻿namespace Hpl.HrmDatabase.ViewModels
+﻿using System;
+
+namespace Hpl.HrmDatabase.ViewModels
 {
     public class NhanVienViewModel
     {

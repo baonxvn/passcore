@@ -61,7 +61,8 @@ namespace Hpl.HrmDatabase
         DbSet<AbpWebhookEvent> AbpWebhookEvents { get; set; } // AbpWebhookEvents
         DbSet<AbpWebhookSendAttempt> AbpWebhookSendAttempts { get; set; } // AbpWebhookSendAttempts
         DbSet<AbpWebhookSubscription> AbpWebhookSubscriptions { get; set; } // AbpWebhookSubscriptions
-        DbSet<HplPhongBan> HplPhongBans { get; set; } // Hpl_PhongBan
+        DbSet<HplPhongBan> HplPhongBans { get; set; } // HplPhongBan
+        DbSet<HplSyncLog> HplSyncLogs { get; set; } // HplSyncLogs
 
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
@@ -162,7 +163,8 @@ namespace Hpl.HrmDatabase
         public DbSet<AbpWebhookEvent> AbpWebhookEvents { get; set; } // AbpWebhookEvents
         public DbSet<AbpWebhookSendAttempt> AbpWebhookSendAttempts { get; set; } // AbpWebhookSendAttempts
         public DbSet<AbpWebhookSubscription> AbpWebhookSubscriptions { get; set; } // AbpWebhookSubscriptions
-        public DbSet<HplPhongBan> HplPhongBans { get; set; } // Hpl_PhongBan
+        public DbSet<HplPhongBan> HplPhongBans { get; set; } // HplPhongBan
+        public DbSet<HplSyncLog> HplSyncLogs { get; set; } // HplSyncLogs
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -221,6 +223,7 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new AbpWebhookSendAttemptConfiguration());
             modelBuilder.ApplyConfiguration(new AbpWebhookSubscriptionConfiguration());
             modelBuilder.ApplyConfiguration(new HplPhongBanConfiguration());
+            modelBuilder.ApplyConfiguration(new HplSyncLogConfiguration());
         }
 
     }
@@ -1140,21 +1143,40 @@ namespace Hpl.HrmDatabase
         public string Headers { get; set; } // Headers
     }
 
-    // Hpl_PhongBan
+    // HplPhongBan
     public class HplPhongBan
     {
         public int Id { get; set; } // Id (Primary key)
         public int PhongBanId { get; set; } // PhongBanId
         public int? PhongBanParentId { get; set; } // PhongBanParentId
-        public string MaPhongBan { get; set; } // MaPhongBan (length: 256)
-        public string TenPhongBan { get; set; } // TenPhongBan (length: 256)
+        public string MaPhongBan { get; set; } // MaPhongBan (length: 512)
+        public string TenPhongBan { get; set; } // TenPhongBan (length: 512)
         public DateTime? CreationTime { get; set; } // CreationTime
-        public string MailingList { get; set; } // MailingList (length: 256)
+        public string MailingList { get; set; } // MailingList (length: 512)
         public DateTime? LastSyncToAd { get; set; } // LastSyncToAd
+        public int? BranchId { get; set; } // BranchID
+        public string BranchCode { get; set; } // BranchCode (length: 512)
+        public string BranchName { get; set; } // BranchName (length: 512)
 
         public HplPhongBan()
         {
             CreationTime = DateTime.Now;
+        }
+    }
+
+    // HplSyncLogs
+    public class HplSyncLog
+    {
+        public int LogId { get; set; } // LogId (Primary key)
+        public string UserName { get; set; } // UserName (length: 50)
+        public string MaNhanVien { get; set; } // MaNhanVien (length: 50)
+        public string Payload { get; set; } // Payload (length: 1073741823)
+        public string LogForSys { get; set; } // LogForSys (length: 256)
+        public DateTime DateCreate { get; set; } // DateCreate
+
+        public HplSyncLog()
+        {
+            DateCreate = DateTime.Now;
         }
     }
 
@@ -2047,22 +2069,42 @@ namespace Hpl.HrmDatabase
         }
     }
 
-    // Hpl_PhongBan
+    // HplPhongBan
     public class HplPhongBanConfiguration : IEntityTypeConfiguration<HplPhongBan>
     {
         public void Configure(EntityTypeBuilder<HplPhongBan> builder)
         {
-            builder.ToTable("Hpl_PhongBan", "dbo");
+            builder.ToTable("HplPhongBan", "dbo");
             builder.HasKey(x => x.Id).HasName("PK_Hpl_PhongBan").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanId").HasColumnType("int").IsRequired();
             builder.Property(x => x.PhongBanParentId).HasColumnName(@"PhongBanParentId").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MaPhongBan).HasColumnName(@"MaPhongBan").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
-            builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.MaPhongBan).HasColumnName(@"MaPhongBan").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
             builder.Property(x => x.CreationTime).HasColumnName(@"CreationTime").HasColumnType("datetime2").IsRequired(false);
-            builder.Property(x => x.MailingList).HasColumnName(@"MailingList").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.MailingList).HasColumnName(@"MailingList").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
             builder.Property(x => x.LastSyncToAd).HasColumnName(@"LastSyncToAd").HasColumnType("datetime").IsRequired(false);
+            builder.Property(x => x.BranchId).HasColumnName(@"BranchID").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.BranchCode).HasColumnName(@"BranchCode").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.BranchName).HasColumnName(@"BranchName").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+        }
+    }
+
+    // HplSyncLogs
+    public class HplSyncLogConfiguration : IEntityTypeConfiguration<HplSyncLog>
+    {
+        public void Configure(EntityTypeBuilder<HplSyncLog> builder)
+        {
+            builder.ToTable("HplSyncLogs", "dbo");
+            builder.HasKey(x => x.LogId).HasName("PK_Hpl_Logs").IsClustered();
+
+            builder.Property(x => x.LogId).HasColumnName(@"LogId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.UserName).HasColumnName(@"UserName").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.MaNhanVien).HasColumnName(@"MaNhanVien").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Payload).HasColumnName(@"Payload").HasColumnType("ntext").IsRequired(false);
+            builder.Property(x => x.LogForSys).HasColumnName(@"LogForSys").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.DateCreate).HasColumnName(@"DateCreate").HasColumnType("datetime").IsRequired();
         }
     }
 

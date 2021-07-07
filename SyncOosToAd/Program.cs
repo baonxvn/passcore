@@ -29,7 +29,7 @@ namespace SyncOosToAd
         public static IConfigurationRoot configuration;
         private const string AppSettingsSectionName = "AppSettings";
 
-        private PasswordChangeOptions _options;
+        private static IOptions<PasswordChangeOptions> _options;
         private static ILogger _logger;
         private static IPasswordChangeProvider _passwordChangeProvider;
 
@@ -42,11 +42,22 @@ namespace SyncOosToAd
 
             _logger = provider.GetRequiredService<ILogger>();
             _passwordChangeProvider = provider.GetRequiredService<IPasswordChangeProvider>();
+            _options = provider.GetRequiredService<IOptions<PasswordChangeOptions>>();
 
-            //var res = _passwordChangeProvider.GetUserInfo("baonx", "1");
+            _logger.Information("----START HAI PHAT LAND ACM----");
+            int backDate = -1;
+            try
+            {
+                //backDate = int.Parse(configuration.GetSection("AppSettings:BackDateSchedule").Value);
+                backDate = int.Parse(_options.Value.BackDateSchedule);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("Error get value BackDateSchedule: " + e);
+            }
 
-            var listNvs = GetAllNhanVienErrorUser();
-
+            var listNvs = GetAllNhanVienErrorUser(backDate);
+            _logger.Information("----TỔNG SỐ HỒ SƠ XỬ LÝ: " + listNvs.Count);
             HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
 
             await hplServices.CreateUserAllSys(listNvs);
@@ -76,9 +87,9 @@ namespace SyncOosToAd
             //    outputTemplate: "[{Timestamp:yyyyMMdd HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}"))
         }
 
-        public static List<NhanVienViewModel> GetAllNhanVienErrorUser()
+        public static List<NhanVienViewModel> GetAllNhanVienErrorUser(int backDate)
         {
-            var dt = new DateTime(2021, 6, 1);
+            var dt = DateTime.Now.AddDays(backDate);
 
             var listNvs = UserService.GetAllNhanVienErrorUser(dt);
 

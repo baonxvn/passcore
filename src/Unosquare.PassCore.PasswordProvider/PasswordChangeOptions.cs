@@ -67,5 +67,7 @@
         public string MailApiUrl { get; set; }
         public string MailUser { get; set; }
         public string MailPass { get; set; }
+
+        public string BackDateSchedule { get; set; }
     }
 }

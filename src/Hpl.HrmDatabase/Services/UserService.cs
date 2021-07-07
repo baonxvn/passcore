@@ -36,10 +36,10 @@ namespace Hpl.HrmDatabase.Services
                     model.Email = userName + "@haiphatland.com.vn";
                 }
 
-                //Fix user name
+                //Update lại userName
                 user.TenDangNhap = userName;
 
-                //db.SaveChanges();
+                db.SaveChanges();
                 db.Dispose();
             }
             else//TẠO MỚI USER
@@ -121,16 +121,15 @@ namespace Hpl.HrmDatabase.Services
                 }
 
                 db.SysNguoiDungs.Add(user);
-                //db.SaveChanges();
+                db.SaveChanges();
                 db.Dispose();//=>Dispose de connection ben trong ham TaoQuyenNguoiDung dc mo
 
                 //CẬP NHẬT QUYỀN CƠ BẢN NGƯỜI DÙNG
-                //TaoQuyenNguoiDung(user.NguoiDungId);
+                TaoQuyenNguoiDung(user.NguoiDungId);
             }
 
             //Cap nhat lai userName moi cho Nhan Vien va return
             model.TenDangNhap = userName;
-
 
             return model;
         }
@@ -969,7 +968,7 @@ namespace Hpl.HrmDatabase.Services
                               from cd in tb3.DefaultIfEmpty()
                               join pb in db.PhongBans on nv.PhongBanId equals pb.PhongBanId into table4
                               from pb in table4.DefaultIfEmpty()
-                              where nv.CreatedDate >= dt & nv.NghiViec == false &
+                              where nv.CreatedDate >= dt & nv.NghiViec == false & nv.TrangThaiId.Value != 6 &
                                     (string.IsNullOrEmpty(nd.TenDangNhap) ||
                                      nd.TenDangNhap.Contains("@") ||
                                      nd.TenDangNhap.Contains("gmail.com") ||
@@ -994,7 +993,7 @@ namespace Hpl.HrmDatabase.Services
                                   MaPhongBan = pb.MaPhongBan,
                               };
 
-                return listNvs.OrderByDescending(x => x.NhanVienID).ToList();
+                return listNvs.OrderBy(x => x.NhanVienID).ToList();
             }
             catch (Exception e)
             {

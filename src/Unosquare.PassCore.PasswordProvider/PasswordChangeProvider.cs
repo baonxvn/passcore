@@ -25,6 +25,8 @@ namespace Unosquare.PassCore.PasswordProvider
         private readonly PasswordChangeOptions _options;
         private readonly ILogger _logger;
         private IdentityType _idType = IdentityType.UserPrincipalName;
+        private const string PathOu = "LDAP://OU=Company Structure,DC=haiphatland,DC=local";
+        //private const string pathOu = "LDAP://OU=Company Structure,DC=baonx,DC=com";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PasswordChangeProvider"/> class.
@@ -36,6 +38,19 @@ namespace Unosquare.PassCore.PasswordProvider
             _logger = logger;
             _options = options.Value;
             SetIdType();
+        }
+
+        public int BackDateSchedule()
+        {
+            try
+            {
+                return int.Parse(_options.BackDateSchedule);
+            }
+            catch (Exception e)
+            {
+              _logger.Error("Loi: " + e);
+              return 1;
+            }
         }
 
         public string Test()
@@ -546,10 +561,18 @@ namespace Unosquare.PassCore.PasswordProvider
                     check = false;
                 }
             }
+            _logger.Information("PasswordChangeProvider.CreateUser fixedUsername=" + fixedUsername + ". username=" + username);
 
             //Cach 1 Create User
             //OU: OU=Company Structure,DC=baonx,DC=com
-            DirectoryEntry ouEntry = new DirectoryEntry("LDAP://OU=Company Structure,DC=baonx,DC=com");
+            DirectoryEntry ouEntry = new DirectoryEntry(PathOu);
+
+            //==Fix lỗi: Server is unwilling to process the request
+            //"LDAP://hpladds01/CN=" + userDn + ",OU=optional,DC=your-domain,DC=com" 
+            //"LDAP://hpladds01/CN=userName,OU=optional,DC=your-domain,DC=com" 
+            //string userStr = "LDAP://hpladds01/CN=" + username + "," + PathOu;
+            //_logger.Information("PasswordChangeProvider.CreateUser ==> Call ouEntry.Children.Add(" + userStr);
+            //DirectoryEntry childEntry = ouEntry.Children.Add(userStr, "user");
 
             DirectoryEntry childEntry = ouEntry.Children.Add("CN=" + username, "user");
             childEntry.Properties[UserPropertiesAd.UserPrincipalName].Value = fixedUsername;
@@ -566,16 +589,18 @@ namespace Unosquare.PassCore.PasswordProvider
             childEntry.Properties[UserPropertiesAd.Department].Value = user.department;
             childEntry.Properties[UserPropertiesAd.Title].Value = user.title;
             //Enable user
-            childEntry.Properties[UserPropertiesAd.UserAccountControl].Value = 66048;
-            childEntry.Properties[UserPropertiesAd.PwdLastSet].Value = 0;
+            childEntry.Properties[UserPropertiesAd.PwdLastSet].Value = -1;
             childEntry.Properties[UserPropertiesAd.AccountExpires].Value = "9223372036854775807";
 
+            _logger.Information("PasswordChangeProvider.CreateUser ==> Call method: childEntry.CommitChanges()");
             childEntry.CommitChanges();
 
-            childEntry.Invoke("SetPassword", new object[] { pw });
+            childEntry.Invoke("SetPassword", pw);
+            childEntry.Properties[UserPropertiesAd.UserAccountControl].Value = 66048;
             childEntry.CommitChanges();
 
             ouEntry.CommitChanges();
+            _logger.Information("PasswordChangeProvider.CreateUser ouEntry.CommitChanges()");
 
             //Add user vao Group
             string groupName = "Employees";

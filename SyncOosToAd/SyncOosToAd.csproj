@@ -5,6 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <LangVersion>9.0</LangVersion>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -18,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="SendEmailByEmailTemplate\Signup.aspx.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="SendEmailByEmailTemplate\Signup.aspx" />
     <None Remove="XmlApi\Response.json" />
   </ItemGroup>
 
@@ -36,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj" />
     <ProjectReference Include="..\src\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj" />
     <ProjectReference Include="..\src\Unosquare.PassCore.Web\Unosquare.PassCore.Web.csproj" />
   </ItemGroup>

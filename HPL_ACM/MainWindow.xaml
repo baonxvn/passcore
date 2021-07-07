@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button x:Name="BtnStartSync" Content="START" HorizontalAlignment="Left" Margin="684,10,0,0" VerticalAlignment="Top" Height="36" Width="106" Click="BtnStartSync_Click"/>
+        <RichTextBox x:Name="RtbConsole" Margin="0,59,0,0">
+            <FlowDocument>
+                <Paragraph>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
 
     </Grid>
 </Window>

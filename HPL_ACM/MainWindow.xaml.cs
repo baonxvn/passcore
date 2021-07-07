@@ -24,5 +24,10 @@ namespace HPL_ACM
         {
             InitializeComponent();
         }
+
+        private void BtnStartSync_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
