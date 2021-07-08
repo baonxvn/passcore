@@ -341,6 +341,109 @@ namespace Hpl.HrmDatabase.Services
             return nhanVien;
         }
 
+        public static NhanVienViewModel FixNhanVienTheoUsername(string userName)
+        {
+            var db = new HrmDbContext();
+            var nhanVien = new NhanVienViewModel();
+            //var qr1 = db.SysNguoiDungs.Where(x => x.TenDangNhap == username);
+
+            var nvList = from nv in db.NhanViens
+                        join nd in db.SysNguoiDungs on nv.NhanVienId equals nd.NhanVienId into table1
+                        from nd in table1.DefaultIfEmpty()
+                        join cv in db.NsDsChucVus on nv.ChucVuId equals cv.ChucVuId into table2
+                        from cv in table2.DefaultIfEmpty()
+                        join cd in db.NsDsChucDanhs on nv.ChucDanhId equals cd.ChucDanhId into table3
+                        from cd in table3.DefaultIfEmpty()
+                        join p in db.PhongBans on nv.PhongBanId equals p.PhongBanId into table4
+                        from p in table4.DefaultIfEmpty()
+                        where nd.TenDangNhap == userName
+                        select new NhanVienViewModel
+                        {
+                            NhanVienID = nv.NhanVienId,
+                            Ho = nv.Ho,
+                            Ten = nv.HoTen,
+                            GioiTinh = nv.GioiTinh,
+                            MaNhanVien = nv.MaNhanVien,
+                            TenDangNhap = nd.TenDangNhap,
+                            Email = nv.Email,
+                            EmailCaNhan = nv.EmailCaNhan,
+                            DienThoai = nv.DienThoai,
+                            CMTND = nv.Cmtnd,
+                            TenChucVu = cv.TenChucVu,
+                            TenChucDanh = cd.TenChucDanh,
+                            PhongBanId = p.PhongBanId,
+                            TenPhongBan = p.Ten,
+                            MaPhongBan = p.MaPhongBan
+                        };
+
+            switch (nvList.ToList().Count)
+            {
+                case > 1:
+                    nhanVien.TenDangNhap = "Username này bị trùng lặp, yêu cầu kiểm tra lại";
+                    break;
+                case 1:
+                    nhanVien = nvList.FirstOrDefault();
+                    var pbList = db.PhongBans.ToList();
+
+                    //Lay co cau phong ban cua Nhan Su
+                    var child = pbList.First(x => nhanVien != null && x.PhongBanId == nhanVien.PhongBanId);
+                    var parents = FindAllParents(pbList, child).ToList();
+
+                    int index = 0;
+                    if (nhanVien != null)
+                    {
+                        foreach (var phongBan in parents)
+                        {
+                            index++;
+                            switch (index)
+                            {
+                                case 1:
+                                    nhanVien.PhongBanCha = phongBan.Ten;
+                                    nhanVien.MaCha = phongBan.MaPhongBan;
+                                    break;
+                                case 2:
+                                    nhanVien.PhongBanOng = phongBan.Ten;
+                                    nhanVien.MaOng = phongBan.MaPhongBan;
+                                    break;
+                                case 3:
+                                    nhanVien.PhongBanCo = phongBan.Ten;
+                                    nhanVien.MaCo = phongBan.MaPhongBan;
+                                    break;
+                                case 4:
+                                    nhanVien.PhongBanKy = phongBan.Ten;
+                                    nhanVien.MaKy = phongBan.MaPhongBan;
+                                    break;
+                                case 5:
+                                    nhanVien.PhongBan6 = phongBan.Ten;
+                                    nhanVien.MaPb6 = phongBan.MaPhongBan;
+                                    break;
+                            }
+                        }
+                    }
+                  
+                    //Fix username
+                    var user = db.SysNguoiDungs.FirstOrDefault(x => x.TenDangNhap == userName);
+                    if (user != null)
+                    {
+                        //Check User tren AD
+
+                        //Fix Email
+                        string email = userName + "@haiphatland.com.vn";
+                        if (nhanVien.Email.Equals(email))
+                        {
+                            
+                        }
+
+                    }
+
+                    break;
+            }
+
+            db.Dispose();
+
+            return nhanVien;
+        }
+
         public static NhanVienViewModel FixUsernameNhanVien(string maNhanVien)
         {
             var db = new HrmDbContext();
@@ -842,8 +945,7 @@ namespace Hpl.HrmDatabase.Services
                     switch (listIds.Count())
                     {
                         case 1:
-                            phongBan = db.PhongBans.FirstOrDefault(x => listIds.Contains(x.PhongBanId));
-                            break;
+                            return db.PhongBans.FirstOrDefault(x => listIds.Contains(x.PhongBanId));
                         case < 1:
                         case > 1:
                             //TODO
@@ -852,7 +954,7 @@ namespace Hpl.HrmDatabase.Services
                 }
             }
 
-            return phongBan;
+            return null;
         }
 
         /// <summary>

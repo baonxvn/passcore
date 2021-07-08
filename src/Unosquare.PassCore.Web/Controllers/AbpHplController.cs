@@ -15,6 +15,27 @@ namespace Unosquare.PassCore.Web.Controllers
     public class AbpHplController : ControllerBase
     {
         [HttpGet]
+        [Route("UpdateBranch")]
+        public string UpdateBranch()
+        {
+            AbpServices.UpdateBranch();
+
+            return JsonConvert.SerializeObject("OK!");
+        }
+
+        [HttpGet]
+        [Route("GetAllLogNhanVien")]
+        public string GetAllLogNhanVien()
+        {
+            var resrult = new ApiResult
+            {
+                Payload = AbpServices.GetAllLogNhanVien()
+            };
+
+            return JsonConvert.SerializeObject(resrult);
+        }
+
+        [HttpGet]
         [Route("GetAllPhongBan")]
         public string GetAllPhongBan()
         {

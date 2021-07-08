@@ -48,8 +48,8 @@ namespace Unosquare.PassCore.PasswordProvider
             }
             catch (Exception e)
             {
-              _logger.Error("Loi: " + e);
-              return 1;
+                _logger.Error("Loi: " + e);
+                return 1;
             }
         }
 
@@ -625,6 +625,8 @@ namespace Unosquare.PassCore.PasswordProvider
             group.Dispose();
 
             _logger.Information(user.sAMAccountName + " created on AD at " + DateTime.Now.ToString("G"));
+            Console.WriteLine(user.sAMAccountName + " created on AD at " + DateTime.Now.ToString("G"));
+
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
 
             return result;

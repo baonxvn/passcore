@@ -61,6 +61,7 @@ namespace Hpl.HrmDatabase
         DbSet<AbpWebhookEvent> AbpWebhookEvents { get; set; } // AbpWebhookEvents
         DbSet<AbpWebhookSendAttempt> AbpWebhookSendAttempts { get; set; } // AbpWebhookSendAttempts
         DbSet<AbpWebhookSubscription> AbpWebhookSubscriptions { get; set; } // AbpWebhookSubscriptions
+        DbSet<HplNhanVienLog> HplNhanVienLogs { get; set; } // HplNhanVienLogs
         DbSet<HplPhongBan> HplPhongBans { get; set; } // HplPhongBan
         DbSet<HplSyncLog> HplSyncLogs { get; set; } // HplSyncLogs
 
@@ -163,6 +164,7 @@ namespace Hpl.HrmDatabase
         public DbSet<AbpWebhookEvent> AbpWebhookEvents { get; set; } // AbpWebhookEvents
         public DbSet<AbpWebhookSendAttempt> AbpWebhookSendAttempts { get; set; } // AbpWebhookSendAttempts
         public DbSet<AbpWebhookSubscription> AbpWebhookSubscriptions { get; set; } // AbpWebhookSubscriptions
+        public DbSet<HplNhanVienLog> HplNhanVienLogs { get; set; } // HplNhanVienLogs
         public DbSet<HplPhongBan> HplPhongBans { get; set; } // HplPhongBan
         public DbSet<HplSyncLog> HplSyncLogs { get; set; } // HplSyncLogs
 
@@ -222,6 +224,7 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new AbpWebhookEventConfiguration());
             modelBuilder.ApplyConfiguration(new AbpWebhookSendAttemptConfiguration());
             modelBuilder.ApplyConfiguration(new AbpWebhookSubscriptionConfiguration());
+            modelBuilder.ApplyConfiguration(new HplNhanVienLogConfiguration());
             modelBuilder.ApplyConfiguration(new HplPhongBanConfiguration());
             modelBuilder.ApplyConfiguration(new HplSyncLogConfiguration());
         }
@@ -1141,6 +1144,34 @@ namespace Hpl.HrmDatabase
         public bool IsActive { get; set; } // IsActive
         public string Webhooks { get; set; } // Webhooks
         public string Headers { get; set; } // Headers
+    }
+
+    // HplNhanVienLogs
+    public class HplNhanVienLog
+    {
+        public int NhanVienId { get; set; } // NhanVienId (Primary key)
+        public string FirstName { get; set; } // FirstName (length: 256)
+        public string LastName { get; set; } // LastName (length: 256)
+        public string GioiTinh { get; set; } // GioiTinh (length: 50)
+        public string MaNhanVien { get; set; } // MaNhanVien (length: 50)
+        public string TenDangNhap { get; set; } // TenDangNhap (length: 50)
+        public string Email { get; set; } // Email (length: 256)
+        public string EmailCaNhan { get; set; } // EmailCaNhan (length: 256)
+        public string DienThoai { get; set; } // DienThoai (length: 50)
+        public string Cmtnd { get; set; } // CMTND (length: 50)
+        public string TenChucVu { get; set; } // TenChucVu (length: 256)
+        public string TenChucDanh { get; set; } // TenChucDanh (length: 256)
+        public int? PhongBanId { get; set; } // PhongBanId
+        public string TenPhongBan { get; set; } // TenPhongBan (length: 256)
+        public int? PhongBanCap1Id { get; set; } // PhongBanCap1Id
+        public string TenPhongBanCap1 { get; set; } // TenPhongBanCap1 (length: 256)
+        public string IsAd { get; set; } // IsAd (length: 50)
+        public string IsHrm { get; set; } // IsHrm (length: 50)
+        public string IsSaleOnline { get; set; } // IsSaleOnline (length: 50)
+        public string IsEmail { get; set; } // IsEmail (length: 50)
+        public string LinkHrm { get; set; } // LinkHrm (length: 512)
+        public string LinkSaleOnline { get; set; } // LinkSaleOnline (length: 512)
+        public string LinkEmail { get; set; } // LinkEmail (length: 512)
     }
 
     // HplPhongBan
@@ -2066,6 +2097,40 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.IsActive).HasColumnName(@"IsActive").HasColumnType("bit").IsRequired();
             builder.Property(x => x.Webhooks).HasColumnName(@"Webhooks").HasColumnType("nvarchar(max)").IsRequired(false);
             builder.Property(x => x.Headers).HasColumnName(@"Headers").HasColumnType("nvarchar(max)").IsRequired(false);
+        }
+    }
+
+    // HplNhanVienLogs
+    public class HplNhanVienLogConfiguration : IEntityTypeConfiguration<HplNhanVienLog>
+    {
+        public void Configure(EntityTypeBuilder<HplNhanVienLog> builder)
+        {
+            builder.ToTable("HplNhanVienLogs", "dbo");
+            builder.HasKey(x => x.NhanVienId);
+
+            builder.Property(x => x.NhanVienId).HasColumnName(@"NhanVienId").HasColumnType("int").IsRequired().ValueGeneratedNever();
+            builder.Property(x => x.FirstName).HasColumnName(@"FirstName").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.LastName).HasColumnName(@"LastName").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.GioiTinh).HasColumnName(@"GioiTinh").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.MaNhanVien).HasColumnName(@"MaNhanVien").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.TenDangNhap).HasColumnName(@"TenDangNhap").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Email).HasColumnName(@"Email").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.EmailCaNhan).HasColumnName(@"EmailCaNhan").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.DienThoai).HasColumnName(@"DienThoai").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.Cmtnd).HasColumnName(@"CMTND").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.TenChucVu).HasColumnName(@"TenChucVu").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.TenChucDanh).HasColumnName(@"TenChucDanh").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanId").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.PhongBanCap1Id).HasColumnName(@"PhongBanCap1Id").HasColumnType("int").IsRequired(false);
+            builder.Property(x => x.TenPhongBanCap1).HasColumnName(@"TenPhongBanCap1").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
+            builder.Property(x => x.IsAd).HasColumnName(@"IsAd").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.IsHrm).HasColumnName(@"IsHrm").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.IsSaleOnline).HasColumnName(@"IsSaleOnline").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.IsEmail).HasColumnName(@"IsEmail").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
+            builder.Property(x => x.LinkHrm).HasColumnName(@"LinkHrm").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.LinkSaleOnline).HasColumnName(@"LinkSaleOnline").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.LinkEmail).HasColumnName(@"LinkEmail").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
         }
     }
 

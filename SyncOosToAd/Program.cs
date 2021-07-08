@@ -45,6 +45,7 @@ namespace SyncOosToAd
             _options = provider.GetRequiredService<IOptions<PasswordChangeOptions>>();
 
             _logger.Information("----START HAI PHAT LAND ACM----");
+            Console.WriteLine("----START HAI PHAT LAND ACM----");
             int backDate = -1;
             try
             {
@@ -58,6 +59,7 @@ namespace SyncOosToAd
 
             var listNvs = GetAllNhanVienErrorUser(backDate);
             _logger.Information("----TỔNG SỐ HỒ SƠ XỬ LÝ: " + listNvs.Count);
+            Console.WriteLine("----TONG HO SO XU LY: " + listNvs.Count);
             HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
 
             await hplServices.CreateUserAllSys(listNvs);
