@@ -586,13 +586,21 @@ namespace Unosquare.PassCore.PasswordProvider
             childEntry.Properties[UserPropertiesAd.Description].Value = user.description;
             //Thong tin phong ban
             childEntry.Properties[UserPropertiesAd.EmployeeId].Value = user.employeeID;
-            childEntry.Properties[UserPropertiesAd.Department].Value = user.department;
-            childEntry.Properties[UserPropertiesAd.Title].Value = user.title;
+            if (!string.IsNullOrEmpty(user.department))
+            {
+                childEntry.Properties[UserPropertiesAd.Department].Value = user.department;
+            }
+
+            if (!string.IsNullOrEmpty(user.title))
+            {
+                childEntry.Properties[UserPropertiesAd.Title].Value = user.title;
+            }
+
             //Enable user
             childEntry.Properties[UserPropertiesAd.PwdLastSet].Value = -1;
             childEntry.Properties[UserPropertiesAd.AccountExpires].Value = "9223372036854775807";
 
-            _logger.Information("PasswordChangeProvider.CreateUser ==> Call method: childEntry.CommitChanges()");
+            //_logger.Information("PasswordChangeProvider.CreateUser ==> Call method: childEntry.CommitChanges()");
             childEntry.CommitChanges();
 
             childEntry.Invoke("SetPassword", pw);
@@ -600,7 +608,7 @@ namespace Unosquare.PassCore.PasswordProvider
             childEntry.CommitChanges();
 
             ouEntry.CommitChanges();
-            _logger.Information("PasswordChangeProvider.CreateUser ouEntry.CommitChanges()");
+            //_logger.Information("PasswordChangeProvider.CreateUser ouEntry.CommitChanges()");
 
             //Add user vao Group
             string groupName = "Employees";
@@ -1067,7 +1075,8 @@ namespace Unosquare.PassCore.PasswordProvider
             }
             catch (Exception e)
             {
-                _logger.Warning($"Lỗi call AcquirePrincipalContext: " + e.Message);
+                _logger.Warning("Lỗi call AcquirePrincipalContext: " + e);
+                Console.WriteLine("Lỗi call AcquirePrincipalContext: " + e);
                 return null;
             }
         }
