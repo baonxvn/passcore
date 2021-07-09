@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="app.manifest" />
     <None Remove="SendEmailByEmailTemplate\Signup.aspx" />
     <None Remove="XmlApi\Response.json" />
   </ItemGroup>

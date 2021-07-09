@@ -40,7 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HPL_ACM", "HPL_ACM\HPL_ACM.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.SaleOnlineDatabase", "src\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj", "{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionConsoleApp", "DependencyInjectionConsoleApp\DependencyInjectionConsoleApp.csproj", "{04070DD7-2DBC-4BF5-9D4B-72A0A0B3E658}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjectionConsoleApp", "DependencyInjectionConsoleApp\DependencyInjectionConsoleApp.csproj", "{04070DD7-2DBC-4BF5-9D4B-72A0A0B3E658}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HplAcm", "HplAcm\HplAcm.csproj", "{77A746D5-B188-47E2-B2A5-B0FA75A26A12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +102,10 @@ Global
 		{04070DD7-2DBC-4BF5-9D4B-72A0A0B3E658}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04070DD7-2DBC-4BF5-9D4B-72A0A0B3E658}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04070DD7-2DBC-4BF5-9D4B-72A0A0B3E658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A746D5-B188-47E2-B2A5-B0FA75A26A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A746D5-B188-47E2-B2A5-B0FA75A26A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A746D5-B188-47E2-B2A5-B0FA75A26A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A746D5-B188-47E2-B2A5-B0FA75A26A12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

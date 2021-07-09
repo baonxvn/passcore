@@ -40,6 +40,8 @@ namespace SyncOosToAd
         public async Task CreateUserAllSys(List<NhanVienViewModel> listNvs)
         {
             string userListEmail = "<p style=\"font-weight: bold\">DANH SÁCH USER ĐÃ TẠO MỚI HOẶC SỬA THÔNG TIN</p>";
+            userListEmail += ". <a href=\"https://acm.haiphatland.com.vn/\">https://acm.haiphatland.com.vn/</a><br />";
+
             string userSale = "<p style=\"font-weight: bold\">DANH SÁCH USER ĐÃ TẠO SALE ONLINE</p>";
             int i = 0;
             int j = 0;
@@ -76,7 +78,6 @@ namespace SyncOosToAd
                     {
                         dienThoai = "+84" + int.Parse(model.DienThoai.Trim());
                         pw = model.DienThoai.Trim().Substring(0, 6);
-                        _logger.Information(pw);
                     }
                     catch (Exception e)
                     {

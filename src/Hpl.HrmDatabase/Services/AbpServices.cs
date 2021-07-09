@@ -58,7 +58,7 @@ namespace Hpl.HrmDatabase.Services
         {
             var db = new AbpHplDbContext();
 
-            return db.HplNhanVienLogs.ToList();
+            return db.HplNhanVienLogs.OrderByDescending(x=>x.DateCreated).ToList();
         }
 
         public static List<HplPhongBan> GetListPhongBan()

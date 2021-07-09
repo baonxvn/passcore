@@ -1172,6 +1172,7 @@ namespace Hpl.HrmDatabase
         public string LinkHrm { get; set; } // LinkHrm (length: 512)
         public string LinkSaleOnline { get; set; } // LinkSaleOnline (length: 512)
         public string LinkEmail { get; set; } // LinkEmail (length: 512)
+        public DateTime? DateCreated { get; set; } // DateCreated
     }
 
     // HplPhongBan
@@ -2131,6 +2132,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.LinkHrm).HasColumnName(@"LinkHrm").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
             builder.Property(x => x.LinkSaleOnline).HasColumnName(@"LinkSaleOnline").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
             builder.Property(x => x.LinkEmail).HasColumnName(@"LinkEmail").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.DateCreated).HasColumnName(@"DateCreated").HasColumnType("datetime").IsRequired(false);
         }
     }
 

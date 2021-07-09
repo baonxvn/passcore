@@ -26,7 +26,7 @@ namespace Unosquare.PassCore.PasswordProvider
         private readonly ILogger _logger;
         private IdentityType _idType = IdentityType.UserPrincipalName;
         private const string PathOu = "LDAP://OU=Company Structure,DC=haiphatland,DC=local";
-        //private const string pathOu = "LDAP://OU=Company Structure,DC=baonx,DC=com";
+        //private const string PathOu = "LDAP://OU=Company Structure,DC=baonx,DC=com";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PasswordChangeProvider"/> class.
@@ -582,10 +582,16 @@ namespace Unosquare.PassCore.PasswordProvider
             childEntry.Properties[UserPropertiesAd.FirstName].Value = user.sn;//GivenName, FirstName = Ten
             childEntry.Properties[UserPropertiesAd.DisplayName].Value = user.displayName;//GivenName, FirstName
             childEntry.Properties[UserPropertiesAd.EmailAddress].Value = username + "@haiphatland.com.vn";
-            childEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value = user.telephoneNumber;
+            if (!string.IsNullOrEmpty(user.telephoneNumber))
+            {
+                childEntry.Properties[UserPropertiesAd.TelePhoneNumber].Value = user.telephoneNumber;
+            }
             childEntry.Properties[UserPropertiesAd.Description].Value = user.description;
             //Thong tin phong ban
-            childEntry.Properties[UserPropertiesAd.EmployeeId].Value = user.employeeID;
+            if (!string.IsNullOrEmpty(user.employeeID))
+            {
+                childEntry.Properties[UserPropertiesAd.EmployeeId].Value = user.employeeID;
+            }
             if (!string.IsNullOrEmpty(user.department))
             {
                 childEntry.Properties[UserPropertiesAd.Department].Value = user.department;
@@ -632,8 +638,8 @@ namespace Unosquare.PassCore.PasswordProvider
             userPrincipal.Dispose();
             group.Dispose();
 
-            _logger.Information(user.sAMAccountName + " created on AD at " + DateTime.Now.ToString("G"));
-            Console.WriteLine(user.sAMAccountName + " created on AD at " + DateTime.Now.ToString("G"));
+            _logger.Information(username + " created on AD at " + DateTime.Now.ToString("G"));
+            Console.WriteLine(username + " created on AD at " + DateTime.Now.ToString("G"));
 
             result.Errors = new ApiErrorItem(ApiErrorCode.Generic, "Successful");
 
