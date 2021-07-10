@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>ServiceAccountList</Operation>
+      <Parameters/>
+    </Request>
+    <Response version="20.5" session="3B9A010D" et="0.000748">
+      <Status id="0" value="0x00000000" message="The operation completed successfully."/>
+      <ServiceVersion>20.5.0.1a</ServiceVersion>
+      <Result>
+        <Accounts count="2">
+          <Account id="{gQ4mJ80F-fUin-W29H-AzR4-8db44AmF0t2O}">
+            <Description>Default API Testing Account</Description>
+          </Account>
+          <Account id="{EMSN3UeS-37VZ-RWR5-E74x-nO8960Qs9eXH}">
+            <Description>API Account created at Fri Oct 23 13:03:13 2020</Description>
+          </Account>
+        </Accounts>
+      </Result>
+    </Response>
+  </API>
+</MDaemon>

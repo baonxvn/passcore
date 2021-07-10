@@ -1,21 +1,15 @@
-﻿
-
-namespace Unosquare.PassCore.Web.Services
+﻿namespace Unosquare.PassCore.Web.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.DirectoryServices.ActiveDirectory;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Xml;
     using Hpl.HrmDatabase;
     using Hpl.HrmDatabase.Services;
+    using Microsoft.Extensions.Options;
+    using Serilog;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Unosquare.PassCore.Common;
     using Unosquare.PassCore.Web.MdaemonServices;
     using Unosquare.PassCore.Web.Models;
-    using Serilog;
-    using Microsoft.Extensions.Options;
-    using Unosquare.PassCore.PasswordProvider;
 
     public class ServiceCommon : IServiceCommon
     {

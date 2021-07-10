@@ -8,7 +8,6 @@ namespace Unosquare.PassCore.Web.Helpers
     using System.DirectoryServices.AccountManagement;
     using Hpl.HrmDatabase.ViewModels;
     using System.Collections.Generic;
-    using Unosquare.PassCore.Web.MdaemonServices;
 
     internal class DebugPasswordChangeProvider : IPasswordChangeProvider
     {

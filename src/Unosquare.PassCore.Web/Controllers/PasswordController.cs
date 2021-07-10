@@ -1,8 +1,5 @@
 ﻿namespace Unosquare.PassCore.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
     using Common;
     using Helpers;
     using Microsoft.AspNetCore.Mvc;
@@ -10,6 +7,9 @@
     using Models;
     using Serilog;
     using Swan.Net;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Represents a controller class holding all of the server-side functionality of this tool.

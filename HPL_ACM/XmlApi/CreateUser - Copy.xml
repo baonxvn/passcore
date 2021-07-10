@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>CreateUser</Operation>
+      <Parameters>
+        <Domain>sample.int</Domain>
+        <Mailbox>Colleen.Wing</Mailbox>
+        <Details>
+          <FullName>Colleen Wing </FullName>
+          <Frozen>No</Frozen>
+          <Disabled>No</Disabled>
+          <MustChangepassword>No</MustChangepassword>
+          <DontExpirePassword>Yes</DontExpirePassword>
+          <Password>Password1</Password>
+          <Description>Vaij veig poogiasiapudrei piop, wany, Colleen Wing .</Description>
+          <AdminNotes>Colleen Wing cidhut byfamuz son gooh niriboch.</AdminNotes>
+          <Title/>
+          <FirstName>Colleen</FirstName>
+          <MiddleName/>
+          <LastName>Wing</LastName>
+          <Suffix>
+            <![CDATA[ ]]>
+          </Suffix>
+        </Details>
+        <Aliases>
+          <Alias>Wing_Colleen@sample.int</Alias>
+        </Aliases>
+        <GroupMembership>
+          <Group>sample.int Staff</Group>
+          <Group>sample.int Sumpin Else</Group>
+          <Group>everyone@sample.int</Group>
+          <Group>Logistics@sample.int</Group>
+        </GroupMembership>
+        <ListMembership>
+          <List>QuickSilver-vs-Flash@marvel.int</List>
+          <List>Comics@marvel.int</List>
+          <List>Redheads@marvel.int</List>
+          <List>Marvel-Cinematic-Universe@marvel.int</List>
+        </ListMembership>
+        <Roles>
+          <IsGlobalAdmin>0</IsGlobalAdmin>
+          <IsDomainAdmin domain="aim.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="attilan.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="avengers.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="eternals.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="f4.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="hammer.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="heroes4hire.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="marvel.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="nelson-murdock.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="newyorkbulletin.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="oscorp.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="roxxon.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="sample.int">1</IsDomainAdmin>
+          <IsDomainAdmin domain="shield.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="stark.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="weapon-x.int">0</IsDomainAdmin>
+          <IsDomainAdmin domain="xmen.int">0</IsDomainAdmin>
+        </Roles>
+      </Parameters>
+    </Request>
+    <Response version="20.5" session="3B9A0060" et="0.494992">
+      <Status id="0" value="0x00000000" message="The operation completed successfully."/>
+      <ServiceVersion>20.5.0.1a</ServiceVersion>
+      <Result>
+        <User id="Colleen.Wing" displayname="Colleen Wing" domain="sample.int"/>
+      </Result>
+    </Response>
+  </API>
+</MDaemon>

@@ -1,8 +1,8 @@
 ﻿namespace Unosquare.PassCore.Web.MdaemonServices
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class UtilityHelpers
     {
@@ -46,7 +46,7 @@
             var list = new List<CreateUserInput>();
             for (int i = j; i < j + 3; i++)
             {
-                var user = new CreateUserInput()
+                var user = new CreateUserInput
                 {
                     Domain = MdaemonXmlApi.MailDomain,
                     Username = "user" + i,

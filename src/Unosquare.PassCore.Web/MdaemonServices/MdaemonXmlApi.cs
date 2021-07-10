@@ -1,26 +1,36 @@
 ﻿namespace Unosquare.PassCore.Web.MdaemonServices
 {
+    using Common;
+    using Hpl.HrmDatabase.Services;
+    using Models;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Xml;
-    using Models;
-    using Common;
-    using System.Collections.Generic;
-    using Hpl.HrmDatabase.Services;
-    using Microsoft.AspNetCore.Mvc.Filters;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using static MdaemonAuthen;
-    using System.Linq;
-    using Hpl.HrmDatabase.ViewModels;
-    using Hpl.HrmDatabase;
-    using Unosquare.PassCore.Web.Services;
 
     public class MdaemonXmlApi
     {
         //public const string MailDomain = "company.test";
         public const string MailDomain = "haiphatland.com.vn";
         private const string ParaNode = "/MDaemon/API/Request/Parameters";
+
+        public static async Task<ApiResult> FixEmailChuaDuocTao()
+        {
+            ApiResult result = new ApiResult();
+            List<object> lstOut = new List<object>();
+            var listLog = AbpServices.GetAllLogNhanVien();
+            result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Tổng user: " + listLog.Count));
+            foreach (var log in listLog)
+            {
+                lstOut.Add(await CreateUserByUserName(log.TenDangNhap));
+            }
+
+            result.Payload = lstOut;
+
+            return result;
+        }
 
         public static async Task<ApiResult> GetUserInfo(string username)
         {
@@ -80,6 +90,46 @@
             if (i == 0) return userName;
 
             return userName;
+        }
+
+        public static async Task<ApiResult> CreateUserByUserName(string userName)
+        {
+            var result = new ApiResult();
+            var listNvs = UserService.GetNhanVienTheoUserName(userName);
+            if (listNvs.Count > 1)
+            {
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Username bị trùng lặp, kiểm tra lại"));
+                return result;
+            }
+
+            //TẠO EMAIL
+            var nv = listNvs.FirstOrDefault();
+            if (nv == null)
+            {
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Không tìm thấy nhân viên có username này."));
+                return result;
+            }
+
+            string ten = UsernameGenerator.ConvertToUnSign(nv.Ten);
+            string ho = UsernameGenerator.ConvertToUnSign(nv.Ho);
+
+            CreateUserInput input = new CreateUserInput
+            {
+                Domain = "haiphatland.com.vn",
+                Username = userName,
+                FirstName = ten,
+                LastName = ho,
+                FullName = ho + " " + ten,
+                Password = "Hpl@123",
+                AdminNotes = "Tạo từ tool, time: " + DateTime.Now.ToString("G"),
+                MailList = "",
+                Group = ""
+            };
+
+            result.Payload = await MdaemonXmlApi.CreateUser(input);
+            result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Thành công."));
+
+            return result;
         }
 
         public static async Task<ApiResult> CreateUser(List<CreateUserInput> listUser)

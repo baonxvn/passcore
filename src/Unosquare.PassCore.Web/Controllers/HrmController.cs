@@ -1,15 +1,15 @@
 ﻿namespace Unosquare.PassCore.Web.Controllers
 {
-    using System.Linq;
-    using System.Collections.Generic;
-    using Microsoft.AspNetCore.Mvc;
-    using Hpl.HrmDatabase.Services;
-    using Newtonsoft.Json;
     using Common;
-    using Models;
-    using Serilog;
+    using Hpl.HrmDatabase.Services;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
+    using Models;
+    using Newtonsoft.Json;
+    using Serilog;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Unosquare.PassCore.Web.MdaemonServices;
 

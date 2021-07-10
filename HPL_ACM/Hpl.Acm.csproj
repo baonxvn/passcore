@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>favicon2.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Company>Bao Nguyen</Company>
+    <Product>Hpl.Acm</Product>
+    <Authors>Bao Nguyen</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Api.png" />
+    <None Remove="XmlApi\Response.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="XmlApi\Response.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Map" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Unosquare.PassCore.PasswordProvider\Unosquare.PassCore.PasswordProvider.csproj" />
+    <ProjectReference Include="..\src\Unosquare.PassCore.Web\Unosquare.PassCore.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Api.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

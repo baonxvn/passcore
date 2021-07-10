@@ -1,7 +1,7 @@
 
+
 namespace Unosquare.PassCore.Web
 {
-    using System;
     using Common;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Builder;
@@ -11,7 +11,8 @@ namespace Unosquare.PassCore.Web
     using Microsoft.Extensions.Options;
     using Models;
     using Serilog;
-    using PasswordProvider;
+    using System;
+    using Unosquare.PassCore.PasswordProvider;
     using Unosquare.PassCore.Web.Services;
 
     //using Zyborg.PassCore.PasswordProvider.LDAP;

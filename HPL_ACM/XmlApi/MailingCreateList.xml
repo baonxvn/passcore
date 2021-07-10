@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MDaemon>
+  <API>
+    <Request version="20.0.0" echo="1" verbose="0">
+      <Operation>CreateList</Operation>
+      <Parameters>
+        <Domain>company.test</Domain>
+        <ListName>bancongnghe</ListName>
+        <Details>
+        </Details>
+      </Parameters>
+    </Request>
+  </API>
+</MDaemon>

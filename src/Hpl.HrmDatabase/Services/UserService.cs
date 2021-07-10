@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Hpl.HrmDatabase.ViewModels;
 using Microsoft.IdentityModel.Protocols;
-using Serilog;
 
 namespace Hpl.HrmDatabase.Services
 {
@@ -1104,6 +1103,69 @@ namespace Hpl.HrmDatabase.Services
                               join pb6 in db.PhongBans on pb5.PhongBanChaId equals pb6.PhongBanId into table9
                               from pb6 in table9.DefaultIfEmpty()
                               where nv.MaNhanVien.Equals(maNhanVien)
+                              select new NhanVienViewModel
+                              {
+                                  NhanVienID = nv.NhanVienId,
+                                  Ho = nv.Ho,
+                                  Ten = nv.HoTen,
+                                  GioiTinh = nv.GioiTinh,
+                                  MaNhanVien = nv.MaNhanVien,
+                                  TenDangNhap = nd.TenDangNhap,
+                                  Email = nv.Email,
+                                  EmailCaNhan = nv.EmailCaNhan,
+                                  DienThoai = nv.DienThoai,
+                                  CMTND = nv.Cmtnd,
+                                  TenChucVu = cv.TenChucVu,
+                                  TenChucDanh = cd.TenChucDanh,
+                                  PhongBanId = pb.PhongBanId,
+                                  TenPhongBan = pb.Ten,
+                                  MaPhongBan = pb.MaPhongBan,
+                                  PhongBanCha = pb2.Ten,
+                                  MaCha = pb.MaPhongBan,
+                                  PhongBanOng = pb3.Ten,
+                                  MaOng = pb3.MaPhongBan,
+                                  PhongBanCo = pb4.Ten,
+                                  MaCo = pb4.MaPhongBan,
+                                  PhongBanKy = pb5.Ten,
+                                  MaKy = pb5.MaPhongBan,
+                                  PhongBan6 = pb6.Ten,
+                                  MaPb6 = pb6.MaPhongBan
+                              };
+
+                return listNvs.OrderByDescending(x => x.NhanVienID).ToList();
+            }
+            catch (Exception e)
+            {
+                string abc = e.Message;
+                return new List<NhanVienViewModel>();
+            }
+        }
+
+        public static List<NhanVienViewModel> GetNhanVienTheoUserName(string userName)
+        {
+            var db = new HrmDbContext();
+            try
+            {
+                var listNvs = from nv in db.NhanViens
+                              join nd in db.SysNguoiDungs on nv.NhanVienId equals nd.NhanVienId into tb1
+                              from nd in tb1.DefaultIfEmpty()
+                              join cv in db.NsDsChucVus on nv.ChucVuId equals cv.ChucVuId into tb2
+                              from cv in tb2.DefaultIfEmpty()
+                              join cd in db.NsDsChucDanhs on nv.ChucDanhId equals cd.ChucDanhId into tb3
+                              from cd in tb3.DefaultIfEmpty()
+                              join pb in db.PhongBans on nv.PhongBanId equals pb.PhongBanId into table4
+                              from pb in table4.DefaultIfEmpty()
+                              join pb2 in db.PhongBans on pb.PhongBanChaId equals pb2.PhongBanId into table5
+                              from pb2 in table5.DefaultIfEmpty()
+                              join pb3 in db.PhongBans on pb2.PhongBanChaId equals pb3.PhongBanId into table6
+                              from pb3 in table6.DefaultIfEmpty()
+                              join pb4 in db.PhongBans on pb3.PhongBanChaId equals pb4.PhongBanId into table7
+                              from pb4 in table7.DefaultIfEmpty()
+                              join pb5 in db.PhongBans on pb4.PhongBanChaId equals pb5.PhongBanId into table8
+                              from pb5 in table8.DefaultIfEmpty()
+                              join pb6 in db.PhongBans on pb5.PhongBanChaId equals pb6.PhongBanId into table9
+                              from pb6 in table9.DefaultIfEmpty()
+                              where nd.TenDangNhap.Equals(userName)
                               select new NhanVienViewModel
                               {
                                   NhanVienID = nv.NhanVienId,

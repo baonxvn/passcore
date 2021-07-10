@@ -1,11 +1,11 @@
 ﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace Unosquare.PassCore.Web.Controllers
 {
-    using Newtonsoft.Json;
+    using MdaemonServices;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using MdaemonServices;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -27,13 +27,30 @@ namespace Unosquare.PassCore.Web.Controllers
         }
 
         [HttpGet]
+        [Route("FixEmailChuaDuocTao")]
+        public async Task<string> FixEmailChuaDuocTao()
+        {
+            var res = await MdaemonXmlApi.FixEmailChuaDuocTao();
+            return JsonConvert.SerializeObject(res);
+        }
+
+        [HttpGet]
+        [Route("CreateEmailByUserName")]
+        public async Task<string> CreateEmailByUserName(string userName)
+        {
+            var res = await MdaemonXmlApi.CreateUserByUserName(userName);
+
+            return JsonConvert.SerializeObject(res);
+        }
+
+        [HttpGet]
         [Route("CreateUser")]
         public async Task<string> CreateUser()
         {
-            var listUser = UtilityHelpers.CreateUserDemo();
+            //var listUser = UtilityHelpers.CreateUserDemo();
 
-            var res = await MdaemonXmlApi.CreateUser(listUser);
-            return JsonConvert.SerializeObject(res);
+            //var res = await MdaemonXmlApi.CreateUser(listUser);
+            return JsonConvert.SerializeObject("res");
         }
 
         [HttpGet]

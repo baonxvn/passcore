@@ -2,17 +2,12 @@
 namespace Unosquare.PassCore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Newtonsoft.Json;
-    using Unosquare.PassCore.Web.MdaemonServices;
-    using System.Threading.Tasks;
-    using Unosquare.PassCore.Web.Services;
-    using Unosquare.PassCore.Common;
-    using Unosquare.PassCore.Web.Models;
-    using Serilog;
     using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
+    using Serilog;
+    using System.Threading.Tasks;
+    using Unosquare.PassCore.Web.Models;
+    using Unosquare.PassCore.Web.Services;
 
     [Route("api/[controller]")]
     [ApiController]

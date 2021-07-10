@@ -5,11 +5,9 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Linq;
-    using System.Threading.Tasks;
-    using Unosquare.PassCore.PasswordProvider;
-    using Microsoft.Extensions.Options;
 
     public class MdaemonAuthen
     {

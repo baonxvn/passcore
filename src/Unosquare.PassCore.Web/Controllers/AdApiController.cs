@@ -1,18 +1,16 @@
 ﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace Unosquare.PassCore.Web.Controllers
 {
+    using Hpl.HrmDatabase.Services;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Serilog;
-    using Unosquare.PassCore.Common;
-    using Unosquare.PassCore.Web.Models;
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
-    using Hpl.HrmDatabase.Services;
+    using Serilog;
+    using System;
+    using System.Collections.Generic;
+    using Unosquare.PassCore.Common;
+    using Unosquare.PassCore.Web.Models;
 
-    using System.Threading.Tasks;
     [Route("api/[controller]")]
     [ApiController]
     public class AdApiController : ControllerBase

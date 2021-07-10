@@ -40,7 +40,7 @@ namespace SyncOosToAd
         public async Task CreateUserAllSys(List<NhanVienViewModel> listNvs)
         {
             string userListEmail = "<p style=\"font-weight: bold\">DANH SÁCH USER ĐÃ TẠO MỚI HOẶC SỬA THÔNG TIN</p>";
-            userListEmail += ". <a href=\"https://acm.haiphatland.com.vn/\">https://acm.haiphatland.com.vn/</a><br />";
+            userListEmail += "<p><a href=\"https://acm.haiphatland.com.vn/\">https://acm.haiphatland.com.vn/</a></p>";
 
             string userSale = "<p style=\"font-weight: bold\">DANH SÁCH USER ĐÃ TẠO SALE ONLINE</p>";
             int i = 0;
@@ -112,16 +112,18 @@ namespace SyncOosToAd
                     Console.WriteLine(userName + " created on HRM at " + DateTime.Now.ToString("G"));
 
                     //TẠO EMAIL
-                    CreateUserInput input = new CreateUserInput();
-                    input.Domain = "haiphatland.com.vn";
-                    input.Username = userName;
-                    input.FirstName = ten;
-                    input.LastName = ho;
-                    input.FullName = hoVaTen;
-                    input.Password = "Hpl@123";
-                    input.AdminNotes = "Tạo từ tool, time: " + DateTime.Now.ToString("G");
-                    input.MailList = "";
-                    input.Group = "";
+                    CreateUserInput input = new CreateUserInput
+                    {
+                        Domain = "haiphatland.com.vn",
+                        Username = userName,
+                        FirstName = ten,
+                        LastName = ho,
+                        FullName = hoVaTen,
+                        Password = "Hpl@123",
+                        AdminNotes = "Tạo từ tool, time: " + DateTime.Now.ToString("G"),
+                        MailList = "",
+                        Group = ""
+                    };
                     var res = await MdaemonXmlApi.CreateUser(input);
 
                     _logger.Information(userName + " created on MDaemon at " + DateTime.Now.ToString("G"));
@@ -213,7 +215,8 @@ namespace SyncOosToAd
                         IsSaleOnline = isSaleOnline,
                         IsEmail = "OK",
                         LinkHrm = "https://hrm.haiphatland.com.vn/HRIS/Profile/Index/" + nhanVien.NhanVienID + "/",
-                        LinkEmail = "https://id.haiphatland.com.vn:86/api/mdaemon/GetUserInfo?username=" + userName
+                        LinkEmail = "https://id.haiphatland.com.vn:86/api/mdaemon/GetUserInfo?username=" + userName,
+                        DateCreated = DateTime.Now
                     };
 
                     listNvLogs.Add(nvLog);

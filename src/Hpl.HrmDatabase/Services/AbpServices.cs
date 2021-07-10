@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Hpl.SaleOnlineDatabase;
@@ -57,8 +58,10 @@ namespace Hpl.HrmDatabase.Services
         public static List<HplNhanVienLog> GetAllLogNhanVien()
         {
             var db = new AbpHplDbContext();
+            var dt = DateTime.Now.AddDays(-7);
 
-            return db.HplNhanVienLogs.OrderByDescending(x=>x.DateCreated).ToList();
+            return db.HplNhanVienLogs.Where(x => x.DateCreated.Value >= dt)
+                .OrderByDescending(x => x.DateCreated).ToList();
         }
 
         public static List<HplPhongBan> GetListPhongBan()

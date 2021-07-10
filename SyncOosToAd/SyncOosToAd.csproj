@@ -19,11 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Mdaemon.cs" />
     <Compile Remove="SendEmailByEmailTemplate\Signup.aspx.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="app.manifest" />
     <None Remove="SendEmailByEmailTemplate\Signup.aspx" />
     <None Remove="XmlApi\Response.json" />
   </ItemGroup>
@@ -39,12 +39,9 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj" />
-    <ProjectReference Include="..\src\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj" />
     <ProjectReference Include="..\src\Unosquare.PassCore.Web\Unosquare.PassCore.Web.csproj" />
   </ItemGroup>
 
