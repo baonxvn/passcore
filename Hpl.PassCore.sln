@@ -20,8 +20,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.PassCore.Web", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PwnedPasswordsSearch", "src\PwnedPasswordsSearch\PwnedPasswordsSearch.csproj", "{E57BB014-B46C-4395-ACCF-A670F4ED109C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcApp", "AdSelfService\MvcApp.csproj", "{FF32C229-E048-4C8B-97CA-44CBEC366FF4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiApp", "WebAppApi\WebApiApp.csproj", "{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unosquare.PassCore.PasswordProvider", "src\Unosquare.PassCore.PasswordProvider\Unosquare.PassCore.PasswordProvider.csproj", "{D790C30A-302A-43F2-A7ED-3D204796734B}"
@@ -31,8 +29,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zyborg.PassCore.PasswordProvider.LDAP", "src\Zyborg.PassCore.PasswordProvider.LDAP\Zyborg.PassCore.PasswordProvider.LDAP.csproj", "{40B5F075-2529-47C8-A86F-FB4E05433642}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.HrmDatabase", "src\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj", "{A344AE81-F849-4329-AFEE-47218C85AC17}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.Acm", "HPL_ACM\Hpl.Acm.csproj", "{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.SaleOnlineDatabase", "src\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj", "{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}"
 EndProject
@@ -54,6 +50,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.Common.Helper", "Hpl.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactAppDemo", "ReactAppDemo\ReactAppDemo.csproj", "{328A9690-1ADF-442A-93F8-F2AA38AD9062}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hpl.Acm.Web", "Hpl.Acm.Web\Hpl.Acm.Web.csproj", "{19C519B9-8A0A-49A5-9A26-C03047327D7C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.Acm", "Hpl.Acm\Hpl.Acm.csproj", "{6EACF5E5-B912-4FDF-AFF3-82D9F967F724}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,10 +68,6 @@ Global
 		{E57BB014-B46C-4395-ACCF-A670F4ED109C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E57BB014-B46C-4395-ACCF-A670F4ED109C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E57BB014-B46C-4395-ACCF-A670F4ED109C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF32C229-E048-4C8B-97CA-44CBEC366FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF32C229-E048-4C8B-97CA-44CBEC366FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF32C229-E048-4C8B-97CA-44CBEC366FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF32C229-E048-4C8B-97CA-44CBEC366FF4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -92,10 +88,6 @@ Global
 		{A344AE81-F849-4329-AFEE-47218C85AC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A344AE81-F849-4329-AFEE-47218C85AC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A344AE81-F849-4329-AFEE-47218C85AC17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D9F2E4E-D80E-47BA-9E52-CF296865DEEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FAEECCA-7B75-4D82-8F46-7811FEB63BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -132,6 +124,14 @@ Global
 		{328A9690-1ADF-442A-93F8-F2AA38AD9062}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{328A9690-1ADF-442A-93F8-F2AA38AD9062}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{328A9690-1ADF-442A-93F8-F2AA38AD9062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C519B9-8A0A-49A5-9A26-C03047327D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C519B9-8A0A-49A5-9A26-C03047327D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C519B9-8A0A-49A5-9A26-C03047327D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C519B9-8A0A-49A5-9A26-C03047327D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EACF5E5-B912-4FDF-AFF3-82D9F967F724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EACF5E5-B912-4FDF-AFF3-82D9F967F724}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EACF5E5-B912-4FDF-AFF3-82D9F967F724}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EACF5E5-B912-4FDF-AFF3-82D9F967F724}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,7 +139,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{22E2F79B-7816-4FAB-894D-112759551796} = {0A003964-77CA-4779-BD97-BADDD710A745}
 		{E57BB014-B46C-4395-ACCF-A670F4ED109C} = {0A003964-77CA-4779-BD97-BADDD710A745}
-		{FF32C229-E048-4C8B-97CA-44CBEC366FF4} = {5E39C07A-EFC1-41C1-B0A5-2ABDE957FC37}
 		{BD2B7A5D-8229-4FC2-B7B9-725FA83139C6} = {5E39C07A-EFC1-41C1-B0A5-2ABDE957FC37}
 		{D790C30A-302A-43F2-A7ED-3D204796734B} = {0A003964-77CA-4779-BD97-BADDD710A745}
 		{36118D4E-7C5C-4CBB-B193-2BF73A16D83C} = {0A003964-77CA-4779-BD97-BADDD710A745}
