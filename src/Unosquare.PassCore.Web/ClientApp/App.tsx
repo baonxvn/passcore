@@ -1,6 +1,7 @@
 import './vendor';
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+// import { createTheme } from '@material-ui/core/styles';
 import responsiveFontSizes from '@material-ui/core/styles/responsiveFontSizes';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import * as React from 'react';

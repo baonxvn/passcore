@@ -8,14 +8,13 @@ import { GlobalContext, SnackbarContext } from '../Provider/GlobalContext';
 import { fetchRequest } from '../Utils/FetchRequest';
 import { ChangePasswordForm } from './ChangePasswordForm';
 
-
 export const ChangePassword: React.FunctionComponent<{}> = () => {
     const [disabled, setDisabled] = React.useState(true);
     const [submit, setSubmit] = React.useState(false);
     const [dialogIsOpen, setDialog] = React.useState(false);
     const [token, setToken] = React.useState('');
     const validatorFormRef = React.useRef(null);
-    const { alerts, changePasswordForm, recaptcha, validationRegex } = React.useContext(GlobalContext);
+    const { alerts, changePasswordForm, reCaptcha, validationRegex } = React.useContext(GlobalContext);
     const { changePasswordButtonLabel } = changePasswordForm;
     const { sendMessage } = React.useContext(SnackbarContext);
     const [shouldReset, setReset] = React.useState(false);
@@ -24,7 +23,7 @@ export const ChangePassword: React.FunctionComponent<{}> = () => {
 
     const toSubmitData = (formData: {}) => {
         setDisabled(true);
-        fetchRequest('api/password', 'POST', JSON.stringify({ ...formData, Recaptcha: token })).then(
+        fetchRequest('api/password', 'POST', JSON.stringify({ ...formData, ReCaptcha: token })).then(
             (response: any) => {
                 setSubmit(false);
                 if (response.errors && response.errors.length) {
@@ -87,7 +86,7 @@ export const ChangePassword: React.FunctionComponent<{}> = () => {
         setReset(true);
     };
 
-    const marginButton = recaptcha.siteKey && recaptcha.siteKey !== '' ? '25px 0 0 180px' : '100px 0 0 180px';
+    const marginButton = reCaptcha.siteKey && reCaptcha.siteKey !== '' ? '25px 0 0 180px' : '100px 0 0 180px';
 
     ValidatorForm.addValidationRule('isUserName', (value: string) =>
         new RegExp(validationRegex.usernameRegex).test(value),
@@ -125,7 +124,7 @@ export const ChangePassword: React.FunctionComponent<{}> = () => {
                         shouldReset={shouldReset}
                         changeResetState={setReset}
                         setReCaptchaToken={setToken}
-                        ReCaptchaToken={token}
+                        reCaptchaToken={token}
                     />
                     <Button
                         type="submit"

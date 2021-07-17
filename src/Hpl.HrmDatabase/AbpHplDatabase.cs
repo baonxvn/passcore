@@ -64,6 +64,7 @@ namespace Hpl.HrmDatabase
         DbSet<HplNhanVienLog> HplNhanVienLogs { get; set; } // HplNhanVienLogs
         DbSet<HplPhongBan> HplPhongBans { get; set; } // HplPhongBan
         DbSet<HplSyncLog> HplSyncLogs { get; set; } // HplSyncLogs
+        DbSet<HplTestTable> HplTestTables { get; set; } // HplTestTable
 
         int SaveChanges();
         int SaveChanges(bool acceptAllChangesOnSuccess);
@@ -167,6 +168,7 @@ namespace Hpl.HrmDatabase
         public DbSet<HplNhanVienLog> HplNhanVienLogs { get; set; } // HplNhanVienLogs
         public DbSet<HplPhongBan> HplPhongBans { get; set; } // HplPhongBan
         public DbSet<HplSyncLog> HplSyncLogs { get; set; } // HplSyncLogs
+        public DbSet<HplTestTable> HplTestTables { get; set; } // HplTestTable
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -227,6 +229,7 @@ namespace Hpl.HrmDatabase
             modelBuilder.ApplyConfiguration(new HplNhanVienLogConfiguration());
             modelBuilder.ApplyConfiguration(new HplPhongBanConfiguration());
             modelBuilder.ApplyConfiguration(new HplSyncLogConfiguration());
+            modelBuilder.ApplyConfiguration(new HplTestTableConfiguration());
         }
 
     }
@@ -1173,6 +1176,11 @@ namespace Hpl.HrmDatabase
         public string LinkSaleOnline { get; set; } // LinkSaleOnline (length: 512)
         public string LinkEmail { get; set; } // LinkEmail (length: 512)
         public DateTime? DateCreated { get; set; } // DateCreated
+
+        public HplNhanVienLog()
+        {
+            DateCreated = DateTime.Now;
+        }
     }
 
     // HplPhongBan
@@ -1181,7 +1189,7 @@ namespace Hpl.HrmDatabase
         public int Id { get; set; } // Id (Primary key)
         public int PhongBanId { get; set; } // PhongBanId
         public int? PhongBanParentId { get; set; } // PhongBanParentId
-        public string MaPhongBan { get; set; } // MaPhongBan (length: 512)
+        public string MaPhongBan { get; set; } // MaPhongBan (Primary key) (length: 50)
         public string TenPhongBan { get; set; } // TenPhongBan (length: 512)
         public DateTime? CreationTime { get; set; } // CreationTime
         public string MailingList { get; set; } // MailingList (length: 512)
@@ -1189,6 +1197,7 @@ namespace Hpl.HrmDatabase
         public int? BranchId { get; set; } // BranchID
         public string BranchCode { get; set; } // BranchCode (length: 512)
         public string BranchName { get; set; } // BranchName (length: 512)
+        public string EmailNotification { get; set; } // EmailNotification (length: 1024)
 
         public HplPhongBan()
         {
@@ -1210,6 +1219,14 @@ namespace Hpl.HrmDatabase
         {
             DateCreate = DateTime.Now;
         }
+    }
+
+    // HplTestTable
+    public class HplTestTable
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public string Name { get; set; } // Name (length: 50)
+        public string Description { get; set; } // Description (length: 50)
     }
 
 
@@ -2142,12 +2159,12 @@ namespace Hpl.HrmDatabase
         public void Configure(EntityTypeBuilder<HplPhongBan> builder)
         {
             builder.ToTable("HplPhongBan", "dbo");
-            builder.HasKey(x => x.Id).HasName("PK_Hpl_PhongBan").IsClustered();
+            builder.HasKey(x => new { x.Id, x.MaPhongBan }).HasName("PK_Hpl_PhongBan").IsClustered();
 
             builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.PhongBanId).HasColumnName(@"PhongBanId").HasColumnType("int").IsRequired();
             builder.Property(x => x.PhongBanParentId).HasColumnName(@"PhongBanParentId").HasColumnType("int").IsRequired(false);
-            builder.Property(x => x.MaPhongBan).HasColumnName(@"MaPhongBan").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.MaPhongBan).HasColumnName(@"MaPhongBan").HasColumnType("nvarchar(50)").IsRequired().HasMaxLength(50).ValueGeneratedNever();
             builder.Property(x => x.TenPhongBan).HasColumnName(@"TenPhongBan").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
             builder.Property(x => x.CreationTime).HasColumnName(@"CreationTime").HasColumnType("datetime2").IsRequired(false);
             builder.Property(x => x.MailingList).HasColumnName(@"MailingList").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
@@ -2155,6 +2172,7 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.BranchId).HasColumnName(@"BranchID").HasColumnType("int").IsRequired(false);
             builder.Property(x => x.BranchCode).HasColumnName(@"BranchCode").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
             builder.Property(x => x.BranchName).HasColumnName(@"BranchName").HasColumnType("nvarchar(512)").IsRequired(false).HasMaxLength(512);
+            builder.Property(x => x.EmailNotification).HasColumnName(@"EmailNotification").HasColumnType("nvarchar(1024)").IsRequired(false).HasMaxLength(1024);
         }
     }
 
@@ -2172,6 +2190,20 @@ namespace Hpl.HrmDatabase
             builder.Property(x => x.Payload).HasColumnName(@"Payload").HasColumnType("ntext").IsRequired(false);
             builder.Property(x => x.LogForSys).HasColumnName(@"LogForSys").HasColumnType("nvarchar(256)").IsRequired(false).HasMaxLength(256);
             builder.Property(x => x.DateCreate).HasColumnName(@"DateCreate").HasColumnType("datetime").IsRequired();
+        }
+    }
+
+    // HplTestTable
+    public class HplTestTableConfiguration : IEntityTypeConfiguration<HplTestTable>
+    {
+        public void Configure(EntityTypeBuilder<HplTestTable> builder)
+        {
+            builder.ToTable("HplTestTable", "dbo");
+            builder.HasKey(x => x.Id).HasName("PK_HplTestTable").IsClustered();
+
+            builder.Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().ValueGeneratedOnAdd().UseIdentityColumn();
+            builder.Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar(50)").IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar(50)").IsRequired(false).HasMaxLength(50);
         }
     }
 

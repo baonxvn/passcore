@@ -12,7 +12,7 @@ interface IReCaptchaProps {
     onloadCallback: () => any;
     onSuccess: (recaptchaToken: string) => any;
     render: string;
-    sitekey: string;
+    siteKey: string;
     size: 'compact' | 'normal' | 'invisible';
     tabIndex: string | number;
     theme: 'dark' | 'light';
@@ -92,7 +92,7 @@ class GoogleReCaptcha extends React.Component<Partial<IReCaptchaProps>, IReCaptc
             onSuccess,
             inherit,
             isolated,
-            sitekey,
+            siteKey,
             theme,
             type,
             size,
@@ -104,7 +104,7 @@ class GoogleReCaptcha extends React.Component<Partial<IReCaptchaProps>, IReCaptc
         return (
             <div
                 ref={this.recaptcha}
-                data-sitekey={sitekey}
+                data-sitekey={siteKey}
                 data-theme={theme}
                 data-type={type}
                 data-size={size}
@@ -127,7 +127,7 @@ class GoogleReCaptcha extends React.Component<Partial<IReCaptchaProps>, IReCaptc
                     'error-callback': this.props.onError,
                     'expired-callback': this.props.onExpired,
                     isolated: this.props.isolated,
-                    sitekey: this.props.sitekey,
+                    sitekey: this.props.siteKey,
                     size: this.props.size,
                     tabindex: this.props.tabIndex,
                     theme: this.props.theme,

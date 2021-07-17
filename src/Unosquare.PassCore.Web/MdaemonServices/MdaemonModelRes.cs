@@ -1,10 +1,7 @@
 ﻿namespace Unosquare.PassCore.Web.MdaemonServices
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-    using Newtonsoft.Json;
     using System;
-    using System.Collections.Generic;
-
+    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
     public class Rootobject
     {
         public Mdaemon MDaemon { get; set; }

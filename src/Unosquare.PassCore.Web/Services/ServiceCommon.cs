@@ -10,6 +10,7 @@
     using Unosquare.PassCore.Common;
     using Unosquare.PassCore.Web.MdaemonServices;
     using Unosquare.PassCore.Web.Models;
+    using Hpl.Common.Helper;
 
     public class ServiceCommon : IServiceCommon
     {

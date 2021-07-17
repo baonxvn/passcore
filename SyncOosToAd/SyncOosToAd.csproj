@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hpl.Common\Hpl.Common.csproj" />
     <ProjectReference Include="..\src\Unosquare.PassCore.Web\Unosquare.PassCore.Web.csproj" />
   </ItemGroup>
 
@@ -50,5 +51,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

@@ -1,7 +1,7 @@
 namespace Unosquare.PassCore.Web.Models
 {
-    using Common;
     using System.ComponentModel.DataAnnotations;
+    using Unosquare.PassCore.Common;
 
     public class ChangePasswordModel
     {
@@ -18,6 +18,6 @@ namespace Unosquare.PassCore.Web.Models
         [Compare(nameof(NewPassword), ErrorMessage = nameof(ApiErrorCode.FieldMismatch))]
         public string NewPasswordVerify { get; set; }
 
-        public string Recaptcha { get; set; }
+        public string ReCaptcha { get; set; }
     }
 }

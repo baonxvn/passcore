@@ -4,12 +4,23 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>favicon2.ico</ApplicationIcon>
+    <ApplicationIcon>favicon-64x64.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Company>Bao Nguyen</Company>
     <Product>Hpl.Acm</Product>
     <Authors>Bao Nguyen</Authors>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+    <Page Remove="bin\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Api.png" />
@@ -31,8 +42,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hpl.Common\Hpl.Common.csproj" />
     <ProjectReference Include="..\src\Unosquare.PassCore.PasswordProvider\Unosquare.PassCore.PasswordProvider.csproj" />
-    <ProjectReference Include="..\src\Unosquare.PassCore.Web\Unosquare.PassCore.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

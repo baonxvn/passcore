@@ -7,7 +7,7 @@ export const GlobalContext = React.createContext<IGlobalContext>({
     changePasswordForm: null,
     changePasswordTitle: '',
     errorsPasswordForm: null,
-    recaptcha: null,
+    reCaptcha: null,
     showPasswordMeter: false,
     useEmail: false,
     validationRegex: null,

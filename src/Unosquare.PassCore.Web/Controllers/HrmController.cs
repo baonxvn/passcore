@@ -64,6 +64,30 @@
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Danh sách nhân sự có email khác với rule (tên + họ và tên đệm viết tắt)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetAllNhanVienNhamEmail")]
+        public string GetAllNhanVienNhamEmail()
+        {
+            var result = new ApiResult();
+
+            var obj = UserService.GetAllNhanVienNhamEmail();
+
+            if (obj != null)
+            {
+                result.Payload = obj;
+            }
+            else
+            {
+                result.Errors.Add(new ApiErrorItem(ApiErrorCode.UserNotFound, "Không tồn tại user."));
+            }
+
+            return JsonConvert.SerializeObject(result);
+        }
+
         [HttpGet]
         [Route("GetUserInfoTheoMaNhanVien")]
         public string GetUserInfoTheoMaNhanVien(string maNhanVien)
@@ -125,6 +149,11 @@
             return JsonConvert.SerializeObject(result);
         }
 
+        /// <summary>
+        /// Chưa làm gì cả
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("FixUsernameNhanVien")]
         public async Task<string> FixNhanVienTheoUsername(string userName)
@@ -143,16 +172,18 @@
                 var obj = UserService.FixNhanVienTheoUsername(userName);
                 listObjs.Add(obj);
                 //Tạo email
-                CreateUserInput input = new CreateUserInput();
-                input.Domain = "haiphatland.com.vn";
-                input.Username = obj.TenDangNhap;
-                input.FirstName = UsernameGenerator.ConvertToUnSign(obj.Ten);
-                input.LastName = UsernameGenerator.ConvertToUnSign(obj.Ho);
-                input.FullName = UsernameGenerator.ConvertToUnSign(obj.Ho + " " + obj.Ten);
-                input.Password = "Hpl@123";
-                input.AdminNotes = "Tạo từ tool, time: " + DateTime.Now.ToString("G");
-                input.MailList = "";
-                input.Group = "";
+                var input = new CreateUserInput
+                {
+                    Domain = "haiphatland.com.vn",
+                    Username = obj.TenDangNhap,
+                    FirstName = UsernameGenerator.ConvertToUnSign(obj.Ten),
+                    LastName = UsernameGenerator.ConvertToUnSign(obj.Ho),
+                    FullName = UsernameGenerator.ConvertToUnSign(obj.Ho + " " + obj.Ten),
+                    Password = "Hpl@123",
+                    AdminNotes = "Tạo từ tool, time: " + DateTime.Now.ToString("G"),
+                    MailList = "",
+                    Group = ""
+                };
                 var res = await MdaemonXmlApi.CreateUser(input);
                 listObjs.Add(res);
                 result.Payload = listObjs;

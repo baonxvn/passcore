@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Hpl.SaleOnlineDatabase;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Hpl.SaleOnlineDatabase;
 
 namespace Hpl.HrmDatabase.Services
 {
@@ -15,6 +14,29 @@ namespace Hpl.HrmDatabase.Services
             db.HplNhanVienLogs.AddRange(listNhanVien);
             db.SaveChanges();
             db.Dispose();
+        }
+
+        public static string GetMailListByMaPhongBan(string maPhongBan)
+        {
+            var db = new AbpHplDbContext();
+            var query = db.HplPhongBans.FirstOrDefault(x => x.MaPhongBan == maPhongBan);
+            if (query == null) return "";
+            if (string.IsNullOrEmpty(query.MailingList)) return query.MailingList;
+
+            db.Dispose();
+
+            return "";
+        }
+
+        public static HplPhongBan GetAbpPhongBanByMaPhongBan(string maPhongBan)
+        {
+            var db = new AbpHplDbContext();
+            var query = db.HplPhongBans.FirstOrDefault(x => x.MaPhongBan == maPhongBan);
+            if (query == null) return null;
+
+            db.Dispose();
+
+            return query;
         }
 
         public static void UpdateBranch()

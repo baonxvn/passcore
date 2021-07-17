@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using Hpl.Common;
 using Hpl.HrmDatabase.Services;
 using Hpl.HrmDatabase.ViewModels;
 using Microsoft.Extensions.Options;
@@ -74,7 +74,7 @@ namespace Hpl.Acm
             _logger.Information("----TỔNG SỐ HỒ SƠ XỬ LÝ: " + listNvs.Count);
             WriteToConsole("----TỔNG SỐ HỒ SƠ XỬ LÝ: " + listNvs.Count);
 
-            HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
+            HplServices hplServices = new HplServices(_passwordChangeProvider, _options, _logger);
             await hplServices.CreateUserAllSys(listNvs);
         }
 

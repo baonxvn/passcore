@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Hpl.Common.Helper;
+using Hpl.HrmDatabase.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hpl.HrmDatabase.ViewModels;
-using Microsoft.IdentityModel.Protocols;
 
 namespace Hpl.HrmDatabase.Services
 {
@@ -347,33 +347,33 @@ namespace Hpl.HrmDatabase.Services
             //var qr1 = db.SysNguoiDungs.Where(x => x.TenDangNhap == username);
 
             var nvList = from nv in db.NhanViens
-                        join nd in db.SysNguoiDungs on nv.NhanVienId equals nd.NhanVienId into table1
-                        from nd in table1.DefaultIfEmpty()
-                        join cv in db.NsDsChucVus on nv.ChucVuId equals cv.ChucVuId into table2
-                        from cv in table2.DefaultIfEmpty()
-                        join cd in db.NsDsChucDanhs on nv.ChucDanhId equals cd.ChucDanhId into table3
-                        from cd in table3.DefaultIfEmpty()
-                        join p in db.PhongBans on nv.PhongBanId equals p.PhongBanId into table4
-                        from p in table4.DefaultIfEmpty()
-                        where nd.TenDangNhap == userName
-                        select new NhanVienViewModel
-                        {
-                            NhanVienID = nv.NhanVienId,
-                            Ho = nv.Ho,
-                            Ten = nv.HoTen,
-                            GioiTinh = nv.GioiTinh,
-                            MaNhanVien = nv.MaNhanVien,
-                            TenDangNhap = nd.TenDangNhap,
-                            Email = nv.Email,
-                            EmailCaNhan = nv.EmailCaNhan,
-                            DienThoai = nv.DienThoai,
-                            CMTND = nv.Cmtnd,
-                            TenChucVu = cv.TenChucVu,
-                            TenChucDanh = cd.TenChucDanh,
-                            PhongBanId = p.PhongBanId,
-                            TenPhongBan = p.Ten,
-                            MaPhongBan = p.MaPhongBan
-                        };
+                         join nd in db.SysNguoiDungs on nv.NhanVienId equals nd.NhanVienId into table1
+                         from nd in table1.DefaultIfEmpty()
+                         join cv in db.NsDsChucVus on nv.ChucVuId equals cv.ChucVuId into table2
+                         from cv in table2.DefaultIfEmpty()
+                         join cd in db.NsDsChucDanhs on nv.ChucDanhId equals cd.ChucDanhId into table3
+                         from cd in table3.DefaultIfEmpty()
+                         join p in db.PhongBans on nv.PhongBanId equals p.PhongBanId into table4
+                         from p in table4.DefaultIfEmpty()
+                         where nd.TenDangNhap == userName
+                         select new NhanVienViewModel
+                         {
+                             NhanVienID = nv.NhanVienId,
+                             Ho = nv.Ho,
+                             Ten = nv.HoTen,
+                             GioiTinh = nv.GioiTinh,
+                             MaNhanVien = nv.MaNhanVien,
+                             TenDangNhap = nd.TenDangNhap,
+                             Email = nv.Email,
+                             EmailCaNhan = nv.EmailCaNhan,
+                             DienThoai = nv.DienThoai,
+                             CMTND = nv.Cmtnd,
+                             TenChucVu = cv.TenChucVu,
+                             TenChucDanh = cd.TenChucDanh,
+                             PhongBanId = p.PhongBanId,
+                             TenPhongBan = p.Ten,
+                             MaPhongBan = p.MaPhongBan
+                         };
 
             switch (nvList.ToList().Count)
             {
@@ -419,7 +419,7 @@ namespace Hpl.HrmDatabase.Services
                             }
                         }
                     }
-                  
+
                     //Fix username
                     var user = db.SysNguoiDungs.FirstOrDefault(x => x.TenDangNhap == userName);
                     if (user != null)
@@ -430,7 +430,7 @@ namespace Hpl.HrmDatabase.Services
                         string email = userName + "@haiphatland.com.vn";
                         if (nhanVien.Email.Equals(email))
                         {
-                            
+
                         }
 
                     }
@@ -953,6 +953,8 @@ namespace Hpl.HrmDatabase.Services
                 }
             }
 
+            db.Dispose();
+
             return null;
         }
 
@@ -1272,6 +1274,77 @@ namespace Hpl.HrmDatabase.Services
             return db.NhanViens.Where(x => listPbIds.Contains((int)x.PhongBanId)).ToList();
         }
 
+        /// <summary>
+        /// Trả về danh sách nhân viên nhầm email (dự đoán)
+        /// </summary>
+        /// <returns>List NhanVien</returns>
+        public static List<NhanVienViewModel> GetAllNhanVienNhamEmail()
+        {
+            var db = new HrmDbContext();
+
+            var listNvs = from nv in db.NhanViens
+                          join nd in db.SysNguoiDungs on nv.NhanVienId equals nd.NhanVienId into tb1
+                          from nd in tb1.DefaultIfEmpty()
+                          join cv in db.NsDsChucVus on nv.ChucVuId equals cv.ChucVuId into tb2
+                          from cv in tb2.DefaultIfEmpty()
+                          join cd in db.NsDsChucDanhs on nv.ChucDanhId equals cd.ChucDanhId into tb3
+                          from cd in tb3.DefaultIfEmpty()
+                          join pb in db.PhongBans on nv.PhongBanId equals pb.PhongBanId into table4
+                          from pb in table4.DefaultIfEmpty()
+                          where nv.NghiViec == false & nv.TrangThaiId.Value != 6 &
+                                !string.IsNullOrEmpty(nv.Email)
+                          select new NhanVienViewModel
+                          {
+                              NhanVienID = nv.NhanVienId,
+                              Ho = nv.Ho,
+                              Ten = nv.HoTen,
+                              GioiTinh = nv.GioiTinh,
+                              MaNhanVien = nv.MaNhanVien,
+                              TenDangNhap = nd.TenDangNhap,
+                              Email = nv.Email,
+                              EmailCaNhan = nv.EmailCaNhan,
+                              DienThoai = nv.DienThoai,
+                              CMTND = nv.Cmtnd,
+                              TenChucVu = cv.TenChucVu,
+                              TenChucDanh = cd.TenChucDanh,
+                              PhongBanId = pb.PhongBanId,
+                              TenPhongBan = pb.Ten,
+                              MaPhongBan = pb.MaPhongBan,
+                          };
+            var listOut = new List<NhanVienViewModel>();
+            foreach (var nv in listNvs)
+            {
+                var userName = CommonHelper.GenerateUserNameFromFirstNameAndLastName(nv.Ten, nv.Ho);
+                var strEmail = nv.Email.Split("@");
+                switch (strEmail.Length)
+                {
+                    case < 1:
+                        break;
+                    case 1:
+                        break;
+                    case > 1:
+                        if (userName.Length != strEmail[0].Length)
+                        {
+                            listOut.Add(nv);
+                        }
+                        else
+                        {
+                            if (!userName.Equals(strEmail[0]))
+                            {
+                                listOut.Add(nv);
+                            }
+                        }
+
+                        break;
+                }
+            }
+
+
+            db.Dispose();
+
+            return listOut.OrderBy(x => x.Ten).ToList();
+        }
+
         public static List<HplPhongBan> GetAllHplPhongBan()
         {
             var db = new AbpHplDbContext();
@@ -1377,6 +1450,30 @@ namespace Hpl.HrmDatabase.Services
                 ).ToList();
 
             return query.ToList();
+        }
+
+        public static void UpdateEmailByUserName(string userName)
+        {
+            var db = new HrmDbContext();
+
+            var query = from nv in db.NhanViens
+                        join nd in db.SysNguoiDungs on nv.NhanVienId equals nd.NhanVienId
+                        where nd.TenDangNhap.Equals(userName)
+                        select nv;
+            if (query.Count() == 1)
+            {
+                var nhanVien = query.FirstOrDefault();
+                if (nhanVien != null)
+                {
+                    if (string.IsNullOrEmpty(nhanVien.Email))
+                    {
+                        nhanVien.Email = userName + "@haiphatland.com.vn";
+                        db.SaveChanges();
+                    }
+                }
+            }
+
+            db.Dispose();
         }
     }
 }

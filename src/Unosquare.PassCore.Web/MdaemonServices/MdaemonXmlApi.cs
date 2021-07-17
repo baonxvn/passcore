@@ -1,13 +1,14 @@
 ﻿namespace Unosquare.PassCore.Web.MdaemonServices
 {
-    using Common;
-    using Hpl.HrmDatabase.Services;
-    using Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Xml;
+    using Hpl.HrmDatabase.Services;
+    using Unosquare.PassCore.Common;
+    using Unosquare.PassCore.Web.Models;
+
     using static MdaemonAuthen;
 
     public class MdaemonXmlApi
@@ -16,6 +17,10 @@
         public const string MailDomain = "haiphatland.com.vn";
         private const string ParaNode = "/MDaemon/API/Request/Parameters";
 
+        /// <summary>
+        /// Tạo đồng loạt email do lỗi tool chưa được tạo (danh sách user lấy trong bảng HPL_ACM.HplNhanVienLogs)
+        /// </summary>
+        /// <returns></returns>
         public static async Task<ApiResult> FixEmailChuaDuocTao()
         {
             ApiResult result = new ApiResult();
@@ -25,6 +30,7 @@
             foreach (var log in listLog)
             {
                 lstOut.Add(await CreateUserByUserName(log.TenDangNhap));
+                UserService.UpdateEmailByUserName(log.TenDangNhap);
             }
 
             result.Payload = lstOut;
@@ -113,7 +119,7 @@
             string ten = UsernameGenerator.ConvertToUnSign(nv.Ten);
             string ho = UsernameGenerator.ConvertToUnSign(nv.Ho);
 
-            CreateUserInput input = new CreateUserInput
+            var input = new CreateUserInput
             {
                 Domain = "haiphatland.com.vn",
                 Username = userName,
@@ -128,6 +134,9 @@
 
             result.Payload = await MdaemonXmlApi.CreateUser(input);
             result.Errors.Add(new ApiErrorItem(ApiErrorCode.Generic, "Thành công."));
+
+            //Cập nhật lại Email cho nhân sự này
+            UserService.UpdateEmailByUserName(userName);
 
             return result;
         }
@@ -234,22 +243,11 @@
 
                 //Add Mailing list; Mặc định add vào all @haiphatland.com.vn
                 listObj.Add(await MailingUpdateList("all", inputMail));
-                //listObj.Add(await MailingUpdateList(inputMail.MailList.Split("@")[0], inputMail));
-
-                //var xmlNodeListAll = (XmlElement)xmlDoc.SelectSingleNode(_paraNode + "/ListMembership")!;
-                //XmlElement mailAll = xmlDoc.CreateElement("List");
-                ////mailAll.InnerText = "all@haiphatland.com.vn";
-                //mailAll.InnerText = "all@company.test";
-                //xmlNodeListAll.AppendChild(mailAll);
-
-                ////Add vào Mail list của Phòng Ban
-                //if (!string.IsNullOrEmpty(inputMail.MailList))
-                //{
-                //    var xmlNodeListPhongBan = (XmlElement)xmlDoc.SelectSingleNode(_paraNode + "/ListMembership")!;
-                //    XmlElement mailPhongBan = xmlDoc.CreateElement("List");
-                //    mailPhongBan.InnerText = inputMail.MailList;
-                //    xmlNodeListPhongBan.AppendChild(mailPhongBan);
-                //}
+                //Add vào Mail list của Phòng Ban
+                if (!string.IsNullOrEmpty(inputMail.MailList))
+                {
+                    listObj.Add(await MailingUpdateList(inputMail.MailList.Split("@")[0], inputMail));
+                }
 
                 result.Payload = listObj;
             }

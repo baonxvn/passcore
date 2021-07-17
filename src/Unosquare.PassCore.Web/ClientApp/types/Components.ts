@@ -2,7 +2,7 @@ export interface IChangePasswordFormInitialModel {
     CurrentPassword: string;
     NewPassword: string;
     NewPasswordVerify: string;
-    Recaptcha: string;
+    ReCaptcha: string;
     Username: string;
 }
 
@@ -14,7 +14,7 @@ export interface IChangePasswordFormProps {
     shouldReset: boolean;
     changeResetState: any;
     setReCaptchaToken: any;
-    ReCaptchaToken: string;
+    reCaptchaToken: string;
 }
 
 export interface IPasswordGenProps {

@@ -1062,7 +1062,7 @@ namespace Hpl.HrmDatabase
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=54.251.3.45; Database=HRM_db; User ID=sa; Password=Zm*3_E}7gaR83+_G");
+                optionsBuilder.UseSqlServer(@"Server=54.251.3.45; Database=HRM_db; User ID=hrm; Password=H@iphat2021");
             }
         }
 

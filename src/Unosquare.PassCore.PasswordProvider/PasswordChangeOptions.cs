@@ -69,5 +69,7 @@
         public string MailPass { get; set; }
 
         public string BackDateSchedule { get; set; }
+
+        public List<string> EmailNotification { get; set; }
     }
 }

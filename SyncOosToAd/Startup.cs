@@ -1,9 +1,9 @@
 ﻿using System;
+using Hpl.Common.MyService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using SyncOosToAd.MyService;
 using Unosquare.PassCore.Common;
 using Unosquare.PassCore.PasswordProvider;
 
@@ -45,7 +45,7 @@ namespace SyncOosToAd
             //services.AddLogging();
             //services.AddSingleton<IConfigurationRoot>(configuration);
             services.AddSingleton<IConfiguration>(_configuration);
-            services.AddSingleton<IMyService, MyService.MyService>();
+            services.AddSingleton<IMyService, MyService>();
 
             //Cac service su dung
             services.Configure<PasswordChangeOptions>(Configuration.GetSection(AppSettingsSectionName));

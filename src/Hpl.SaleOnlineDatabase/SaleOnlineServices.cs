@@ -4,10 +4,15 @@ namespace Hpl.SaleOnlineDatabase
 {
     public class SaleOnlineServices
     {
-        public static bool IsNhanVienExist(string userName)
+        public static NhanVien GetNhanVienByUserName(string userName)
         {
             var db = new SaleOnlineDbContext();
-            return db.NhanViens.Any(x => x.MaSo == userName);
+            var lstNvs = db.NhanViens.Where(x => x.MaSo == userName);
+            if(lstNvs.Any())
+            {
+                return lstNvs.FirstOrDefault();
+            }
+            return null;
         }
 
         public static Branch GetBranchId(string maPhongBan)
@@ -22,6 +27,14 @@ namespace Hpl.SaleOnlineDatabase
             }
 
             return null;
+        }
+
+        public static void UpdateUserSale(NhanVien nhanVien)
+        {
+            var db = new SaleOnlineDbContext();
+            db.NhanViens.Update(nhanVien);
+            db.SaveChanges();
+            db.Dispose();
         }
 
         public static void CreateUserSale(NhanVien nhanVien)

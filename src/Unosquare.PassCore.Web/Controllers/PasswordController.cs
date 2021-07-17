@@ -145,14 +145,14 @@
             //            // Validate the Captcha
             //            try
             //            {
-            //                if (await ValidateRecaptcha(model.Recaptcha).ConfigureAwait(false) == false)
-            //                    throw new InvalidOperationException("Invalid Recaptcha response");
+            //                if (await ValidateRecaptcha(model.ReCaptcha).ConfigureAwait(false) == false)
+            //                    throw new InvalidOperationException("Invalid ReCaptcha response");
             //            }
             //#pragma warning disable CA1031 // Do not catch general exception types
             //            catch (Exception ex)
             //#pragma warning restore CA1031 // Do not catch general exception types
             //            {
-            //                _logger.Warning(ex, "Invalid Recaptcha");
+            //                _logger.Warning(ex, "Invalid ReCaptcha");
             //                return BadRequest(ApiResult.InvalidCaptcha());
             //            }
 
@@ -201,7 +201,7 @@
         {
             _logger.Information("START PasswordController.ValidateRecaptcha: ");
             // skip validation if we don't enable recaptcha
-            if (string.IsNullOrWhiteSpace(_options.Recaptcha.PrivateKey))
+            if (string.IsNullOrWhiteSpace(_options.ReCaptcha.PrivateKey))
                 return true;
 
             // immediately return false because we don't 
@@ -209,7 +209,7 @@
                 return false;
 
             var requestUrl = new Uri(
-                $"https://www.google.com/recaptcha/api/siteverify?secret={_options.Recaptcha.PrivateKey}&response={recaptchaResponse}");
+                $"https://www.google.com/recaptcha/api/siteverify?secret={_options.ReCaptcha.PrivateKey}&response={recaptchaResponse}");
 
             var validationResponse = await JsonClient.Get<Dictionary<string, object>>(requestUrl)
                 .ConfigureAwait(false);

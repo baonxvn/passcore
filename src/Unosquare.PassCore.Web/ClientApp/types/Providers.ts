@@ -17,15 +17,15 @@ interface IAlerts {
 
 interface IChangePasswordForm {
     changePasswordButtonLabel: string;
-    currentPasswordHelpblock: string;
+    currentPasswordHelpBlock: string;
     currentPasswordLabel: string;
     helpText: string;
-    newPasswordHelpblock: string;
+    newPasswordHelpBlock: string;
     newPasswordLabel: string;
-    newPasswordVerifyHelpblock: string;
+    newPasswordVerifyHelpBlock: string;
     newPasswordVerifyLabel: string;
     usernameDefaultDomainHelperBlock: string;
-    usernameHelpblock: string;
+    usernameHelpBlock: string;
     usernameLabel: string;
 }
 
@@ -36,10 +36,10 @@ interface IErrorsPasswordForm {
     usernamePattern: string;
 }
 
-interface IRecaptcha {
-    languageCode: string;
+interface IReCaptcha {
     siteKey: string;
     privateKey: string;
+    languageCode: string;
 }
 
 interface IValidationRegex {
@@ -54,7 +54,7 @@ export interface IGlobalContext {
     changePasswordTitle: string;
     usePasswordGeneration: boolean;
     errorsPasswordForm: IErrorsPasswordForm;
-    recaptcha: IRecaptcha;
+    reCaptcha: IReCaptcha;
     showPasswordMeter: boolean;
     useEmail: boolean;
     validationRegex: IValidationRegex;

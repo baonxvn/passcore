@@ -1,7 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleDemo", "ConsoleDemo\ConsoleDemo.csproj", "{1DDAA13F-3618-4D39-97E6-9134B0DFF0CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlNotification", "SqlNotification\SqlNotification.csproj", "{5B42BF82-9DBD-4C96-A564-5ACE37EA4AD0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hpl.HrmDatabase", "Hpl.HrmDatabase\Hpl.HrmDatabase.csproj", "{7ED26AFB-C6A0-409A-9FE7-FD6BE6D163DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +19,19 @@ Global
 		{1DDAA13F-3618-4D39-97E6-9134B0DFF0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DDAA13F-3618-4D39-97E6-9134B0DFF0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DDAA13F-3618-4D39-97E6-9134B0DFF0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B42BF82-9DBD-4C96-A564-5ACE37EA4AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B42BF82-9DBD-4C96-A564-5ACE37EA4AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B42BF82-9DBD-4C96-A564-5ACE37EA4AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B42BF82-9DBD-4C96-A564-5ACE37EA4AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED26AFB-C6A0-409A-9FE7-FD6BE6D163DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED26AFB-C6A0-409A-9FE7-FD6BE6D163DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED26AFB-C6A0-409A-9FE7-FD6BE6D163DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED26AFB-C6A0-409A-9FE7-FD6BE6D163DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7FE74F4-1F29-4F56-899E-D1024B54B11C}
 	EndGlobalSection
 EndGlobal

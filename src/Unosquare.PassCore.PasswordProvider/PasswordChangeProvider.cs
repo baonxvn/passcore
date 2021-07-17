@@ -1,4 +1,4 @@
-﻿
+﻿using Hpl.Common.Helper;
 
 namespace Unosquare.PassCore.PasswordProvider
 {

@@ -11,7 +11,7 @@ export const ReCaptcha: React.FunctionComponent<IRecaptchaProps> = ({ setToken, 
     // tslint:disable-next-line
     let captchaRef: any;
 
-    const { siteKey } = React.useContext(GlobalContext).recaptcha;
+    const { siteKey } = React.useContext(GlobalContext).reCaptcha;
 
     React.useEffect(() => {
         if (captchaRef) {
@@ -40,7 +40,7 @@ export const ReCaptcha: React.FunctionComponent<IRecaptchaProps> = ({ setToken, 
                 }}
                 size="normal"
                 render="explicit"
-                sitekey={siteKey}
+                siteKey={siteKey}
                 onloadCallback={onLoadRecaptcha}
                 onSuccess={verifyCallback}
             />

@@ -12,7 +12,7 @@ const defaultState: IChangePasswordFormInitialModel = {
     CurrentPassword: '',
     NewPassword: '',
     NewPasswordVerify: '',
-    Recaptcha: '',
+    ReCaptcha: '',
     Username: new URLSearchParams(window.location.search).get('userName') || '',
 };
 
@@ -24,28 +24,22 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
     shouldReset,
     changeResetState,
     setReCaptchaToken,
-    ReCaptchaToken,
+    reCaptchaToken,
 }: IChangePasswordFormProps) => {
     const [fields, handleChange] = useStateForModel({ ...defaultState });
 
-    const {
-        changePasswordForm,
-        errorsPasswordForm,
-        usePasswordGeneration,
-        useEmail,
-        showPasswordMeter,
-        recaptcha,
-    } = React.useContext(GlobalContext);
+    const { changePasswordForm, errorsPasswordForm, usePasswordGeneration, useEmail, showPasswordMeter, reCaptcha } =
+        React.useContext(GlobalContext);
 
     const {
-        currentPasswordHelpblock,
+        currentPasswordHelpBlock,
         currentPasswordLabel,
-        newPasswordHelpblock,
+        newPasswordHelpBlock,
         newPasswordLabel,
-        newPasswordVerifyHelpblock,
+        newPasswordVerifyHelpBlock,
         newPasswordVerifyLabel,
         usernameDefaultDomainHelperBlock,
-        usernameHelpblock,
+        usernameHelpBlock,
         usernameLabel,
     } = changePasswordForm;
 
@@ -54,7 +48,7 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
     const userNameValidations = ['required', useEmail ? 'isUserEmail' : 'isUserName'];
     //const userNameValidations = ['required', useEmail];
     const userNameErrorMessages = [fieldRequired, useEmail ? usernameEmailPattern : usernamePattern];
-    const userNameHelperText = useEmail ? usernameHelpblock : usernameDefaultDomainHelperBlock;
+    const userNameHelperText = useEmail ? usernameHelpBlock : usernameDefaultDomainHelperBlock;
 
     //if (submitData) {
     //    toSubmitData(fields);
@@ -69,8 +63,8 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
         if (parentRef.current !== null && parentRef.current.isFormValid !== null) {
             parentRef.current.isFormValid().then((response: any) => {
                 let validated = response;
-                if (recaptcha.siteKey && recaptcha.siteKey !== '') {
-                    validated = validated && ReCaptchaToken !== '';
+                if (reCaptcha.siteKey && reCaptcha.siteKey !== '') {
+                    validated = validated && reCaptchaToken !== '';
                 }
                 onValidated(!validated);
             });
@@ -119,7 +113,7 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
                     tabIndex: 2,
                 }}
                 label={currentPasswordLabel}
-                helperText={currentPasswordHelpblock}
+                helperText={currentPasswordHelpBlock}
                 id="CurrentPassword"
                 name="CurrentPassword"
                 onChange={handleChange}
@@ -157,7 +151,7 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
                     />
                     {showPasswordMeter && <PasswordStrengthBar newPassword={fields.NewPassword} />}
                     <div
-                        dangerouslySetInnerHTML={{ __html: newPasswordHelpblock }}
+                        dangerouslySetInnerHTML={{ __html: newPasswordHelpBlock }}
                         style={{ font: '12px Roboto,Helvetica, Arial, sans-serif', marginBottom: '15px' }}
                     />
                     <TextValidator
@@ -165,7 +159,7 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
                             tabIndex: 4,
                         }}
                         label={newPasswordVerifyLabel}
-                        helperText={newPasswordVerifyHelpblock}
+                        helperText={newPasswordVerifyHelpBlock}
                         id="NewPasswordVerify"
                         name="NewPasswordVerify"
                         onChange={handleChange}
@@ -182,7 +176,7 @@ export const ChangePasswordForm: React.FunctionComponent<IChangePasswordFormProp
                 </>
             )}
 
-            {recaptcha.siteKey && recaptcha.siteKey !== '' && (
+            {reCaptcha.siteKey && reCaptcha.siteKey !== '' && (
                 <ReCaptcha setToken={setReCaptchaToken} shouldReset={false} />
             )}
         </FormGroup>

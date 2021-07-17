@@ -1,11 +1,10 @@
 ﻿using System.Linq;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Hpl.HrmDatabase.Services
 {
-    using System;
-    using System.Text;
-    using System.Text.RegularExpressions;
-
     public static class MyStringExtensions
     {
         public static bool Like(this string toSearch, string toFind)

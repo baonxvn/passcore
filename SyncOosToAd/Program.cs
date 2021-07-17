@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Hpl.Common;
 using Hpl.HrmDatabase;
 using Hpl.HrmDatabase.Services;
 using Hpl.HrmDatabase.ViewModels;
@@ -18,7 +19,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Serilog;
-using SyncOosToAd.MyService;
 using Unosquare.PassCore.Common;
 using Unosquare.PassCore.PasswordProvider;
 
@@ -57,12 +57,12 @@ namespace SyncOosToAd
                 _logger.Error("Error get value BackDateSchedule: " + e);
             }
 
-            var listNvs = GetAllNhanVienErrorUser(backDate);
-            _logger.Information("----TỔNG SỐ HỒ SƠ XỬ LÝ: " + listNvs.Count);
-            Console.WriteLine("----TONG HO SO XU LY: " + listNvs.Count);
-            HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
+            //var listNvs = GetAllNhanVienErrorUser(backDate);
+            //_logger.Information("----TỔNG SỐ HỒ SƠ XỬ LÝ: " + listNvs.Count);
+            //Console.WriteLine("----TONG HO SO XU LY: " + listNvs.Count);
+            //HplServices hplServices = new HplServices(_passwordChangeProvider, _logger);
 
-            await hplServices.CreateUserAllSys(listNvs);
+            //await hplServices.CreateUserAllSys(listNvs);
         }
 
         static IHostBuilder CreateHostBuilder(string[] args)

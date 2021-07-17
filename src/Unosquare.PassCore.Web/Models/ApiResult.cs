@@ -3,7 +3,7 @@ namespace Unosquare.PassCore.Web.Models
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
-    using Common;
+    using Unosquare.PassCore.Common;
 
     /// <summary>
     /// Represent a generic response from a REST API call.
@@ -45,10 +45,10 @@ namespace Unosquare.PassCore.Web.Models
         /// <summary>
         /// Invalids the captcha.
         /// </summary>
-        /// <returns>The ApiResult from Invalid Recaptcha.</returns>
+        /// <returns>The ApiResult from Invalid ReCaptcha.</returns>
         public static ApiResult InvalidCaptcha()
         {
-            var result = new ApiResult("Invalid Recaptcha");
+            var result = new ApiResult("Invalid ReCaptcha");
             result.Errors.Add(new ApiErrorItem(ApiErrorCode.InvalidCaptcha));
 
             return result;

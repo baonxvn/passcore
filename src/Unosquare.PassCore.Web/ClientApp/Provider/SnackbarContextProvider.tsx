@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { SnackbarContainer, snackbarService } from 'uno-material-ui';
+import { MessageType, SnackbarContainer, snackbarService } from 'uno-material-ui';
 import { SnackbarContext } from './GlobalContext';
 
-interface ISnackbarProvdierProps {
+interface ISnackbarProviderProps {
     children: any;
 }
 
-export const SnackbarContextProvider: React.FunctionComponent<ISnackbarProvdierProps> = ({
+export const SnackbarContextProvider: React.FunctionComponent<ISnackbarProviderProps> = ({
     children,
-}: ISnackbarProvdierProps) => {
+}: ISnackbarProviderProps) => {
     const [providerValue] = React.useState({
         sendMessage: (messageText: string, messageType = 'success') =>
-            snackbarService.showSnackbar(messageText, messageType),
+            snackbarService.showSnackbar(messageText, messageType as MessageType),
     });
 
     return (

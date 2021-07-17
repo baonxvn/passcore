@@ -16,13 +16,13 @@ namespace Unosquare.PassCore.Web.Models
         public bool UseEmail { get; set; }
         public ChangePasswordForm ChangePasswordForm { get; set; }
         public ErrorsPasswordForm ErrorsPasswordForm { get; set; }
-        public Recaptcha Recaptcha { get; set; }
+        public ReCaptcha ReCaptcha { get; set; }
         public string ApplicationTitle { get; set; }
         public string ChangePasswordTitle { get; set; }
         public ValidationRegex ValidationRegex { get; set; }
     }
 
-    public class Recaptcha
+    public class ReCaptcha
     {
         public string LanguageCode { get; set; }
         public string SiteKey { get; set; }

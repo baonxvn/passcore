@@ -11,11 +11,12 @@ import { SnackbarContextProvider } from './Provider/SnackbarContextProvider';
 import { resolveAppSettings } from './Utils/AppSettings';
 
 export const Main: React.FunctionComponent<any> = () => {
-    const [settings, isLoading] = useEffectWithLoading(resolveAppSettings, {}, []);
+    // const [settings, isLoading] = useEffectWithLoading(resolveAppSettings, {}, []);
+    const [settings, isLoading] = useEffectWithLoading(resolveAppSettings, {});
 
     React.useEffect(() => {
-        if (settings && settings.recaptcha) {
-            if (settings.recaptcha.siteKey !== '') {
+        if (settings && settings.reCaptcha) {
+            if (settings.reCaptcha.siteKey !== '') {
                 loadReCaptcha();
             }
         }
@@ -33,5 +34,15 @@ export const Main: React.FunctionComponent<any> = () => {
                 <EntryPoint />
             </SnackbarContextProvider>
         </GlobalContextProvider>
+        // <Router>
+        //     <Route exact path="/">
+        //         <GlobalContextProvider settings={settings}>
+        //             <SnackbarContextProvider>
+        //                 <EntryPoint />
+        //             </SnackbarContextProvider>
+        //         </GlobalContextProvider>
+        //     </Route>
+        //     <Route path="/acm" component={AppAcm} />
+        // </Router>
     );
 };

@@ -4,4 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Hpl.HrmDatabase\Hpl.HrmDatabase.csproj" />
+    <ProjectReference Include="..\src\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj" />
+    <ProjectReference Include="..\src\Unosquare.PassCore.Common\Unosquare.PassCore.Common.csproj" />
+    <ProjectReference Include="..\src\Unosquare.PassCore.Web\Unosquare.PassCore.Web.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Hpl.Common.Helper\Hpl.Common.Helper.csproj" />
     <ProjectReference Include="..\Hpl.SaleOnlineDatabase\Hpl.SaleOnlineDatabase.csproj" />
   </ItemGroup>
 
